@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'add', component: MatableFormComponent },
   { path: 'logs', component: StatusLogsComponent },
   { path: 'edit/:id', component: MatableFormComponent },
-  
+
 ];
 
 @NgModule({

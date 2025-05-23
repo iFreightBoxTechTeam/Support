@@ -21,6 +21,7 @@ import { HeaderComponent } from './header/header.component';
 const appRoute: Routes =[
   {path: 'Previous', component: PreviousComponent},
   {path:'Next', component:NextComponent}
+ 
 ]
 
 @NgModule({
@@ -39,6 +40,7 @@ const appRoute: Routes =[
     PreviousComponent,
     NextComponent,
     HeaderComponent,
+  
 
     
   ],
