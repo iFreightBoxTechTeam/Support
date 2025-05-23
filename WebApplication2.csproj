@@ -227,6 +227,8 @@
     <Compile Include="Models\MasterTable.cs" />
     <Compile Include="Models\MatableQueryParams.cs" />
     <Compile Include="Models\StatusLog.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserRegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

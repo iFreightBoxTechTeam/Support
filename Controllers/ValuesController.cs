@@ -53,6 +53,8 @@ namespace WebApplication2.Controllers
         }
 
 
+
+
         [HttpGet]
         [Route("api/values/u/{userid}")]
         public IHttpActionResult GetMatableByUserId(int userid)
@@ -209,6 +211,73 @@ namespace WebApplication2.Controllers
                     con.Close();
 
                 return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/values/register")]
+        public IHttpActionResult RegisterUser(UserRegisterModel user)
+        {
+            if (user == null)
+                return BadRequest("User data is required.");
+
+            if (string.IsNullOrWhiteSpace(user.Name) ||
+                string.IsNullOrWhiteSpace(user.Email) ||
+                string.IsNullOrWhiteSpace(user.Password) ||
+                string.IsNullOrWhiteSpace(user.ConfirmPassword))
+            {
+                return BadRequest("All fields are required.");
+            }
+
+            if (user.Password != user.ConfirmPassword)
+                return BadRequest("Password and Confirm Password do not match.");
+
+            try
+            {
+                // Hash the password before storing (using a simple example, use a better hashing lib in production)
+                string hashedPassword = HashPassword(user.Password);
+
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("InsertUser", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@name", user.Name);
+                        cmd.Parameters.AddWithValue("@email", user.Email);
+                        cmd.Parameters.AddWithValue("@password_hash", hashedPassword);
+
+                        connection.Open();
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+
+                        return Ok("User registered successfully.");
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Check for email duplicate error or other SQL exceptions
+                if (ex.Number == 50000) // Custom RAISERROR in SP will throw this
+                    return BadRequest(ex.Message);
+
+                return InternalServerError(ex);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        // Simple password hash example - replace with your secure hashing algorithm!
+        private string HashPassword(string password)
+        {
+            // Using SHA256 for example only (NOT recommended for passwords in production)
+            using (var sha = System.Security.Cryptography.SHA256.Create())
+            {
+                var bytes = System.Text.Encoding.UTF8.GetBytes(password);
+                var hash = sha.ComputeHash(bytes);
+                return Convert.ToBase64String(hash);
             }
         }
 
@@ -400,6 +469,46 @@ namespace WebApplication2.Controllers
                 }
             }
         }
+
+
+        [HttpGet]
+        [Route("api/values/userbyname")]
+        public IHttpActionResult GetUserByName(string name)
+        {
+            List<User> users = new List<User>();
+            SqlCommand cmd = new SqlCommand("GetUserByName", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@name", name);
+
+            try
+            {
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    users.Add(new User
+                    {
+                        Id = Convert.ToInt32(reader["id"]),
+                        Name = reader["name"].ToString(),
+                        Email = reader["email"].ToString()
+                    });
+                }
+                con.Close();
+
+                if (!users.Any())
+                    return NotFound();
+
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                if (con.State == ConnectionState.Open)
+                    con.Close();
+
+                return InternalServerError(ex);
+            }
+        }
+
 
         [HttpGet]
         [Route("api/values/{matableid}/images")]
