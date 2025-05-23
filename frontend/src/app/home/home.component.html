@@ -19,6 +19,7 @@
       <h1>Welcome to iFreightBox</h1>
       <p>Your One Stop Solution For All Logistics Needs</p>
     </header>
+    <img src="">
   <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
   <label for="name">Name:</label>
   <input type="text" id="name" name="name" ngModel required>
@@ -30,10 +31,11 @@
   <input type="message" id="message" name="message" ngModel required>
 
   
-  <button type="submit" [disabled]="!contactForm.valid">Submit</button>
+  <button type="submit">Submit</button>
 </form>
 <footer class="footer">
-  <p>&copy;</p>
+  <p>&copy; 2016 ifreightBox.All right reserved</p>
+  
 </footer>
 
   </div>

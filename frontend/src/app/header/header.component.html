@@ -1,7 +1,10 @@
 <div class="navbar">
   <ul class="nav-link">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Service</a></li>
-  </ul>
-</div>
+   <li><a routerLink="/Home" routerLinkActive="active-link">Home</a></li>
+  <li><a routerLink="/about" routerLinkActive="active-link">About</a></li>
+  <li><a routerLink="/service" routerLinkActive="active-link">Service</a></li>
+</ul>
+  </div>
+  <div class="comp-coi">
+  <router-outlet></router-outlet>
+   </div>

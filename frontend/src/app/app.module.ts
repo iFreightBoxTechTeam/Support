@@ -17,14 +17,10 @@ import { NextComponent } from './next/next.component';
 import { PreviousComponent } from './previous/previous.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
 
-const appRoute: Routes =[
-  {path: 'Previous', component: PreviousComponent},
-  {path:'Next', component:NextComponent},
-  { path: '', component: HomeComponent }
-  
-]
 
 @NgModule({
   declarations: [
@@ -35,7 +31,6 @@ const appRoute: Routes =[
     ExportComponent,
     SearchComponent,
     FileipComponent,
-
     NextComponent,
     PreviousComponent,
 
@@ -43,6 +38,8 @@ const appRoute: Routes =[
     NextComponent,
     HeaderComponent,
     HomeComponent,
+    AboutComponent,
+    ContactComponent,
 
     
   ],
@@ -52,7 +49,6 @@ const appRoute: Routes =[
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoute)
   ],
    providers: [MatableService], 
   bootstrap: [AppComponent]

@@ -172,8 +172,29 @@ table {
 
     </tbody>
       <div class="pagination">
+<<<<<<< Updated upstream
       <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
       <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+=======
+      <!-- <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+      <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button> -->
+      <div class="main-container">
+        <div class="nav-container">
+      <ul>
+       <button> <a href ="#">Previous</a></button>
+       <button> <a href ="#">Next</a></button>
+        </ul>
+        </div>
+        <div class="comp-container">
+        <!-- <app-next></app-next>
+        <app-previous></app-previous> -->
+       
+        </div>
+        </div>
+    
+
+      
+>>>>>>> Stashed changes
     </div>
     </table>
 

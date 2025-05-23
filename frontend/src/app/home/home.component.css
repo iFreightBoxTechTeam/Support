@@ -1,0 +1,37 @@
+.homepage{
+  font-family: Arial,  sans-serif;
+}
+.navbar-home{
+  display: flex;
+  justify-content: space-between;
+  background-color: #333;
+  padding: 10px 20px;
+}
+.logo{
+  color: white;
+  font-size: 24px; 
+}
+.nav-home{
+  list-style-type:none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.nav-home li {
+  margin: 20px;
+}
+.nav-home a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+}
+.nav-home a:hover{
+  background-color: #575757;
+  border-radius: 4px;
+}
+.hero{
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+}
