@@ -1,5 +1,6 @@
 // src/app/app.module.ts
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -12,8 +13,15 @@ import { StatusLogsComponent } from './components/status-logs/status-logs.compon
 import { ExportComponent } from './export/export.component';
 import { SearchComponent } from './search/search.component';
 import { FileipComponent } from './components/fileip/fileip.component';
+import { NextComponent } from './next/next.component';
+import { PreviousComponent } from './previous/previous.component';
 
 
+
+const appRoute: Routes =[
+  {path: 'Previous', component: PreviousComponent},
+  {path:'Next', component:NextComponent}
+]
 
 @NgModule({
   declarations: [
@@ -24,6 +32,8 @@ import { FileipComponent } from './components/fileip/fileip.component';
     ExportComponent,
     SearchComponent,
     FileipComponent,
+    NextComponent,
+    PreviousComponent,
     
   ],
   imports: [
@@ -31,7 +41,8 @@ import { FileipComponent } from './components/fileip/fileip.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot(appRoute)
   ],
    providers: [MatableService], 
   bootstrap: [AppComponent]
