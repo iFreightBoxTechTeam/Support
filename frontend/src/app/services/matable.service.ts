@@ -11,7 +11,7 @@ export interface Matable {
   TenantCode: string;
   UserId: number;
   ImagePath: string;
-  //ImagePaths?: string[];
+  ImagePaths?: string[];
   LogTime: string;
 }
 
