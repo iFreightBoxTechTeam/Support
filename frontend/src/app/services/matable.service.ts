@@ -11,7 +11,7 @@ export interface Matable {
   TenantCode: string;
   UserId: number;
   ImagePath: string;
-  ImagePaths?: string[];
+  //ImagePaths?: string[];
   LogTime: string;
 }
 
@@ -58,4 +58,5 @@ export class MatableService {
   exportExcel(): Observable<Blob> {
     return this.http.get(this.exportUrl, { responseType: 'blob' });
   }
+  
 }

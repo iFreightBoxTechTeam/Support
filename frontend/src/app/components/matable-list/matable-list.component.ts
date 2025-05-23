@@ -33,12 +33,17 @@ export class MatableListComponent implements OnInit {
   }
   
 
-  loadData() {
-    this.matableService.getMatables(this.currentPage, this.pageSize, this.searchTerm)
-      .subscribe((data: Matable[]) => {
-        this.matables = data;
-      });
-  }
+loadData() {
+  this.matableService.getMatables(this.currentPage, this.pageSize, this.searchTerm)
+    .subscribe((data: any[]) => {
+      // Convert raw data to Matable[] with parsed image paths
+      this.matables = data.map(item => ({
+        ...item,
+        ImagePaths: item.imagepaths ? item.imagepaths.split(',') : []
+      }));
+    });
+}
+
     // Method to update matable (you can trigger this on an "Edit" button, for example)
   updateMatable(userId: number, updatedMatable: Matable): void {
   console.log('Updating matable:', updatedMatable); // Log the data being sent
@@ -62,6 +67,11 @@ export class MatableListComponent implements OnInit {
       );
     }
   }
+
+  getImageUrl(path: string): string {
+  const baseUrl = 'http://localhost:44378/api/values'; // 🔁 Change this to your actual API base URL
+  return `${baseUrl}${path}`;
+}
 
 
 
