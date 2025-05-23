@@ -54,19 +54,36 @@ table {
     }
   </style>
 </head>
+<div class="mein">
 <div class="container">
   <!-- Button to toggle the form visibility -->
+<div class="navbar">
+  <ul class="nav-link">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Service</a></li>
+  </ul>
+</div>
+
+
    
 <div class="d-flex justify-content-end mb-2">
   <button class="btn btn-primary" (click)="showComponent()">Add New Matable</button>
+
+ 
+
+
 </div>
+ <div class="export-container">
+  <app-export></app-export>
+</div>
+</div>
+
+   
+
 
 <!-- changed here  -->
 
-
-<div class="export-container">
-  <app-export></app-export>
-</div>
 
   <!-- Form Component: Only shown when isComponentVisible is true -->
   <app-matable-form *ngIf="isComponentVisible" (formSubmitted)="onFormSubmitted()"></app-matable-form>
@@ -115,8 +132,24 @@ table {
      
     </tbody>
       <div class="pagination">
-      <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
-      <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+      <!-- <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+      <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button> -->
+      <div class="main-container">
+        <div class="nav-container">
+      <ul>
+       <button> <a href ="#">Previous</a></button>
+       <button> <a href ="#">Next</a></button>
+        </ul>
+        </div>
+        <div class="comp-container">
+        <!-- <app-next></app-next>
+        <app-previous></app-previous> -->
+        <router-outlet></router-outlet>
+        </div>
+        </div>
+      
+      
+      
     </div>
     </table>
 
