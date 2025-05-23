@@ -11,6 +11,8 @@ import { MatableFormComponent } from './components/matable-form/matable-form.com
 import { StatusLogsComponent } from './components/status-logs/status-logs.component';
 import { ExportComponent } from './export/export.component';
 import { SearchComponent } from './search/search.component';
+import { FileipComponent } from './components/fileip/fileip.component';
+
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { SearchComponent } from './search/search.component';
     MatableFormComponent,
     StatusLogsComponent,
     ExportComponent,
-    SearchComponent
+    SearchComponent,
+    FileipComponent,
+    
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,8 @@ export class MatableFormComponent implements OnInit {
   matableForm: FormGroup;
   matableId: string | null = null;  // matableId could be string or null
   @Output() formSubmitted = new EventEmitter<void>(); // Event emitter to notify parent
+    imageUrl: string |null =null;
+ 
 
   constructor(
     private fb: FormBuilder,
