@@ -29,8 +29,8 @@
       </div>
 
       <div class="form-group mb-3">
-        <label for="ImagePaths">Image Paths</label>
-        <input type="text" id="ImagePaths" placeholder="Enter Image Paths" formControlName="ImagePaths" class="form-control" />
+        <label for="image" class="form-label">Image :</label>
+            <app-fileip (imageSelected)="onImageSelected($event)"></app-fileip>
       </div>
 
       <div class="text-center">

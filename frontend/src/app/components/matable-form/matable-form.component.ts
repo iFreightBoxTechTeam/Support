@@ -36,10 +36,10 @@ export class MatableFormComponent implements OnInit {
     if (this.matableId) {
       const id = Number(this.matableId);
       this.matableService.getMatableById(id).subscribe(
-        (data) => {
+        (data: any) => {
           this.matableForm.patchValue(data);  // Fill the form with existing data
         },
-        (error) => {
+        (error: any) => {
           console.error('Error fetching matable data for editing:', error);
         }
       );
@@ -47,7 +47,9 @@ export class MatableFormComponent implements OnInit {
   }
 
   isComponentVisible = true; // Initially, the form is visible
-
+    onImageSelected(url: string | null) {
+    this.imageUrl = url;
+  }
   
 
   onSubmit(): void {

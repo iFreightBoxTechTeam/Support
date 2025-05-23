@@ -1,0 +1,24 @@
+<div class="card shadow bg-white rounded"
+     style="width: 460px; height: 150px; margin: auto; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center;">
+
+  <div *ngIf="msg" style="color: rgb(219, 122, 175); position: absolute; top: 10px;">{{ msg }}</div>
+
+  <div style="width: 100px; height: 100px; display: flex; justify-content: center; align-items: center;">
+    <img *ngIf="url" [src]="url" alt="Preview"
+         style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;" />
+
+    <label *ngIf="!url" for="fileInput" style="cursor: pointer;">
+      <img src="assets\images\camera1.png" alt="Camera" style="width: 50px; height: 50px;">
+    </label>
+  </div>
+
+  <input type="file" id="fileInput" accept="image/" capture="environment"
+         (change)="selectFile($event)" style="display: none;" />
+
+  <button *ngIf="url" (click)="clearImage()" style="position: absolute; bottom: 10px; right: 15px;
+          background-color: #db7aaf; color: white; padding: 6px 14px; border: none;
+          border-radius: 6px; cursor: pointer; font-size: 14px;">
+    Change Image
+  </button>
+</div>
