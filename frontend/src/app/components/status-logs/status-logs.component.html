@@ -1,0 +1,22 @@
+<p>status-logs works!</p>
+
+<div class="container mt-4">
+  <h2>Status Logs</h2>
+   <i class="fa-solid fa-download" ></i>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Matable</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let log of logs">
+        <td>{{ log.statusName }}</td>
+        <td>{{ log.matableName }}</td>
+        <td>{{ log.logTime | date: 'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
