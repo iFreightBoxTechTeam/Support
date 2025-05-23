@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+</head>
+<body>
+  <div class="homepage">
+    <nav class="navbar-home">
+      <div class="logo">iFreightBox Techlogies</div>
+      <ul class="nav-home">
+        <li><a routerLink="/">Home</a></li>
+         <li><a routerLink="About">About</a></li>
+          <li><a routerLink="Service">Service</a></li>
+      </ul>
+    </nav>
+    <header class="hero">
+      <h1>Welcome to iFreightBox</h1>
+      <p>Your One Stop Solution For All Logistics Needs</p>
+    </header>
+  <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" ngModel required>
+
+   <label for="email">Email:</label>
+  <input type="email" id="email" name="email" ngModel required>
+
+   <label for="message">Message:</label>
+  <input type="message" id="message" name="message" ngModel required>
+
+  
+  <button type="submit" [disabled]="!contactForm.valid">Submit</button>
+</form>
+<footer class="footer">
+  <p>&copy;</p>
+</footer>
+
+  </div>
+</body>
+</html>
