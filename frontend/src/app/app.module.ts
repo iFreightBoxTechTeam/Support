@@ -15,6 +15,7 @@ import { SearchComponent } from './search/search.component';
 import { FileipComponent } from './components/fileip/fileip.component';
 import { NextComponent } from './next/next.component';
 import { PreviousComponent } from './previous/previous.component';
+import { HeaderComponent } from './header/header.component';
 
 
 const appRoute: Routes =[
@@ -37,6 +38,7 @@ const appRoute: Routes =[
 
     PreviousComponent,
     NextComponent,
+    HeaderComponent,
 
     
   ],
