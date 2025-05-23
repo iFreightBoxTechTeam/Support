@@ -1,0 +1,112 @@
+/* login.component.css */
+
+/* Center full height container (fallback in case Tailwind is missing) */
+.min-h-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7fafc; /* gray-100 */
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* White card container */
+.bg-white {
+  background-color: #fff;
+  border-radius: 1rem; /* rounded-2xl */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* shadow-lg */
+  max-width: 24rem; /* max-w-sm */
+  width: 100%;
+  padding: 1.5rem; /* p-6 */
+}
+
+/* Heading */
+h2 {
+  font-weight: 700;
+  font-size: 1.5rem; /* text-2xl */
+  text-align: center;
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+/* Labels */
+label {
+  display: block;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;
+  margin-bottom: 0.25rem; /* mb-1 */
+}
+
+/* Input fields */
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  border-radius: 0.5rem; /* rounded-lg */
+  font-size: 1rem;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  box-shadow: 0 0 0 2px #3b82f6; /* focus:ring-2 focus:ring-blue-500 */
+  border-color: transparent;
+}
+
+/* Checkbox label layout */
+.flex.items-center.space-x-2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Link styles */
+a {
+  color: #3b82f6; /* text-blue-500 */
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #2563eb; /* hover darker blue */
+}
+
+/* Submit button */
+button[type="submit"] {
+  width: 100%;
+  padding: 0.5rem 0;
+  background-color: #1d4ed8; /* bg-blue-700 */
+  color: white;
+  border-radius: 0.5rem; /* rounded-lg */
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  background-color: #1e40af; /* hover:bg-blue-800 */
+}
+
+button[type="submit"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Paragraph text */
+p.text-center.text-sm {
+  text-align: center;
+  font-size: 0.875rem;
+  margin-top: 1rem; /* mt-4 */
+}
