@@ -13,14 +13,8 @@ import { StatusLogsComponent } from './components/status-logs/status-logs.compon
 import { ExportComponent } from './export/export.component';
 import { SearchComponent } from './search/search.component';
 import { FileipComponent } from './components/fileip/fileip.component';
-<<<<<<< Updated upstream
 import { NextComponent } from './next/next.component';
 import { PreviousComponent } from './previous/previous.component';
-=======
-import { PreviousComponent } from './previous/previous.component';
-import { NextComponent } from './next/next.component';
->>>>>>> Stashed changes
-
 
 
 const appRoute: Routes =[
@@ -37,13 +31,13 @@ const appRoute: Routes =[
     ExportComponent,
     SearchComponent,
     FileipComponent,
-<<<<<<< Updated upstream
+
     NextComponent,
     PreviousComponent,
-=======
+
     PreviousComponent,
     NextComponent,
->>>>>>> Stashed changes
+
     
   ],
   imports: [
