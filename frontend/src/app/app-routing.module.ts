@@ -8,6 +8,7 @@ import { MatableFormComponent } from './components/matable-form/matable-form.com
 import { StatusLogsComponent } from './components/status-logs/status-logs.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { LoginComponent } from './pages/login/login.component';
 // import { ServiceComponent} from './services/service.component'
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
 
   {path:'Home', component:HomeComponent},
   {path:'about', component: AboutComponent},
+  {path:'login', component:LoginComponent}
 
   
 ];
