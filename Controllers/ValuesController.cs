@@ -461,13 +461,11 @@ namespace WebApplication2.Controllers
 
             return Ok(images);
         }
-
         [HttpGet]
         [Route("api/values/search")]
         public IHttpActionResult SearchMatables(string searchTerm = "", int page = 1, int pageSize = 10)
         {
-            
-        List<MasterTable> result = new List<MasterTable>();
+            List<MasterTable> result = new List<MasterTable>();
             SqlCommand cmd = new SqlCommand("sp_SearchMatables", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -507,6 +505,7 @@ namespace WebApplication2.Controllers
                 return InternalServerError(ex);
             }
         }
+
 
 
         // DELETE api/values/{userid}

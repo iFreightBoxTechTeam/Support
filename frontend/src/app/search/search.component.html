@@ -1,10 +1,24 @@
-<div class="search-container">
+<div class="search-box">
   <input
     type="text"
     [(ngModel)]="searchTerm"
-    (keyup.enter)="onSearch()"
-    placeholder="Search..."
-    class="search-input"
+    placeholder="Search matables..."
   />
   <button (click)="onSearch()">Search</button>
+</div>
+
+<div *ngIf="isLoading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+
+<ul *ngIf="results.length > 0">
+  <li *ngFor="let item of results">
+    <h4>{{ item.Name }}</h4>
+    <p>{{ item.Description }}</p>
+    <small>Status: {{ item.StatusName }}</small><br />
+    <small>Tenant: {{ item.TenantCode }}</small>
+  </li>
+</ul>
+
+<div *ngIf="!isLoading && results.length === 0 && searchTerm">
+  No results found.
 </div>

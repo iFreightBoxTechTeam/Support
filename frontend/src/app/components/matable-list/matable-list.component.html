@@ -63,11 +63,19 @@ table {
 </div>
 
 <!-- changed here  -->
-<app-search></app-search>
+
 
 <div class="export-container">
   <app-export></app-export>
+  
 </div>
+  <input
+  type="text"
+  placeholder="Search..."
+  [(ngModel)]="searchTerm"
+  (input)="onSearch(searchTerm)"
+  class="form-control"
+/>
 
 
   <!-- Form Component: Only shown when isComponentVisible is true -->
@@ -172,19 +180,14 @@ table {
 
     </tbody>
       <div class="pagination">
-<<<<<<< Updated upstream
+
       <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
       <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
-=======
+
       <!-- <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
       <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button> -->
       <div class="main-container">
-        <div class="nav-container">
-      <ul>
-       <button> <a href ="#">Previous</a></button>
-       <button> <a href ="#">Next</a></button>
-        </ul>
-        </div>
+  
         <div class="comp-container">
         <!-- <app-next></app-next>
         <app-previous></app-previous> -->
@@ -194,14 +197,11 @@ table {
     
 
       
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
     </div>
     </table>
 
-    <!-- Pagination (if applicable) -->
+
    
   </div>
 </div>

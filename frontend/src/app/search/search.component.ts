@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatableService, Matable } from '../services/matable.service';
 
 @Component({
   selector: 'app-search',
@@ -7,9 +8,25 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class SearchComponent {
   searchTerm: string = '';
-  @Output() search = new EventEmitter<string>();
+  results: Matable[] = [];
+  isLoading = false;
+  error: string | null = null;
+
+  constructor(private matableService: MatableService) {}
 
   onSearch() {
-    this.search.emit(this.searchTerm);
+    this.isLoading = true;
+    this.error = null;
+
+    this.matableService.searchMatables(this.searchTerm).subscribe({
+      next: (data) => {
+        this.results = data;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.error = 'Error fetching results';
+        this.isLoading = false;
+      }
+    });
   }
 }

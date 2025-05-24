@@ -57,11 +57,12 @@ export class MatableListComponent implements OnInit {
   }
 
   // Search handler
-  onSearch(term: string) {
-    this.searchTerm = term;
-    this.currentPage = 1;
-    this.loadData();
-  }
+onSearch(term: string) {
+  this.searchTerm = term;
+  this.currentPage = 1;
+  this.loadData();  // This fetches filtered data from the API and sets it to this.matables
+}
+
 
   // Pagination
   changePage(page: number) {

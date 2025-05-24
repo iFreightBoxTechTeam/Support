@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 // ✅ Matable interface
 export interface Matable {
@@ -25,14 +25,26 @@ export class MatableService {
   constructor(private http: HttpClient) {}
 
   // ✅ Get matables with pagination and optional search term
-  getMatables(page: number, pageSize: number, searchTerm: string): Observable<Matable[]> {
-    const params = new HttpParams()
-      .set('page', page.toString())
-      .set('pageSize', pageSize.toString())
-      .set('searchTerm', searchTerm);
+  getMatables(page: number = 1, pageSize: number = 10, searchTerm: string = ''): Observable<Matable[]> {
+  let params = new HttpParams()
+    .set('page', page.toString())
+    .set('pageSize', pageSize.toString());
 
-    return this.http.get<Matable[]>(`${this.apiUrl}/search`, { params });
+  if (searchTerm && searchTerm.trim() !== '') {
+    params = params.set('searchTerm', searchTerm.trim());
   }
+
+  return this.http.get<Matable[]>(`${this.apiUrl}/search`, { params });
+}
+// 🔍 Search-specific method (reuses the API but for clarity in code)
+searchMatables(term: string): Observable<Matable[]> {
+  const params = new HttpParams()
+    .set('searchTerm', term)
+    .set('page', '1')
+    .set('pageSize', '10');
+
+  return this.http.get<Matable[]>(`${this.apiUrl}/search`, { params });
+}
 
   // ✅ Get all matables (optional, not used if paginated version is used)
   getAll(): Observable<Matable[]> {
