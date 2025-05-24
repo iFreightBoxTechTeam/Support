@@ -35,3 +35,11 @@
   text-align: center;
   padding: 100px 20px;
 }
+.button-container {
+  display: flex;
+  justify-content: center; /* Horizontal center */
+  align-items: center;     /* Vertical center (if height is set) */
+  height: 100px;           /* Optional: to enable vertical centering */
+  
+}
+
