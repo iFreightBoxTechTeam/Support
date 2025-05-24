@@ -1,24 +1,31 @@
-<div class="search-box">
-  <input
-    type="text"
-    [(ngModel)]="searchTerm"
-    placeholder="Search matables..."
-  />
+<div class="search-container">
+  <input [(ngModel)]="searchTerm" (keyup.enter)="onSearch()" placeholder="Search..." />
   <button (click)="onSearch()">Search</button>
 </div>
 
 <div *ngIf="isLoading">Loading...</div>
 <div *ngIf="error">{{ error }}</div>
 
-<ul *ngIf="results.length > 0">
+<ul *ngIf="results.length">
   <li *ngFor="let item of results">
-    <h4>{{ item.Name }}</h4>
-    <p>{{ item.Description }}</p>
-    <small>Status: {{ item.StatusName }}</small><br />
-    <small>Tenant: {{ item.TenantCode }}</small>
+    <strong>{{ item.Name }}</strong> — {{ item.Description }}
   </li>
 </ul>
 
-<div *ngIf="!isLoading && results.length === 0 && searchTerm">
-  No results found.
-</div>
+<!-- Pagination Controls -->
+<nav *ngIf="totalRecords > pageSize">
+  <ul class="pagination">
+    <li [class.disabled]="currentPage === 1">
+      <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1">Prev</button>
+    </li>
+
+    <li *ngFor="let page of [].constructor(totalPages); let i = index" 
+        [class.active]="currentPage === i + 1">
+      <button (click)="onPageChange(i + 1)">{{ i + 1 }}</button>
+    </li>
+
+    <li [class.disabled]="currentPage === totalPages">
+      <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+    </li>
+  </ul>
+</nav>

@@ -12,8 +12,8 @@ import { LoginComponent } from './pages/login/login.component';
 // import { ServiceComponent} from './services/service.component'
 
 const routes: Routes = [
- // { path: '', redirectTo: 'list', pathMatch: 'full' },
-   {path:'', component:HomeComponent,pathMatch: 'full'},
+ { path: '', redirectTo: 'list', pathMatch: 'full' },
+  //{path:'', component:HomeComponent,pathMatch: 'full'},
   { path: 'list', component: MatableListComponent },
   { path: 'add', component: MatableFormComponent },
   { path: 'logs', component: StatusLogsComponent },

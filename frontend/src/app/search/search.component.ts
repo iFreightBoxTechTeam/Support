@@ -12,21 +12,40 @@ export class SearchComponent {
   isLoading = false;
   error: string | null = null;
 
+  // Pagination
+  currentPage: number = 1;
+  pageSize: number = 10;
+  totalRecords: number = 0;
+
   constructor(private matableService: MatableService) {}
 
-  onSearch() {
+  onSearch(page: number = 1): void {
     this.isLoading = true;
     this.error = null;
+    this.currentPage = page;
 
-    this.matableService.searchMatables(this.searchTerm).subscribe({
-      next: (data) => {
-        this.results = data;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.error = 'Error fetching results';
-        this.isLoading = false;
-      }
-    });
+   console.log('Searching:', this.searchTerm);
+
+this.matableService.getMatables(this.currentPage, this.pageSize, this.searchTerm).subscribe({
+  next: (res) => {
+    console.log('API result:', res);
+    this.results = res.data;
+    this.totalRecords = res.totalCount;
+    this.isLoading = false;
+  },
+  error: (err) => {
+    console.error('API error:', err);
+    this.error = 'Error fetching results';
+    this.isLoading = false;
+  }
+});
+  }
+
+  onPageChange(page: number): void {
+    this.onSearch(page);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.totalRecords / this.pageSize);
   }
 }
