@@ -1,45 +1,58 @@
-.homepage{
-  font-family: Arial,  sans-serif;
-}
-.navbar-home{
+/* Full-page Centering */
+.home-container {
   display: flex;
-  justify-content: space-between;
-  background-color: #333;
-  padding: 10px 20px;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #74ebd5, #acb6e5); /* light gradient background */
+   /* background-image: url('/src/assets/logo.webp')no-repeat center center; */
+   background-size: cover;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.logo{
-  color: white;
-  font-size: 24px; 
-}
-.nav-home{
-  list-style-type:none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-.nav-home li {
-  margin: 20px;
-}
-.nav-home a {
-  color: white;
-  text-decoration: none;
-  padding: 8px 16px;
-}
-.nav-home a:hover{
-  background-color: #575757;
-  border-radius: 4px;
-}
-.hero{
-  background-color: #4CAF50;
-  color: white;
+
+
+/* Card Style */
+.home-card {
+  background: white;
+  padding: 40px 60px;
+  border-radius: 10px;
   text-align: center;
-  padding: 100px 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
-.button-container {
-  display: flex;
-  justify-content: center; /* Horizontal center */
-  align-items: center;     /* Vertical center (if height is set) */
-  height: 100px;           /* Optional: to enable vertical centering */
-  
+
+.home-card h1 {
+  margin-bottom: 20px;
+  font-size: 32px;
+  color: #333;
 }
+
+.home-card p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* Pop-style Blue Button */
+.pop-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+}
+
+.pop-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.pop-button:active {
+  transform: scale(0.95);
+}
+
+ 
 
