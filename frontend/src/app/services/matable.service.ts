@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 // ✅ Matable interface
 export interface Matable {
-  Id:number;
+  Id: number;
   Name: string;
   Description: string;
   StatusName: string;
@@ -20,31 +20,46 @@ export interface Matable {
 })
 export class MatableService {
   private apiUrl = 'https://localhost:44378/api/values';
-  private exportUrl = 'https://localhost:44378/api/excel/export';
+  private exportUrl = 'https://localhost:44378/api/export/excel';
 
   constructor(private http: HttpClient) {}
 
   // ✅ Get matables with pagination and optional search term
-  getMatables(page: number = 1, pageSize: number = 10, searchTerm: string = ''): Observable<Matable[]> {
-  let params = new HttpParams()
-    .set('page', page.toString())
-    .set('pageSize', pageSize.toString());
+  getMatables(page: number, pageSize: number, searchTerm: string = ''): Observable<{ data: Matable[], totalCount: number }> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
 
-  if (searchTerm && searchTerm.trim() !== '') {
-    params = params.set('searchTerm', searchTerm.trim());
+    if (searchTerm) {
+      params = params.set('searchTerm', searchTerm);
+    }
+
+    return this.http.get<{ TotalRecords: number, Page: number, PageSize: number, Data: Matable[]; data: Matable[], totalCount: number }>(`${this.apiUrl}/search`, { params })
+      .pipe(
+        map(response => ({
+          data: response.Data,
+          totalCount: response.TotalRecords
+        }))
+      );
   }
+//   getMatables(page: number, pageSize: number, searchTerm: string=''): Observable<{ data: Matable[], totalCount: number }> {
+//   let params = new HttpParams()
+//     .set('page', page.toString())
+//     .set('pageSize', pageSize.toString());
 
-  return this.http.get<Matable[]>(`${this.apiUrl}/search`, { params });
-}
-// 🔍 Search-specific method (reuses the API but for clarity in code)
-searchMatables(term: string): Observable<Matable[]> {
-  const params = new HttpParams()
-    .set('searchTerm', term)
-    .set('page', '1')
-    .set('pageSize', '10');
+//   if (searchTerm) {
+//     params = params.set('searchTerm', searchTerm);
+//   }
 
-  return this.http.get<Matable[]>(`${this.apiUrl}/search`, { params });
-}
+//   return this.http.get<{ data: Matable[], totalCount: number }>(`${this.apiUrl}/search`, { params });
+// }
+
+  // Simplified search method, calls getMatables with fixed page/pageSize and returns only data array
+  searchMatables(term: string): Observable<Matable[]> {
+    return this.getMatables(1, 10, term).pipe(
+      map(result => result.data)
+    );
+  }
 
   // ✅ Get all matables (optional, not used if paginated version is used)
   getAll(): Observable<Matable[]> {
@@ -70,5 +85,4 @@ searchMatables(term: string): Observable<Matable[]> {
   exportExcel(): Observable<Blob> {
     return this.http.get(this.exportUrl, { responseType: 'blob' });
   }
-  
 }

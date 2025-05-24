@@ -11,12 +11,13 @@ export class MatableListComponent implements OnInit {
   searchTerm: string = '';
   currentPage: number = 1;
   pageSize: number = 10;
-  totalPages: number = 1;
+  totalPages: number = 0;
   isComponentVisible = false;  // Initially the form is hidden
 
   // Modal-related properties
   isEditModalVisible = false;
   selectedMatable: Matable | null = null;
+  totalRecords: any;
 
   constructor(private matableService: MatableService) {}
 
@@ -36,12 +37,20 @@ export class MatableListComponent implements OnInit {
   }
 
   // Load data from the API
-  loadData() {
-    this.matableService.getMatables(this.currentPage, this.pageSize, this.searchTerm)
-      .subscribe((data: Matable[]) => {
-        this.matables = data;
-      });
-  }
+loadData() {
+  this.matableService.getMatables(this.currentPage, this.pageSize, this.searchTerm)
+    .subscribe({
+      next: (response) => {
+        this.matables = response.data;
+        this.totalRecords = response.totalCount;
+        this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
+      },
+      error: (error) => {
+        console.error('Error loading matables:', error);
+      }
+    });
+}
+
 
   // Delete a matable
   deleteMatable(userId: number): void {
@@ -62,7 +71,6 @@ onSearch(term: string) {
   this.currentPage = 1;
   this.loadData();  // This fetches filtered data from the API and sets it to this.matables
 }
-
 
   // Pagination
   changePage(page: number) {

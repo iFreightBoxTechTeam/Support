@@ -1,5 +1,52 @@
 /* matable-list.component.css */
 
+    body {
+      background-color: #f8f9fa;
+    }
+    .container {
+      margin-top: 40px;
+    }
+    .table th {
+      background-color: #3d8ad6a1;
+      color: white;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .table td {
+      vertical-align: middle;
+      text-align: center;
+    }
+    .table-responsive {
+  position: relative;
+  padding-top: 30px; /* Space for the export button */
+}
+
+.export-container {
+  position: right;
+  top: 0;
+  right: 50; /* Positions the export button on the right */
+  z-index: 10; /* Ensures the button is above the table */
+}
+
+table {
+  width: 100%;
+  margin-top: 50px; /* Adds space below the button */
+}
+
+    .table img {
+      max-width: 100px;
+      height: auto;
+      border-radius: 6px;
+    }
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: rgba(0,0,0,.05);
+    }
+    h2 {
+      margin-bottom: 30px;
+      font-weight: 600;
+      text-align: center;
+    }
+
 /* Style the button to be on the right */
 .show-button {
   position: fixed;
