@@ -4,11 +4,9 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  /* background: linear-gradient(135deg, #74ebd5, #acb6e5); light gradient background */
-  background-image: url('/src/assets/logo.png');
-background-repeat: no-repeat;
-background-position: center center;
-background-size: cover;
+  background: linear-gradient(135deg, #74ebd5, #acb6e5); /* light gradient background */
+   /* background-image: url('/src/assets/logo.webp')no-repeat center center; */
+   background-size: cover;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
