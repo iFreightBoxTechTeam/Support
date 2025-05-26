@@ -2,6 +2,7 @@ login.component.css
 
 /* Center full height container (fallback in case Tailwind is missing) */
 .min-h-screen {
+  background-color: aquamarine;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -13,7 +14,7 @@ login.component.css
 
 /* White card container */
 .bg-white {
-  background-color: #fff;
+  background-color: aquamarine;
   border-radius: 1rem; /* rounded-2xl */
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* shadow-lg */
   max-width: 24rem; /* max-w-sm */
