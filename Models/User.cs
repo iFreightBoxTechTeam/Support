@@ -7,10 +7,10 @@ namespace WebApplication2.Models
 {
     public class User
     {
-         
-        public int Id { get; set; }         // Primary Key
-        public string Name { get; set; }    // User's Name
-        public string Email { get; set; }   // User's Email
-    
-}
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string PasswordHash { get; set; } // Plain password should not be stored!
+    }
+
 }
