@@ -4,16 +4,18 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #74ebd5, #acb6e5); /* light gradient background */
-   /* background-image: url('/src/assets/logo.webp')no-repeat center center; */
-   background-size: cover;
+ 
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
+body{
+   background-image: url('C:\Users\Admin\Desktop\Support\Support\frontend\src\assets\logo.webp'); 
+   background-size: cover; 
+}
 
 /* Card Style */
 .home-card {
-  background: white;
+background: linear-gradient(135deg, #a8edea, #fed6e3);
+
   padding: 40px 60px;
   border-radius: 10px;
   text-align: center;
