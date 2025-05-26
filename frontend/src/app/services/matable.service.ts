@@ -58,4 +58,5 @@ export class MatableService {
   exportExcel(): Observable<Blob> {
     return this.http.get(this.exportUrl, { responseType: 'blob' });
   }
+  
 }
