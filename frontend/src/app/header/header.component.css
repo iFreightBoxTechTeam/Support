@@ -1,24 +1,30 @@
 .navbar {
-    background-color: #333;
-    padding: 10px;
-    height: 100px;
-  }
+  background-color: #5e50ac;
+  padding: 20px;
+  height: 100px;
+  width: 100%;
 
-  .nav-link {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 20px;
-  }
+  /* Make navbar a horizontal flex container */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  .nav-link li a {
-    color: white;
-    text-decoration: none;
-    padding: 30px 16px;
-  }
+.nav-link {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
 
-  .nav-link li a:hover {
-    background-color: #575757;
-    border-radius: 20x;
-  }
+.nav-link li a {
+  color: white;
+  text-decoration: none;
+  padding: 30px 16px;
+}
+
+.nav-link li a:hover {
+  background-color: #11035f;
+  border-radius: 20px;
+}
