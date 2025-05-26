@@ -8,13 +8,16 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body{
-   background-image: url('C:\Users\Admin\Desktop\Support\Support\frontend\src\assets\logo.webp'); 
-   background-size: cover; 
+   background-image: url('src/assets/16052.jpg'); 
+   background-repeat: repeat;
+   background-size: 100%;
+   background-position-y: -150px;
 }
 
 /* Card Style */
 .home-card {
 background: linear-gradient(135deg, #a8edea, #fed6e3);
+
 
   padding: 40px 60px;
   border-radius: 10px;
