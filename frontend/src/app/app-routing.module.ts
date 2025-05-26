@@ -24,7 +24,9 @@ const routes: Routes = [
 
   {path:'Home', component:HomeComponent},
   {path:'about', component: AboutComponent},
-  {path:'login', component:LoginComponent}
+  {path:'login', component:LoginComponent},
+  {path:'statuslog',component:StatusLogsComponent},
+  {path:'table',component:MatableListComponent}
 
 ]
 @NgModule({
