@@ -29,4 +29,7 @@ export class ExportComponent {
       window.URL.revokeObjectURL(url);
     });
   }
+  
+ 
+  
 }

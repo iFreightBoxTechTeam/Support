@@ -41,7 +41,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>ID</th>
+            
             <th>Name</th>
             <th>Description</th>
             <th>Status</th>
@@ -54,7 +54,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let matable of matables">
-          <td>{{ matable.Id }}</td>
+          
           <td>{{ matable.Name }}</td>
           <td>{{ matable.Description }}</td>
           <td>{{ matable.StatusName }}</td>
@@ -63,7 +63,7 @@
           <td>
     <ng-container *ngIf="matable.ImagePaths && matable.ImagePaths.length; else noImage">
       <img *ngFor="let img of matable.ImagePaths"
-          [src]="'http://localhost:44378/api/values/matableid/Images' + img"
+          
           alt="Image"
           style="max-width: 100px; margin: 2px;" />
     </ng-container>

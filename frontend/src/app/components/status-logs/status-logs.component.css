@@ -1,0 +1,19 @@
+ .table th {
+      background-color: #3d8ad6a1;
+      color: white;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .table td {
+      vertical-align: middle;
+      text-align: center;
+    }
+    .table-responsive {
+  position: relative;
+  padding-top: 30px; /* Space for the export button */
+}
+
+.table-responsive {
+  position: relative; /* anchor for absolute elements */
+  padding-top: 40px; /* ensures space for the button */
+}

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ExportService {
-  private apiUrl2 = 'https://localhost:44378/api/export/excel';  // Replace with your API URL
+  private apiUrl2 = 'https://localhost:44378/api/export/excel';
 
   constructor(private http: HttpClient) {}
 
@@ -16,4 +16,5 @@ export class ExportService {
       responseType: 'blob',
     });
   }
+  
 }
