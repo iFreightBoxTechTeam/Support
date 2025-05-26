@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'add', component: MatableFormComponent },
   { path: 'logs', component: StatusLogsComponent },
   { path: 'edit/:id', component: MatableFormComponent },
+
   // {path: 'Previous', component: PreviousComponent},
   // {path:'Next', component:NextComponent},
 
@@ -25,9 +26,7 @@ const routes: Routes = [
   {path:'about', component: AboutComponent},
   {path:'login', component:LoginComponent}
 
-  
-];
-
+]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

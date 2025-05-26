@@ -16,10 +16,27 @@ import { FileipComponent } from './components/fileip/fileip.component';
 import { NextComponent } from './next/next.component';
 import { PreviousComponent } from './previous/previous.component';
 import { HeaderComponent } from './header/header.component';
+
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 
+
+
+
+
+
+const appRoute: Routes =[
+  {path: 'Previous', component: PreviousComponent},
+
+  {path:'Next', component:NextComponent}
+ 
+
+
+  
+  
+
+]
 
 
 @NgModule({
@@ -37,11 +54,11 @@ import { ContactComponent } from './contact/contact.component';
     PreviousComponent,
     NextComponent,
     HeaderComponent,
+
     HomeComponent,
     AboutComponent,
     ContactComponent,
 
-    
   ],
   imports: [
     BrowserModule,
