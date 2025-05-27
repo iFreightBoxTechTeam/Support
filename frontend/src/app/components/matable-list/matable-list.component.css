@@ -85,3 +85,43 @@ table {
   background-color: #0056b3;
 }
 
+
+/* Pagination styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-top: 10px;
+}
+
+/* Button styling */
+.pagination .btn {
+  min-width: 80px;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #0d6efd;
+  color: #0d6efd;
+  background-color: white;
+  transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination .btn:hover:not(:disabled) {
+  background-color: #0d6efd;
+  color: white;
+  transform: scale(1.05);
+}
+
+.pagination .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Page text */
+.pagination span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0e0e0e;
+}
