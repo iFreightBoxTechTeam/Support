@@ -2,7 +2,7 @@
   background-color: #5e50ac;
   padding: 20px;
   height: 100px;
-
+  width: 100%;
 
   /* Make navbar a horizontal flex container */
   display: flex;

@@ -5,5 +5,5 @@
     <li><a routerLink="/statuslog" routerLinkActive="active-link">Status Log</a></li>
   </ul>
 
-  <button class="btn btn-primary" routerLink='/add' (click)="showComponent()">Add New Matable</button>
+  <button *ngIf="showAddButton" class="btn btn-primary" routerLink='/add' (click)="showComponent()">Add New Matable</button>
 </div>
