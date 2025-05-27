@@ -1,122 +1,131 @@
-login.component.css
 
-/* Center full height container (fallback in case Tailwind is missing) */
-.min-h-screen {
+.login-container {
   min-height: 100vh;
   display: flex;
-  align-items: center;       
-  justify-content: center;  
-  background-color: #f7fafc; 
-  padding-left: 1rem;
-  padding-right: 1rem;
+  align-items: center;
+  justify-content: center;
+  
+  padding: 1rem;
 }
 
 
-/* White card container */
-.bg-white {
-padding: 40px 60px;
-  background-color: aquamarine;
-  border-radius: 10px;
-  text-align: center;
-}
-
-/* Heading */
-h2 {
-  font-weight: 700;
-  font-size: 1.5rem; /* text-2xl */
-  text-align: center;
-  margin-bottom: 1.5rem; /* mb-6 */
-}
-
-/* Labels */
-label {
-  display: block;
-  font-size: 0.875rem; /* text-sm */
-  font-weight: 500;
-  margin-bottom: 0.25rem; /* mb-1 */
-}
-
-/* Input fields */
-input[type="email"],
-input[type="password"] {
+.login-card {
+  
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
   width: 100%;
-  padding: 0.5rem 1rem; /* px-4 py-2 */
-  border: 1px solid #d1d5db; /* border-gray-300 */
-  border-radius: 0.5rem; /* rounded-lg */
+  color: #111;
+  background-color:  #999fae;
+}
+
+
+.login-card h2 {
+  font-size: 22px;
+  
+  font-weight: 400px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
   font-size: 1rem;
   outline: none;
-  transition: box-shadow 0.3s ease;
 }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
-  box-shadow: 0 0 0 2px #3b82f6; /* focus:ring-2 focus:ring-blue-500 */
-  border-color: transparent;
+.form-group input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
-/* Checkbox label layout */
-.flex.items-center.space-x-2 {
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.checkbox-label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-/* Checkbox */
-input[type="checkbox"] {
-  width: 1rem;
-  height: 1rem;
-}
-
-/* Link styles */
-a {
-  color: #3b82f6; /* text-blue-500 */
+.form-footer a {
+  color: #3b82f6;
   text-decoration: none;
-  cursor: pointer;
-  transition: color 0.3s ease;
+  transition: color 0.2s;
 }
 
-a:hover {
+.form-footer a:hover {
   text-decoration: underline;
-  color: #2563eb; /* hover darker blue */
+  color: #2563eb;
 }
 
-/* Submit button */
+
 button[type="submit"] {
   width: 100%;
   padding: 0.5rem 0;
-  background-color: #1d4ed8; /* bg-blue-700 */
+  background-color: #1d4ed8;
   color: white;
-  border-radius: 0.5rem; /* rounded-lg */
+  border: none;
+  border-radius: 8px;
   font-weight: 600;
   font-size: 1rem;
-  border: none;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 button[type="submit"]:hover:not(:disabled) {
-  background-color: #1e40af; /* hover:bg-blue-800 */
+  background-color: #1e40af;
 }
 
 button[type="submit"]:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  /* Remove background image from here */
+  background-color: transparent; /* ensure no background */
+}
 
-/* Paragraph text */
-p.text-center.text-sm {
-  text-align: center;
-  font-size: 0.875rem;
-  margin-top: 1rem; /* mt-4 */
+.login-card {
+  background-color: rgba(220, 224, 227, 0.85); /* semi-transparent white */
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  color: #111;
 }
-/* .main2{
-  background-color: aquamarine;
-}
-.main3{
-  background-color: aquamarine;
-}
-.main4{
-  background-color: aquamarine;
-}
- */
-
