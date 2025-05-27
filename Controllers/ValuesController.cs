@@ -466,9 +466,10 @@ namespace WebApplication2.Controllers
         [Route("api/values/search")]
         public IHttpActionResult SearchMatables(string searchTerm = "", int page = 1, int pageSize = 10)
         {
-            
-        List<MasterTable> result = new List<MasterTable>();
-            SqlCommand cmd = new SqlCommand("sp_SearchMatables", con);
+            List<MasterTable> result = new List<MasterTable>();
+            int totalRecords = 0;
+
+            SqlCommand cmd = new SqlCommand("sp_GetMatables", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@SearchTerm", searchTerm ?? string.Empty);
@@ -478,26 +479,44 @@ namespace WebApplication2.Controllers
             try
             {
                 con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    result.Add(new MasterTable
+                    // First result set: paged data
+                    while (reader.Read())
                     {
-                        Id = Guid.Parse(reader["id"].ToString()),
-                        Name = reader["name"].ToString(),
-                        Description = reader["descriptions"].ToString(),
-                        TenantCode = reader["tenantcode"].ToString(),
-                        LogTime = Convert.ToDateTime(reader["createat"]),
-                        UserId = Convert.ToInt32(reader["userid"]),
-                        StatusName = reader["statusname"].ToString(),
-                        ImagePaths = reader["imagepaths"] != DBNull.Value
-                            ? reader["imagepaths"].ToString().Split(',').ToList()
-                            : new List<string>()
-                    });
+                        result.Add(new MasterTable
+                        {
+                            Id = Guid.Parse(reader["id"].ToString()),
+                            Name = reader["name"].ToString(),
+                            Description = reader["descriptions"].ToString(),
+                            TenantCode = reader["tenantcode"].ToString(),
+                            LogTime = Convert.ToDateTime(reader["createat"]),
+                            UserId = Convert.ToInt32(reader["userid"]),
+                            StatusName = reader["statusname"].ToString(),
+                            ImagePaths = reader["imagepaths"] != DBNull.Value
+                                ? reader["imagepaths"].ToString().Split(',').ToList()
+                                : new List<string>()
+                        });
+                    }
+
+                    // Move to second result set: total count
+                    if (reader.NextResult() && reader.Read())
+                    {
+                        totalRecords = reader.GetInt32(0);
+                    }
                 }
                 con.Close();
 
-                return Ok(result);
+                // Return combined data and total count
+                var response = new
+                {
+                    TotalRecords = totalRecords,
+                    Page = page,
+                    PageSize = pageSize,
+                    Data = result
+                };
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -507,6 +526,7 @@ namespace WebApplication2.Controllers
                 return InternalServerError(ex);
             }
         }
+
 
 
         // DELETE api/values/{userid}

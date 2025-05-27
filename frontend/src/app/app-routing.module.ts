@@ -1,21 +1,35 @@
+
+
 // src/app/app-routing.module.ts
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MatableListComponent } from './components/matable-list/matable-list.component';
 import { MatableFormComponent } from './components/matable-form/matable-form.component';
 import { StatusLogsComponent } from './components/status-logs/status-logs.component';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+import { LoginComponent } from './pages/login/login.component';
+// import { ServiceComponent} from './services/service.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: 'list', pathMatch: 'full' },
+ { path: '', redirectTo: 'list', pathMatch: 'full' },
+  //{path:'', component:HomeComponent,pathMatch: 'full'},
   { path: 'list', component: MatableListComponent },
   { path: 'add', component: MatableFormComponent },
   { path: 'logs', component: StatusLogsComponent },
   { path: 'edit/:id', component: MatableFormComponent },
 
-];
+  // {path: 'Previous', component: PreviousComponent},
+  // {path:'Next', component:NextComponent},
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {}
+  {path:'Home', component:HomeComponent},
+  {path:'about', component: AboutComponent},
+  {path:'login', component:LoginComponent}
+
+
+// @NgModule({
+//   imports: [RouterModule.forRoot(routes)],
+//   exports: [RouterModule]
+// })
+// export class AppRoutingModule {}
+]
