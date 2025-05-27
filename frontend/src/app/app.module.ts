@@ -21,6 +21,7 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from "./pages/login/login.component";
+import { AppRoutingModule } from './app-routing.module';
 
 
 
