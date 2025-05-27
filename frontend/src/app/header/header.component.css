@@ -1,30 +1,106 @@
+/* Navbar layout */
 .navbar {
   background-color: #5e50ac;
-  padding: 20px;
-  height: 100px;
+  padding: 10px 20px;
   width: 100%;
-
-  /* Make navbar a horizontal flex container */
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
 }
 
+/* Navigation links */
 .nav-link {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+  list-style: none;
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
 .nav-link li a {
   color: white;
   text-decoration: none;
-  padding: 30px 16px;
+  padding: 10px;
+  display: block;
+  width: 100%;
+  border-radius: 8px;
 }
 
 .nav-link li a:hover {
   background-color: #11035f;
-  border-radius: 20px;
+}
+
+/* Button group holding export + add buttons */
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Add button */
+.standard-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  height: 38px;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.standard-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.02);
+}
+
+.standard-button i {
+  margin-right: 6px;
+  font-size: 1rem;
+}
+
+/* Responsive breakpoints */
+@media (min-width: 768px) {
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-link {
+    flex-direction: row;
+    gap: 20px;
+    width: auto;
+  }
+
+  .button-group {
+    width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .button-group {
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .standard-button {
+    width: 48%;
+    max-width: 200px;
+  }
 }

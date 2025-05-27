@@ -1,9 +1,33 @@
 /* export.component.css */
 
 .export-container {
-  text-align: center;
-  margin-top: 50px;
+  display: flex;
+  align-items: center;
 }
 
+.export-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  height: 38px;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  line-height: 1;
+}
 
+.export-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.02);
+}
 
+.export-btn i {
+  margin-right: 6px;
+  font-size: 1rem;
+  line-height: 1;
+}

@@ -26,16 +26,10 @@
   class="form-control mt-3"
 />
 
-
-
   <!-- Form Component: Only shown when isComponentVisible is true -->
   <app-matable-form *ngIf="isComponentVisible" (formSubmitted)="onFormSubmitted()"></app-matable-form>
 
   <div class="table-responsive">
-    <div class="export-container">
-      <app-export></app-export>
-    </div>
-
     <!-- Matable List Table (displaying the existing matables) -->
     <div class="matable-list">
       <table class="table table-bordered">
