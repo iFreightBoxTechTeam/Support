@@ -1,12 +1,9 @@
 <div class="navbar d-flex align-items-center justify-content-between">
   <ul class="nav-link">
+    <li><a routerLink="/Home" routerLinkActive="active-link">Home</a></li>
+    <li><a routerLink="/table" routerLinkActive="active-link">Table</a></li>
+    <li><a routerLink="/statuslog" routerLinkActive="active-link">Status Log</a></li>
+  </ul>
 
-   <li><a routerLink="/Home" routerLinkActive="active-link">Home</a></li>
-  <li><a routerLink="/about" routerLinkActive="active-link">About</a></li>
-  <li><a routerLink="/service" routerLinkActive="active-link">Service</a></li>
-</ul>
-  </div>
-  <div class="comp-coi">
-  <router-outlet></router-outlet>
-   </div>
-
+  <button class="btn btn-primary" routerLink='/add' (click)="showComponent()">Add New Matable</button>
+</div>

@@ -26,12 +26,14 @@ const routes: Routes = [
 
   {path:'Home', component:HomeComponent},
   {path:'about', component: AboutComponent},
-  {path:'login', component:LoginComponent}
+  {path:'login', component:LoginComponent},
+  {path:'sighnup',component:UserComponent},
+  {path:'statuslog',component:StatusLogsComponent},
+  {path:'table',component:MatableListComponent}
 
-
-// @NgModule({
-//   imports: [RouterModule.forRoot(routes)],
-//   exports: [RouterModule]
-// })
-// export class AppRoutingModule {}
 ]
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}

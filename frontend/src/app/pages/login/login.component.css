@@ -2,24 +2,22 @@ login.component.css
 
 /* Center full height container (fallback in case Tailwind is missing) */
 .min-h-screen {
-  background-color: aquamarine;
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f7fafc; /* gray-100 */
+  align-items: center;       
+  justify-content: center;  
+  background-color: #f7fafc; 
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
+
 /* White card container */
 .bg-white {
+padding: 40px 60px;
   background-color: aquamarine;
-  border-radius: 1rem; /* rounded-2xl */
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* shadow-lg */
-  max-width: 24rem; /* max-w-sm */
-  width: 100%;
-  padding: 1.5rem; /* p-6 */
+  border-radius: 10px;
+  text-align: center;
 }
 
 /* Heading */
@@ -111,3 +109,14 @@ p.text-center.text-sm {
   font-size: 0.875rem;
   margin-top: 1rem; /* mt-4 */
 }
+/* .main2{
+  background-color: aquamarine;
+}
+.main3{
+  background-color: aquamarine;
+}
+.main4{
+  background-color: aquamarine;
+}
+ */
+

@@ -8,16 +8,17 @@
 }
 body{
    background-image: url('src/assets/16052.jpg'); 
+   background-repeat: no-repeat;
    background-size: cover; 
 }
 
 /* Card Style */
-.home-card {
+/* .home-card {
   padding: 40px 60px;
   background-color: aquamarine;
   border-radius: 10px;
   text-align: center;
-}
+} */
 
 /* .home-card h1 {
   margin-bottom: 20px;

@@ -16,9 +16,13 @@ import { FileipComponent } from './components/fileip/fileip.component';
 import { NextComponent } from './next/next.component';
 import { PreviousComponent } from './previous/previous.component';
 import { HeaderComponent } from './header/header.component';
-import { ContactComponent } from './contact/contact.component';
+
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+import { LoginComponent } from "./pages/login/login.component";
+
+
 
 
 
@@ -36,9 +40,6 @@ const appRoute: Routes =[
 ]
 
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,21 +54,21 @@ const appRoute: Routes =[
 
     PreviousComponent,
     NextComponent,
+    HeaderComponent,
 
     HomeComponent,
     AboutComponent,
     ContactComponent,
 
-
-    
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    //AppRoutingModule,
-  ],
+    AppRoutingModule,
+    LoginComponent
+],
    providers: [MatableService], 
   bootstrap: [AppComponent]
 })
