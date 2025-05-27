@@ -1,7 +1,10 @@
 
-
+ <!-- <div class="main3"> -->
 <div class="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+    <!-- <div class="main4"> -->
   <div class="w-full max-w-sm p-6 bg-white rounded-2xl shadow-lg">
+    <!-- Login Heading -->
+    <!-- <div class="main2"> -->
     <h2 class="text-2xl font-bold text-center mb-6">Login to MyApp</h2>
 
     <form
@@ -10,33 +13,38 @@
       class="space-y-4"
       autocomplete="off"
     >
-      <!-- Email -->
+      <!-- Name (Username) -->
       <div>
-        <label for="email" class="block text-sm font-medium mb-1">Email</label>
+        <label for="name" class="block text-sm font-medium mb-1">Name</label>
         <input
-          id="email"
-          type="email"
-          name="email"
-          ngModel
+          id="name"
+          type="text"
+          name="name"
+          [(ngModel)]="name"
           required
-          placeholder="Email Address"
+          placeholder="Enter your name"
           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
-      <!-- Password -->
+      <!-- Password (optional) -->
       <div>
         <label for="password" class="block text-sm font-medium mb-1">Password</label>
         <input
           id="password"
           type="password"
           name="password"
-          ngModel
-          required
-          placeholder="Password"
+          [(ngModel)]="password"
+          placeholder="Enter your password"
           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
+
+      <!-- Error Message -->
+      <div *ngIf="loginError" class="text-red-500 text-sm">
+        {{ loginError }}
+      </div>
+      <br>
 
       <!-- Remember Me & Forgot Password -->
       <div class="flex items-center justify-between text-sm">
@@ -46,6 +54,7 @@
         </label>
         <a href="#" class="text-blue-500 hover:underline">Forgot password?</a>
       </div>
+      <br>
 
       <!-- Submit Button -->
       <button
@@ -56,11 +65,14 @@
         Login
       </button>
     </form>
+    </div>
+    </div>
+    <!-- </div> -->
 
     <!-- Sign Up Link -->
-    <p class="mt-4 text-center text-sm">
+    <!-- <p class="mt-4 text-center text-sm">
       Don't have an account?
-      <a href="#" class="text-blue-500 hover:underline">Sign up</a>
-    </p>
-  </div>
-</div>
+      <a href="sighnup" class="text-blue-500 hover:underline">Sign up</a>
+    </p> -->
+  <!-- </div>
+</div> -->

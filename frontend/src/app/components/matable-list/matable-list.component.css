@@ -21,12 +21,32 @@
   padding-top: 30px; /* Space for the export button */
 }
 
-.export-container {
-  position: right;
-  top: 0;
-  right: 50; /* Positions the export button on the right */
-  z-index: 10; /* Ensures the button is above the table */
+.table-responsive {
+  position: relative; /* anchor for absolute elements */
+  padding-top: 40px; /* ensures space for the button */
 }
+
+.export-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.export-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.export-btn:hover {
+  background-color: #0056b3;
+}
+
 
 table {
   width: 100%;
@@ -53,7 +73,7 @@ table {
   right: 20px;
   top: 20px;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #1662b4;
   color: white;
   border: none;
   border-radius: 5px;

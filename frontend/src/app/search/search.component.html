@@ -1,27 +1,43 @@
+<!-- 🔍 Search Input -->
 <div class="search-container">
   <input [(ngModel)]="searchTerm" (keyup.enter)="onSearch()" placeholder="Search..." />
-  <button (click)="onSearch()">Search</button>
+  <button (click)="onSearch()" [disabled]="isLoading">Search</button>
 </div>
 
-<div *ngIf="isLoading">Loading...</div>
-<div *ngIf="error">{{ error }}</div>
+<!-- ⏳ Loading Indicator -->
+<div *ngIf="isLoading" class="loading">Loading...</div>
 
+<!-- ❌ Error Message -->
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<!-- 📄 Result Summary -->
+<div *ngIf="!isLoading && results.length">
+  <p>Showing {{ results.length }} of {{ totalRecords }} results</p>
+</div>
+
+<!-- 📋 Results List -->
 <ul *ngIf="results.length">
   <li *ngFor="let item of results">
     <strong>{{ item.Name }}</strong> — {{ item.Description }}
+    <br />
+    <small>Status: {{ item.StatusName }} | Created: {{ item.LogTime | date }}</small>
   </li>
 </ul>
 
-<!-- Pagination Controls -->
-<nav *ngIf="totalRecords > pageSize">
+<!-- 📌 No Results Message -->
+<div *ngIf="!isLoading && !results.length && !error">
+  <p>No results found.</p>
+</div>
+
+<!-- 🔁 Pagination Controls -->
+<nav *ngIf="totalRecords > pageSize" class="pagination-container">
   <ul class="pagination">
     <li [class.disabled]="currentPage === 1">
       <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1">Prev</button>
     </li>
 
-    <li *ngFor="let page of [].constructor(totalPages); let i = index" 
-        [class.active]="currentPage === i + 1">
-      <button (click)="onPageChange(i + 1)">{{ i + 1 }}</button>
+    <li *ngFor="let page of pageNumbers" [class.active]="currentPage === page">
+      <button (click)="onPageChange(page)">{{ page }}</button>
     </li>
 
     <li [class.disabled]="currentPage === totalPages">

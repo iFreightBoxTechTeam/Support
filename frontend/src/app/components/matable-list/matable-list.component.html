@@ -7,129 +7,131 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
+ <app-header></app-header>
 <div class="container">
   <!-- Button to toggle the form visibility -->
-   <app-header></app-header>
+  
    
-<div class="d-flex justify-content-end mb-2">
+<!-- <div class="d-flex justify-content-end mb-2">
   <button class="btn btn-primary" (click)="showComponent()">Add New Matable</button>
-</div>
+</div> -->
 
 <!-- changed here  -->
 
-
-<div class="export-container">
-  <app-export></app-export>
-  
-</div>
-  <input
+ <input
   type="text"
   placeholder="Search by name, description, or status"
   [(ngModel)]="searchTerm"
   (input)="onSearch(searchTerm)"
-  class="form-control"
+  class="form-control mt-3"
 />
+
 
 
   <!-- Form Component: Only shown when isComponentVisible is true -->
   <app-matable-form *ngIf="isComponentVisible" (formSubmitted)="onFormSubmitted()"></app-matable-form>
 
-  <!-- Matable List Table (displaying the existing matables) -->
-  <div class="matable-list">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Status</th>
-          <th>Tenant Code</th>
-          <th>User ID</th>
-          <th>Images</th>
-          <th>LogTime</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let matable of matables">
-        <td>{{ matable.Id }}</td>
-        <td>{{ matable.Name }}</td>
-        <td>{{ matable.Description }}</td>
-        <td>{{ matable.StatusName }}</td>
-        <td>{{ matable.TenantCode }}</td>
-        <td>{{ matable.UserId }}</td>
-        <td>
-  <ng-container *ngIf="matable.ImagePaths && matable.ImagePaths.length; else noImage">
-    <img *ngFor="let img of matable.ImagePaths"
-         [src]="'http://localhost:44378/api/values/matableid/Images' + img"
-         alt="Image"
-         style="max-width: 100px; margin: 2px;" />
-  </ng-container>
-  <ng-template #noImage>
-    No image
-  </ng-template>
-</td>
-        <td>{{ matable.LogTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
-         <td>
-            <!-- Edit and Delete buttons -->
-            <button class="btn btn-primary btn-sm" (click)="openEditModal(matable)">Edit</button>
-            <button class="btn btn-secondary btn-sm" (click)="deleteMatable(matable.UserId)">
-              Delete
-            </button>
-          </td>
-      </tr>
-      <div class="modal" tabindex="-1" [ngClass]="{'show d-block': isEditModalVisible}" style="background: rgba(0,0,0,0.5);">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Edit Matable</h5>
-          <button type="button" class="btn-close" (click)="closeEditModal()"></button>
-        </div>
-        <div class="modal-body" *ngIf="selectedMatable">
-          <form>
-            <div class="mb-3">
-              <label for="nameInput" class="form-label">Name</label>
-              <input id="nameInput" type="text" class="form-control" [(ngModel)]="selectedMatable.Name" name="name">
-            </div>
-            <div class="mb-3">
-              <label for="descriptionInput" class="form-label">Description</label>
-              <textarea id="descriptionInput" class="form-control" [(ngModel)]="selectedMatable.Description" name="description"></textarea>
-            </div>
-            <div class="mb-3">
-            <label for="statusSelect" class="form-label">Status</label>
-            <select id="statusSelect" class="form-select" [(ngModel)]="selectedMatable.StatusName" name="statusName">
-              <option value="Pending">Pending</option>
-              <option value="Work In Progress">Work In Progress</option>
-              <option value="Solved">Solved</option>
-            </select>
-          </div>
+  <div class="table-responsive">
+    <div class="export-container">
+      <app-export></app-export>
+    </div>
 
-          <div class="mb-3">
-            <label for="tenantCodeInput" class="form-label">Tenant Code</label>
-            <input id="tenantCodeInput" type="text" class="form-control" [(ngModel)]="selectedMatable.TenantCode" name="tenantCode">
-          </div>
-
-          <div class="mb-3">
-            <label for="userIdInput" class="form-label">User ID</label>
-            <input id="userIdInput" type="number" class="form-control" [(ngModel)]="selectedMatable.UserId" name="userId" readonly>
-            <!-- readonly if you don't want userId to be changed -->
-          </div>
-
-          <div class="mb-3">
-            <label for="imagesInput" class="form-label">Images (Comma separated)</label>
-            <textarea id="imagesInput" class="form-control" 
-                      [(ngModel)]="selectedMatable.ImagePaths" name="imagePaths"></textarea>
-          </div>
+    <!-- Matable List Table (displaying the existing matables) -->
+    <div class="matable-list">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
             
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Cancel</button>
-          <button type="button" class="btn btn-primary" (click)="saveChanges()">Save changes</button>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Tenant Code</th>
+            <th>User ID</th>
+            <th>Images</th>
+            <th>LogTime</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let matable of matables">
+          
+          <td>{{ matable.Name }}</td>
+          <td>{{ matable.Description }}</td>
+          <td>{{ matable.StatusName }}</td>
+          <td>{{ matable.TenantCode }}</td>
+          <td>{{ matable.UserId }}</td>
+          <td>
+    <ng-container *ngIf="matable.ImagePaths && matable.ImagePaths.length; else noImage">
+      <img *ngFor="let img of matable.ImagePaths"
+          
+          alt="Image"
+          style="max-width: 100px; margin: 2px;" />
+    </ng-container>
+    <ng-template #noImage>
+      No image
+    </ng-template>
+  </td>
+          <td>{{ matable.LogTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>
+              <!-- Edit and Delete buttons -->
+              <button class="btn btn-primary btn-sm" (click)="openEditModal(matable)">Edit</button>
+              <button class="btn btn-secondary btn-sm" (click)="deleteMatable(matable.UserId)">
+                Delete
+              </button>
+            </td>
+        </tr>
+        <div class="modal" tabindex="-1" [ngClass]="{'show d-block': isEditModalVisible}" style="background: rgba(0,0,0,0.5);">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Matable</h5>
+            <button type="button" class="btn-close" (click)="closeEditModal()"></button>
+          </div>
+          <div class="modal-body" *ngIf="selectedMatable">
+            <form>
+              <div class="mb-3">
+                <label for="nameInput" class="form-label">Name</label>
+                <input id="nameInput" type="text" class="form-control" [(ngModel)]="selectedMatable.Name" name="name">
+              </div>
+              <div class="mb-3">
+                <label for="descriptionInput" class="form-label">Description</label>
+                <textarea id="descriptionInput" class="form-control" [(ngModel)]="selectedMatable.Description" name="description"></textarea>
+              </div>
+              <div class="mb-3">
+              <label for="statusSelect" class="form-label">Status</label>
+              <select id="statusSelect" class="form-select" [(ngModel)]="selectedMatable.StatusName" name="statusName">
+                <option value="Pending">Pending</option>
+                <option value="Work In Progress">Work In Progress</option>
+                <option value="Solved">Solved</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="tenantCodeInput" class="form-label">Tenant Code</label>
+              <input id="tenantCodeInput" type="text" class="form-control" [(ngModel)]="selectedMatable.TenantCode" name="tenantCode">
+            </div>
+
+            <div class="mb-3">
+              <label for="userIdInput" class="form-label">User ID</label>
+              <input id="userIdInput" type="number" class="form-control" [(ngModel)]="selectedMatable.UserId" name="userId" readonly>
+              <!-- readonly if you don't want userId to be changed -->
+            </div>
+
+            <div class="mb-3">
+              <label for="imagesInput" class="form-label">Images</label>
+              <textarea id="imagesInput" class="form-control" 
+                        [(ngModel)]="selectedMatable.ImagePaths" name="imagePaths"></textarea>
+            </div>
+              
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="saveChanges()">Save changes</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
     </tbody>
       <div class="pagination">
@@ -164,6 +166,7 @@
 
    
   </div>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

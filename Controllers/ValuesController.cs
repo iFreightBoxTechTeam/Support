@@ -213,6 +213,47 @@ namespace WebApplication2.Controllers
                 return InternalServerError(ex);
             }
         }
+        [HttpPost]
+        [Route("api/values/register")]
+        public IHttpActionResult RegisterUser([FromBody] User user)
+        {
+            if (user == null || string.IsNullOrWhiteSpace(user.Name) || string.IsNullOrWhiteSpace(user.Email) || string.IsNullOrWhiteSpace(user.PasswordHash))
+            {
+                return BadRequest("Invalid user data provided.");
+            }
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString))
+                using (SqlCommand cmd = new SqlCommand("InsertUser", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@name", user.Name);
+                    cmd.Parameters.AddWithValue("@email", user.Email);
+                    cmd.Parameters.AddWithValue("@password_hash", user.PasswordHash); // assume already hashed
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+
+                return Ok("User registered successfully.");
+            }
+            catch (SqlException ex)
+            {
+                // SQL Server RAISERROR with severity 16 and error number 50000 triggers this
+                if (ex.Number == 50000)
+                {
+                    return BadRequest(ex.Message);
+                }
+
+                // Other SQL exceptions
+                return InternalServerError(ex);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
 
 
 
@@ -395,6 +436,43 @@ namespace WebApplication2.Controllers
                         result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                         {
                             FileName = "MatableExport.xlsx"
+                        };
+                        result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                        return result;
+                    }
+                }
+            }
+        }
+        [HttpGet]
+        [Route("api/export/excellog")]
+        public HttpResponseMessage ExportToExcellogs()
+        {
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["webapi"].ConnectionString; // Replace with your actual connection string
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand("sp_GetAllStatusLogs", conn))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                using (XLWorkbook workbook = new XLWorkbook())
+                {
+                    workbook.Worksheets.Add(dt, "statuslog");
+
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        workbook.SaveAs(stream);
+                        stream.Position = 0;
+
+                        HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK)
+                        {
+                            Content = new ByteArrayContent(stream.ToArray())
+                        };
+                        result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                        {
+                            FileName = "statusExport.xlsx"
                         };
                         result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
                         return result;

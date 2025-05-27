@@ -4,23 +4,23 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #74ebd5, #acb6e5); /* light gradient background */
-   /* background-image: url('/src/assets/logo.webp')no-repeat center center; */
-   background-size: cover;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-
-/* Card Style */
-.home-card {
-  background: white;
-  padding: 40px 60px;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+body{
+   background-image: url('src/assets/16052.jpg'); 
+   background-repeat: no-repeat;
+   background-size: cover; 
 }
 
-.home-card h1 {
+/* Card Style */
+/* .home-card {
+  padding: 40px 60px;
+  background-color: aquamarine;
+  border-radius: 10px;
+  text-align: center;
+} */
+
+/* .home-card h1 {
   margin-bottom: 20px;
   font-size: 32px;
   color: #333;
@@ -30,10 +30,10 @@
   font-size: 18px;
   color: #555;
   margin-bottom: 30px;
-}
+} */
 
 /* Pop-style Blue Button */
-.pop-button {
+/* .pop-button {
   background-color: #007bff;
   color: white;
   border: none;
@@ -43,16 +43,17 @@
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
-}
+  margin-top: 10px;
+} */
 
-.pop-button:hover {
+/* .pop-button:hover {
   background-color: #0056b3;
   transform: scale(1.05);
 }
 
 .pop-button:active {
   transform: scale(0.95);
-}
+} */
 
  
 
