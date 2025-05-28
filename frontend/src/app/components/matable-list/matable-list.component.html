@@ -26,10 +26,16 @@
   class="form-control mt-3"
 />
 
+
+
   <!-- Form Component: Only shown when isComponentVisible is true -->
   <app-matable-form *ngIf="isComponentVisible" (formSubmitted)="onFormSubmitted()"></app-matable-form>
 
   <div class="table-responsive">
+    <!-- <div class="export-container">
+      <app-export></app-export>
+    </div> -->
+
     <!-- Matable List Table (displaying the existing matables) -->
     <div class="matable-list">
       <table class="table table-bordered">
@@ -72,8 +78,44 @@
               <button class="btn btn-secondary btn-sm ms-2" (click)="deleteMatable(matable.UserId)">
                 Delete
               </button>
-              <button class="btn btn-success btn-sm ms-2" (click)="printMatable(matable)">Print</button>
-            </td>
+            <button class="btn btn-success btn-sm ms-2" (click)="onPrintMatable(matable.UserId)">Print</button>
+
+
+
+
+
+
+
+            
+
+              
+              <div id="obv_Print_Pick_Slip" style="display: none;">
+  <div *ngIf="printMatableData">
+    <h2>Matable Details</h2>
+    <p><strong>Name:</strong> {{ printMatableData.Name }}</p>
+    <p><strong>Description:</strong> {{ printMatableData.Description }}</p>
+    <p><strong>Status:</strong> {{ printMatableData.StatusName }}</p>
+    <p><strong>Tenant Code:</strong> {{ printMatableData.TenantCode }}</p>
+    <p><strong>User ID:</strong> {{ printMatableData.UserId }}</p>
+    <p><strong>Log Time:</strong> {{ printMatableData.LogTime | date:'medium' }}</p>
+
+    <div *ngIf="printMatableData.ImagePaths?.length">
+      <p><strong>Images:</strong></p>
+      <img *ngFor="let img of printMatableData.ImagePaths" [src]="img" style="max-width: 100px; margin: 5px;" />
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+             
+              <!-- <div [hidden]="true">
+
+            </td> -->
         </tr>
         <div class="modal" tabindex="-1" [ngClass]="{'show d-block': isEditModalVisible}" style="background: rgba(0,0,0,0.5);">
       <div class="modal-dialog">
@@ -128,11 +170,12 @@
         </div>
       </div>
     </div>
+</tbody>
 
-    </tbody>
-      <div class="pagination">
 
-      <div class="d-flex justify-content-between align-items-center mt-3">
+  <div class="pagination">
+
+  <div class="d-flex justify-content-between align-items-center mt-3">
   <button class="btn btn-outline-primary" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
     Previous
   </button>

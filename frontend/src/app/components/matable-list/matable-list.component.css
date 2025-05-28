@@ -21,6 +21,33 @@
   padding-top: 30px; /* Space for the export button */
 }
 
+.table-responsive {
+  position: relative; /* anchor for absolute elements */
+  padding-top: 40px; /* ensures space for the button */
+}
+
+.export-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.export-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.export-btn:hover {
+  background-color: #0056b3;
+}
+
+
 table {
   width: 100%;
   margin-top: 50px; /* Adds space below the button */
@@ -59,7 +86,7 @@ table {
 }
 
 
-/* Pagination styling */
+
 .pagination {
   display: flex;
   justify-content: center;
@@ -69,7 +96,7 @@ table {
   padding-top: 10px;
 }
 
-/* Button styling */
+
 .pagination .btn {
   min-width: 80px;
   padding: 6px 12px;
@@ -92,7 +119,6 @@ table {
   cursor: not-allowed;
 }
 
-/* Page text */
 .pagination span {
   font-size: 14px;
   font-weight: 500;
