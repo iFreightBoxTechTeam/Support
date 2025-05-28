@@ -65,6 +65,25 @@ loadData() {
     }
   }
 
+  // setTimeout(() => {
+  //       var divElements = document.getElementById("obv_Print_Pick_Slip");
+  //       var $iframe: any = $("<iframe id='frame1'>").appendTo("body");
+  //       var printDiv =
+  //         "<style type='text/css' media='print'>body {zoom: 90%;} @page { size: A4;  margin: 0.635cm; }</style><html ><head><title></title></head><body>" +
+  //         divElements.innerHTML +
+  //         "</body></html>";
+  //       var win = $iframe[0].contentWindow || $iframe[0];
+  //       $(win.document).ready(function () {
+  //         setTimeout(() => {
+  //           win.window.print();
+  //           setTimeout(() => {
+  //             $iframe.remove();
+  //           }, 1000);
+  //         });
+  //       });
+  //       $iframe.contents().find("body").html(printDiv);
+  //       Helpers.setLoading(false);
+  //     }, 300);}
   // Search handler
 onSearch(term: string) {
   this.searchTerm = term;
