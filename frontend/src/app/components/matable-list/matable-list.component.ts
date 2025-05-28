@@ -12,6 +12,7 @@ export class MatableListComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 10;
   totalPages: number = 0;
+  imageUrl: string |null =null;
   isComponentVisible = false;  // Initially the form is hidden
 
   // Modal-related properties
@@ -50,7 +51,10 @@ loadData() {
       }
     });
 }
-
+ // Initially, the form is visible
+    onImageSelected(url: string | null) {
+    this.imageUrl = url;
+  }
 
   // Delete a matable
   deleteMatable(userId: number): void {
