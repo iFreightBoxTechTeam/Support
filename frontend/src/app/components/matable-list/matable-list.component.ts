@@ -55,6 +55,49 @@ loadData() {
     onImageSelected(url: string | null) {
     this.imageUrl = url;
   }
+  printMatable(matable: Matable): void {
+  const printContent = `
+    <div>
+      <h2>Matable Details</h2>
+      <p><strong>Name:</strong> ${matable.Name}</p>
+      <p><strong>Description:</strong> ${matable.Description}</p>
+      <p><strong>Status:</strong> ${matable.StatusName}</p>
+      <p><strong>Tenant Code:</strong> ${matable.TenantCode}</p>
+      <p><strong>User ID:</strong> ${matable.UserId}</p>
+      <p><strong>Log Time:</strong> ${new Date(matable.LogTime).toLocaleString()}</p>
+      ${
+        matable.ImagePaths && matable.ImagePaths.length
+          ? `<p><strong>Images:</strong><br>${matable.ImagePaths.map(img => `<img src="${img}" style="max-width:100px; margin: 5px;" />`).join('')}</p>`
+          : '<p><strong>Images:</strong> No images</p>'
+      }
+    </div>
+  `;
+
+  const newWindow = window.open('', '', 'width=800,height=600');
+  if (newWindow) {
+    newWindow.document.write(`
+      <html>
+        <head>
+          <title>Print Matable</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; }
+            img { max-width: 100px; margin: 5px; }
+          </style>
+        </head>
+        <body>
+          ${printContent}
+        </body>
+      </html>
+    `);
+    newWindow.document.close();
+    newWindow.focus();
+    setTimeout(() => {
+      newWindow.print();
+      newWindow.close();
+    }, 500);
+  }
+}
+
 
   // Delete a matable
   deleteMatable(userId: number): void {

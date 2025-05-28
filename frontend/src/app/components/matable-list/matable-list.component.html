@@ -72,6 +72,7 @@
               <button class="btn btn-secondary btn-sm ms-2" (click)="deleteMatable(matable.UserId)">
                 Delete
               </button>
+              <button class="btn btn-success btn-sm ms-2" (click)="printMatable(matable)">Print</button>
             </td>
         </tr>
         <div class="modal" tabindex="-1" [ngClass]="{'show d-block': isEditModalVisible}" style="background: rgba(0,0,0,0.5);">
