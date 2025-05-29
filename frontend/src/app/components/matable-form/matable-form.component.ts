@@ -67,9 +67,11 @@ export class MatableFormComponent implements OnInit {
   onSubmit(): void {
     if (this.matableForm.valid) {
       const formData = { ...this.matableForm.value };
-      formData.ImagePaths = formData.ImagePaths
-        ? formData.ImagePaths.split(',').map((p: string) => p.trim())
-        : [];
+      // formData.ImagePaths = formData.ImagePaths
+      //   ? formData.ImagePaths.split(',').map((p: string) => p.trim())
+      //   : [];
+      formData.ImagePaths = this.imageUrls;
+
 
       if (this.matableId) {
         // Update existing matable
