@@ -22,10 +22,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from "./pages/login/login.component";
 import { AppRoutingModule } from './app-routing.module';
-
-
-
-
+import { MultiImgIpComponent } from './components/multi-img-ip/multi-img-ip.component';
 
 
 const appRoute: Routes =[
@@ -68,7 +65,8 @@ const appRoute: Routes =[
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    LoginComponent
+    LoginComponent,
+    MultiImgIpComponent
 ],
    providers: [MatableService], 
   bootstrap: [AppComponent]

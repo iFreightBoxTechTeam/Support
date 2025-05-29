@@ -42,6 +42,9 @@ export class MatableService {
         }))
       );
   }
+  GetMatableByCustomerId(userId: number) {
+    return this.http.get<Matable>(`https://localhost:44378/api/values/${userId}`);
+  }
 //   getMatables(page: number, pageSize: number, searchTerm: string=''): Observable<{ data: Matable[], totalCount: number }> {
 //   let params = new HttpParams()
 //     .set('page', page.toString())
@@ -74,6 +77,7 @@ export class MatableService {
     return this.http.get<Matable>(`${this.apiUrl}/${userId}`);
   }
 
+  
   deleteMatable(userId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${userId}`);
   }
