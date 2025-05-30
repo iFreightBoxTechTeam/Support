@@ -27,7 +27,7 @@
     <div class="upload-img-wrap">
       <div *ngFor="let img of images; let i = index" class="upload-img-box">
         <div class="img-bg" [style.backgroundImage]="'url(' + img.url + ')'"></div>
-        <div (click)="removeImage(i)" class="upload-img-close">×</div>
+        <div (click)="removeImage(i)" class="upload-img-close"></div>
       </div>
     </div>
   </div>

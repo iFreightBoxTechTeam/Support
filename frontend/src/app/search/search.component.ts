@@ -19,6 +19,7 @@ export class SearchComponent {
 
   constructor(private matableService: MatableService) {}
 
+  
   // 🔍 Perform search (initial or paginated)
   onSearch(page: number = 1): void {
     this.isLoading = true;

@@ -19,16 +19,15 @@ namespace WebApplication2.Controllers
 {
     public class ValuesController : ApiController
     {
-            
+
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString);
 
-        // GET api/values
         [HttpGet]
         [Route("api/values/")]
         public IEnumerable<MasterTable> Get()
         {
             List<MasterTable> list = new List<MasterTable>();
-            SqlCommand cmd = new SqlCommand("sp_GetAllMatables", con);
+            SqlCommand cmd = new SqlCommand("sp_GetMatables", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
             con.Open();
@@ -36,30 +35,36 @@ namespace WebApplication2.Controllers
             while (reader.Read())
             {
                 list.Add(new MasterTable
-
                 {
                     Id = Guid.Parse(reader["id"].ToString()),
                     Description = reader["descriptions"].ToString(),
-                    ImagePaths = reader["imagepaths"].ToString().Split(',').ToList(),
+                    ImagePaths = reader["imagepaths"] != DBNull.Value
+                            ? reader["imagepaths"].ToString().Split(',').ToList()
+                            : new List<string>(),
                     StatusName = reader["statusname"].ToString(),
                     Name = reader["name"].ToString(),
                     TenantCode = reader["tenantcode"].ToString(),
                     LogTime = Convert.ToDateTime(reader["createat"]),
-                    UserId = Convert.ToInt32(reader["userid"])
+                    UserId = Convert.ToInt32(reader["userid"]),
+                    Module = reader["module"] != DBNull.Value ? reader["module"].ToString() : null,
+                    IssueDescription = reader["issue_description"] != DBNull.Value ? reader["issue_description"].ToString() : null,
+                    AssignTo = reader["assign_to"] != DBNull.Value ? reader["assign_to"].ToString() : null,
+                    ResolveDate = reader["resolve_date"] != DBNull.Value ? (DateTime?)reader["resolve_date"] : null,
+                    TakenTime = reader["taken_time"] != DBNull.Value ? Convert.ToInt32(reader["taken_time"]) : (int?)null,
+
+
+
                 });
             }
             con.Close();
             return list;
         }
 
-
-
-
         [HttpGet]
         [Route("api/values/u/{userid}")]
         public IHttpActionResult GetMatableByUserId(int userid)
         {
-            MasterTable master = null;
+            List<MasterTable> masters = new List<MasterTable>();
             SqlCommand cmd = new SqlCommand("sp_GetMatableByCustomerId", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@userid", userid);
@@ -68,28 +73,33 @@ namespace WebApplication2.Controllers
             {
                 con.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
+                while (reader.Read())
                 {
-                    master = new MasterTable
+                    masters.Add(new MasterTable
                     {
                         Id = Guid.Parse(reader["id"].ToString()),
                         Description = reader["descriptions"].ToString(),
                         ImagePaths = reader["imagepaths"] != DBNull.Value
-             ? reader["imagepaths"].ToString().Split(',').ToList()
-             : new List<string>(),
+                            ? reader["imagepaths"].ToString().Split(',').ToList()
+                            : new List<string>(),
                         StatusName = reader["statusname"].ToString(),
                         Name = reader["name"].ToString(),
                         TenantCode = reader["tenantcode"].ToString(),
                         LogTime = Convert.ToDateTime(reader["createat"]),
-                        UserId = Convert.ToInt32(reader["userid"])
-                    };
+                        UserId = Convert.ToInt32(reader["userid"]),
+                        Module = reader["module"] != DBNull.Value ? reader["module"].ToString() : null,
+                        IssueDescription = reader["issue_description"] != DBNull.Value ? reader["issue_description"].ToString() : null,
+                        AssignTo = reader["assign_to"] != DBNull.Value ? reader["assign_to"].ToString() : null,
+                        ResolveDate = reader["resolve_date"] != DBNull.Value ? (DateTime?)reader["resolve_date"] : null,
+                         TakenTime = reader["taken_time"] != DBNull.Value ? Convert.ToInt32(reader["taken_time"]) : (int?)null,
+                    });
                 }
                 con.Close();
 
-                if (master == null)
+                if (!masters.Any())
                     return NotFound();
 
-                return Ok(master);
+                return Ok(masters);
             }
             catch (Exception ex)
             {
@@ -99,7 +109,6 @@ namespace WebApplication2.Controllers
                 return InternalServerError(ex);
             }
         }
-
 
         [HttpGet]
         [Route("api/values/logs")]
@@ -121,17 +130,11 @@ namespace WebApplication2.Controllers
                     MatableId = Guid.Parse(reader["matableid"].ToString()),
                     MatableName = reader["matable_name"].ToString(),
                     LogTime = Convert.ToDateTime(reader["logtime"])
-
                 });
             }
             con.Close();
             return logs;
         }
-
-
-
-
-
 
         [HttpGet]
         [Route("api/values/{matableid}")]
@@ -190,12 +193,18 @@ namespace WebApplication2.Controllers
                     {
                         Id = Guid.Parse(reader["id"].ToString()),
                         Description = reader["descriptions"].ToString(),
-                        ImagePaths = reader["imagepaths"].ToString().Split(',').ToList(),
+                        ImagePaths = reader["imagepath"] != DBNull.Value
+                            ? reader["imagepath"].ToString().Split(',').ToList()
+                            : new List<string>(),
                         StatusName = reader["statusname"].ToString(),
                         Name = reader["name"].ToString(),
                         TenantCode = reader["tenantcode"].ToString(),
                         LogTime = Convert.ToDateTime(reader["createat"]),
-                        UserId = Convert.ToInt32(reader["userid"])
+                        UserId = Convert.ToInt32(reader["userid"]),
+                        Module = reader["module"] != DBNull.Value ? reader["module"].ToString() : null,
+                        IssueDescription = reader["issue_description"] != DBNull.Value ? reader["issue_description"].ToString() : null,
+                        AssignTo = reader["assign_to"] != DBNull.Value ? reader["assign_to"].ToString() : null,
+                        ResolveDate = reader["resolve_date"] != DBNull.Value ? (DateTime?)Convert.ToDateTime(reader["resolve_date"]) : null
                     };
                 }
                 con.Close();
@@ -213,6 +222,7 @@ namespace WebApplication2.Controllers
                 return InternalServerError(ex);
             }
         }
+
         [HttpPost]
         [Route("api/values/register")]
         public IHttpActionResult RegisterUser([FromBody] User user)
@@ -256,7 +266,6 @@ namespace WebApplication2.Controllers
         }
 
 
-
         // POST api/values
         [HttpPost]
         [Route("api/values/")]
@@ -287,7 +296,12 @@ namespace WebApplication2.Controllers
 
                         cmd.Parameters.AddWithValue("@Name", masterTable.Name);
                         cmd.Parameters.AddWithValue("@TenantCode", masterTable.TenantCode);
-                        cmd.Parameters.AddWithValue("@userid", masterTable.UserId);
+                        cmd.Parameters.AddWithValue("@UserId", masterTable.UserId);
+                        cmd.Parameters.AddWithValue("@Module", masterTable.Module);
+                        cmd.Parameters.AddWithValue("@IssueDescription", masterTable.IssueDescription);
+                        cmd.Parameters.AddWithValue("@AssignTo", masterTable.AssignTo);
+                        cmd.Parameters.AddWithValue("@ResolveDate", (object)masterTable.ResolveDate ?? DBNull.Value);
+
 
                         Guid matableId;
 
@@ -326,9 +340,6 @@ namespace WebApplication2.Controllers
             }
         }
 
-
-
-        // PUT api/values/{userid}
         [HttpPut]
         [Route("api/values/{userid}")]
         public IHttpActionResult Put(int userid, [FromBody] MasterTable masterTable)
@@ -348,7 +359,7 @@ namespace WebApplication2.Controllers
 
                     try
                     {
-                        // 🔹 First, get the actual matable.id using userid
+                        // Step 1: Get matableId using userid
                         Guid matableId;
                         using (SqlCommand getIdCmd = new SqlCommand("SELECT TOP 1 id FROM matable WHERE userid = @userid", con, transaction))
                         {
@@ -361,37 +372,33 @@ namespace WebApplication2.Controllers
                             matableId = (Guid)result;
                         }
 
-                        // 🔹 Update matable
+                        // Step 2: Call stored procedure to update matable
                         using (SqlCommand cmd = new SqlCommand("sp_UpdateMatable", con, transaction))
                         {
-
                             cmd.CommandType = CommandType.StoredProcedure;
 
-                            cmd.Parameters.AddWithValue("@Description", masterTable.Description);
-                            string imagePathCsv = string.Join(",", masterTable.ImagePaths ?? new List<string>());
-                            cmd.Parameters.AddWithValue("@ImagePath", imagePathCsv);
-                            cmd.Parameters.AddWithValue("@StatusName", masterTable.StatusName);
-                            cmd.Parameters.AddWithValue("@Name", masterTable.Name);
-                            cmd.Parameters.AddWithValue("@TenantCode", masterTable.TenantCode);
-                            cmd.Parameters.AddWithValue("@userid", masterTable.UserId);
+                            cmd.Parameters.AddWithValue("@MatableId", matableId);
+                            cmd.Parameters.AddWithValue("@Description", (object)masterTable.Description ?? DBNull.Value);
 
+                            // Convert ImagePaths list to comma-separated string or empty string
+                            string imagePathsCsv = (masterTable.ImagePaths != null && masterTable.ImagePaths.Any())
+                                ? string.Join(",", masterTable.ImagePaths)
+                                : string.Empty;
 
+                            cmd.Parameters.AddWithValue("@ImagePaths", imagePathsCsv);
+                            cmd.Parameters.AddWithValue("@Name", (object)masterTable.Name ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@TenantCode", (object)masterTable.TenantCode ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@userid", userid);
+                            cmd.Parameters.AddWithValue("@Module", (object)masterTable.Module ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@IssueDescription", (object)masterTable.IssueDescription ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@AssignTo", (object)masterTable.AssignTo ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@StatusName", (object)masterTable.StatusName ?? DBNull.Value);
 
                             cmd.ExecuteNonQuery();
                         }
 
-                        // 🔹 Log status change into statuslog
-                        using (SqlCommand logCmd = new SqlCommand("sp_InsertStatusLog", con, transaction))
-                        {
-                            logCmd.CommandType = CommandType.StoredProcedure;
-                            logCmd.Parameters.AddWithValue("@StatusName", masterTable.StatusName);
-                            logCmd.Parameters.AddWithValue("@MatableId", matableId); // Now a real existing ID
-
-                            logCmd.ExecuteNonQuery();
-                        }
-
                         transaction.Commit();
-                        return Ok("Record updated and status logged successfully.");
+                        return Ok("Record updated successfully.");
                     }
                     catch (Exception ex)
                     {
@@ -406,240 +413,102 @@ namespace WebApplication2.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("api/export/excel")]
-        public HttpResponseMessage ExportToExcel()
-        {
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["webapi"].ConnectionString; // Replace with your actual connection string
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("sp_ExportMatableData", conn))
-            using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-
-                using (XLWorkbook workbook = new XLWorkbook())
-                {
-                    workbook.Worksheets.Add(dt, "Matables");
-
-                    using (MemoryStream stream = new MemoryStream())
-                    {
-                        workbook.SaveAs(stream);
-                        stream.Position = 0;
-
-                        HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK)
-                        {
-                            Content = new ByteArrayContent(stream.ToArray())
-                        };
-                        result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                        {
-                            FileName = "MatableExport.xlsx"
-                        };
-                        result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-                        return result;
-                    }
-                }
-            }
-        }
-        [HttpGet]
-        [Route("api/export/excellog")]
-        public HttpResponseMessage ExportToExcellogs()
-        {
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["webapi"].ConnectionString; // Replace with your actual connection string
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("sp_GetAllStatusLogs", conn))
-            using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-
-                using (XLWorkbook workbook = new XLWorkbook())
-                {
-                    workbook.Worksheets.Add(dt, "statuslog");
-
-                    using (MemoryStream stream = new MemoryStream())
-                    {
-                        workbook.SaveAs(stream);
-                        stream.Position = 0;
-
-                        HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK)
-                        {
-                            Content = new ByteArrayContent(stream.ToArray())
-                        };
-                        result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                        {
-                            FileName = "statusExport.xlsx"
-                        };
-                        result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-                        return result;
-                    }
-                }
-            }
-        }
 
 
-        [HttpGet]
-        [Route("api/values/userbyname")]
-        public IHttpActionResult GetUserByName(string name)
-        {
-            List<User> users = new List<User>();
-            SqlCommand cmd = new SqlCommand("GetUserByName", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@name", name);
-
-            try
-            {
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    users.Add(new User
-                    {
-                        Id = Convert.ToInt32(reader["id"]),
-                        Name = reader["name"].ToString(),
-                        Email = reader["email"].ToString()
-                    });
-                }
-                con.Close();
-
-                if (!users.Any())
-                    return NotFound();
-
-                return Ok(users);
-            }
-            catch (Exception ex)
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
-
-                return InternalServerError(ex);
-            }
-        }
-
-
-        [HttpGet]
-        [Route("api/values/{matableid}/images")]
-        public IHttpActionResult GetImagesByMatableId(Guid matableid)
-    {
-            List<string> images = new List<string>();
-            SqlCommand cmd = new SqlCommand("SELECT imagepath FROM matable_images WHERE matableid = @id", con);
-            cmd.Parameters.AddWithValue("@id", matableid);
-
-            con.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                images.Add(reader["imagepath"].ToString());
-            }
-            con.Close();
-
-            return Ok(images);
-        }
 
         [HttpGet]
         [Route("api/values/search")]
         public IHttpActionResult SearchMatables(string searchTerm = "", int page = 1, int pageSize = 10)
         {
+            if (string.IsNullOrEmpty(searchTerm))
+                searchTerm = "";
+
             List<MasterTable> result = new List<MasterTable>();
             int totalRecords = 0;
 
-            SqlCommand cmd = new SqlCommand("sp_GetMatables", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@SearchTerm", searchTerm ?? string.Empty);
-            cmd.Parameters.AddWithValue("@PageNumber", page);
-            cmd.Parameters.AddWithValue("@PageSize", pageSize);
-
-            try
+            using (SqlCommand cmd = new SqlCommand("sp_GetMatables", con))
             {
-                con.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    // First result set: paged data
-                    while (reader.Read())
-                    {
-                        result.Add(new MasterTable
-                        {
-                            Id = Guid.Parse(reader["id"].ToString()),
-                            Name = reader["name"].ToString(),
-                            Description = reader["descriptions"].ToString(),
-                            TenantCode = reader["tenantcode"].ToString(),
-                            LogTime = Convert.ToDateTime(reader["createat"]),
-                            UserId = Convert.ToInt32(reader["userid"]),
-                            StatusName = reader["statusname"].ToString(),
-                            ImagePaths = reader["imagepaths"] != DBNull.Value
-                                ? reader["imagepaths"].ToString().Split(',').ToList()
-                                : new List<string>()
-                        });
-                    }
-
-                    // Move to second result set: total count
-                    if (reader.NextResult() && reader.Read())
-                    {
-                        totalRecords = reader.GetInt32(0);
-                    }
-                }
-                con.Close();
-
-                // Return combined data and total count
-                var response = new
-                {
-                    TotalRecords = totalRecords,
-                    Page = page,
-                    PageSize = pageSize,
-                    Data = result
-                };
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
-
-                return InternalServerError(ex);
-            }
-        }
-
-
-
-        // DELETE api/values/{userid}
-        [HttpDelete]
-        [Route("api/values/{userid}")]
-        public IHttpActionResult Delete(int userid)
-        {
-            try
-            {
-                SqlCommand cmd = new SqlCommand("sp_DeleteMatable", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@userid", userid);
+                cmd.Parameters.AddWithValue("@SearchTerm", searchTerm);
+                cmd.Parameters.AddWithValue("@PageNumber", page);
+                cmd.Parameters.AddWithValue("@PageSize", pageSize);
 
-                con.Open();
-                int rowsAffected = cmd.ExecuteNonQuery();
-                con.Close();
+                try
+                {
+                    con.Open();
 
-                if (rowsAffected > 0)
-                {
-                    return Ok("Record deleted successfully.");
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Safe method to check column existence
+                            int? takenTime = null;
+                            if (HasColumn(reader, "taken_time") && reader["taken_time"] != DBNull.Value)
+                            {
+                                takenTime = Convert.ToInt32(reader["taken_time"]);
+                            }
+
+                            var imagePathsString = reader["imagepaths"]?.ToString() ?? "";
+                            var imagePathsList = imagePathsString
+                                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                .ToList();
+
+                            result.Add(new MasterTable
+                            {
+                                Id = Guid.Parse(reader["id"].ToString()),
+                                Name = reader["name"].ToString(),
+                                Description = reader["descriptions"].ToString(),
+                                TenantCode = reader["tenantcode"].ToString(),
+                                LogTime = Convert.ToDateTime(reader["createat"]),
+                                UserId = Convert.ToInt32(reader["userid"]),
+                                StatusName = reader["statusname"].ToString(),
+                                Module = reader["module"] != DBNull.Value ? reader["module"].ToString() : null,
+                                IssueDescription = reader["issue_description"] != DBNull.Value ? reader["issue_description"].ToString() : null,
+                                AssignTo = reader["assign_to"] != DBNull.Value ? reader["assign_to"].ToString() : null,
+                                ResolveDate = reader["resolve_date"] != DBNull.Value ? (DateTime?)Convert.ToDateTime(reader["resolve_date"]) : null,
+                                TakenTime = takenTime,
+                                ImagePaths = imagePathsList
+                            });
+                        }
+
+                        // Read total count from second result set
+                        if (reader.NextResult() && reader.Read())
+                        {
+                            totalRecords = reader.GetInt32(0);
+                        }
+                    }
+
+                    return Ok(new
+                    {
+                        TotalRecords = totalRecords,
+                        Page = page,
+                        PageSize = pageSize,
+                        Data = result
+                    });
                 }
-                else
+                catch (Exception ex)
                 {
-                    return NotFound(); // Record not found for the given userid
+                    return InternalServerError(ex);
                 }
-            }
-            catch (SqlException ex)
-            {
-                return InternalServerError(ex);
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
+                finally
+                {
+                    if (con.State == ConnectionState.Open)
+                        con.Close();
+                }
             }
         }
+
+        // Helper method to check column existence
+        private bool HasColumn(SqlDataReader reader, string columnName)
+        {
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                if (reader.GetName(i).Equals(columnName, StringComparison.InvariantCultureIgnoreCase))
+                    return true;
+            }
+            return false;
+        }
+    }   
     }
-}
+
+

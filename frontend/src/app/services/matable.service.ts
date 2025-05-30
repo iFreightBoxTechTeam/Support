@@ -13,6 +13,13 @@ export interface Matable {
   ImagePath: string;
   ImagePaths?: string[];
   LogTime: string;
+    
+  AssignTo?: string;
+  Module?: string;
+  ResolveDate:String;
+  TakenTime?: string;
+  data: Matable[];
+  totalCount: number;
 }
 
 @Injectable({
@@ -25,23 +32,22 @@ export class MatableService {
   constructor(private http: HttpClient) {}
 
   // ✅ Get matables with pagination and optional search term
-  getMatables(page: number, pageSize: number, searchTerm: string = ''): Observable<{ data: Matable[], totalCount: number }> {
-    let params = new HttpParams()
-      .set('page', page.toString())
-      .set('pageSize', pageSize.toString());
+getMatables(page: number, pageSize: number, searchTerm: string = ''): Observable<{ data: Matable[], totalCount: number }> {
+  let params = new HttpParams()
+    .set('page', page.toString())
+    .set('pageSize', pageSize.toString())
+    .set('searchTerm', searchTerm);
 
-    if (searchTerm) {
-      params = params.set('searchTerm', searchTerm);
-    }
+  return this.http.get<{ TotalRecords: number, Page: number, PageSize: number, data: Matable[], Data: Matable[] }>(`${this.apiUrl}/search`, { params })
+    .pipe(
+      map(response => ({
+        data: response.Data,         // Your data array
+        totalCount: response.TotalRecords  // Total count mapped properly
+      }))
+    );
+}
 
-    return this.http.get<{ TotalRecords: number, Page: number, PageSize: number, Data: Matable[]; data: Matable[], totalCount: number }>(`${this.apiUrl}/search`, { params })
-      .pipe(
-        map(response => ({
-          data: response.Data,
-          totalCount: response.TotalRecords
-        }))
-      );
-  }
+
   GetMatableByCustomerId(userId: number) {
     return this.http.get<Matable>(`https://localhost:44378/api/values/${userId}`);
   }
@@ -82,9 +88,10 @@ export class MatableService {
     return this.http.delete(`${this.apiUrl}/${userId}`);
   }
 
-  updateMatable(userId: number, matable: Partial<Matable>): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${userId}`, matable);
-  }
+  updateMatable(userid: number, matable: any): Observable<any> {
+  return this.http.put(`https://localhost:44378/api/values/${userid}`, matable);
+}
+
 
   exportExcel(): Observable<Blob> {
     return this.http.get(this.exportUrl, { responseType: 'blob' });

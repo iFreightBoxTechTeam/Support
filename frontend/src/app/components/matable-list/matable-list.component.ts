@@ -36,14 +36,13 @@ export class MatableListComponent implements OnInit {
     this.isComponentVisible = false;
     this.loadData();
   }
-
   // Load data from the API
 loadData() {
   this.matableService.getMatables(this.currentPage, this.pageSize, this.searchTerm)
     .subscribe({
       next: (response) => {
-        this.matables = response.data;
-        this.totalRecords = response.totalCount;
+        this.matables = response.data;          // Use capital D for Data
+        this.totalRecords = response.totalCount; // Use proper property name
         this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
       },
       error: (error) => {
@@ -51,6 +50,7 @@ loadData() {
       }
     });
 }
+
  // Initially, the form is visible
     onImageSelected(url: string | null) {
     this.imageUrl = url;
@@ -163,18 +163,27 @@ onSearch(term: string) {
   }
 
   // Save updated matable info
-  saveChanges() {
-    if (!this.selectedMatable) return;
+ saveChanges() {
+  if (!this.selectedMatable) return;
 
-    this.matableService.updateMatable(this.selectedMatable.UserId, this.selectedMatable).subscribe(
-      () => {
-        console.log('Matable updated successfully');
-        this.loadData();
-        this.closeEditModal();
-      },
-      error => {
-        console.error('Error updating matable:', error);
-      }
-    );
+  console.log('UserId:', this.selectedMatable.UserId);
+   // Debug UserId
+
+  if (!this.selectedMatable.UserId) {
+    console.error('UserId is missing!');
+    return;
   }
+
+  this.matableService.updateMatable(this.selectedMatable.UserId, this.selectedMatable).subscribe(
+    () => {
+      console.log('Matable updated successfully');
+      this.loadData();
+      this.closeEditModal();
+    },
+    error => {
+      console.error('Error updating matable:', error);
+    }
+  );
+}
+
 }

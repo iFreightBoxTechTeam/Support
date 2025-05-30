@@ -39,7 +39,12 @@
             <th>Tenant Code</th>
             <th>User ID</th>
             <th>Images</th>
+            
+            <th>assign to</th>
+            <th>module</th>
             <th>LogTime</th>
+            <th>resolve  date</th>
+            <TH>TIME TAKEN</TH>
             <th>Actions</th>
           </tr>
         </thead>
@@ -61,7 +66,12 @@
                 No image
               </ng-template>
             </td>
-            <td>{{ matable.LogTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+            
+             <td>{{ matable.AssignTo }}</td>
+              <td>{{ matable.Module }}</td>
+              <td>{{ matable.LogTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+              <td>{{matable.ResolveDate}}</td>
+              <TD>{{matable.TakenTime}}</TD>
             <td>
               <!-- Edit and Delete buttons -->
               <button class="btn btn-primary btn-sm ms-2" (click)="openEditModal(matable)">Edit</button>
