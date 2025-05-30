@@ -19,8 +19,12 @@ export class SearchComponent {
 
   constructor(private matableService: MatableService) {}
 
+<<<<<<< Updated upstream
   
   // 🔍 Perform search (initial or paginated)
+=======
+  //  Perform search (initial or paginated)
+>>>>>>> Stashed changes
   onSearch(page: number = 1): void {
     this.isLoading = true;
     this.error = null;
@@ -40,18 +44,18 @@ export class SearchComponent {
     });
   }
 
-  // 🔁 Handle page change
+  //  Handle page change
   onPageChange(page: number): void {
     if (page < 1 || page > this.totalPages) return;
     this.onSearch(page);
   }
 
-  // 🔢 Calculate total pages
+  // Calculate total pages
   get totalPages(): number {
     return Math.ceil(this.totalRecords / this.pageSize);
   }
 
-  // 📄 Generate page numbers for pagination buttons
+  // Generate page numbers for pagination buttons
   get pageNumbers(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
