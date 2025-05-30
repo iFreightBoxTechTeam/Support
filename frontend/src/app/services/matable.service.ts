@@ -42,7 +42,8 @@ getMatables(page: number, pageSize: number, searchTerm: string = ''): Observable
     .pipe(
       map(response => ({
         data: response.Data,         // Your data array
-        totalCount: response.TotalRecords  // Total count mapped properly
+        totalCount: response.TotalRecords
+          // Total count mapped properly
       }))
     );
 }

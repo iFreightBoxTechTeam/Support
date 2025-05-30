@@ -39,7 +39,6 @@
             <th>Tenant Code</th>
             <th>User ID</th>
             <th>Images</th>
-            
             <th>assign to</th>
             <th>module</th>
             <th>LogTime</th>
@@ -71,7 +70,8 @@
               <td>{{ matable.Module }}</td>
               <td>{{ matable.LogTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
               <td>{{matable.ResolveDate}}</td>
-              <TD>{{matable.TakenTime}}</TD>
+              <TD>{{ matable.TakenTime | durationFormat }}</TD>
+
             <td>
               <!-- Edit and Delete buttons -->
               <button class="btn btn-primary btn-sm ms-2" (click)="openEditModal(matable)">Edit</button>
@@ -84,6 +84,8 @@
                   <p><strong>Name:</strong> {{ printMatableData.Name }}</p>
                   <p><strong>Description:</strong> {{ printMatableData.Description }}</p>
                   <p><strong>Status:</strong> {{ printMatableData.StatusName }}</p>
+                  <p><strong>Module:</strong> {{ printMatableData.Module }}</p>
+                  <p><strong>Assign to:</strong> {{ printMatableData.AssignTo }}</p>
                   <p><strong>Tenant Code:</strong> {{ printMatableData.TenantCode }}</p>
                   <p><strong>User ID:</strong> {{ printMatableData.UserId }}</p>
                   <p><strong>Log Time:</strong> {{ printMatableData.LogTime | date:'medium' }}</p>

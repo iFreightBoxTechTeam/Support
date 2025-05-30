@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
                         IssueDescription = reader["issue_description"] != DBNull.Value ? reader["issue_description"].ToString() : null,
                         AssignTo = reader["assign_to"] != DBNull.Value ? reader["assign_to"].ToString() : null,
                         ResolveDate = reader["resolve_date"] != DBNull.Value ? (DateTime?)reader["resolve_date"] : null,
-                         TakenTime = reader["taken_time"] != DBNull.Value ? Convert.ToInt32(reader["taken_time"]) : (int?)null,
+                        TakenTime = reader["taken_time"] != DBNull.Value ? Convert.ToInt32(reader["taken_time"]) : (int?)null,
                     });
                 }
                 con.Close();
@@ -293,14 +293,14 @@ namespace WebApplication2.Controllers
                         cmd.Parameters.AddWithValue("@Description", masterTable.Description);
                         string imagePathCsv = string.Join(",", masterTable.ImagePaths ?? new List<string>());
                         cmd.Parameters.AddWithValue("@ImagePaths", imagePathCsv);
-
+                        
                         cmd.Parameters.AddWithValue("@Name", masterTable.Name);
                         cmd.Parameters.AddWithValue("@TenantCode", masterTable.TenantCode);
                         cmd.Parameters.AddWithValue("@UserId", masterTable.UserId);
-                        cmd.Parameters.AddWithValue("@Module", masterTable.Module);
+
                         cmd.Parameters.AddWithValue("@IssueDescription", masterTable.IssueDescription);
-                        cmd.Parameters.AddWithValue("@AssignTo", masterTable.AssignTo);
-                        cmd.Parameters.AddWithValue("@ResolveDate", (object)masterTable.ResolveDate ?? DBNull.Value);
+
+
 
 
                         Guid matableId;
@@ -508,7 +508,41 @@ namespace WebApplication2.Controllers
             }
             return false;
         }
-    }   
+
+        [HttpDelete]
+        [Route("api/values/{userid}")]
+        public IHttpActionResult Delete(int userid)
+        {
+            if (userid <= 0)
+                return BadRequest("Invalid user ID.");
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString))
+                {
+                    con.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("sp_DeleteMatable", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@userid", userid);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                            return Ok($"User data with UserId {userid} deleted successfully.");
+                        else
+                            return NotFound();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
     }
+}
 
 
