@@ -1,4 +1,4 @@
 export interface AssignDev {
-  id: number;
-  devName: string;
+  Id: number;
+  DevName: string;
 }

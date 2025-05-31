@@ -5,20 +5,23 @@ using System.Web.Http;
 
 using System.Configuration;
 using WebApplication2.Models;
+using System.Web.Http.Cors;
 
 namespace userproblem.Controllers
 {
     public class AssignDevController : ApiController
     {
+   
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString);
-
+        [HttpGet]
+        [Route("api/assigndev")]
         // GET api/assigndev
         public IEnumerable<AssignDev> Get()
         {
             var devs = new List<AssignDev>();
 
 
-            using (var cmd = new SqlCommand("sp_GetAssignDevs", conn))
+            using (var cmd = new SqlCommand("sp_GetAssignto", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 conn.Open();
@@ -63,14 +66,15 @@ namespace userproblem.Controllers
 
             return dev;
         }
-
+        [HttpPost]
+        [Route("api/assigndev")]
         // POST api/assigndev
         public IHttpActionResult Post([FromBody] AssignDev dev)
         {
             if (dev == null || string.IsNullOrWhiteSpace(dev.DevName))
                 return BadRequest("Developer name is required.");
 
-            using (var cmd = new SqlCommand("sp_InsertAssignDev", conn))
+            using (var cmd = new SqlCommand("sp_InsertAssignto", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@devname", dev.DevName);
@@ -81,13 +85,15 @@ namespace userproblem.Controllers
             return Ok("Developer assigned successfully.");
         }
 
+        [HttpPut]
+        [Route("api/assigndev/{id}")]
         // PUT api/assigndev/5
         public IHttpActionResult Put(int id, [FromBody] AssignDev dev)
         {
             if (dev == null || string.IsNullOrWhiteSpace(dev.DevName))
                 return BadRequest("Developer name is required.");
 
-            using (var cmd = new SqlCommand("sp_UpdateAssignDev", conn))
+            using (var cmd = new SqlCommand("sp_UpdateAssignto", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", id);
@@ -98,11 +104,12 @@ namespace userproblem.Controllers
 
             return Ok("Developer updated successfully.");
         }
-
+        [HttpDelete]
+        [Route("api/assigndev/{id}")]
         // DELETE api/assigndev/5
         public IHttpActionResult Delete(int id)
         {
-            using (var cmd = new SqlCommand("sp_DeleteAssignDev", conn))
+            using (var cmd = new SqlCommand("sp_DeleteAssignto", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", id);

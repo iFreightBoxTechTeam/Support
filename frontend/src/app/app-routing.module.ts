@@ -30,7 +30,7 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'sighnup',component:UserComponent},
   {path:'statuslog',component:StatusLogsComponent},
-    {path:'assign-dev',component:AssignDevComponent},
+  {path:'assign-dev',component:AssignDevComponent},
   {path:'table',component:MatableListComponent}
 
 ]
