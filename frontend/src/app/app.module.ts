@@ -24,6 +24,7 @@ import { LoginComponent } from "./pages/login/login.component";
 import { AppRoutingModule } from './app-routing.module';
 import { MultiImgIpComponent } from './components/multi-img-ip/multi-img-ip.component';
 import { DurationFormatPipe } from './duration-format.pipe';
+import { AssignDevComponent } from './assign-dev/assign-dev.component';
 
 
 const appRoute: Routes =[
@@ -59,6 +60,7 @@ const appRoute: Routes =[
     AboutComponent,
     ContactComponent,
     DurationFormatPipe,
+    AssignDevComponent,
 
   ],
   imports: [
