@@ -19,12 +19,9 @@ export class SearchComponent {
 
   constructor(private matableService: MatableService) {}
 
-<<<<<<< Updated upstream
   
   // 🔍 Perform search (initial or paginated)
-=======
   //  Perform search (initial or paginated)
->>>>>>> Stashed changes
   onSearch(page: number = 1): void {
     this.isLoading = true;
     this.error = null;
