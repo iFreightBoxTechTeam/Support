@@ -2,7 +2,7 @@
   <div class="card shadow-lg p-4">
     <h3 class="text-center mb-4">Submit Form</h3>
     <form [formGroup]="matableForm" (ngSubmit)="onSubmit()">
-      
+
       <div class="form-group mb-3">
         <label for="Name">Name</label>
         <input type="text" id="Name" placeholder="Enter Name" formControlName="Name" class="form-control" />
@@ -13,10 +13,6 @@
         <input type="text" id="Description" placeholder="Enter Description" formControlName="Description" class="form-control" />
       </div>
 
-      <div class="form-group mb-3">
-        <label for="StatusName">Status</label>
-        <input type="text" id="StatusName" placeholder="Enter Status" formControlName="StatusName" class="form-control" />
-      </div>
 
       <div class="form-group mb-3">
         <label for="TenantCode">Tenant Code</label>
@@ -28,9 +24,16 @@
         <input type="text" id="UserId" placeholder="Enter User ID" formControlName="UserId" class="form-control" />
       </div>
 
+      <!-- Optional image upload with app-fileip -->
+      <!-- <div class="form-group mb-3">
+        <label for="image" class="form-label">Image</label>
+        <app-fileip (imageSelected)="onImageSelected($event)"></app-fileip>
+      </div> -->
+
+      <!-- Active multi-image input -->
       <div class="form-group mb-3">
         <label for="image" class="form-label">Image</label>
-            <app-fileip (imageSelected)="onImageSelected($event)"></app-fileip>
+        <multi-img-ip (imagesSelected)="onImagesSelected($event)"></multi-img-ip>
       </div>
 
       <div class="text-center">

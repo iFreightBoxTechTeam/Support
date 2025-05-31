@@ -14,5 +14,10 @@ namespace WebApplication2.Controllers
         public string TenantCode { get; set; }
         public DateTime LogTime { get; set; }
         public int UserId { get; set; }
+        public string Module { get; set; }
+        public string IssueDescription { get; set; }
+        public string AssignTo { get; set; }
+        public DateTime? ResolveDate { get; set; }
+
     }
 }

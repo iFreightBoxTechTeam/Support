@@ -18,8 +18,12 @@ namespace WebApplication1.Models
         public string StatusName { get; set; }  // For the PUT request to change status name
 
         // StatusLog fields
-        
+        public string Module { get; set; }
+        public string IssueDescription { get; set; }
+        public string AssignTo { get; set; }
+        public DateTime? ResolveDate { get; set; }
         public DateTime LogTime { get; set; }
+        public  decimal? TakenTime { get; set; }
     }
 
 

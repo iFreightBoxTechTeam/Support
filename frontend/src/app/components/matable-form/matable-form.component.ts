@@ -12,8 +12,7 @@ export class MatableFormComponent implements OnInit {
   matableForm: FormGroup;
   matableId: string | null = null;  // matableId could be string or null
   @Output() formSubmitted = new EventEmitter<void>(); // Event emitter to notify parent
-    imageUrl: string |null =null;
- 
+  imageUrls: string[] = [];  // to hold multiple image URLs
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +33,7 @@ export class MatableFormComponent implements OnInit {
   ngOnInit(): void {
     // Get matableId from the route params
     this.matableId = this.route.snapshot.paramMap.get('id');
-    
+
     if (this.matableId) {
       const id = Number(this.matableId);
       this.matableService.getMatableById(id).subscribe(
@@ -49,17 +48,30 @@ export class MatableFormComponent implements OnInit {
   }
 
   isComponentVisible = true; // Initially, the form is visible
-    onImageSelected(url: string | null) {
-    this.imageUrl = url;
+
+  // Your original commented code preserved exactly as-is
+  // onImageSelected(url: string | null) {
+  //   this.imageUrl = url;
+  // }
+
+  // Corrected handler for multi-image component event (array of strings)
+  onImagesSelected(urls: string[] | null) {
+    if (!urls) return;
+
+    this.imageUrls = urls;
+    this.matableForm.patchValue({
+      ImagePaths: urls.join(',')
+    });
   }
-  
 
   onSubmit(): void {
     if (this.matableForm.valid) {
       const formData = { ...this.matableForm.value };
-      formData.ImagePaths = formData.ImagePaths
-        ? formData.ImagePaths.split(',').map((p: string) => p.trim())
-        : [];
+      // formData.ImagePaths = formData.ImagePaths
+      //   ? formData.ImagePaths.split(',').map((p: string) => p.trim())
+      //   : [];
+      formData.ImagePaths = this.imageUrls;
+
 
       if (this.matableId) {
         // Update existing matable

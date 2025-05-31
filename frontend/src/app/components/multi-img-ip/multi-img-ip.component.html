@@ -1,0 +1,40 @@
+<div class="card shadow bg-white rounded fileip-card">
+
+  <!-- Optional Message -->
+  <div *ngIf="msg" class="msg">{{ msg }}</div>
+
+  <!-- Camera icon for selecting images -->
+  <div class="preview-container">
+    <label *ngIf="images.length === 0" for="fileInput" class="camera-label">
+      <img src="assets/images/camera1.png" alt="Camera" class="camera-icon" />
+    </label>
+  </div>
+
+
+  <!-- Hidden multiple image input -->
+  <input
+    type="file"
+    id="fileInput"
+    accept="image/*"
+    multiple
+    (change)="onMultiFileChange($event)"
+    style="display: none;"
+  />
+
+  <!-- Display Images Section -->
+  <div *ngIf="images.length > 0" class="image-section">
+
+    <div class="upload-img-wrap">
+      <div *ngFor="let img of images; let i = index" class="upload-img-box">
+        <div class="img-bg" [style.backgroundImage]="'url(' + img.url + ')'"></div>
+        <div (click)="removeImage(i)" class="upload-img-close"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upload & Clear Buttons (Always at Bottom Inside Card) -->
+  <div *ngIf="images.length > 0" class="button-footer">
+    <label for="fileInput" class="upload-btn">Upload More Images</label>
+    <button (click)="clearAll()" class="clear-btn">Clear All Images</button>
+  </div>
+</div>
