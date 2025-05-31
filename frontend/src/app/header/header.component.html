@@ -6,14 +6,7 @@
     <li><a routerLink="/assign-dev" routerLinkActive="active-link">assign-dev</a></li>
   </ul>
 
-  <div class="navbar-right">
-    <input
-      type="text"
-      placeholder="Search by name, status"
-      [(ngModel)]="searchTerm"
-      (input)="onSearch(searchTerm)"
-      class="form-control"
-    />
+  
     
     <div class="button-group" *ngIf="showAddButton">
       <app-export></app-export>
@@ -22,4 +15,3 @@
       </button>
     </div>
   </div>
-</div>
