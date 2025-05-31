@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './pages/login/login.component';
 import { UserComponent } from './pages/user/user.component';
+import { AssignDevComponent } from './assign-dev/assign-dev.component';
 
 // import { ServiceComponent} from './services/service.component'
 
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'sighnup',component:UserComponent},
   {path:'statuslog',component:StatusLogsComponent},
+    {path:'assign-dev',component:AssignDevComponent},
   {path:'table',component:MatableListComponent}
 
 ]
