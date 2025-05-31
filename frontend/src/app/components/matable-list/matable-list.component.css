@@ -6,7 +6,7 @@ body {
   padding: 0;
 }
 
-/* Container styling */
+/* Main container styling */
 .container {
   background-color: #ffffff;
   padding: 30px;
@@ -15,38 +15,42 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Table styling */
+/* Table styling with no border lines */
 .table {
+  width: 100%;
+  border-collapse: collapse;
   background-color: #ffffff;
-  border: 1px solid #dee2e6;
 }
 
-.table th {
-  background-color: #007bff;
-  color: white;
+/* Remove all border lines */
+.table th,
+.table td {
+  border: none;
+  padding: 12px;
   text-align: center;
 }
 
-.table td {
-  vertical-align: middle;
+/* Optional: style headers */
+.table th {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
 }
 
-/* Buttons */
-.btn {
-  margin: 3px 0;
+/* Optional: alternate background for rows (zebra striping) */
+.table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-/* Modal background */
-.modal {
-  background: rgba(0, 0, 0, 0.5);
+/* Optional: hover effect on rows */
+.table tbody tr:hover {
+  background-color: #f1f1f1;
 }
 
-/* Pagination styling */
-.pagination {
-  background-color: #f8f9fa;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 20px;
+/* Search input styling */
+input[type="text"].form-control {
+  max-width: 400px;
+  margin-bottom: 20px;
 }
 
 /* Form input spacing */
@@ -56,16 +60,40 @@ select.form-select {
   margin-bottom: 15px;
 }
 
+/* Button styling */
+.btn {
+  margin: 3px 5px;
+}
+
+/* Modal background */
+.modal {
+  background: rgba(0, 0, 0, 0.5);
+}
+
 /* Image preview inside table */
 img {
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 2px;
   background-color: #fff;
+  max-width: 100px;
+  margin: 2px;
 }
 
-/* Search input styling */
-input[type="text"].form-control {
-  max-width: 400px;
-  margin-bottom: 20px;
+/* Pagination section */
+.pagination {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination .btn {
+  min-width: 100px;
+}
+
+/* Responsive layout */
+.table-responsive {
+  overflow-x: auto;
 }
