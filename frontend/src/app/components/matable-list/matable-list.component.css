@@ -1,28 +1,34 @@
-/* Overall page background */
+/* Make sure body doesn't restrict width */
 body {
-  background-color: #f4f6f9;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
+  background-color: #f4f6f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Main container styling */
+/* Expand container to full width */
 .container {
+  width: 100%;
+  max-width: 100%;
+  padding: 20px 40px;
+  box-sizing: border-box;
   background-color: #ffffff;
-  padding: 30px;
-  border-radius: 10px;
-  margin-top: 30px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Table styling with no border lines */
+/* Table should take full width */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Table style with no borders between rows */
 .table {
   width: 100%;
   border-collapse: collapse;
   background-color: #ffffff;
 }
 
-/* Remove all border lines */
+/* Remove border lines in rows and cells */
 .table th,
 .table td {
   border: none;
@@ -30,57 +36,33 @@ body {
   text-align: center;
 }
 
-/* Optional: style headers */
+/* Header styling */
 .table th {
-  background-color: #007bff;
-  color: white;
-  font-weight: bold;
+  background-color: #fafafa;
+  color: 212529;
+  font-weight: 600;
 }
 
-/* Optional: alternate background for rows (zebra striping) */
+/* Zebra striping for readability */
 .table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-/* Optional: hover effect on rows */
+/* Hover effect */
 .table tbody tr:hover {
   background-color: #f1f1f1;
 }
 
-/* Search input styling */
-input[type="text"].form-control {
-  max-width: 400px;
-  margin-bottom: 20px;
-}
-
-/* Form input spacing */
-input.form-control,
-textarea.form-control,
-select.form-select {
-  margin-bottom: 15px;
-}
-
-/* Button styling */
-.btn {
-  margin: 3px 5px;
-}
-
-/* Modal background */
-.modal {
-  background: rgba(0, 0, 0, 0.5);
-}
-
-/* Image preview inside table */
+/* Image preview styling */
 img {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 2px;
-  background-color: #fff;
   max-width: 100px;
   margin: 2px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  padding: 2px;
 }
 
-/* Pagination section */
+/* Pagination and other spacing */
 .pagination {
   background-color: #f8f9fa;
   padding: 15px;
@@ -89,11 +71,14 @@ img {
   text-align: center;
 }
 
-.pagination .btn {
-  min-width: 100px;
+/* Input form spacing */
+input.form-control,
+textarea.form-control,
+select.form-select {
+  margin-bottom: 15px;
 }
 
-/* Responsive layout */
-.table-responsive {
-  overflow-x: auto;
+input[type="text"].form-control {
+  max-width: 400px;
+  margin-top: 15px;
 }
