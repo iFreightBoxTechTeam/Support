@@ -1,7 +1,17 @@
+<!-- app-matable-list.component.html -->
+
 <app-header></app-header>
 
 <div class="container">
-  <!-- Search Input -->
+
+  <!-- Button to toggle the form visibility -->
+
+  <!-- <div class="d-flex justify-content-end mb-2">
+    <button class="btn btn-primary" (click)="showComponent()">Add New Matable</button>
+  </div> -->
+
+  <!-- changed here  -->
+
   <input
     type="text"
     placeholder="Search by name, description, or status"
@@ -10,11 +20,15 @@
     class="form-control mt-3"
   />
 
-  <!-- Form Component -->
+  <!-- Form Component: Only shown when isComponentVisible is true -->
   <app-matable-form *ngIf="isComponentVisible" (formSubmitted)="onFormSubmitted()"></app-matable-form>
 
-  <!-- Table -->
   <div class="table-responsive">
+    <!-- <div class="export-container">
+      <app-export></app-export>
+    </div> -->
+
+    <!-- Matable List Table (displaying the existing matables) -->
     <div class="matable-list">
       <table class="table table-bordered">
         <thead>
@@ -25,60 +39,71 @@
             <th>Tenant Code</th>
             <th>User ID</th>
             <th>Images</th>
-            <th>Assign To</th>
-            <th>Module</th>
-            <th>Log Time</th>
-            <th>Resolve Date</th>
-            <th>Time Taken</th>
+
+            <th>assign to</th>
+            <th>module</th>
+            <th>LogTime</th>
+            <th>resolve  date</th>
+            <TH>TIME TAKEN</TH>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let matable of matables">
-            <td data-label="Name">{{ matable.Name }}</td>
-            <td data-label="Description">{{ matable.Description }}</td>
-            <td data-label="Status">{{ matable.StatusName }}</td>
-            <td data-label="Tenant Code">{{ matable.TenantCode }}</td>
-            <td data-label="User ID">{{ matable.UserId }}</td>
-            <td data-label="Images">
-              <ng-container *ngIf="matable.ImagePaths?.length; else noImage">
-                <img *ngFor="let img of matable.ImagePaths" [src]="img" alt="Image" style="max-width: 100px; margin: 2px;" />
+            <td>{{ matable.Name }}</td>
+            <td>{{ matable.Description }}</td>
+            <td>{{ matable.StatusName }}</td>
+            <td>{{ matable.TenantCode }}</td>
+            <td>{{ matable.UserId }}</td>
+            <td>
+              <ng-container *ngIf="matable.ImagePaths && matable.ImagePaths.length; else noImage">
+                <img *ngFor="let img of matable.ImagePaths"
+                     [src]="img"
+                     alt="Image"
+                     style="max-width: 100px; margin: 2px;" />
               </ng-container>
-              <ng-template #noImage>No image</ng-template>
+              <ng-template #noImage>
+                No image
+              </ng-template>
             </td>
-            <td data-label="Assign To">{{ matable.AssignTo }}</td>
-            <td data-label="Module">{{ matable.Module }}</td>
-            <td data-label="Log Time">{{ matable.LogTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
-            <td data-label="Resolve Date">{{ matable.ResolveDate }}</td>
-            <td data-label="Time Taken">{{ matable.TakenTime | durationFormat }}</td>
-            <td data-label="Actions">
-              <button class="btn btn-primary btn-sm" (click)="openEditModal(matable)">Edit</button>
-              <button class="btn btn-secondary btn-sm" (click)="deleteMatable(matable.UserId)">Delete</button>
-              <button class="btn btn-success btn-sm" (click)="onPrintMatable(matable.UserId)">Print</button>
+            
+             <td>{{ matable.AssignTo }}</td>
+              <td>{{ matable.Module }}</td>
+              <td>{{ matable.LogTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+              <td>{{matable.ResolveDate}}</td>
+              <TD>{{ matable.TakenTime | durationFormat }}</TD>
+
+            <td>
+              <!-- Edit and Delete buttons -->
+              <button class="btn btn-primary btn-sm ms-2" (click)="openEditModal(matable)">Edit</button>
+              <button class="btn btn-secondary btn-sm ms-2" (click)="deleteMatable(matable.UserId)">Delete</button>
+              <button class="btn btn-success btn-sm ms-2" (click)="onPrintMatable(matable.UserId)">Print</button>
+
+              <div id="obv_Print_Pick_Slip" style="display: none;">
+                <div *ngIf="printMatableData">
+                  <h2>Matable Details</h2>
+                  <p><strong>Name:</strong> {{ printMatableData.Name }}</p>
+                  <p><strong>Description:</strong> {{ printMatableData.Description }}</p>
+                  <p><strong>Status:</strong> {{ printMatableData.StatusName }}</p>
+                  <p><strong>Module:</strong> {{ printMatableData.Module }}</p>
+                  <p><strong>Assign to:</strong> {{ printMatableData.AssignTo }}</p>
+                  <p><strong>Tenant Code:</strong> {{ printMatableData.TenantCode }}</p>
+                  <p><strong>User ID:</strong> {{ printMatableData.UserId }}</p>
+                  <p><strong>Log Time:</strong> {{ printMatableData.LogTime | date:'medium' }}</p>
+
+                  <div *ngIf="printMatableData.ImagePaths?.length">
+                    <p><strong>Images:</strong></p>
+                    <img *ngFor="let img of printMatableData.ImagePaths" [src]="img" style="max-width: 100px; margin: 5px;" />
+                  </div>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
 
-      <!-- Print Section -->
-      <div *ngIf="printMatableData" id="obv_Print_Pick_Slip">
-        <h2>Matable Details</h2>
-        <p><strong>Name:</strong> {{ printMatableData.Name }}</p>
-        <p><strong>Description:</strong> {{ printMatableData.Description }}</p>
-        <p><strong>Status:</strong> {{ printMatableData.StatusName }}</p>
-        <p><strong>Module:</strong> {{ printMatableData.Module }}</p>
-        <p><strong>Assign To:</strong> {{ printMatableData.AssignTo }}</p>
-        <p><strong>Tenant Code:</strong> {{ printMatableData.TenantCode }}</p>
-        <p><strong>User ID:</strong> {{ printMatableData.UserId }}</p>
-        <p><strong>Log Time:</strong> {{ printMatableData.LogTime | date:'medium' }}</p>
-        <div *ngIf="printMatableData.ImagePaths?.length">
-          <p><strong>Images:</strong></p>
-          <img *ngFor="let img of printMatableData.ImagePaths" [src]="img" style="max-width: 100px; margin: 5px;" />
-        </div>
-      </div>
-
-      <!-- Edit Modal -->
-      <div class="modal" tabindex="-1" [ngClass]="{ 'show d-block': isEditModalVisible }" *ngIf="isEditModalVisible">
+      <!-- Edit Modal: moved outside the table and *ngFor loop -->
+      <div class="modal" tabindex="-1" [ngClass]="{'show d-block': isEditModalVisible}" style="background: rgba(0,0,0,0.5);" *ngIf="isEditModalVisible">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -88,55 +113,65 @@
             <div class="modal-body" *ngIf="selectedMatable">
               <form>
                 <div class="mb-3">
-                  <label class="form-label">Name</label>
-                  <input type="text" class="form-control" [(ngModel)]="selectedMatable.Name" name="name" />
+                  <label for="nameInput" class="form-label">Name</label>
+                  <input id="nameInput" type="text" class="form-control" [(ngModel)]="selectedMatable.Name" name="name" />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Description</label>
-                  <textarea class="form-control" [(ngModel)]="selectedMatable.Description" name="description"></textarea>
+                  <label for="descriptionInput" class="form-label">Description</label>
+                  <textarea id="descriptionInput" class="form-control" [(ngModel)]="selectedMatable.Description" name="description"></textarea>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Status</label>
-                  <select class="form-select" [(ngModel)]="selectedMatable.StatusName" name="statusName">
+                  <label for="statusSelect" class="form-label">Status</label>
+                  <select id="statusSelect" class="form-select" [(ngModel)]="selectedMatable.StatusName" name="statusName">
                     <option value="Pending">Pending</option>
                     <option value="Work In Progress">Work In Progress</option>
                     <option value="Solved">Solved</option>
                   </select>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Tenant Code</label>
-                  <input type="text" class="form-control" [(ngModel)]="selectedMatable.TenantCode" name="tenantCode" />
+                  <label for="tenantCodeInput" class="form-label">Tenant Code</label>
+                  <input id="tenantCodeInput" type="text" class="form-control" [(ngModel)]="selectedMatable.TenantCode" name="tenantCode" />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">User ID</label>
-                  <input type="number" class="form-control" [(ngModel)]="selectedMatable.UserId" name="userId" readonly />
+                  <label for="userIdInput" class="form-label">User ID</label>
+                  <input id="userIdInput" type="number" class="form-control" [(ngModel)]="selectedMatable.UserId" name="userId" readonly />
+                  <!-- readonly if you don't want userId to be changed -->
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Image</label>
+                  <label for="image" class="form-label">Image</label>
                   <app-fileip (imageSelected)="onImageSelected($event)"></app-fileip>
                 </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-secondary" (click)="closeEditModal()">Cancel</button>
-              <button class="btn btn-primary" (click)="saveChanges()">Save changes</button>
+              <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Cancel</button>
+              <button type="button" class="btn btn-primary" (click)="saveChanges()">Save changes</button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Pagination -->
-      <div class="pagination d-flex justify-content-center align-items-center mt-3 gap-3">
-  <button class="btn btn-outline-primary" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
-    Previous
-  </button>
+      <div class="pagination">
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <button class="btn btn-outline-primary" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+            Previous
+          </button>
+          &nbsp;
+          <span>Page {{ currentPage }} of {{ totalPages }}</span>
+          &nbsp;
+          <button class="btn btn-outline-primary" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
+            Next
+          </button>
+        </div>
 
-  <span>Page {{ currentPage }} of {{ totalPages }}</span>
-
-  <button class="btn btn-outline-primary" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
-    Next
-  </button>
-</div>
+        <div class="main-container">
+          <div class="comp-container">
+            <!-- <app-next></app-next>
+            <app-previous></app-previous> -->
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>

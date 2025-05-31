@@ -3,14 +3,23 @@
     <li><a routerLink="/Home" routerLinkActive="active-link">Home</a></li>
     <li><a routerLink="/table" routerLinkActive="active-link">Table</a></li>
     <li><a routerLink="/statuslog" routerLinkActive="active-link">Status Log</a></li>
-     <li><a routerLink="/assign-dev" routerLinkActive="active-link">assign-dev</a></li>
+    <li><a routerLink="/assign-dev" routerLinkActive="active-link">assign-dev</a></li>
   </ul>
 
-  <!-- Button group (export + add new) -->
-  <div class="button-group" *ngIf="showAddButton">
-    <app-export></app-export>
-    <button class="standard-button" routerLink="/add" (click)="showComponent()">
-      <i class="fa fa-plus"></i> Add New Matable
-    </button>
+  <div class="navbar-right">
+    <input
+      type="text"
+      placeholder="Search by name, status"
+      [(ngModel)]="searchTerm"
+      (input)="onSearch(searchTerm)"
+      class="form-control"
+    />
+    
+    <div class="button-group" *ngIf="showAddButton">
+      <app-export></app-export>
+      <button class="standard-button" routerLink="/add" (click)="showComponent()">
+        <i class="fa fa-plus"></i> Add New Matable
+      </button>
+    </div>
   </div>
 </div>

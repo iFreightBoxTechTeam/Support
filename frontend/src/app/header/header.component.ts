@@ -9,11 +9,12 @@ import { filter } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit {
   showAddButton: boolean = true;
+  searchTerm: string = '';
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // On route changes, check the URL
+    // On route changes, check the URL and toggle the add button
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
@@ -21,10 +22,16 @@ export class HeaderComponent implements OnInit {
         console.log('Current route:', this.router.url, 'Show button:', this.showAddButton);
       });
 
+    // Initial check when component loads
     this.showAddButton = !this.router.url.includes('/statuslog');
   }
 
-  showComponent() {
-    
+  onSearch(term: string): void {
+    console.log('Search term:', term);
+    // Implement your search logic here
+  }
+
+  showComponent(): void {
+    // Implement your logic here if needed
   }
 }
