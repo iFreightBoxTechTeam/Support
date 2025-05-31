@@ -1,0 +1,24 @@
+<h2>Assigned Developers</h2>
+
+<!-- Add Developer -->
+<input [(ngModel)]="newDev.devName" placeholder="Developer Name" />
+<button (click)="addDev()">Add</button>
+
+<hr>
+
+<!-- List Developers -->
+<ul>
+  <li *ngFor="let dev of devs">
+    {{ dev.devName }}
+    <button (click)="editDev(dev)">Edit</button>
+    <button (click)="deleteDev(dev.id)">Delete</button>
+  </li>
+</ul>
+
+<!-- Edit Developer -->
+<div *ngIf="selectedDev">
+  <h3>Edit Developer</h3>
+  <input [(ngModel)]="selectedDev.devName" />
+  <button (click)="updateDev()">Update</button>
+  <button (click)="selectedDev = null">Cancel</button>
+</div>

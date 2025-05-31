@@ -15,6 +15,5 @@ export class ExportService {
     return this.http.get(this.apiUrl2, {
       responseType: 'blob',
     });
-  }
-  
+  } 
 }
