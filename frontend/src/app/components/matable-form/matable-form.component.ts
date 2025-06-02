@@ -23,7 +23,8 @@ export class MatableFormComponent implements OnInit {
     this.matableForm = this.fb.group({
       Name: ['', Validators.required],
       Description: ['', Validators.required],
-      StatusName: ['Pending', Validators.required],
+      Module:['',Validators.required],
+      IssueDescription:['',Validators.required],
       TenantCode: ['', Validators.required],
       UserId: [0, Validators.required],
       ImagePaths: ['']
