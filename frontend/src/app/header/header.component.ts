@@ -31,16 +31,6 @@ export class HeaderComponent implements OnInit {
 
   onSearch(term: string): void {
     console.log('Search term:', term);
-    // Add search logic if needed
-  }
-
-  showComponent(): void {
-    console.log('Add button clicked');
-    // Additional logic if needed
-  }
-
-  onSearch(term: string): void {
-    console.log('Search term:', term);
     // Implement your search logic here
   }
  
