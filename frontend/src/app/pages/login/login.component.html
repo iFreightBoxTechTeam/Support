@@ -1,78 +1,71 @@
- <!-- <div class="main3"> -->
-<div class="flex items-center justify-center min-h-screen bg-gray-100 px-4">
-    
-  <div class="w-full max-w-sm p-6 bg-blue-100 rounded-2xl shadow-lg">
+<div class="min-h-screen flex items-center justify-center px-4 bg-gradient-to-r from-indigo-500 to-purple-600">
+  <div class="w-full max-w-sm bg-login">
 
-     <!-- Login Heading  -->
-     <div class="main2"> 
-    <h2 class="text-2xl font-bold text-center mb-6">Login to MyApp</h2>
+    <h2 class="text-2xl font-bold text-center text-white mb-6">Login to MyApp</h2>
 
-    <form
-      (ngSubmit)="onSubmit()"
-      #loginForm="ngForm"
-      class="space-y-4"
-      autocomplete="off"
-    >
-      <!-- Name (Username) -->
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="space-y-4" autocomplete="off">
+      
+      <!-- Username -->
       <div>
-        <label class="form-label fw-medium mb-1 small" for="username">Username</label>
+        <label class="block text-white text-sm mb-1" for="username">Username</label>
         <input
-          
-          id="name"
+          id="username"
           type="text"
           name="name"
           [(ngModel)]="name"
+          #nameRef="ngModel"
           required
-          placeholder="Enter your name"
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Enter your username"
+          class="w-full px-4 py-2 rounded"
         />
+        <div *ngIf="nameRef.invalid && nameRef.touched" class="text-red-300 text-sm mt-1">
+          Username is required.
+        </div>
       </div>
-      
-      <!-- Password (optional) -->
+
+      <!-- Password -->
       <div>
-        <label for="password" class="block text-sm font-medium mb-1">Password</label>
+        <label for="password" class="block text-white text-sm mb-1">Password</label>
         <input
           id="password"
           type="password"
           name="password"
           [(ngModel)]="password"
+          #passwordRef="ngModel"
+          required
+          minlength="6"
           placeholder="Enter your password"
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full px-4 py-2 rounded"
         />
+       <div *ngIf="passwordRef.invalid && passwordRef.touched" class="text-red-300 text-sm mt-1">
+  <div *ngIf="passwordRef.errors?.['required']">Password is required.</div>
+  <div *ngIf="passwordRef.errors?.['minlength']">Password must be at least 6 characters.</div>
+</div>
+
       </div>
 
       <!-- Error Message -->
-      <div *ngIf="loginError" class="text-red-500 text-sm">
+      <div *ngIf="loginError" class="text-red-300 text-sm">
         {{ loginError }}
       </div>
-      <br>
 
-      <!-- Remember Me & Forgot Password -->
-      <div class="flex items-center justify-between text-sm">
-        <label class="flex items-center space-x-2">
+      <!-- Remember Me / Forgot -->
+      <div class="flex items-center justify-between text-white text-sm">
+        <label class="flex items-center gap-2">
           <input type="checkbox" name="rememberMe" ngModel />
           <span>Remember me</span>
         </label>
-        <a href="#" class="text-blue-500 hover:underline">Forgot password?</a>
+        <a href="#" class="hover:underline">Forgot password?</a>
       </div>
-      <br>
 
-      <!-- Submit Button -->
+      <!-- Submit -->
       <button
         type="submit"
         [disabled]="!loginForm.valid"
-        class="w-full py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition duration-200"
+        class="w-full py-2 bg-blue-700 text-white rounded hover:bg-blue-800 transition"
       >
         Login
       </button>
     </form>
-    </div>
-    </div>
-     </div> 
-
-    <!-- Sign Up Link -->
-    <!-- <p class="mt-4 text-center text-sm">
-      Don't have an account?
-      <a href="sighnup" class="text-blue-500 hover:underline">Sign up</a>
-    </p> -->
-
+  </div>
+</div>

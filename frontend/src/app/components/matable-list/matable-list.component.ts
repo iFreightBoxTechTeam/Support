@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AssignDev } from 'src/app/models/assign-dev.model';
+import { AssignDevService } from 'src/app/services/assign-dev.service';
 import { Matable, MatableService } from 'src/app/services/matable.service';
 
 @Component({
@@ -13,17 +15,33 @@ export class MatableListComponent implements OnInit {
   pageSize: number = 10;
   totalPages: number = 0;
   imageUrl: string |null =null;
-  isComponentVisible = false;  // Initially the form is hidden
+  isComponentVisible = false; 
+   // Initially the form is hidden
+   assignDevs: AssignDev[] = [];
+
 
   // Modal-related properties
   isEditModalVisible = false;
   selectedMatable: Matable | null = null;
   totalRecords: any;
 
-  constructor(private matableService: MatableService) {}
+  constructor(
+  private matableService: MatableService,
+  private assignDevService: AssignDevService
+) {}
 
   ngOnInit(): void {
     this.loadData();
+    this.assignDevService.getAll().subscribe({
+  next: (devs) => {
+    this.assignDevs = devs;
+    console.log('Developers loaded:', this.assignDevs);
+  },
+  error: (err) => {
+    console.error('Error loading developers:', err);
+  }
+});
+
   }
 
   // Toggle the visibility of the form component
@@ -35,6 +53,7 @@ export class MatableListComponent implements OnInit {
   onFormSubmitted() {
     this.isComponentVisible = false;
     this.loadData();
+    
   }
   // Load data from the API
 loadData() {
@@ -50,6 +69,7 @@ loadData() {
       }
     });
 }
+
 
  // Initially, the form is visible
     onImageSelected(url: string | null) {

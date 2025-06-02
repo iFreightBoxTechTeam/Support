@@ -2,7 +2,11 @@
 
 <app-header></app-header>
 
-<div class="container">
+<<<<<<< Updated upstream
+<div class="">
+=======
+<div >
+>>>>>>> Stashed changes
 
   <!-- Button to toggle the form visibility -->
 
@@ -40,10 +44,10 @@
             <th>User ID</th>
             <th>Images</th>
 
-            <th>Assign to</th>
-            <th>Module</th>
+            <th>assign to</th>
+            <th>module</th>
             <th>LogTime</th>
-            <th>Resolve  date</th>
+            <th>resolve  date</th>
             <TH>TIME TAKEN</TH>
             <th>Actions</th>
           </tr>
@@ -120,6 +124,18 @@
                   <label for="descriptionInput" class="form-label">Description</label>
                   <textarea id="descriptionInput" class="form-control" [(ngModel)]="selectedMatable.Description" name="description"></textarea>
                 </div>
+                <select
+  id="assignToSelect"
+  class="form-select"
+  [(ngModel)]="selectedMatable.AssignTo"
+  name="assignTo"
+>
+
+  <option *ngFor="let dev of assignDevs" [value]="dev.DevName">
+    {{ dev.DevName }}
+  </option>
+</select>
+
                 <div class="mb-3">
                   <label for="statusSelect" class="form-label">Status</label>
                   <select id="statusSelect" class="form-select" [(ngModel)]="selectedMatable.StatusName" name="statusName">
@@ -157,9 +173,7 @@
           <button class="btn btn-outline-primary" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
             Previous
           </button>
-          &nbsp;
           <span>Page {{ currentPage }} of {{ totalPages }}</span>
-          &nbsp;
           <button class="btn btn-outline-primary" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
             Next
           </button>
