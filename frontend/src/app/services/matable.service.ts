@@ -13,13 +13,15 @@ export interface Matable {
   ImagePath: string;
   ImagePaths?: string[];
   LogTime: string;
-    
+  IssueDescription?: string;
   AssignTo?: string;
   Module?: string;
   ResolveDate:String;
   TakenTime?: string;
   data: Matable[];
   totalCount: number;
+  IssueTypeId?: number;  
+
 }
 
 @Injectable({

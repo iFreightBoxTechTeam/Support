@@ -1,43 +1,40 @@
-<!-- <h2>Assigned Developers</h2> -->
- <div class="navbar">
-  <ul class="nav-link">
-    <li><a routerLink="/Home" routerLinkActive="active-link">Home</a></li>
-    <li><a routerLink="/table" routerLinkActive="active-link">Table</a></li>
-    <li><a routerLink="/statuslog" routerLinkActive="active-link">Status Log</a></li>
-    <li><a routerLink="/assign-dev" routerLinkActive="active-link">assign-dev</a></li>
-  </ul>
 
   
   
     
-    <div class="button-group">
-      <app-export></app-export>
-      <button class="standard-button" routerLink="/add">
-        <i class="fa fa-plus"></i> Add New Matable
-      </button>
-    </div>
-  </div>
-
-
+    
+<app-header></app-header>
 <!-- Add Developer -->
-<input [(ngModel)]="newDev.devName" placeholder="Developer Name" />
+<input [(ngModel)]="newDev.DevName" placeholder="Developer Name" />
 <button (click)="addDev()">Add</button>
 
 <hr>
 
 <!-- List Developers -->
-<ul>
-  <li *ngFor="let dev of devs">
-    {{ dev.devName }}
-    <button (click)="editDev(dev)">Edit</button>
-    <button (click)="deleteDev(dev.id)">Delete</button>
-  </li>
-</ul>
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Developer Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dev of devs">
+      <td>{{ dev.Id }}</td>          <!-- Use dev.Id if your API sends "Id" -->
+      <td>{{ dev.DevName }}</td>    <!-- Use dev.DevName as per your API -->
+      <td>
+        <button (click)="editDev(dev)">Edit</button>
+        <button (click)="deleteDev(dev.Id)">Delete</button>  <!-- Make sure case matches -->
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- Edit Developer -->
 <div *ngIf="selectedDev">
   <h3>Edit Developer</h3>
-  <input [(ngModel)]="selectedDev.devName" />
+  <input [(ngModel)]="selectedDev.DevName" />
   <button (click)="updateDev()">Update</button>
   <button (click)="selectedDev = null">Cancel</button>
 </div>

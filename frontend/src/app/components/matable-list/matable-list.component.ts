@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AssignDev } from 'src/app/models/assign-dev.model';
+import { AssignDevService } from 'src/app/services/assign-dev.service';
 import { Matable, MatableService } from 'src/app/services/matable.service';
+import { IssueType, IssueTypeService } from 'src/app/services/issue-type.service';
 
 @Component({
   selector: 'app-matable-list',
@@ -13,17 +16,43 @@ export class MatableListComponent implements OnInit {
   pageSize: number = 10;
   totalPages: number = 0;
   imageUrl: string |null =null;
-  isComponentVisible = false;  // Initially the form is hidden
+  isComponentVisible = false; 
+   // Initially the form is hidden
+   assignDevs: AssignDev[] = [];
+   issueTypes: IssueType[] = [];
+   
+
 
   // Modal-related properties
   isEditModalVisible = false;
   selectedMatable: Matable | null = null;
   totalRecords: any;
 
-  constructor(private matableService: MatableService) {}
+  constructor(
+  private matableService: MatableService,
+  private issueTypeService: IssueTypeService ,
+  private assignDevService: AssignDevService
+) {}
 
   ngOnInit(): void {
     this.loadData();
+    this.assignDevService.getAll().subscribe({
+  next: (devs) => {
+    this.assignDevs = devs;
+    console.log('Developers loaded:', this.assignDevs);
+  },
+  error: (err) => {
+    console.error('Error loading developers:', err);
+  }
+});
+this.issueTypeService.getAll().subscribe({
+      next: (issues) => {
+        this.issueTypes = issues;
+      },
+      error: (err) => console.error('Error loading issue types:', err)
+    });
+  
+
   }
 
   // Toggle the visibility of the form component
@@ -35,6 +64,7 @@ export class MatableListComponent implements OnInit {
   onFormSubmitted() {
     this.isComponentVisible = false;
     this.loadData();
+    
   }
   // Load data from the API
 loadData() {
@@ -50,6 +80,7 @@ loadData() {
       }
     });
 }
+
 
  // Initially, the form is visible
     onImageSelected(url: string | null) {
@@ -166,17 +197,14 @@ onSearch(term: string) {
  saveChanges() {
   if (!this.selectedMatable) return;
 
-  console.log('UserId:', this.selectedMatable.UserId);
-   // Debug UserId
+  // Prepare payload according to API spec
+  const updatePayload = {
+    ...this.selectedMatable,
+    issue_type_id: this.selectedMatable.IssueTypeId,  // rename if needed
+  };
 
-  if (!this.selectedMatable.UserId) {
-    console.error('UserId is missing!');
-    return;
-  }
-
-  this.matableService.updateMatable(this.selectedMatable.UserId, this.selectedMatable).subscribe(
+  this.matableService.updateMatable(this.selectedMatable.UserId, updatePayload).subscribe(
     () => {
-      console.log('Matable updated successfully');
       this.loadData();
       this.closeEditModal();
     },

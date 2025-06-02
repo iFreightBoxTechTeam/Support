@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +26,10 @@ export class HeaderComponent implements OnInit {
     this.showAddButton = !this.router.url.includes('/statuslog');
   }
 
+  onSearch(term: string): void {
+    console.log('Search term:', term);
+    // Implement your search logic here
+  }
  
 
   showComponent(): void {

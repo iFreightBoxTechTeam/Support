@@ -12,6 +12,8 @@ namespace userproblem.Controllers
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString);
 
+        [HttpGet]
+        [Route("api/issuetype")]
         // GET api/issuetype
         public IEnumerable<IssueType> Get()
         {
@@ -37,7 +39,8 @@ namespace userproblem.Controllers
 
             return issueTypes;
         }
-
+        [HttpGet]
+        [Route("api/issuetype/{id}")]
         // GET api/issuetype/5
         public IssueType Get(int id)
         {
@@ -64,7 +67,8 @@ namespace userproblem.Controllers
 
             return issueType;
         }
-
+        [HttpPost]
+        [Route("api/issuetype")]
         // POST api/issuetype
         public IHttpActionResult Post([FromBody] IssueType issue)
         {
@@ -83,6 +87,8 @@ namespace userproblem.Controllers
         }
 
         // PUT api/issuetype/5
+        [HttpPut]
+        [Route("api/issuetype/{id}")]
         public IHttpActionResult Put(int id, [FromBody] IssueType issue)
         {
             if (issue == null || string.IsNullOrWhiteSpace(issue.Issue_Type))
@@ -99,6 +105,8 @@ namespace userproblem.Controllers
 
             return Ok("Issue type updated successfully.");
         }
+        [HttpDelete]
+        [Route("api/issuetype/{id}")]
 
         // DELETE api/issuetype/5
         public IHttpActionResult Delete(int id)
