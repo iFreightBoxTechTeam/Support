@@ -11,6 +11,8 @@ import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './pages/login/login.component';
 import { UserComponent } from './pages/user/user.component';
 import { AssignDevComponent } from './assign-dev/assign-dev.component';
+import { IssueTypeComponent } from './issue-type/issue-type.component';
+
 
 // import { ServiceComponent} from './services/service.component'
 
@@ -21,6 +23,7 @@ const routes: Routes = [
   { path: 'add', component: MatableFormComponent },
   { path: 'logs', component: StatusLogsComponent },
   { path: 'edit/:id', component: MatableFormComponent },
+  {path:'issues',component:IssueTypeComponent},
 
   // {path: 'Previous', component: PreviousComponent},
   // {path:'Next', component:NextComponent},

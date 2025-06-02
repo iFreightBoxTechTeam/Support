@@ -29,8 +29,10 @@
             <th>User ID</th>
             <th>Images</th>
 
-            <th>Assign to</th>
-            <th>Module</th>
+            <th>assign to</th>
+
+            <TH>IssueDescription</TH>
+            <th>module</th>
             <th>LogTime</th>
             <th>Resolve Date</th>
             <TH>Time Taken</TH>
@@ -57,6 +59,7 @@
             </td>
             
              <td>{{ matable.AssignTo }}</td>
+             <td>{{matable.IssueDescription}}</td>
               <td>{{ matable.Module }}</td>
               <td>{{ matable.LogTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
               <td>{{matable.ResolveDate}}</td>
@@ -109,6 +112,34 @@
                   <label for="descriptionInput" class="form-label">Description</label>
                   <textarea id="descriptionInput" class="form-control" [(ngModel)]="selectedMatable.Description" name="description"></textarea>
                 </div>
+                 <div class="mb-3">
+                  <label for="assignToSelect" class="form-label">Assign</label>
+                <select
+  id="assignToSelect"
+  class="form-select"
+  [(ngModel)]="selectedMatable.AssignTo"
+  name="assignTo"
+><option *ngFor="let dev of assignDevs" [value]="dev.DevName">Assign To
+    {{ dev.DevName }}
+  </option>
+</select>
+</div>
+
+<!-- Example snippet inside your modal form -->
+<div class="mb-3">
+  <label for="issueTypeSelect" class="form-label">Issue Type</label>
+  <select
+    id="issueTypeSelect"
+    class="form-select"
+    [(ngModel)]="selectedMatable.IssueTypeId" 
+  >
+    <option value="" disabled>Select Issue Type</option>
+    <option *ngFor="let issue of issueTypes" [value]="issue.Id">
+      {{ issue.Issue_Type }}
+    </option>
+  </select>
+</div>
+
                 <div class="mb-3">
                   <label for="statusSelect" class="form-label">Status</label>
                   <select id="statusSelect" class="form-select" [(ngModel)]="selectedMatable.StatusName" name="statusName">

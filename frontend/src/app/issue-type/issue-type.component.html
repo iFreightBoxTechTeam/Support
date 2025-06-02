@@ -1,0 +1,117 @@
+<div class="issue-types-container">
+  <h2>Issue Types</h2>
+
+  <!-- Add new issue type -->
+  <div class="add-issue-type">
+    <input
+      type="text"
+      [(ngModel)]="newIssueType"
+      placeholder="New issue type"
+      class="input-text"
+    />
+    <button (click)="addIssueType()" class="btn btn-primary" [disabled]="!newIssueType.trim()">
+      Add
+    </button>
+  </div>
+
+  <ul class="issue-types-list">
+    <li *ngFor="let issue of issueTypes" class="issue-item">
+      <ng-container *ngIf="selectedIssueType?.Id !== issue.Id; else editMode">
+        <span class="issue-text">{{ issue.Issue_Type }}</span>
+        <button (click)="edit(issue)" class="btn btn-secondary btn-sm">Edit</button>
+        <button (click)="deleteIssueType(issue.Id)" class="btn btn-danger btn-sm">Delete</button>
+      </ng-container>
+
+      <ng-template #editMode>
+        <input
+          [(ngModel)]="editIssueType"
+          type="text"
+          class="input-text edit-input"
+        />
+        <button (click)="updateIssueType()" class="btn btn-success btn-sm" [disabled]="!editIssueType.trim()">
+          Save
+        </button>
+        <button (click)="cancelEdit()" class="btn btn-warning btn-sm">
+          Cancel
+        </button>
+      </ng-template>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .issue-types-container {
+    max-width: 480px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .add-issue-type {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .input-text {
+    flex: 1;
+    padding: 0.4rem 0.6rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .issue-types-list {
+    list-style: none;
+    padding: 0;
+  }
+  .issue-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .issue-text {
+    flex: 1;
+    font-size: 1rem;
+  }
+  .edit-input {
+    flex: 1;
+  }
+  .btn {
+    cursor: pointer;
+    border: none;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    transition: background-color 0.2s ease;
+  }
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  .btn-primary:disabled {
+    background-color: #0a6fe4;
+    cursor: not-allowed;
+  }
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+  .btn-danger {
+    background-color: #3123f1;
+    color: white;
+  }
+  .btn-success {
+    background-color: #1474f1;
+    color: white;
+  }
+  .btn-warning {
+    background-color: #ffc107;
+    color: black;
+  }
+  .btn-sm {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.75rem;
+  }
+</style>
