@@ -6,7 +6,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
- @Output() showComponent = new EventEmitter();
+  @Output() showComponent = new EventEmitter();
+  showAddButton: any;
 
   emitEvent() {
     this.showComponent.emit();
