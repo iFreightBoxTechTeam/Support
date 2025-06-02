@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #fafafa; /* light gray */
+  background-color: #eeecec; /* light gray */
   padding: 10px 20px;
   width: 100%;
   box-sizing: border-box;
@@ -27,16 +27,17 @@
   color: #212529;
   text-decoration: none;
   font-weight: 600;
-  padding: 6px 10px;
-  border-radius: 4px;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
   transition: background-color 0.3s ease;
 }
 
 /* Active link styling */
 .nav-link li a.active-link,
 .nav-link li a:hover {
-  background-color: rgba(33, 37, 41, 0.1); /* subtle highlight */
+  background-color: rgba(49, 52, 56, 0.1); /* subtle highlight */
   color: #212529;
+  border-radius: 30px;
 }
 
 /* Right side container for search + buttons */
@@ -70,13 +71,13 @@
   background-color: #fafafa;
   color: #212529;
   border: none;
-  padding: 8px 14px;
+  padding: 3px 10px;
   font-weight: 600;
   border-radius: 4px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 2px;
   transition: background-color 0.3s ease;
 }
 
