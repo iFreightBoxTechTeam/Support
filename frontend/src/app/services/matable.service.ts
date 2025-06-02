@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 // ✅ Matable interface
 export interface Matable {
@@ -99,4 +99,12 @@ getMatables(page: number, pageSize: number, searchTerm: string = ''): Observable
   exportExcel(): Observable<Blob> {
     return this.http.get(this.exportUrl, { responseType: 'blob' });
   }
+  private searchTermSubject = new BehaviorSubject<string>('');
+  searchTerm$ = this.searchTermSubject.asObservable();  // for subscribing
+
+  setSearchTerm(term: string) {
+    this.searchTermSubject.next(term);  // for updating
+  }
+
+  
 }

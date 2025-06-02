@@ -54,6 +54,7 @@ this.issueTypeService.getAll().subscribe({
   
 
   }
+  
 
   // Toggle the visibility of the form component
   showComponent() {
@@ -203,15 +204,7 @@ onSearch(term: string) {
     issue_type_id: this.selectedMatable.IssueTypeId,  // rename if needed
   };
 
-  this.matableService.updateMatable(this.selectedMatable.UserId, updatePayload).subscribe(
-    () => {
-      this.loadData();
-      this.closeEditModal();
-    },
-    error => {
-      console.error('Error updating matable:', error);
-    }
-  );
+  
 }
 
 }
