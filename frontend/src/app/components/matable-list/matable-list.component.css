@@ -33,6 +33,7 @@ input[type="text"].form-control:focus {
   border-collapse: separate;
   border-spacing: 0 12px; /* space between rows */
   background: transparent;
+  padding: 10PX;
 }
 
 /* Remove all borders */
