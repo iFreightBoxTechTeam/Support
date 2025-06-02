@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgb(222, 216, 226); /* light gray */
+  background-color: rgb(232, 231, 233); /* light gray */
   padding: 10px 20px;
   width: 100%;
   box-sizing: border-box;
@@ -16,7 +16,7 @@
   list-style: none;
   display: flex;
   gap: 20px;
-  margin: 0;
+  margin: 15px;
   padding: 0;
   align-items: center;
   flex: 1; /* take remaining space */
@@ -36,7 +36,7 @@
 /* Active link styling */
 .nav-link li a.active-link,
 .nav-link li a:hover {
-  background-color: rgba(49, 52, 56, 0.1); /* subtle highlight */
+  background-color: rgba(97, 98, 100, 0.1); /* subtle highlight */
   color: #212529;
   border-radius: 30px;
 }

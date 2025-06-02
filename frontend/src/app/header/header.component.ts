@@ -14,24 +14,28 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // On route changes, check the URL and toggle the add button
+    const hideOnRoutes = ['/statuslog', '/assign-dev'];
+
+    // Subscribe to router events to react to route changes
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.showAddButton = !this.router.url.includes('/statuslog');
-        console.log('Current route:', this.router.url, 'Show button:', this.showAddButton);
+        const currentUrl = this.router.url;
+        this.showAddButton = !hideOnRoutes.includes(currentUrl);
+        console.log('Current route:', currentUrl, 'Show button:', this.showAddButton);
       });
 
-    // Initial check when component loads
-    this.showAddButton = !this.router.url.includes('/statuslog');
+    // Initial check
+    const currentUrl = this.router.url;
+    this.showAddButton = !hideOnRoutes.includes(currentUrl);
   }
 
   onSearch(term: string): void {
     console.log('Search term:', term);
-    // Implement your search logic here
+    // You can implement your actual search logic here if needed
   }
 
   showComponent(): void {
-    // Implement your logic here if needed
+    // Placeholder method for navigation or logic on Add button click
   }
 }

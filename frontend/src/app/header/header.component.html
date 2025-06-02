@@ -6,7 +6,7 @@
     <li><a routerLink="/assign-dev" routerLinkActive="active-link">Assign-Dev</a></li>
   </ul>
 
-  <div class="navbar-right">
+  <div class="navbar-right" *ngIf="showAddButton">
     <input
       type="text"
       placeholder="Search by name, status"
@@ -14,8 +14,8 @@
       (input)="onSearch(searchTerm)"
       class="form-control"
     />
-    
-    <div class="button-group" *ngIf="showAddButton">
+
+    <div class="button-group">
       <app-export></app-export>
       <button class="standard-button" routerLink="/add" (click)="showComponent()">
         <i class="fa fa-plus"></i> Add New Matable
