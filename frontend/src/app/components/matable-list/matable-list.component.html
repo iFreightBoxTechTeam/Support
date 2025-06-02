@@ -43,7 +43,14 @@
           <tr *ngFor="let matable of matables">
             <td>{{ matable.Name }}</td>
             <td>{{ matable.Description }}</td>
-            <td>{{ matable.StatusName }}</td>
+            <td [ngClass]="{
+  'text-danger': matable.StatusName === 'Pending',
+  'text-success': matable.StatusName === 'Solved',
+  'text-secondary': matable.StatusName === 'Work In Progress'
+}">
+  {{ matable.StatusName }}
+</td>
+
             <td>{{ matable.TenantCode }}</td>
             <td>{{ matable.UserId }}</td>
             <td>
