@@ -2,7 +2,10 @@
 
 <app-header></app-header>
 
+
+
 <div class="">
+
 
   <!-- Button to toggle the form visibility -->
 
@@ -41,6 +44,7 @@
             <th>Images</th>
 
             <th>assign to</th>
+
             <TH>IssueDescription</TH>
             <th>module</th>
             <th>LogTime</th>
@@ -131,6 +135,7 @@
   name="assignTo"
 >
 
+
   <option *ngFor="let dev of assignDevs" [value]="dev.DevName">Assign To
     {{ dev.DevName }}
   </option>
@@ -151,6 +156,12 @@
     </option>
   </select>
 </div>
+
+  <option *ngFor="let dev of assignDevs" [value]="dev.DevName">
+    {{ dev.DevName }}
+  </option>
+</select>
+
 
                 <div class="mb-3">
                   <label for="statusSelect" class="form-label">Status</label>
