@@ -7,6 +7,18 @@
   margin: 10px;
 }
 
+.status-pending {
+  color: red;
+}
+
+.status-solved {
+  color: green;
+}
+
+.status-wip {
+  color: gray;
+}
+
 /* Make table width 100% */
 .table {
   width: 100%;

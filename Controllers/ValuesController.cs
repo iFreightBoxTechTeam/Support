@@ -297,7 +297,7 @@ namespace WebApplication2.Controllers
                         cmd.Parameters.AddWithValue("@Name", masterTable.Name);
                         cmd.Parameters.AddWithValue("@TenantCode", masterTable.TenantCode);
                         cmd.Parameters.AddWithValue("@UserId", masterTable.UserId);
-
+                        cmd.Parameters.AddWithValue("@Module", masterTable.Module );
                         cmd.Parameters.AddWithValue("@IssueDescription", masterTable.IssueDescription);
 
 
