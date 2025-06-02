@@ -1,35 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
-  showAddButton: boolean = true;
-  searchTerm: string = '';
+export class HeaderComponent {
+ @Output() showComponent = new EventEmitter();
 
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {
-    // On route changes, check the URL and toggle the add button
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.showAddButton = !this.router.url.includes('/statuslog');
-        console.log('Current route:', this.router.url, 'Show button:', this.showAddButton);
-      });
-
-    // Initial check when component loads
-    this.showAddButton = !this.router.url.includes('/statuslog');
+  emitEvent() {
+    this.showComponent.emit();
   }
-
- 
-
-  showComponent(): void {
-    // Implement your logic here if needed
-  }
-
 }
