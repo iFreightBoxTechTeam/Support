@@ -57,23 +57,29 @@
   border: 1px solid #ccc;
 }
 
-
 .upload-img-close {
   position: absolute;
-  top: -8px;
-  right: -8px;
-  background: red;
-  color: white;
+  top: -6px;
+  right: -6px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  line-height: 20px;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  border: 1px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s ease-in-out;
 }
 
 .button-footer {
   margin-top: 30px;
+  margin-bottom: -10px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
