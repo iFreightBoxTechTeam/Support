@@ -1,52 +1,19 @@
-/* Container */
-.container {
-  max-width: 1200px;
-  margin: 30px auto;
-  padding: 0 15px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
-}
-
-/* Search Input */
-input[type="text"].form-control {
-  padding: 10px 15px;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s ease;
-}
-
-input[type="text"].form-control:focus {
-  outline: none;
-  border-color: #0d6efd;
-  box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
-}
-
-/* Table container for horizontal scrolling */
+/* Remove horizontal scroll */
 .table-responsive {
-  overflow-x: auto;
+  overflow-x: visible; /* or just remove this property */
 }
 
 .matable-list{
   margin: 10px;
 }
 
-/* Table Styles - No Borders */
+/* Make table width 100% */
 .table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 12px; /* space between rows */
   background: transparent;
-  padding: 10PX;
-}
-
-/* Remove all borders */
-.table th,
-.table td {
-  border: none !important;
-  padding: 12px 20px;
-  vertical-align: middle;
-  color: #444;
+  padding: 10px;
   font-size: 0.95rem;
 }
 
@@ -56,7 +23,7 @@ input[type="text"].form-control:focus {
 }
 
 .table thead th {
-  text-align: center;
+  text-align: left;
   font-weight: 600;
   padding-left: 0;
   padding-right: 0;
@@ -78,18 +45,10 @@ input[type="text"].form-control:focus {
   box-shadow: 0 6px 15px rgba(13, 110, 253, 0.2);
 }
 
-/* Table Cells - Remove side padding on first and last */
-.table tbody td:first-child {
-  padding-left: 25px;
-}
-
-.table tbody td:last-child {
-  padding-right: 25px;
-}
-
-/* Images */
+/* Optional: Reduce max-width for images so they don't overflow */
 .table tbody td img {
-  max-width: 100px;
+  max-width: 80px;
+  height: auto;
   border-radius: 8px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.12);
   margin-right: 6px;
@@ -206,10 +165,6 @@ td[data-label="Images"] ng-template {
   gap: 10px;
 }
 
-.pagination{
-  margin: 15px;
-}
-
 /* Close button */
 .btn-close {
   background: transparent;
@@ -240,30 +195,4 @@ textarea,
 select.form-select {
   width: 100%;
   padding: 8px 12px;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s ease;
-  resize: vertical;
-}
-
-input[type="text"]:focus,
-input[type="number"]:focus,
-textarea:focus,
-select.form-select:focus {
-  border-color: #0d6efd;
-  outline: none;
-  box-shadow: 0 0 6px rgba(13,110,253,0.4);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .table-responsive {
-    overflow-x: auto;
-  }
-
-  .modal-dialog {
-    width: 90%;
-    margin: 30px auto;
-  }
 }

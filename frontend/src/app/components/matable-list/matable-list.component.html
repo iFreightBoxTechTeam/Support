@@ -6,28 +6,20 @@
 
   <!-- Button to toggle the form visibility -->
 
- 
+  <!-- <div class="d-flex justify-content-end mb-2">
+    <button class="btn btn-primary" (click)="showComponent()">Add New Matable</button>
+  </div> -->
+
   <!-- changed here  -->
-<!-- 
-  <input
-    type="text"
-    placeholder="Search by name, description, or status"
-    [(ngModel)]="searchTerm"
-    (input)="onSearch(searchTerm)"
-    class="form-control mt-3"
-  /> -->
 
   <!-- Form Component: Only shown when isComponentVisible is true -->
   <app-matable-form *ngIf="isComponentVisible" (formSubmitted)="onFormSubmitted()"></app-matable-form>
 
   <div class="table-responsive">
-    <!-- <div class="export-container">
-      <app-export></app-export>
-    </div> -->
-
+ 
     <!-- Matable List Table (displaying the existing matables) -->
     <div class="matable-list">
-      <table class="table table-bordered">
+      <table class="table">
         <thead>
           <tr>
             <th>Name</th>
@@ -117,18 +109,6 @@
                   <label for="descriptionInput" class="form-label">Description</label>
                   <textarea id="descriptionInput" class="form-control" [(ngModel)]="selectedMatable.Description" name="description"></textarea>
                 </div>
-                <select
-  id="assignToSelect"
-  class="form-select"
-  [(ngModel)]="selectedMatable.AssignTo"
-  name="assignTo"
->
-
-  <option *ngFor="let dev of assignDevs" [value]="dev.DevName">
-    {{ dev.DevName }}
-  </option>
-</select>
-
                 <div class="mb-3">
                   <label for="statusSelect" class="form-label">Status</label>
                   <select id="statusSelect" class="form-select" [(ngModel)]="selectedMatable.StatusName" name="statusName">
@@ -166,7 +146,9 @@
           <button class="btn btn-outline-primary" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
             Previous
           </button>
+          &nbsp;
           <span>Page {{ currentPage }} of {{ totalPages }}</span>
+          &nbsp;
           <button class="btn btn-outline-primary" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
             Next
           </button>
