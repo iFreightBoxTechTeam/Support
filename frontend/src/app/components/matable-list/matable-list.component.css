@@ -53,12 +53,28 @@
   box-shadow: 0 1px 4px rgba(0,0,0,0.12);
   margin-right: 6px;
   vertical-align: middle;
+  text-align: center;
 }
 
 /* No image text style */
 td[data-label="Images"] ng-template {
   font-style: italic;
   color: #999;
+}
+
+.button-group{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem; /* spacing between buttons */
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.button-group button {
+  min-width: 100px;
+  flex: 1 1 auto; /* responsive sizing */
+  text-align: center;
 }
 
 /* Buttons in actions */

@@ -31,7 +31,7 @@
 
             <th>assign to</th>
 
-            <TH>IssueDescription</TH>
+            <th>IssueDescription</th>
             <th>module</th>
             <th>LogTime</th>
             <th>Resolve Date</th>
@@ -67,10 +67,12 @@
 
             <td>
               <!-- Edit and Delete buttons -->
-              <button class="btn btn-primary btn-sm ms-2" (click)="openEditModal(matable)">Edit</button>
-              <button class="btn btn-secondary btn-sm ms-2" (click)="deleteMatable(matable.UserId)">Delete</button>
-              <button class="btn btn-success btn-sm ms-2" (click)="onPrintMatable(matable.UserId)">Print</button>
-
+               <div class="button-group">
+                  <button class="btn btn-primary btn-sm ms-2" (click)="openEditModal(matable)">Edit</button>
+                  <button class="btn btn-secondary btn-sm ms-2" (click)="deleteMatable(matable.UserId)">Delete</button>
+                  <button class="btn btn-success btn-sm ms-2" (click)="onPrintMatable(matable.UserId)">Print</button>
+               </div>
+              
               <div id="obv_Print_Pick_Slip" style="display: none;">
                 <div *ngIf="printMatableData">
                   <h2>Matable Details</h2>
