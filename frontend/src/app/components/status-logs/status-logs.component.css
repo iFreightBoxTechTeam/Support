@@ -1,19 +1,65 @@
- .table th {
-      background-color: #3d8ad6a1;
-      color: white;
-      text-align: center;
-      vertical-align: middle;
-    }
-    .table td {
-      vertical-align: middle;
-      text-align: center;
-    }
-    .table-responsive {
-  position: relative;
-  padding-top: 30px; /* Space for the export button */
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: separate; /* Use separate to control borders */
+  border-spacing: 0;          /* No spacing between cells */
 }
 
+/* Table header styling */
+.table th {
+  background-color: rgb(119, 123, 200); /* #3d8ad6a1 */
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  padding: 12px 10px;
+  font-weight: 600;
+  border-bottom: 2px solid #3f2ab7;
+  border-left: none;    /* Remove left border */
+  border-right: none;   /* Remove right border */
+}
+
+/* Table data cells */
+.table td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 10px 8px;
+  border-top: 1px solid #dee2e6; /* Horizontal line only */
+  border-left: none;   /* Remove left border */
+  border-right: none;  /* Remove right border */
+  color: #212529;
+}
+
+/* Add bottom border to last row */
+.table tbody tr:last-child td {
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Container for table with export button */
 .table-responsive {
-  position: relative; /* anchor for absolute elements */
-  padding-top: 40px; /* ensures space for the button */
+  position: relative; /* anchor for absolutely positioned elements */
+  padding-top: 50px;  /* increased padding for export button */
+}
+
+/* Example style for export button container */
+.export-container {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  z-index: 10;
+}
+
+/* Optional: Style your export button */
+.export-container button {
+  background-color: #3d8ad6;
+  border: none;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.export-container button:hover {
+  background-color: #2a6bb7;
 }

@@ -1,117 +1,57 @@
-/* Navbar container: flex with space-between */
-.navbar {
+.center-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  background-color: #fafafa; /* light gray */
-  padding: 10px 20px;
-  width: 100%;
-  box-sizing: border-box;
-  color: #212529; /* dark gray */
-  flex-wrap: wrap; /* wrap on small screens */
-}
-
-/* Navigation links list on the left */
-.nav-link {
-  list-style: none;
-  display: flex;
   gap: 20px;
-  margin: 0;
-  padding: 0;
-  align-items: center;
-  flex: 1; /* take remaining space */
+  margin-top: 30px;
 }
 
-/* Each nav item */
-.nav-link li a {
-  color: #212529;
-  text-decoration: none;
-  font-weight: 600;
-  padding: 6px 10px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  min-width: 400px; /* optional */
 }
 
-/* Active link styling */
-.nav-link li a.active-link,
-.nav-link li a:hover {
-  background-color: rgba(33, 37, 41, 0.1); /* subtle highlight */
-  color: #212529;
+table th, table td {
+  padding: 8px 12px;
+  text-align: center;
 }
 
-/* Right side container for search + buttons */
-.navbar-right {
+table th {
+  background-color: rgb(119, 123, 200);
+  color: white;
+}
+.center-container {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: center; /* centers all child elements horizontally */
+  margin-top: 20px;
+  width: 100%;
 }
 
-/* Search input styling */
-.navbar-right input.form-control {
-  max-width: 250px;
-  border-radius: 4px;
-  border: none;
-  padding: 6px 10px;
+.input-center {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.input-center input {
+  width: 300px;
+  padding: 8px 12px;
   font-size: 1rem;
-  color: #212529;
 }
 
-/* Button group container */
-.button-group {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-radius: 4px;
-}
-
-/* Standard button style */
-.standard-button {
-  background-color: #fafafa;
-  color: #212529;
-  border: none;
+.input-center button {
   padding: 8px 14px;
-  font-weight: 600;
-  border-radius: 4px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: background-color 0.3s ease;
 }
 
-.standard-button:hover {
-  background-color: #e2e6ea;
-}
-
-/* FontAwesome icon spacing inside button */
-.standard-button i.fa {
-  font-size: 1rem;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .nav-link {
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 10px;
-    flex: unset;
-  }
-
-  .navbar-right {
-    width: 100%;
-    justify-content: flex-start;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .navbar-right input.form-control {
-    max-width: 100%;
-    flex-grow: 1;
-  }
+/* Optional: Center the table as well */
+table {
+  border-collapse: collapse;
+  width: 70%; /* or any desired width */
+  max-width: 800px;
+  text-align: center;
 }
