@@ -27,6 +27,10 @@ input[type="text"].form-control:focus {
   overflow-x: auto;
 }
 
+.matable-list{
+  margin: 10px;
+}
+
 /* Table Styles - No Borders */
 .table {
   width: 100%;
@@ -52,7 +56,7 @@ input[type="text"].form-control:focus {
 }
 
 .table thead th {
-  text-align: left;
+  text-align: center;
   font-weight: 600;
   padding-left: 0;
   padding-right: 0;
@@ -200,6 +204,10 @@ td[data-label="Images"] ng-template {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+}
+
+.pagination{
+  margin: 15px;
 }
 
 /* Close button */

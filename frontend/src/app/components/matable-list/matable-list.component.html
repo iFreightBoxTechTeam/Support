@@ -11,14 +11,14 @@
   </div> -->
 
   <!-- changed here  -->
-
+<!-- 
   <input
     type="text"
     placeholder="Search by name, description, or status"
     [(ngModel)]="searchTerm"
     (input)="onSearch(searchTerm)"
     class="form-control mt-3"
-  />
+  /> -->
 
   <!-- Form Component: Only shown when isComponentVisible is true -->
   <app-matable-form *ngIf="isComponentVisible" (formSubmitted)="onFormSubmitted()"></app-matable-form>
@@ -40,11 +40,11 @@
             <th>User ID</th>
             <th>Images</th>
 
-            <th>assign to</th>
-            <th>module</th>
+            <th>Assign to</th>
+            <th>Module</th>
             <th>LogTime</th>
-            <th>resolve  date</th>
-            <TH>TIME TAKEN</TH>
+            <th>Resolve Date</th>
+            <TH>Time Taken</TH>
             <th>Actions</th>
           </tr>
         </thead>
