@@ -38,9 +38,9 @@
           class="w-full px-4 py-2 rounded"
         />
        <div *ngIf="passwordRef.invalid && passwordRef.touched" class="text-red-300 text-sm mt-1">
-  <div *ngIf="passwordRef.errors?.['required']">Password is required.</div>
-  <div *ngIf="passwordRef.errors?.['minlength']">Password must be at least 6 characters.</div>
-</div>
+       <div *ngIf="passwordRef.errors?.['required']">Password is required.</div>
+       <div *ngIf="passwordRef.errors?.['minlength']">Password must be at least 6 characters.</div>
+      </div>
 
       </div>
 
