@@ -26,12 +26,10 @@ export class HeaderComponent implements OnInit {
     this.showAddButton = !this.router.url.includes('/statuslog');
   }
 
-  onSearch(term: string): void {
-    console.log('Search term:', term);
-    // Implement your search logic here
-  }
+ 
 
   showComponent(): void {
     // Implement your logic here if needed
   }
+
 }

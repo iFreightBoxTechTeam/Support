@@ -1,4 +1,23 @@
-<h2>Assigned Developers</h2>
+<!-- <h2>Assigned Developers</h2> -->
+ <div class="navbar">
+  <ul class="nav-link">
+    <li><a routerLink="/Home" routerLinkActive="active-link">Home</a></li>
+    <li><a routerLink="/table" routerLinkActive="active-link">Table</a></li>
+    <li><a routerLink="/statuslog" routerLinkActive="active-link">Status Log</a></li>
+    <li><a routerLink="/assign-dev" routerLinkActive="active-link">assign-dev</a></li>
+  </ul>
+
+  
+  
+    
+    <div class="button-group">
+      <app-export></app-export>
+      <button class="standard-button" routerLink="/add">
+        <i class="fa fa-plus"></i> Add New Matable
+      </button>
+    </div>
+  </div>
+
 
 <!-- Add Developer -->
 <input [(ngModel)]="newDev.devName" placeholder="Developer Name" />
