@@ -6,29 +6,33 @@
 }
 
 .export-btn {
-  background-color: #7eabd8;
+  background-color: #3d8ad6;
   color: white;
   border: none;
-  padding: 4px 8px;       /* Reduced height via smaller padding */
+  padding: 2px 6.5px;          /* Smaller padding */
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 12px;           /* Smaller text size (if there's any) */
   cursor: pointer;
   transition: background-color 0.3s ease;
-  line-height: 1;          /* Optional: tighten vertical spacing */
+  line-height: 1;            
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 28px;            /* Optional: explicitly control height */
-  width: 32px;   
-  margin-top: 10px;          /* Optional: fixed width for square shape */
+  height: 24px;              /* Reduced height */
+  width: 28px;               /* Adjust width to keep shape */
 }
 
 .export-btn i {
-  font-size: 12px;         /* Smaller icon if needed */
+  font-size: 10px;           /* Smaller icon */
 }
 
 .export-btn:hover {
   background-color: #2a6bb7;
+}
+
+
+.export-btn:hover {
+  background-color: #3f5369;
 }
 
 
