@@ -36,10 +36,9 @@ export class HeaderComponent implements OnInit {
     this.showAddButton = !hideOnRoutes.includes(currentUrl);
   }
 
-  onSearch(term: string): void {
-    console.log('Search term:', term);
-    // Implement your search logic here
-  }
+onSearch(term: string): void {
+  this.matableService.setSearchTerm(term);  // notify
+}
  
   loadData() {
   this.matableService.getMatables(this.currentPage, this.pageSize, this.searchTerm)
