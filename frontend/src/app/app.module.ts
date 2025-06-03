@@ -26,6 +26,8 @@ import { MultiImgIpComponent } from './components/multi-img-ip/multi-img-ip.comp
 import { DurationFormatPipe } from './duration-format.pipe';
 import { AssignDevComponent } from './assign-dev/assign-dev.component';
 import { IssueTypeComponent } from './issue-type/issue-type.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 const appRoute: Routes =[
@@ -63,6 +65,8 @@ const appRoute: Routes =[
     DurationFormatPipe,
     AssignDevComponent,
     IssueTypeComponent,
+    DashboardComponent,
+    NavbarComponent,
 
   ],
   imports: [
