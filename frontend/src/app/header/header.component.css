@@ -69,20 +69,24 @@
 
 /* Standard button style */
 /* Standard button style with reduced height */
+/* More compact standard button style */
 .standard-button {
   background-color: #fafafa;
   color: #212529;
   border: none;
-  padding: 4px 10px; /* reduced vertical padding */
-  font-weight: 600;
+  padding: 3px 8px;         /* reduced vertical and horizontal padding */
+  font-weight: 500;         /* slightly lighter */
   border-radius: 4px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.9rem; /* optional: slightly smaller text */
+  font-size: 0.85rem;       /* slightly smaller text */
+  line-height: 1.2;         /* tighter vertical spacing */
   transition: background-color 0.3s ease;
 }
+
+
 
 
 .standard-button:hover {
