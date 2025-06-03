@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
-// ✅ Matable interface
 export interface Matable {
   Id: number;
   Name: string;
@@ -16,12 +15,10 @@ export interface Matable {
   IssueDescription?: string;
   AssignTo?: string;
   Module?: string;
-  ResolveDate:String;
+  ResolveDate: string;
   TakenTime?: string;
-  data: Matable[];
   totalCount: number;
-  IssueTypeId?: number;  
-
+  IssueTypeId?: number;
 }
 
 @Injectable({
@@ -33,23 +30,27 @@ export class MatableService {
 
   constructor(private http: HttpClient) {}
 
-  // ✅ Get matables with pagination and optional search term
-getMatables(page: number, pageSize: number, searchTerm: string = ''): Observable<{ data: Matable[], totalCount: number }> {
-  let params = new HttpParams()
-    .set('page', page.toString())
-    .set('pageSize', pageSize.toString())
-    .set('searchTerm', searchTerm);
+  private searchTermSubject = new BehaviorSubject<string>('');
+  searchTerm$ = this.searchTermSubject.asObservable();
 
-  return this.http.get<{ TotalRecords: number, Page: number, PageSize: number, data: Matable[], Data: Matable[] }>(`${this.apiUrl}/search`, { params })
-    .pipe(
-      map(response => ({
-        data: response.Data,         // Your data array
-        totalCount: response.TotalRecords
-          // Total count mapped properly
-      }))
-    );
-}
+  setSearchTerm(term: string) {
+    this.searchTermSubject.next(term);
+  }
 
+  getMatables(page: number, pageSize: number, searchTerm: string = ''): Observable<{ data: Matable[], totalCount: number }> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString())
+      .set('searchTerm', searchTerm);
+
+    return this.http.get<{ TotalRecords: number, Page: number, PageSize: number, Data: Matable[] }>(`${this.apiUrl}/search`, { params })
+      .pipe(
+        map(response => ({
+          data: response.Data,
+          totalCount: response.TotalRecords
+        }))
+      );
+  }
 
   GetMatableByCustomerId(userId: number) {
     return this.http.get<Matable>(`https://localhost:44378/api/values/${userId}`);
@@ -99,12 +100,12 @@ getMatables(page: number, pageSize: number, searchTerm: string = ''): Observable
   exportExcel(): Observable<Blob> {
     return this.http.get(this.exportUrl, { responseType: 'blob' });
   }
-  private searchTermSubject = new BehaviorSubject<string>('');
-  searchTerm$ = this.searchTermSubject.asObservable();  // for subscribing
+  // private searchTermSubject = new BehaviorSubject<string>('');
+  // searchTerm$ = this.searchTermSubject.asObservable();  // for subscribing
 
-  setSearchTerm(term: string) {
-    this.searchTermSubject.next(term);  // for updating
-  }
+  // setSearchTerm(term: string) {
+  //   this.searchTermSubject.next(term);  // for updating
+  // }
 
   
 }

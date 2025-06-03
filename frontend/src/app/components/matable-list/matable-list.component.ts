@@ -35,6 +35,7 @@ export class MatableListComponent implements OnInit {
 ) {}
 
   ngOnInit(): void {
+    
     this.loadData();
     this.assignDevService.getAll().subscribe({
   next: (devs) => {
@@ -51,11 +52,33 @@ this.issueTypeService.getAll().subscribe({
       },
       error: (err) => console.error('Error loading issue types:', err)
     });
-  
+
+  this.matableService.searchTerm$.subscribe((term: string) => {
+    console.log('Received search term:', term); // ✅ debug point
+    this.currentPage = 1;
+    this.loadMatables(term);
+  });
+
+  // initial load
+
+
 
   }
-  
+  loadMatables(term: string = this.searchTerm): void {
+    this.searchTerm = term;  // ✅ update local searchTerm
 
+    this.matableService.getMatables(this.currentPage, this.pageSize, this.searchTerm).subscribe({
+      next: (response) => {
+        console.log('API Response:', response);
+        this.matables = response.data;
+        this.totalRecords = response.totalCount;
+        this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
+      },
+      error: (error) => {
+        console.error('Failed to load matables:', error);
+      }
+    });
+  }
   // Toggle the visibility of the form component
   showComponent() {
     this.isComponentVisible = !this.isComponentVisible;
