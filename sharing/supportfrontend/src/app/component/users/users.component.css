@@ -1,0 +1,140 @@
+.user-header-wrapper {
+  max-width: 900px;
+  margin: 60px auto 0;
+  padding: 0 10px;
+}
+
+.user-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.user-header .back-btn svg {
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.user-header .back-btn svg:hover {
+  transform: scale(1.1);
+}
+
+.user-header h1 {
+  font-size: xx-large;
+  font-weight: bold;
+  color: #1a2a6c;
+  margin: 0;
+  user-select: none;
+}
+
+.user-card {
+  background-color: #f5f3f3;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  padding: 25px 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.user-task {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.user-task button {
+  background-color: #1a2a6c;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.user-task button:hover {
+  background-color: #0f1b42;
+}
+
+.user-details {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+thead tr {
+  background-color: #4a578b;
+  color: white;
+  border-radius: 8px;
+}
+
+thead th {
+  padding: 10px 10px;
+  text-align: center;
+  font-weight: 700;
+  user-select: none;
+}
+
+tbody tr {
+  background-color: #f9f9f9;
+  transition: background-color 0.2s ease;
+  text-align: center;
+}
+
+tbody tr:hover {
+  background-color: #e3e9ff;
+}
+
+tbody td {
+  padding: 12px 15px;
+  vertical-align: middle;
+}
+
+button.edit-btn {
+  background-color: #4466f2;
+  border: none;
+  color: white;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: background-color 0.3s ease;
+}
+
+button.edit-btn:hover {
+  background-color: #2d48c3;
+}
+
+button.delete-btn {
+  background-color: #e64a4a;
+  border: none;
+  color: white;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: background-color 0.3s ease;
+  margin-left: 8px;
+}
+
+button.delete-btn:hover {
+  background-color: #b33131;
+}
