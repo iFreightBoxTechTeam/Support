@@ -41,10 +41,21 @@
         <td>{{ issue.module }}</td>
         <td>
           <div class="btn-group">
-            <button class="btn btn-sm btn-primary me-3" (click)="editIssue(issue.id)">
+            <button class="btn btn-sm btn-primary me-2" data-toggle="modal" data-target="#exampleModalLong" (click)="editIssue(issue.id)">
               <i class="fa fa-pencil"></i>
             </button>
-            <button class="btn btn-sm btn-danger me-3" (click)="deleteIssue(issue.id)">
+            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+     <app-issue></app-issue>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+            <button class="btn btn-sm btn-danger me-2" (click)="deleteIssue(issue.id)">
               <i class="fa fa-trash"></i>
             </button>
             <button class="btn btn-sm btn-info" (click)="viewLog(issue.id)">
