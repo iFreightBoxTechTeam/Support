@@ -5,6 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: './master.component.html',
   styleUrls: ['./master.component.css']
 })
+
+
 export class MasterComponent {
+  
 
 }
+  
