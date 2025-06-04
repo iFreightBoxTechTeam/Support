@@ -39,6 +39,9 @@ viewLog(id: number) {
 }
 
 onSearch(term: string) {}
+  tenant = {
+    user: 'TenantCode123' 
+  };
 
   
 }
