@@ -1,0 +1,29 @@
+/* Navbar styling */
+.navbar {
+  border-bottom: 1px solid #ddd;
+}
+
+.navbar .nav-link {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 0.25rem;
+}
+
+.navbar .nav-link:hover {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.navbar-brand img {
+  max-height: 75px;
+  width: auto;
+}
+
+/* Optional: Add a subtle shadow to the navbar */
+.navbar.shadow-sm {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Right-align the navigation links */
+.navbar-nav {
+  margin-left: auto;
+}
