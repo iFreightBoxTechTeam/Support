@@ -1,5 +1,9 @@
-﻿using System;
+﻿using support_webapi.Models;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -9,27 +13,182 @@ namespace support_webapi.Controllers
 {
     public class ValuesController : ApiController
     {
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString);
+
+
         // GET api/values
-        public IEnumerable<string> Get()
+        [HttpGet]
+        [Route("api/values")]
+        public IHttpActionResult GetAllIssues()
         {
-            return new string[] { "value1", "value2" };
+            List<IssueInsertRequest> issues = new List<IssueInsertRequest>();
+
+            try
+            {
+                
+
+                
+                using (SqlCommand cmd = new SqlCommand("sp_GetAllIssues", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            issues.Add(new IssueInsertRequest
+                            {
+                                IssueId = reader["issue_id"].ToString(),
+                                Users = reader["users"].ToString(),
+                                RaisedDate = Convert.ToDateTime(reader["raised_date"]),
+                                StatusName = reader["statusname"].ToString(),
+                                AssignTo = reader["assign_to"].ToString(),
+                                Description = reader["description"].ToString(),
+                                Module = reader["module"].ToString(),
+                                ImagePaths = reader["imagepaths"].ToString()
+                            });
+                        }
+                    }
+                }
+
+                return Ok(issues);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
+
 
         // GET api/values/5
-        public string Get(int id)
+        [HttpGet]
+        [Route("api/values/{issueId}")]
+        public IHttpActionResult GetIssueById(string issueId)
         {
-            return "value";
+            if (string.IsNullOrWhiteSpace(issueId))
+                return BadRequest("IssueId is required.");
+
+            IssueInsertRequest issue = null;
+
+            try
+            {
+           
+                using (SqlCommand cmd = new SqlCommand("sp_GetIssueById", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IssueId", issueId);
+
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            issue = new IssueInsertRequest
+                            {
+                                IssueId = reader["issue_id"].ToString(),
+                                Users = reader["users"].ToString(),
+                                RaisedDate = Convert.ToDateTime(reader["raised_date"]),
+                                StatusName = reader["statusname"].ToString(),
+                                AssignTo = reader["assign_to"].ToString(),
+                                Description = reader["description"].ToString(),
+                                Module = reader["module"].ToString(),
+                                ImagePaths = reader["imagepaths"].ToString()
+                            };
+                        }
+                    }
+                }
+
+                if (issue == null)
+                    return NotFound();
+
+                return Ok(issue);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
-        // POST api/values
-        public void Post([FromBody] string value)
+
+        [HttpPost]
+        public IHttpActionResult Post([FromBody] IssueInsertRequest request)
         {
+            if (request == null)
+                return BadRequest("Invalid data.");
+
+            try
+            {
+                
+
+                
+                using (SqlCommand cmd = new SqlCommand("sp_InsertIssue", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Users", request.Users);
+                   
+                    cmd.Parameters.AddWithValue("@Description", request.Description);
+                    cmd.Parameters.AddWithValue("@Module", request.Module);
+
+                    if (string.IsNullOrWhiteSpace(request.ImagePaths))
+                        cmd.Parameters.AddWithValue("@ImagePaths", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@ImagePaths", request.ImagePaths);
+
+                    conn.Open();
+                    var issueId = cmd.ExecuteScalar();
+
+                    return Ok(new { IssueId = issueId });
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
+
 
         // PUT api/values/5
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        [Route("api/values/{IssueId}")]
+        public IHttpActionResult UpdateIssue([FromBody] IssueInsertRequest request)
         {
+            if (request == null || string.IsNullOrWhiteSpace(request.IssueId))
+                return BadRequest("Invalid data or missing IssueId.");
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_UpdateIssue", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    
+                    
+                    
+                    cmd.Parameters.AddWithValue("@StatusName", request.StatusName);
+                    cmd.Parameters.AddWithValue("@AssignTo", request.AssignTo);
+                    cmd.Parameters.AddWithValue("@Description", request.Description);
+                    cmd.Parameters.AddWithValue("@Module", request.Module);
+                    cmd.Parameters.AddWithValue("@ImagePaths", request.ImagePaths ?? string.Empty);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+
+                return Ok("Issue updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
         }
+
 
         // DELETE api/values/5
         public void Delete(int id)

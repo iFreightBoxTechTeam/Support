@@ -1,54 +1,49 @@
-﻿using System.Web.Mvc;
-using System;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Web;
-using System.Web.UI;
+using System.Web.Mvc;
 using ClosedXML.Excel;
 
 namespace WebApplication2.Controllers
 {
     public class ExcelController : Controller
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            ExportDataToExcel();
-        }
-
-
+        // Route to: /api/excel/export
         [HttpGet]
         [Route("api/excel/export")]
-        private void ExportDataToExcel()
+        public void ExportDataToExcel()
         {
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["webapi"].ConnectionString;
-            ;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             using (SqlCommand cmd = new SqlCommand("sp_ExportMatableData", conn))
-            using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-
-                using (XLWorkbook wb = new XLWorkbook())
+                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                 {
-                    wb.Worksheets.Add(dt, "Matables");
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
 
-                    Response.Clear();
-                    Response.Buffer = true;
-                    Response.Charset = "";
-                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                    Response.AddHeader("content-disposition", "attachment;filename=MatableExport.xlsx");
-
-                    using (MemoryStream MyMemoryStream = new MemoryStream())
+                    using (XLWorkbook wb = new XLWorkbook())
                     {
-                        wb.SaveAs(MyMemoryStream);
-                        MyMemoryStream.WriteTo(Response.OutputStream);
-                        Response.Flush();
-                        Response.End();
+                        wb.Worksheets.Add(dt, "Matables");
+
+                        using (MemoryStream memoryStream = new MemoryStream())
+                        {
+                            wb.SaveAs(memoryStream);
+                            memoryStream.Position = 0;
+
+                            Response.Clear();
+                            Response.Buffer = true;
+                            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                            Response.AddHeader("content-disposition", "attachment;filename=MatableExport.xlsx");
+
+                            memoryStream.WriteTo(Response.OutputStream);
+                            Response.Flush();
+                            Response.End();
+                        }
                     }
                 }
             }
