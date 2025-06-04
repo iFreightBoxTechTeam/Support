@@ -5,16 +5,31 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MasterComponent } from './component/master/master.component';
 
+
+import { PaginationComponent } from './pagination/pagination.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { IssuseComponent } from './issuse/issuse.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { GearComponent } from './gear/gear.component';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
-    MasterComponent
+  
+    
+    PaginationComponent,
+    DashboardComponent,
+    IssuseComponent,
+    NavbarComponent,
+    GearComponent,
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule
+    BrowserModule,     // Required for browser support
+    AppRoutingModule,   // Handles routing if defined
+   FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent] // Bootstrap the root component
 })
 export class AppModule { }
