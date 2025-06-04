@@ -1,5 +1,5 @@
-<div class="search-wrapper mb-3" style="text-align: right; display: flex; justify-content: flex-end; align-items: center; gap: 20px;">
-  <h1 style="margin: 0;" justify-content: flex-start>Issues</h1>
+<div class="search-wrapper mb-3" style="display: flex; justify-content: space-between; align-items: center;">
+  <h1 style="margin: 0;">Issues</h1>
   <div style="position: relative; width: 300px;">
     <input
       type="text"
@@ -19,25 +19,23 @@
     <thead class="table-light">
       <tr>
         <th>Issue ID</th>
-        <th>Description</th>
         <th>User</th>
         <th>Tenant Code</th>
         <th>Raised Date</th>
         <th>Status</th>
-        <th>Assign To</th>
         <th>Module</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let issue of issues">
-        <td>{{ issue.id }}</td>
-        <td>{{ issue.description }}</td>
+       <td (click)="editIssue(issue.id)" data-toggle="modal" data-target="#exampleModalLong" style="cursor: pointer;">
+  {{ issue.id }}
+</td>
         <td>{{ issue.user }}</td>
         <td>{{ tenant.user }}</td>
         <td>{{ issue.raisedDate | date:'mediumDate' }}</td>
         <td>{{ issue.status }}</td>
-        <td>{{ issue.assignTo }}</td>
         <td>{{ issue.module }}</td>
         <td>
           <div class="btn-group">
