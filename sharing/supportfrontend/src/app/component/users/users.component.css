@@ -1,140 +1,156 @@
-.user-header-wrapper {
-  max-width: 900px;
-  margin: 60px auto 0;
-  padding: 0 10px;
-}
-
-.user-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.user-header .back-btn svg {
+.back-btn svg {
   width: 34px;
   height: 34px;
+  margin: 10px 20px;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
 
-.user-header .back-btn svg:hover {
-  transform: scale(1.1);
-}
-
-.user-header h1 {
-  font-size: xx-large;
-  font-weight: bold;
-  color: #1a2a6c;
-  margin: 0;
-  user-select: none;
-}
-
 .user-card {
-  background-color: #f5f3f3;
+  width: 95%;
+  max-width: 1200px;
+  margin: 5px auto;
+  padding: 10px 20px;
+  background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  padding: 25px 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Header Section */
 .user-task {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  gap: 10px;
 }
 
-.user-task button {
+.user-task h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  font-weight: 600;
+  color: #1a2a6c;
+}
+
+/* Add Button */
+.add-user-btn {
   background-color: #1a2a6c;
   color: white;
   border: none;
-  padding: 8px 14px;
+  padding: 10px 20px;
   border-radius: 6px;
   font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   transition: background-color 0.3s ease;
+  white-space: nowrap;
 }
 
-.user-task button:hover {
+.add-user-btn:hover {
   background-color: #0f1b42;
 }
 
+/* Table Styles */
 .user-details {
   overflow-x: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
 }
 
 table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 10px;
+  border-collapse: collapse;
+  background-color: #fdfdfd;
 }
 
 thead tr {
-  background-color: #4a578b;
+  background-color: #1a2a6c;
   color: white;
-  border-radius: 8px;
+}
+
+thead th, tbody td {
+  padding: 14px 16px;
+  text-align: center;
+  font-size: 0.95rem;
 }
 
 thead th {
-  padding: 10px 10px;
-  text-align: center;
-  font-weight: 700;
-  user-select: none;
+  font-weight: 600;
 }
 
 tbody tr {
-  background-color: #f9f9f9;
+  border-bottom: 1px solid #e0e0e0;
   transition: background-color 0.2s ease;
-  text-align: center;
 }
 
 tbody tr:hover {
-  background-color: #e3e9ff;
+  background-color: #f4f6ff;
 }
 
 tbody td {
-  padding: 12px 15px;
-  vertical-align: middle;
+  color: #333;
 }
 
-button.edit-btn {
-  background-color: #4466f2;
-  border: none;
-  color: white;
-  padding: 4px 10px;
+/* Action Buttons */
+.edit-btn,
+.delete-btn {
+  padding: 6px 10px;
   font-size: 0.85rem;
   border-radius: 6px;
+  border: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
   transition: background-color 0.3s ease;
+  white-space: nowrap;
 }
 
-button.edit-btn:hover {
+.edit-btn {
+  background-color: #4466f2;
+  color: white;
+}
+
+.edit-btn:hover {
   background-color: #2d48c3;
 }
 
-button.delete-btn {
+.delete-btn {
   background-color: #e64a4a;
-  border: none;
   color: white;
-  padding: 4px 10px;
-  font-size: 0.85rem;
-  border-radius: 6px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  transition: background-color 0.3s ease;
   margin-left: 8px;
 }
 
-button.delete-btn:hover {
+.delete-btn:hover {
   background-color: #b33131;
+}
+
+button i.fa {
+  font-size: 1rem;
+}
+
+/* ✅ Responsive Fixes */
+@media (max-width: 576px) {
+  .user-task {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-user-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .edit-btn, .delete-btn {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+  }
+
+  tbody td {
+    font-size: 0.85rem;
+  }
 }
