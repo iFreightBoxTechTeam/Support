@@ -25,9 +25,9 @@ namespace support_webapi.Controllers
 
             try
             {
-                
 
-                
+
+
                 using (SqlCommand cmd = new SqlCommand("sp_GetAllIssues", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -73,7 +73,7 @@ namespace support_webapi.Controllers
 
             try
             {
-           
+
                 using (SqlCommand cmd = new SqlCommand("sp_GetIssueById", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -112,6 +112,7 @@ namespace support_webapi.Controllers
 
 
         [HttpPost]
+        [Route("api/values")]
         public IHttpActionResult Post([FromBody] IssueInsertRequest request)
         {
             if (request == null)
@@ -119,15 +120,15 @@ namespace support_webapi.Controllers
 
             try
             {
-                
 
-                
+
+
                 using (SqlCommand cmd = new SqlCommand("sp_InsertIssue", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@Users", request.Users);
-                   
+
                     cmd.Parameters.AddWithValue("@Description", request.Description);
                     cmd.Parameters.AddWithValue("@Module", request.Module);
 
@@ -150,12 +151,13 @@ namespace support_webapi.Controllers
 
 
         // PUT api/values/5
+        // PUT api/values/{issueId}
         [HttpPut]
-        [Route("api/values/{IssueId}")]
-        public IHttpActionResult UpdateIssue([FromBody] IssueInsertRequest request)
+        [Route("api/values/{issueId}")]
+        public IHttpActionResult Put(string issueId, [FromBody] IssueInsertRequest request)
         {
-            if (request == null || string.IsNullOrWhiteSpace(request.IssueId))
-                return BadRequest("Invalid data or missing IssueId.");
+            if (string.IsNullOrWhiteSpace(issueId) || request == null)
+                return BadRequest("Invalid input data.");
 
             try
             {
@@ -163,14 +165,14 @@ namespace support_webapi.Controllers
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    
-                    
-                    
-                    cmd.Parameters.AddWithValue("@StatusName", request.StatusName);
-                    cmd.Parameters.AddWithValue("@AssignTo", request.AssignTo);
-                    cmd.Parameters.AddWithValue("@Description", request.Description);
-                    cmd.Parameters.AddWithValue("@Module", request.Module);
-                    cmd.Parameters.AddWithValue("@ImagePaths", request.ImagePaths ?? string.Empty);
+                    cmd.Parameters.AddWithValue("@IssueId", issueId);
+                    cmd.Parameters.AddWithValue("@Users", request.Users ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@RaisedDate", request.RaisedDate == DateTime.MinValue ? (object)DBNull.Value : request.RaisedDate);
+                    cmd.Parameters.AddWithValue("@StatusName", request.StatusName ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@AssignTo", request.AssignTo ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Description", request.Description ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Module", request.Module ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ImagePaths", string.IsNullOrWhiteSpace(request.ImagePaths) ? (object)DBNull.Value : request.ImagePaths);
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -190,9 +192,39 @@ namespace support_webapi.Controllers
         }
 
 
-        // DELETE api/values/5
-        public void Delete(int id)
+
+        [HttpDelete]
+        [Route("api/values/{issueId}")]
+        public IHttpActionResult Delete(string issueId)
         {
+            if (string.IsNullOrWhiteSpace(issueId))
+                return BadRequest("IssueId is required.");
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_DeleteIssue", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IssueId", issueId);
+
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    
+                }
+                return Ok("Issue deleted  successfully.");
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
         }
+
     }
 }
