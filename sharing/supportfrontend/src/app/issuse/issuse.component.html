@@ -8,7 +8,6 @@
       (input)="onSearch(searchTerm)"
       class="form-control"
     />
-   
   </div>
 </div>
 
@@ -20,10 +19,10 @@
         <th>Issue ID</th>
         <th>Description</th>
         <th>User</th>
+        <th>Tenant Code</th>
         <th>Raised Date</th>
         <th>Status</th>
         <th>Assign To</th>
-        <th>Image</th>
         <th>Module</th>
         <th>Action</th>
       </tr>
@@ -33,19 +32,17 @@
         <td>{{ issue.id }}</td>
         <td>{{ issue.description }}</td>
         <td>{{ issue.user }}</td>
+        <td>{{ tenant.user }}</td>
         <td>{{ issue.raisedDate | date:'mediumDate' }}</td>
         <td>{{ issue.status }}</td>
         <td>{{ issue.assignTo }}</td>
-        <td>
-          <img [src]="issue.imageUrl" alt="Issue Image" width="50" height="50" />
-        </td>
         <td>{{ issue.module }}</td>
         <td>
           <div class="btn-group">
-            <button class="btn btn-sm btn-primary me-2" (click)="editIssue(issue.id)">
+            <button class="btn btn-sm btn-primary me-3" (click)="editIssue(issue.id)">
               <i class="fa fa-pencil"></i>
             </button>
-            <button class="btn btn-sm btn-danger me-2" (click)="deleteIssue(issue.id)">
+            <button class="btn btn-sm btn-danger me-3" (click)="deleteIssue(issue.id)">
               <i class="fa fa-trash"></i>
             </button>
             <button class="btn btn-sm btn-info" (click)="viewLog(issue.id)">

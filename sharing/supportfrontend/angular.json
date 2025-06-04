@@ -48,13 +48,19 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
-            }
+  "buildOptimizer": false,
+  "optimization": false,
+  "vendorChunk": true,
+  "extractLicenses": false,
+  "sourceMap": true,
+  "namedChunks": true,
+  "styles": [
+    "node_modules/bootstrap/dist/css/bootstrap.min.css",
+    "src/styles.css",
+    "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+  ]
+}
+
           },
           "defaultConfiguration": "production"
         },
