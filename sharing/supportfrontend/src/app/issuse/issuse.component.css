@@ -1,27 +1,25 @@
-/* src/app/issues/issues.component.css */
-
-/* Search input styling */
-.search-wrapper {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  width: 100%;
-}
-.search-wrapper {
-  display: flex;
-  justify-content: flex-start;
-}
-
 .search-input {
-  width: 20%;
+  padding-left: 30px; /* space for icon on left */
+  width: 100%;
+  box-sizing: border-box;
 }
-
-
-
 
 .search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   color: #aaa;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
+
+/* Hide icon when user types */
+.search-input:not(:placeholder-shown) + .search-icon {
+  opacity: 0;
+}
+
+
 
 /* Table styling */
 .table-responsive {
