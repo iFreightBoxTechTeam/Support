@@ -8,14 +8,17 @@ import { Component } from '@angular/core';
 export class IssuseComponent {
   
  searchTerm: string = '';
+
+ 
  issues = [
   {
     id: 101,
     user: 'Alice',
-    raisedDate: new Date('2025-06-01'),
+    raisedDate: new Date('2025-06-01T14:30:00'),
     status: '',
     module: ''
   },
+  
   {
     id: 102,
     user: 'Priya',
@@ -325,6 +328,9 @@ export class IssuseComponent {
   },
 
 ];
+
+
+
 showAddButton: any;
 
 editIssue(id: number) {
@@ -346,7 +352,8 @@ onSearch(term: string) {}
   tenant = {
     user: 'TenantCode123' 
   };
-
+  
+ 
   
 }
 
