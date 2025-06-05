@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./status.component.css']
 })
 export class StatusComponent {
-  showStatusModal = true; // Set to true for initial testing (set false to hide initially)
+  showStatusModal = true; 
 
   statusTypes = [
     { id: 101, type: 'Open' },

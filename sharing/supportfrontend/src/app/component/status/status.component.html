@@ -2,10 +2,8 @@
   <div class="modal-content">
     <span class="close-modal" (click)="closeStatusModal()">&times;</span>
 
-    <!-- Status Type Container -->
     <div class="status-type">
 
-      <!-- Header: Heading + Input + Add Button -->
       <div class="status-type-header">
         <h2>Status</h2>
         <input type="text" class="status-add" [(ngModel)]="newStatusType" placeholder="Enter Status Type" />
@@ -14,7 +12,6 @@
         </button>
       </div>
 
-      <!-- Table showing Statuss -->
       <div class="status-table">
         <table>
           <thead>
@@ -44,3 +41,4 @@
     </div>
   </div>
 </div>
+
