@@ -16,8 +16,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { GearComponent } from './gear/gear.component';
 import { ViewComponent } from './component/view/view.component';
 import { ViewTableComponent } from './component/view-table/view-table.component';
-
-
+import { MasterCompoComponent } from './component/master-compo/master-compo.component';
+import { UsersComponent } from './component/users/users.component';
+import { IssueTypeComponent } from './component/issue-type/issue-type.component';
+import { StatusComponent } from './component/status/status.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +33,15 @@ import { ViewTableComponent } from './component/view-table/view-table.component'
     IssueComponent,
     ViewComponent,
     ViewTableComponent,
-   
-      // ✅ Make sure this is declared here
+    MasterCompoComponent,
+    UsersComponent,
+    IssueTypeComponent,
+    StatusComponent
+      
   ],
   imports: [
     BrowserModule,
-    FormsModule,     // ✅ Required for ngModel
+    FormsModule,    
     AppRoutingModule,
         RouterModule
   ],
