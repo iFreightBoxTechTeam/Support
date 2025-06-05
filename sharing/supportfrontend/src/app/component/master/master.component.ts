@@ -8,7 +8,15 @@ import { Component } from '@angular/core';
 
 
 export class MasterComponent {
-  
+  showIssueModal = false;
 
+  openIssueModal(event: Event): void {
+    event.preventDefault(); // Prevent actual navigation
+    this.showIssueModal = true;
+  }
+
+  closeIssueModal(): void {
+    this.showIssueModal = false;
+  }
 }
   
