@@ -15,6 +15,7 @@
     <table>
       <thead>
         <tr>
+          <th>Id</th>
           <th>Name</th>
           <th>Mobile</th>
           <th>Email</th>
@@ -23,86 +24,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Riddhi Gonji</td>
-          <td>7896457896</td>
-          <td>riddhi2gmail.com</td>
-          <td>Panvel</td>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.mobile }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.address }}</td>
           <td>
-            <button class="edit-btn" title="Edit">
-              <i class="fa fa-pencil"></i>
-                </button>
-            <button class="delete-btn" title="Delete">
-              <i class="fa fa-trash"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Vijaya Chikane</td>
-          <td>9875647854</td>
-          <td>vijaya@gmail.com</td>
-          <td>Thane</td>
-          <td>
-            <button class="edit-btn" title="Edit">
+            <button class="edit-btn" (click)="editStatus(user.id)" title="Edit">
               <i class="fa fa-pencil"></i>
             </button>
-            <button class="delete-btn" title="Delete">
-              <i class="fa fa-trash"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Parul Mishra</td>
-          <td>7854698754</td>
-          <td>shreya@gmail.com</td>
-          <td>Nala Sopara</td>
-          <td>
-            <button class="edit-btn" title="Edit">
-              <i class="fa fa-pencil"></i>
-            </button>
-            <button class="delete-btn" title="Delete">
-              <i class="fa fa-trash"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Aaditya</td>
-          <td>9654789444</td>
-          <td>aaditya@gmail.com</td>
-          <td>Borivali</td>
-          <td>
-            <button class="edit-btn" title="Edit">
-              <i class="fa fa-pencil"></i>
-            </button>
-            <button class="delete-btn" title="Delete">
-              <i class="fa fa-trash"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Vijaya Lakshmi</td>
-          <td>7896845325</td>
-          <td>Vijayalakshmi@gmail.com</td>
-          <td>Goregaon</td>
-          <td>
-            <button class="edit-btn" title="Edit">
-              <i class="fa fa-pencil"></i>
-            </button>
-            <button class="delete-btn" title="Delete">
-              <i class="fa fa-trash"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Priya</td>
-          <td>9785412236</td>
-          <td>priya@gmail.com</td>
-          <td>Mira Road</td>
-          <td>
-            <button class="edit-btn" title="Edit">
-              <i class="fa fa-pencil"></i>
-            </button>
-            <button class="delete-btn" title="Delete">
+            <button class="delete-btn" (click)="deleteStatus(user.id)" title="Delete">
               <i class="fa fa-trash"></i>
             </button>
           </td>
