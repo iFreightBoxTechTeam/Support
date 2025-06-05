@@ -1,0 +1,156 @@
+.back-btn svg {
+  width: 34px;
+  height: 34px;
+  margin: 10px 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.user-card {
+  width: 95%;
+  max-width: 1200px;
+  margin: 5px auto;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header Section */
+.user-task {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  gap: 10px;
+}
+
+.user-task h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  font-weight: 600;
+  color: #1a2a6c;
+}
+
+/* Add Button */
+.add-user-btn {
+  background-color: #1a2a6c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.add-user-btn:hover {
+  background-color: #0f1b42;
+}
+
+/* Table Styles */
+.user-details {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fdfdfd;
+}
+
+thead tr {
+  background-color: #1a2a6c;
+  color: white;
+}
+
+thead th, tbody td {
+  padding: 14px 16px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+thead th {
+  font-weight: 600;
+}
+
+tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+  background-color: #f4f6ff;
+}
+
+tbody td {
+  color: #333;
+}
+
+/* Action Buttons */
+.edit-btn,
+.delete-btn {
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.edit-btn {
+  background-color: #4466f2;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #2d48c3;
+}
+
+.delete-btn {
+  background-color: #e64a4a;
+  color: white;
+  margin-left: 8px;
+}
+
+.delete-btn:hover {
+  background-color: #b33131;
+}
+
+button i.fa {
+  font-size: 1rem;
+}
+
+/* ✅ Responsive Fixes */
+@media (max-width: 576px) {
+  .user-task {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-user-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .edit-btn, .delete-btn {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+  }
+
+  tbody td {
+    font-size: 0.85rem;
+  }
+}

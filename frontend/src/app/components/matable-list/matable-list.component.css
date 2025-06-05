@@ -59,14 +59,14 @@ input[type="text"].form-control:focus {
   background-color: transparent;
 }
 
-.table thead th {
+/* .table thead th {
   text-align: center;
   font-weight: 600;
   padding-left: 0;
   padding-right: 0;
   color:white;
   background-color: rgb(119, 123, 200);
-}
+} */
 
 /* Table Body Rows - Card-like style */
 .table tbody tr {

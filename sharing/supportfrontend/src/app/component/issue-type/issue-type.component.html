@@ -1,0 +1,46 @@
+<div class="custom-modal" *ngIf="showIssueModal">
+  <div class="modal-content">
+    <span class="close-modal" (click)="closeIssueModal()">&times;</span>
+
+    <!-- Issue Type Container -->
+    <div class="issue-type">
+
+      <!-- Header: Heading + Input + Add Button -->
+      <div class="issue-type-header">
+        <h2>Issue Type</h2>
+        <input type="text" class="issue-add" [(ngModel)]="newIssueType" placeholder="Enter Issue Type" />
+        <button class="add-btn" (click)="addIssueBtn()" title="Add Issue">
+          <i class="fa fa-plus"></i> Add
+        </button>
+      </div>
+
+      <!-- Table showing issues -->
+      <div class="issue-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Type</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let issue of issueTypes">
+              <td>{{ issue.id }}</td>
+              <td>{{ issue.type }}</td>
+              <td>
+                <button class="edit-btn" (click)="editIssue(issue.id)" title="Edit">
+                  <i class="fa fa-pencil"></i>
+                </button>
+                <button class="delete-btn" (click)="deleteIssue(issue.id)" title="Delete">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
