@@ -19,6 +19,7 @@ import { MasterCompoComponent } from './component/master-compo/master-compo.comp
 import { UsersComponent } from './component/users/users.component';
 import { IssueTypeComponent } from './component/issue-type/issue-type.component';
 import { StatusComponent } from './component/status/status.component';
+import { NavMainComponent } from './nav-main/nav-main.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { StatusComponent } from './component/status/status.component';
     MasterCompoComponent,
     UsersComponent,
     IssueTypeComponent,
-    StatusComponent
+    StatusComponent,
+    NavMainComponent
       
   ],
   imports: [
