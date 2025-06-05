@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +15,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { GearComponent } from './gear/gear.component';
 import { ViewComponent } from './component/view/view.component';
 import { ViewTableComponent } from './component/view-table/view-table.component';
+import { StatusComponent } from './component/status/status.component';
+import { MasterCompoComponent } from './component/master-compo/master-compo.component';
+import { IssueTypeComponent } from './component/issue-type/issue-type.component';
 
 
 
@@ -31,6 +33,10 @@ import { ViewTableComponent } from './component/view-table/view-table.component'
     IssueComponent,
     ViewComponent,
     ViewTableComponent,
+    StatusComponent,
+    MasterCompoComponent,
+    IssueTypeComponent
+    
    
       // ✅ Make sure this is declared here
   ],
@@ -38,7 +44,7 @@ import { ViewTableComponent } from './component/view-table/view-table.component'
     BrowserModule,
     FormsModule,     // ✅ Required for ngModel
     AppRoutingModule,
-        RouterModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
