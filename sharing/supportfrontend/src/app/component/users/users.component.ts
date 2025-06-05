@@ -12,4 +12,5 @@ export class UsersComponent {
   goToMasters() {
     this.router.navigate(['/mastercompo']); 
   }
+
 }

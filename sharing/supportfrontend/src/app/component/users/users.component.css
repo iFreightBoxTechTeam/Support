@@ -30,7 +30,7 @@
 .user-task h1 {
   font-size: 1.8rem;
   margin: 0;
-  font-weight: 600;
+  font-weight: bold;
   color: #1a2a6c;
 }
 
@@ -87,7 +87,7 @@ tbody tr {
 }
 
 tbody tr:hover {
-  background-color: #f4f6ff;
+  background-color: #e6e8f1;
 }
 
 tbody td {
