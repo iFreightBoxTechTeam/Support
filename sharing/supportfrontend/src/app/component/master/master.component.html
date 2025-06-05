@@ -1,28 +1,20 @@
-<div class="section-heading">
-  <div class="heading">
-    <img src="assets/images/icon1.png" alt="list_icon" class="icon1"> 
-    <h2>Masters</h2>
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <app-issue></app-issue>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
   </div>
-  <ul class="master-subcategory">
-    <li class="subcategory-item">
-      <a [routerLink]="'/users'" class="subcategory-link">
-        <i class="fa-solid fa-users"></i>
-        <h4>Users</h4>
-      </a>
-    </li>
-    <li class="subcategory-item">
-      <a [routerLink]="'/status'" class="subcategory-link">
-        <i class="fa-solid fa-spinner"></i>
-        <h4>Status</h4>
-      </a>
-    </li>
-    <li class="subcategory-item">
-      <a [routerLink]="'/issue-type'" class="subcategory-link">
-        <i class="fa-solid fa-bug"></i>
-        <h4>Issue Type</h4>
-      </a>
-    </li>
-  </ul>
 </div>
-
-
