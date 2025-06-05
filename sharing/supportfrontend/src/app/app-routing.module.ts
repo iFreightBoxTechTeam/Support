@@ -11,18 +11,11 @@ import { IssueTypeComponent } from './component/issue-type/issue-type.component'
 import { StatusComponent } from './component/status/status.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+    { path: '', component:DashboardComponent},
   { path: 'dashboard', component: DashboardComponent },
   { path: 'issues', component: IssuseComponent },
-  {
-    path:'issue',
-    component: IssueComponent
-  },
-  {
-    path:'master',
-    component: MasterComponent
-  },
-
+  { path:'issue',component: IssueComponent},
+  {path:'master',component: MasterComponent},
   {path:'gear', component:GearComponent},
   {path:'mastercompo', component: MasterCompoComponent},
   {path:'users', component: UsersComponent},

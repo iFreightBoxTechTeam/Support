@@ -53,7 +53,8 @@
   transition: opacity 0.3s ease;
 }
 
-/* Hide search icon when typing */
+/* Hide search icon when input is focused or not empty */
+.search-input:focus ~ .search-icon,
 .search-input:not(:placeholder-shown) ~ .search-icon {
   opacity: 0;
 }
@@ -62,7 +63,7 @@
 .table {
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0 12px;
+  border-spacing: 0 12px; /* space between rows */
   background: transparent;
   font-size: 0.95rem;
 }
@@ -78,7 +79,7 @@
 
 .table tbody tr {
   background-color: #fff;
-  transition: 0.3s ease;
+  transition: background-color 0.3s ease;
   cursor: pointer;
 }
 
@@ -86,13 +87,31 @@
   background-color: #f1f1f1;
 }
 
+/* Buttons in btn-group */
 .btn-group .btn {
-  margin-right: 4px;
+  padding: 4px 8px;
+  min-width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 0.875rem; /* changed to rem for better scalability */
+  cursor: pointer;
+  border: none; /* Add if you want cleaner buttons, or style as needed */
 }
 
-/* Modal Sizing */
-.custom-modal {
+/* SVG icon inside buttons */
+.btn-group .btn svg {
+  width: 18px;
+  height: 18px;
+  /* stroke-width: 1.5;  Optional: Adjust if SVGs need consistent stroke */
+}
+
+/* Modal sizing */
+.custom-modal .modal-dialog {
   max-width: 450px;
+  margin: 1.75rem auto;
 }
 
 .modal-content {
