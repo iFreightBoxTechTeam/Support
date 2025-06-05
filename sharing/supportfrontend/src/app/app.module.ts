@@ -14,7 +14,7 @@ import { IssuseComponent } from './issuse/issuse.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { GearComponent } from './gear/gear.component';
 import { ViewComponent } from './component/view/view.component';
-import { ViewTableComponent } from './component/view-table/view-table.component';
+
 import { MasterCompoComponent } from './component/master-compo/master-compo.component';
 import { UsersComponent } from './component/users/users.component';
 import { IssueTypeComponent } from './component/issue-type/issue-type.component';
@@ -31,7 +31,7 @@ import { StatusComponent } from './component/status/status.component';
     GearComponent,
     IssueComponent,
     ViewComponent,
-    ViewTableComponent,
+ 
     MasterCompoComponent,
     UsersComponent,
     IssueTypeComponent,
