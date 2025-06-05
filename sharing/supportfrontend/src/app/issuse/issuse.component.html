@@ -1,16 +1,16 @@
-<div class="search-wrapper mb-3" style="display: flex; justify-content: space-between; align-items: center;">
-  <h1 style="margin: 0;">Issues</h1>
-  <div style="position: relative; width: 300px;">
+<div class="search-wrapper">
+  <h1>Issues</h1>
+  <div>
     <input
       type="text"
+      class="search-input"
       placeholder="Search by name, status"
       [(ngModel)]="searchTerm"
       (input)="onSearch(searchTerm)"
-      class="form-control search-input"
     />
-    <i class="fa fa-search search-icon"></i>
   </div>
 </div>
+
 
 
 <!-- Table -->
@@ -34,7 +34,8 @@
 </td>
         <td>{{ issue.user }}</td>
         <td>{{ tenant.user }}</td>
-        <td>{{ issue.raisedDate | date:'mediumDate' }}</td>
+        <td>
+  {{ issue.raisedDate | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
         <td>{{ issue.status }}</td>
         <td>{{ issue.module }}</td>
         <td>

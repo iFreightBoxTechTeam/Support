@@ -1,29 +1,82 @@
-/* Navbar styling */
+/* Navbar container */
 .navbar {
-  border-bottom: 1px solid #ddd;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 0.5rem 1.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-bottom: 1px solid #e0e0e0;
+  transition: box-shadow 0.3s ease;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.navbar .nav-link {
-  transition: background-color 0.3s ease, color 0.3s ease;
-  border-radius: 0.25rem;
+/* Container flexbox alignment */
+.container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.navbar .nav-link:hover {
-  background-color: #f8f9fa;
-  color: #333;
-}
-
+/* Logo */
 .navbar-brand img {
-  max-height: 75px;
-  width: auto;
+  height: 50px;
+  width: 170px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
-/* Optional: Add a subtle shadow to the navbar */
-.navbar.shadow-sm {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.navbar-brand img:hover {
+  transform: scale(1.05);
 }
 
-/* Right-align the navigation links */
+/* Navigation links container */
 .navbar-nav {
-  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* Nav links styling */
+.nav-link {
+  color: #555; /* dark grey text */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+
+/* Cog button styling */
+.btn {
+  background-color: transparent;
+  font-size: 1.25rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar-nav {
+    gap: 0.8rem;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .btn {
+    font-size: 1.1rem;
+    padding: 0.25rem 0.5rem;
+  }
 }
