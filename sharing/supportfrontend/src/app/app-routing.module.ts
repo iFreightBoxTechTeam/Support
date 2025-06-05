@@ -5,9 +5,10 @@ import { IssuseComponent } from './issuse/issuse.component';
 import { GearComponent } from './gear/gear.component';
 import { IssueComponent } from './component/issue/issue.component';
 import { MasterComponent } from './component/master/master.component';
+import { ViewComponent } from './component/view/view.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'issues', component: IssuseComponent },
   {
@@ -18,6 +19,14 @@ const routes: Routes = [
     path:'master',
     component: MasterComponent
   },
+  {
+    path:'view',
+    component:ViewComponent
+  },
+  // {
+  //   path:'view-table',
+  //   component:ViewComponent
+  // },
 
   {path:'gear', component:GearComponent}
 ];

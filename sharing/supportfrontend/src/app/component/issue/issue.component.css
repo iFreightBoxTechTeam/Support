@@ -192,7 +192,7 @@ button:hover {
 
 .image-preview {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 images per row */
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin-top: 10px;
 }
@@ -203,7 +203,7 @@ button:hover {
 }
 
 .image-card img {
-  width: 100px; /* smaller size */
+  width: 100px; 
   height: 100px;
   object-fit: cover;
   border-radius: 6px;

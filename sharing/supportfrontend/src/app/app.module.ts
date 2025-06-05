@@ -12,6 +12,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { IssuseComponent } from './issuse/issuse.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { GearComponent } from './gear/gear.component';
+import { ViewComponent } from './component/view/view.component';
+import { ViewTableComponent } from './component/view-table/view-table.component';
+
+
 
 @NgModule({
   declarations: [
@@ -22,7 +26,11 @@ import { GearComponent } from './gear/gear.component';
     IssuseComponent,
     NavbarComponent,
     GearComponent,
-    IssueComponent  // ✅ Make sure this is declared here
+    IssueComponent,
+    ViewComponent,
+    ViewTableComponent,
+   
+      // ✅ Make sure this is declared here
   ],
   imports: [
     BrowserModule,
