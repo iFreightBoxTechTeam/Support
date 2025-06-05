@@ -59,6 +59,7 @@
   flex: 1 1 100%;
   margin: 0 0 10px 0;
   font-size: 1.6rem;
+  font-weight: bold;
   color: #333;
 }
 
@@ -86,7 +87,7 @@
 }
 
 .add-btn:hover {
-  background-color: #022533;
+  background-color: #175168;
 }
 
 .issue-table table {
