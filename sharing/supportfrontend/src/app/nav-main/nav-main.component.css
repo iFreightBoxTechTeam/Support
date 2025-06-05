@@ -13,8 +13,8 @@
 }
 
 .back-btn svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }
 
 .right-controls {
@@ -25,7 +25,7 @@
 
 .search-input {
   padding: 6px 10px;
-  font-size: 12px;
+  font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
@@ -36,7 +36,7 @@
   border: none;
   padding: 8px 14px;
   border-radius: 4px;
-  font-size: 10px;
+  font-size: 12px;
   cursor: pointer;
   display: flex;
   align-items: center;
