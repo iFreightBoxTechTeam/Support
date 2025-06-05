@@ -57,8 +57,10 @@
             <button class="btn btn-sm btn-danger me-2" (click)="deleteIssue(issue.id)">
               <i class="fa fa-trash"></i>
             </button>
-            <button class="btn btn-sm btn-info" (click)="viewLog(issue.id)">
-              <i class="fa fa-eye"></i>
+          
+
+            <button routerLink="/view" class="btn btn-sm btn-info" (click)="viewLog(issue.id)">
+               <i class="fa fa-eye"></i>
             </button>
           </div>
         </td>

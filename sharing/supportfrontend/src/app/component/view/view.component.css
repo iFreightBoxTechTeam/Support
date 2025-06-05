@@ -1,0 +1,70 @@
+/* Modal background overlay */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal content box */
+.modal-content {
+  background-color: #fff;
+  padding: 24px;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect on modal content */
+.modal-content:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background-color: #f9f9f9;
+}
+
+/* Close (×) button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close-button:hover {
+  color: red;
+}
+
+/* Modal title */
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+/* Table inside modal */
+.modal-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.modal-content th,
+.modal-content td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-content th {
+  background-color: #e0dbe4;
+}
