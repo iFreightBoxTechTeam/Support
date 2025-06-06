@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-view',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewComponent implements OnInit {
   showModal: boolean = false;
+  @ViewChild('myModal') modal!: ElementRef;
 
   history = [
     { date: new Date('2025-06-01'), status: 'Open', username: 'Vijaya' },
@@ -16,6 +17,11 @@ export class ViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.showModal = true; // 👈 Modal will show automatically
+  }
+
+  openModal(){
+    // this.history = historyData;
+    this.showModal = true;
   }
 
   closeModal(): void {
