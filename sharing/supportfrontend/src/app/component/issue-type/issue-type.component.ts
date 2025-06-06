@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./issue-type.component.css']
 })
 export class IssueTypeComponent {
-  showIssueModal = true; // Set to true for initial testing (set false to hide initially)
 
   issueTypes = [
     { id: 101, type: 'Bug' },
@@ -16,14 +15,6 @@ export class IssueTypeComponent {
 
   newIssueType: string = '';
   nextId = 104;
-
-  openModal(): void {
-    this.showIssueModal = true;
-  }
-
-  closeIssueModal(): void {
-    this.showIssueModal = false;
-  }
 
   addIssueBtn(): void {
     console.log('User typed:', this.newIssueType);
