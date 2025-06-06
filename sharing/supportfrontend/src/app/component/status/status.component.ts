@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./status.component.css']
 })
 export class StatusComponent {
-  showStatusModal = true; 
 
   statusTypes = [
     { id: 101, type: 'Open' },
@@ -16,14 +15,6 @@ export class StatusComponent {
 
   newStatusType: string = '';
   nextId = 104;
-
-  openModal(): void {
-    this.showStatusModal = true;
-  }
-
-  closeStatusModal(): void {
-    this.showStatusModal = false;
-  }
 
   addStatusBtn(): void {
     console.log('User typed:', this.newStatusType);

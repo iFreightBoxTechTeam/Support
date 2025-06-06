@@ -1,44 +1,39 @@
-<div class="custom-modal" *ngIf="showStatusModal">
-  <div class="modal-content">
-    <span class="close-modal" (click)="closeStatusModal()">&times;</span>
+<app-nav-main></app-nav-main>
 
-    <div class="status-type">
+<div class="status-type">
 
-      <div class="status-type-header">
-        <h2>Status</h2>
-        <input type="text" class="status-add" [(ngModel)]="newStatusType" placeholder="Enter Status Type" />
-        <button class="add-btn" (click)="addStatusBtn()" title="Add Status">
-          <i class="fa fa-plus"></i> Add
-        </button>
-      </div>
-
-      <div class="status-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let status of statusTypes">
-              <td>{{ status.id }}</td>
-              <td>{{ status.type }}</td>
-              <td>
-                <button class="edit-btn" (click)="editStatus(status.id)" title="Edit">
-                  <i class="fa fa-pencil"></i>
-                </button>
-                <button class="delete-btn" (click)="deleteStatus(status.id)" title="Delete">
-                  <i class="fa fa-trash"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
+  <div class="status-type-header">
+    <h2>Status</h2>
+    <input type="text" class="status-add" [(ngModel)]="newStatusType" placeholder="Enter Status Type" />
+    <button class="add-btn" (click)="addStatusBtn()" title="Add Status">
+      <i class="fa fa-plus"></i> Add
+    </button>
   </div>
-</div>
 
+  <div class="status-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let status of statusTypes">
+          <td>{{ status.id }}</td>
+          <td>{{ status.type }}</td>
+          <td>
+            <button class="edit-btn" (click)="editStatus(status.id)" title="Edit">
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button class="delete-btn" (click)="deleteStatus(status.id)" title="Delete">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

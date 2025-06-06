@@ -1,20 +1,5 @@
-.back-btn svg {
-  width: 20px;
-  height: 34px;
-  margin: 10px 20px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.user-card {
-  width: 95%;
-  max-width: 1200px;
-  margin: 5px auto;
-  padding: 10px 20px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.user-card{
+  margin: 50px;
 }
 
 /* Header Section */
@@ -23,15 +8,19 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   gap: 10px;
 }
 
 .user-task h1 {
-  font-size: 1.8rem;
-  margin: 0;
+  font-size: 2.1rem;
+  margin-left: 10px;
   font-weight: bold;
   color: #1a2a6c;
+}
+
+.user-task {
+  display: block; /* or remove flex if not needed */
 }
 
 /* Add Button */
