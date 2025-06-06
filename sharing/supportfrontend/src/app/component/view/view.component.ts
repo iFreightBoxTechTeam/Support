@@ -16,7 +16,7 @@ export class ViewComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.showModal = true; // 👈 Modal will show automatically
+    this.showModal = false; 
   }
 
   openModal(){
