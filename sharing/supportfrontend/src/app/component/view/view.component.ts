@@ -20,7 +20,5 @@ export class ViewComponent implements OnInit {
 
   closeModal(): void {
     this.showModal = false;
-
   }
-  
 }
