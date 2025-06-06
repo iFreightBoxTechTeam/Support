@@ -111,6 +111,41 @@ svg{
   height: 25px;
 }
 
+
+.pagination-nav {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination {
+  display: inline-flex;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+}
+
+.page-item .page-link {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  color: #333;
+  text-decoration: none;
+}
+
+.page-item.active .page-link {
+  background-color: #3f51b5;
+  color: white;
+  border-color: #3f51b5;
+}
+
+.page-item.disabled .page-link {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+
 /* Responsive Fixes */
 @media (max-width: 576px) {
   .user-task {
