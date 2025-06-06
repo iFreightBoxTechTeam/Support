@@ -1,14 +1,5 @@
-
-
-.user-card {
-  width: 95%;
-  max-width: 1200px;
-  margin: 5px auto;
-  padding: 10px 20px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.user-card{
+  margin: 50px;
 }
 
 /* Header Section */
@@ -17,17 +8,41 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   gap: 10px;
 }
 
 .user-task h1 {
-  font-size: 1.8rem;
-  margin: 0;
+  font-size: 2.1rem;
+  margin-left: 10px;
   font-weight: bold;
   color: #1a2a6c;
 }
 
+.user-task {
+  display: block; /* or remove flex if not needed */
+}
+
+/* Add Button */
+.add-user-btn {
+  background-color: #1a2a6c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.add-user-btn:hover {
+  background-color: #0f1b42;
+}
 
 /* Table Styles */
 .user-details {
@@ -71,42 +86,32 @@ tbody td {
 /* Action Buttons */
 .edit-btn,
 .delete-btn {
-  padding: 6px 10px;
+  padding: 2px 6px;
   font-size: 0.85rem;
-  border-radius: 6px;
+  border-radius: 2px;
   border: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease;
   white-space: nowrap;
-}
-
-.edit-btn {
-  background-color: #4466f2;
-  color: white;
-}
-
-.edit-btn:hover {
-  background-color: #2d48c3;
-}
-
-.delete-btn {
-  background-color: #e64a4a;
-  color: white;
-  margin-left: 8px;
-}
-
-.delete-btn:hover {
-  background-color: #b33131;
 }
 
 button i.fa {
   font-size: 1rem;
 }
 
-/* ✅ Responsive Fixes */
+button {
+  background-color: transparent;
+  border: none;         /* optional: remove border too */
+  color: inherit;        /* inherit text color */
+}
+
+svg{
+  height: 25px;
+}
+
+/* Responsive Fixes */
 @media (max-width: 576px) {
   .user-task {
     flex-direction: column;
@@ -119,7 +124,7 @@ button i.fa {
   }
 
   .edit-btn, .delete-btn {
-    padding: 5px 8px;
+    padding: 2px 5px;
     font-size: 0.8rem;
     margin-bottom: 5px;
   }

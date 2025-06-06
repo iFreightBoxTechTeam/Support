@@ -61,7 +61,7 @@ export class UsersComponent {
     }
   ];
 
-  addStatusBtn(): void {
+  addUserBtn(): void {
     console.log('User typed:', this.newUserAdd);
 
     if (this.newUserAdd.trim()) {
@@ -78,11 +78,11 @@ export class UsersComponent {
     }
   }
 
-  deleteStatus(id: number): void {
+  deleteUser(id: number): void {
     this.users = this.users.filter(user => user.id !== id);
   }
 
-  editStatus(id: number): void {
+  editUser(id: number): void {
     const user = this.users.find(u => u.id === id);
     if (user) {
       const updated = prompt('Edit Name:', user.name);

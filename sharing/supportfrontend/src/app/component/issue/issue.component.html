@@ -1,80 +1,59 @@
-<div style="padding: 50px;">
-  <!-- Title Row -->
-  <div class="title-row">
+<div class="issue-container">
+  <!-- Header -->
+  <div class="header">
     <h2>Issue</h2>
-    <div class="title-meta">
-      <span style="background-color: red; border-radius: 5px;"> 
-        <label style="padding: 5px;"> #225187
-          <!-- <input type="text" [(ngModel)]="issueId" placeholder="Enter ID" /> -->
-        </label>
-      </span>
-      <label>Status:</label>
+    <div class="issue-meta">
+      <span class="issue-id">#225187</span>
+      <span class="status-label">Status:</span>
     </div>
   </div>
 
-  <div class="form-group">
-    <label>Description:</label>
-    <!-- <textarea [(ngModel)]="description" rows="4" placeholder="Enter issue description..."></textarea> -->
+  <!-- Two-column layout -->
+  <div class="issue-content">
+    <!-- Left: Description and Dropdowns -->
+    <div class="left-pane">
+      <div class="form-group">
+        <label>Description:</label>
+        <p class="description-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </div>
+
+      <div class="form-group">
+        <label>Assign To:</label>
+        <select [(ngModel)]="assignTo">
+          <option value="">-- Select --</option>
+          <option *ngFor="let user of ['Vijaya', 'Shreya', 'Riddhi', 'Aditya', 'Vijayalaxmi']" [value]="user">
+            {{ user }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <select [(ngModel)]="overallStatus">
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Resolved">Resolved</option>
+          <option value="Closed">Closed</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Right: Image Upload and Preview -->
+    <div class="right-pane">
+      <div class="form-group">
+        <label>Upload Images:</label>
+        <input type="file" id="fileInput" (change)="onFileSelected($event)" multiple accept="image/*" hidden />
+        <button type="button" class="upload-button" (click)="triggerFileInput()">📷 Upload</button>
+      </div>
+
+      <div class="image-preview">
+        <div class="image-card" *ngFor="let img of images; let i = index">
+          <img [src]="img.url" (click)="openImageModal(img.url)" alt="Preview" />
+          <button class="delete-button" (click)="deleteImage(i)">×</button>
+        </div>
+      </div>
+    </div>
   </div>
-
-<div class="form-group">
-  <label>Upload Images:</label>
-
-  <!-- Hidden File Input -->
-  <input 
-    type="file" 
-    id="fileInput" 
-    (change)="onFileSelected($event)" 
-    multiple 
-    accept="image/*" 
-    style="display: none;"
-  />
-
-  <!-- Camera Icon Trigger -->
-  <div 
-    class="camera-icon" 
-    (click)="triggerFileInput()" 
-    style="display: inline-block; font-size: 32px; cursor: pointer;"
-    title="Click to upload image"
-  >
-    📷
-  </div>
-</div>
-
-<div 
-  class="image-preview" 
-  style="
-    display: grid;
-    grid-template-columns: repeat(3, 80px); /* 3 small images per row */
-    gap: 12px;
-    margin-top: 10px;
-    max-width: 276px; /* (3 * 80) + (2 * 12) = 276px */
-    overflow: hidden;
-  "
->
-  <div 
-    class="image-card" 
-    *ngFor="let img of images; let i = index" 
-    style="position: relative; width: 80px; height: 80px;"
-  >
-    <img 
-      [src]="img.url" 
-      alt="Preview" 
-      (click)="openImageModal(img.url)" 
-      style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); cursor: pointer;"
-    />
-    <button 
-      (click)="deleteImage(i)" 
-      style="position: absolute; top: -6px; right: -6px; background: red; border: none; border-radius: 50%; padding: 2px; cursor: pointer;"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-      </svg>
-    </button>
-  </div>
-</div>
-
-
 
   <!-- Image Modal -->
   <div class="modal-overlay" *ngIf="selectedImageUrl" (click)="closeImageModal()">
@@ -82,30 +61,5 @@
       <img [src]="selectedImageUrl" alt="Full Image" />
       <button class="close-button" (click)="closeImageModal()">×</button>
     </div>
-  </div>
-
-  <!-- Form Controls -->
-  <div>
-    <label style="width:90px;">Assign To</label>
-    <select [(ngModel)]="assignTo">
-      <option value="">-- Select --</option>
-      <option value="Vijaya">Vijaya</option>
-      <option value="Shreya">Shreya</option>
-      <option value="Riddhi">Riddhi</option>
-       <option value="Riddhi">Aditya</option>
-        <option value="Riddhi">Vijayalaxmi</option>
-       
-    </select>
-
-    <label style="width:90px;">Status:</label>
-    <select [(ngModel)]="overallStatus">
-      <option value="Open">Open</option>
-      <option value="In Progress">In Progress</option>
-      <option value="Resolved">Resolved</option>  
-      <option value="Closed">Closed</option>
-    </select>
-
-    
-    
   </div>
 </div>

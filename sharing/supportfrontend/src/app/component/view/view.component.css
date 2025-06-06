@@ -68,3 +68,10 @@
 .modal-content th {
   background-color: #e0dbe4;
 }
+
+
+
+tbody td:hover {
+  background-color: #e0f7fa;
+  cursor: pointer;
+}

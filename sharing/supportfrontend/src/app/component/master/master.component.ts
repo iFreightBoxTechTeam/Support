@@ -8,8 +8,9 @@ import { Component } from '@angular/core';
 
 
 export class MasterComponent {
-  
+   onSaveChanges() {
+    alert('Data saved successfully!'); 
 
   }
     
-  
+}
