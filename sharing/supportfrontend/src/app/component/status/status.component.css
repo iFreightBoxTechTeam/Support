@@ -93,14 +93,6 @@
   transition: color 0.2s ease;
 }
 
-.edit-btn:hover {
-  color: #007bff;
-}
-
-.delete-btn:hover {
-  color: #dc3545;
-}
-
 /* Responsive adjustments */
 @media (max-width: 600px) {
   .status-type-header h2 {
