@@ -97,35 +97,15 @@ tbody td {
 /* Action Buttons */
 .edit-btn,
 .delete-btn {
-  padding: 6px 10px;
+  padding: 2px 6px;
   font-size: 0.85rem;
-  border-radius: 6px;
+  border-radius: 2px;
   border: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease;
   white-space: nowrap;
-}
-
-.edit-btn {
-  background-color: #4466f2;
-  color: white;
-}
-
-.edit-btn:hover {
-  background-color: #2d48c3;
-}
-
-.delete-btn {
-  background-color: #e64a4a;
-  color: white;
-  margin-left: 8px;
-}
-
-.delete-btn:hover {
-  background-color: #b33131;
 }
 
 button i.fa {
@@ -145,7 +125,7 @@ button i.fa {
   }
 
   .edit-btn, .delete-btn {
-    padding: 5px 8px;
+    padding: 2px 5px;
     font-size: 0.8rem;
     margin-bottom: 5px;
   }
