@@ -25,9 +25,10 @@
 }
 
 /* Hover effect on modal content */
-.modal-content:hover {
+.modal-content:hover tr {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   background-color: #f9f9f9;
+
 }
 
 /* Close (×) button */
@@ -44,6 +45,7 @@
 
 .close-button:hover {
   color: red;
+  background-color: #f3e9fc;
 }
 
 /* Modal title */
@@ -74,4 +76,5 @@
 tbody td:hover {
   background-color: #e0f7fa;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
