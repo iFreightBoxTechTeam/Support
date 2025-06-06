@@ -77,6 +77,12 @@
   background-color: rgb(119, 123, 200);
 }
 
+/* Center table body cell contents */
+.table tbody td {
+  text-align: center;
+  vertical-align: middle; /* vertically centers content in cell */
+}
+
 .table tbody tr {
   background-color: #fff;
   transition: background-color 0.3s ease;
