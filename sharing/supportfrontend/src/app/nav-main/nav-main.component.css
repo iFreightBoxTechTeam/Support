@@ -21,7 +21,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  margin-top: 10px; /* ⬅️ This moves both the search input and add button down */
+  margin-top: 15px; /* ⬅️ This moves both the search input and add button down */
 }
 
 
