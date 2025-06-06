@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ViewComponent } from '../component/view/view.component';
 
 @Component({
   selector: 'app-issuse',
@@ -9,6 +10,7 @@ export class IssuseComponent implements OnInit {
   issues: any[] = [];             // Full list
   filteredIssues: any[] = [];     // Search filtered
   searchTerm: string = '';
+  @ViewChild(ViewComponent) ViewComponent!: ViewComponent;
 
   currentPage: number = 1;
   itemsPerPage: number = 10;
@@ -107,5 +109,6 @@ export class IssuseComponent implements OnInit {
 
   viewLog(id: number) {
     console.log('View log for issue', id);
+    this.ViewComponent.openModal();
   }
 }
