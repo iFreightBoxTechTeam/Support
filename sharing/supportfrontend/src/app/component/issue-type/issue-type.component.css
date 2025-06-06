@@ -1,15 +1,14 @@
+/* Main container styling */
 .issue-type {
-  width: 90%;
-  max-width: 800px;
-  margin: 10px auto;
+  width: 100%;
+  margin: 0;
+  padding: 30px;
   background-color: #fdfdfd;
-  border-radius: 10px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-  padding: 15px;
   font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
 
-/* HEADER with heading + input + add button */
+/* Header with title, input, and add button */
 .issue-type-header {
   display: flex;
   flex-wrap: wrap;
@@ -17,6 +16,7 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 20px;
+  padding: 0 30px;
 }
 
 .issue-type-header h2 {
@@ -27,17 +27,29 @@
   color: #333;
 }
 
+.issue-type-top-bar {
+  display: flex;
+  justify-content: center; /* Center input + button */
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  /* Optional: center the whole block */
+  width: 100%;
+}
+
 .issue-add {
   flex: 1 1 auto;
   min-width: 200px;
-  padding: 10px 12px;
+  max-width: 600px;
+  padding: 10px 8px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
 
 .add-btn {
-  flex: 0 0 auto; /* Prevent button from stretching */
+  flex: 0 0 auto;
   background-color: #246985;
   color: white;
   border: none;
@@ -46,7 +58,6 @@
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.2s ease;
-  width: auto;
   min-width: 80px;
 }
 
@@ -54,10 +65,19 @@
   background-color: #175168;
 }
 
+/* Table container */
+.issue-table {
+  width: 100%;
+  overflow-x: auto;
+  padding: 0 30px;
+  box-sizing: border-box;
+}
+
+/* Table styling */
 .issue-table table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed; /* Equal column widths */
+  table-layout: fixed;
 }
 
 .issue-table thead {
@@ -65,11 +85,16 @@
   color: white;
 }
 
-/* Equal width columns */
-.issue-table th, 
+.issue-table th{
+  width: 33.33%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
 .issue-table td {
-  width: 33.33%; /* 3 columns equal width */
-  padding: 12px;
+  width: 33.33%;
+  padding: 2px;
   border: 1px solid #ddd;
   text-align: center;
 }
@@ -82,7 +107,8 @@
   background-color: #f1f1f1;
 }
 
-.edit-btn, 
+/* Buttons inside table */
+.edit-btn,
 .delete-btn {
   background-color: transparent;
   border: none;
@@ -98,12 +124,25 @@
   .issue-type-header h2 {
     font-size: 1.3rem;
   }
+
   .issue-add,
   .add-btn {
     flex: 1 1 100%;
     min-width: auto;
   }
+
   .add-btn {
     width: auto;
+  }
+
+  .issue-table {
+    padding: 0 15px;
+  }
+}
+
+/* Optional: add some padding on larger screens */
+@media (min-width: 768px) {
+  .issue-type {
+    padding: 40px 80px;
   }
 }

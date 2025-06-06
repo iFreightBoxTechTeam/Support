@@ -25,7 +25,6 @@ import { NavMainComponent } from './nav-main/nav-main.component';
   declarations: [
     AppComponent,
     MasterComponent,
-    PaginationComponent,
     DashboardComponent,
     IssuseComponent,
     NavbarComponent,
