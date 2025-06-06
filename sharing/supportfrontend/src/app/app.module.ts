@@ -20,6 +20,7 @@ import { UsersComponent } from './component/users/users.component';
 import { IssueTypeComponent } from './component/issue-type/issue-type.component';
 import { StatusComponent } from './component/status/status.component';
 import { NavMainComponent } from './nav-main/nav-main.component';
+import { AddUserComponent } from './component/users/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { NavMainComponent } from './nav-main/nav-main.component';
     UsersComponent,
     IssueTypeComponent,
     StatusComponent,
-    NavMainComponent
+    NavMainComponent,
+    AddUserComponent
       
   ],
   imports: [
