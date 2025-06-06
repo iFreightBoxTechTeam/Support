@@ -15,7 +15,9 @@
 .back-btn svg {
   width: 20px;
   height: 22px;
-  margin: 10px 20px;
+  margin-top: 20px;
+  margin-bottom: -25px;
+  margin-left: 25px;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -24,7 +26,9 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  margin-top: 10px; /* ⬅️ This moves both the search input and add button down */
+  margin-top: 20px; /* ⬅️ This moves both the search input and add button down */
+  margin-bottom: -20px;
+  margin-right: 25px;
 }
 
 
