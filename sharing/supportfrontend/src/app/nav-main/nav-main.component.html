@@ -15,7 +15,7 @@
       [(ngModel)]="searchTerm"
       (input)="onSearch(searchTerm)"
     />
-    <button class="add-btn"><i class="fa fa-plus"></i> Add</button>
+    <button *ngIf="showAddButton" class="add-btn"><i class="fa fa-plus"></i> Add</button>
   </div>
 </div>
 
