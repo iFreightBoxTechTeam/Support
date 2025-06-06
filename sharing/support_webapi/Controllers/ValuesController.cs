@@ -172,7 +172,7 @@ namespace support_webapi.Controllers
                     cmd.Parameters.AddWithValue("@AssignTo", request.AssignTo ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@Description", request.Description ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@Module", request.Module ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@ImagePaths", string.IsNullOrWhiteSpace(request.ImagePaths) ? (object)DBNull.Value : request.ImagePaths);
+                    cmd.Parameters.AddWithValue("@ImagePaths",  string.IsNullOrWhiteSpace(request.ImagePaths) ? (object)DBNull.Value : request.ImagePaths);
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
