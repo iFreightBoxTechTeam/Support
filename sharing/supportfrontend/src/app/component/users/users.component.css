@@ -1,4 +1,10 @@
-
+.back-btn svg {
+  width: 20px;
+  height: 34px;
+  margin: 10px 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
 
 .user-card {
   width: 95%;
@@ -28,6 +34,26 @@
   color: #1a2a6c;
 }
 
+/* Add Button */
+.add-user-btn {
+  background-color: #1a2a6c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.add-user-btn:hover {
+  background-color: #0f1b42;
+}
 
 /* Table Styles */
 .user-details {
@@ -86,7 +112,17 @@ button i.fa {
   font-size: 1rem;
 }
 
-/* ✅ Responsive Fixes */
+button {
+  background-color: transparent;
+  border: none;         /* optional: remove border too */
+  color: inherit;        /* inherit text color */
+}
+
+svg{
+  height: 25px;
+}
+
+/* Responsive Fixes */
 @media (max-width: 576px) {
   .user-task {
     flex-direction: column;
