@@ -69,7 +69,6 @@ export class IssuseComponent implements OnInit {
       { id: 131, user: 'Prisha', raisedDate: new Date('2025-06-01'), status: '', module: '' }
     ];
 
-    // Initialize filteredIssues with all
     this.filteredIssues = [...this.issues];
   }
 
@@ -102,7 +101,14 @@ export class IssuseComponent implements OnInit {
   }
 
   deleteIssue(id: number) {
-    console.log('Delete issue', id);
+    if (confirm('Are you sure you want to delete this issue?')) {
+      this.issues = this.issues.filter(issue => issue.id !== id);
+      this.filteredIssues = this.filteredIssues.filter(issue => issue.id !== id);
+
+      if (this.currentPage > this.totalPages) {
+        this.currentPage = this.totalPages || 1;
+      }
+    }
   }
 
   viewLog(id: number) {
