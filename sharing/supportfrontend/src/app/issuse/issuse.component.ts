@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: 'app-issuse',
   templateUrl: './issuse.component.html',
@@ -8,6 +9,9 @@ import { Component } from '@angular/core';
 export class IssuseComponent {
   
  searchTerm: string = '';
+ currentPage: number = 1;
+itemsPerPage: number = 10;
+
 
  
  issues = [
@@ -352,6 +356,23 @@ onSearch(term: string) {}
   tenant = {
     user: 'TenantCode123' 
   };
+
+
+
+  get paginatedIssues() {
+  const start = (this.currentPage - 1) * this.itemsPerPage;
+  return this.issues.slice(start, start + this.itemsPerPage);
+}
+
+get totalPages(): number {
+  return Math.ceil(this.issues.length / this.itemsPerPage);
+}
+
+changePage(page: number) {
+  if (page >= 1 && page <= this.totalPages) {
+    this.currentPage = page;
+  }
+}
   
  
   
