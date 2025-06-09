@@ -38,7 +38,7 @@
   width: 100%;
 }
 
-.issue-add {
+/* .issue-add {
   flex: 1 1 auto;
   min-width: 200px;
   max-width: 600px;
@@ -46,9 +46,9 @@
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
-}
+} */
 
-.add-btn {
+/* .add-btn {
   flex: 0 0 auto;
   background-color: #246985;
   color: white;
@@ -59,7 +59,7 @@
   font-size: 16px;
   transition: background-color 0.2s ease;
   min-width: 80px;
-}
+} */
 
 .add-btn:hover {
   background-color: #175168;

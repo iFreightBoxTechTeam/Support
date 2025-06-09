@@ -1,7 +1,7 @@
 .status-type {
   width: 90%;
   max-width: 800px;
-  margin: 10px auto;
+  margin: 35px auto;
   background-color: #fdfdfd;
   border-radius: 10px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
@@ -27,17 +27,17 @@
   color: #333;
 }
 
-.status-add {
+/* .status-add {
   flex: 1 1 auto;
   min-width: 200px;
   padding: 12px 12px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
-}
+} */
 
-.add-btn {
-  flex: 0 0 auto; /* Prevent button from stretching */
+/* .add-btn {
+  flex: 0 0 auto; 
   background-color: #246985;
   color: white;
   border: none;
@@ -48,7 +48,7 @@
   transition: background-color 0.2s ease;
   width: auto;
   min-width: 80px;
-}
+} */
 
 .add-btn:hover {
   background-color: #175168;
