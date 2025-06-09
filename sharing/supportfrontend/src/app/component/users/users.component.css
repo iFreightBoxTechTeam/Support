@@ -111,60 +111,40 @@ svg{
   height: 25px;
 }
 
-
 .pagination-nav {
-  text-align: center;
-  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  user-select: none;
 }
 
-.pagination {
-  display: inline-flex;
-  gap: 8px;
-  list-style: none;
-  padding: 0;
-}
-
-.page-item .page-link {
-  padding: 6px 12px;
+.pagination-btn {
+  padding: 0.4rem 0.8rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: #f9f9f9;
+  background-color: white;
   color: #333;
-  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.page-item.active .page-link {
-  background-color: #3f51b5;
+.pagination-btn:hover:not(:disabled) {
+  background-color: #e2e6ea;
+}
+
+
+.pagination-btn.active,
+.pagination-btn[aria-current="page"] {
+  background-color: #007bff;
   color: white;
-  border-color: #3f51b5;
+  border-color: #007bff;
+  font-weight: 600;
 }
 
-.page-item.disabled .page-link {
-  opacity: 0.5;
-  pointer-events: none;
+.pagination-btn:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
 }
 
-
-/* Responsive Fixes */
-@media (max-width: 576px) {
-  .user-task {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .add-user-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .edit-btn, .delete-btn {
-    padding: 2px 5px;
-    font-size: 0.8rem;
-    margin-bottom: 5px;
-  }
-
-  tbody td {
-    font-size: 0.85rem;
-  }
-}
