@@ -7,22 +7,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-main.component.css']
 })
 export class NavMainComponent {
-   @Input() showAddButton: boolean = true;
+  @Input() showAddButton: boolean = true;
 
-  searchTerm: any;
-  onSearch(arg0: any) {  
-    
-throw new Error('Method not implemented.');
-}
-  constructor(private router: Router){}
-
-  goToMasters(){
-    this.router.navigate(['/mastercompo']); 
-  }
+  searchTerm: string = '';
 
   @Output() openAddUser = new EventEmitter<void>();
+  @Output() searchChange = new EventEmitter<string>();
+
+  constructor(private router: Router) {}
+
+  goToMasters() {
+    this.router.navigate(['/mastercompo']);
+  }
 
   onAddClick() {
     this.openAddUser.emit();
   }
+
+onSearch(searchText: string) {
+  console.log(searchText);
+this.searchChange.emit(this.searchTerm);
+
 }
+}
+  

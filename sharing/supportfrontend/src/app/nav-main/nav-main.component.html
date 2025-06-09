@@ -8,13 +8,14 @@
   </div>
 
   <div class="right-controls">
-    <input
-      type="text"
-      class="search-input"
-      placeholder="Search here"
-      [(ngModel)]="searchTerm"
-      (input)="onSearch(searchTerm)"
-    />
+<input
+  type="text"
+  class="search-input"
+  placeholder="Search here"
+  [(ngModel)]="searchTerm"
+  (input)="onSearch(searchTerm)"
+/>
+
     <button *ngIf="showAddButton" class="add-btn"
          (click)="onAddClick()"
         data-bs-toggle="modal"
