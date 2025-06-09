@@ -1,6 +1,12 @@
-/* =====================
-   ✨ Table Styling
-   ===================== */
+.user-card{
+  margin: 20px;
+}
+
+.user-task h1{
+  color: #110c3f;
+  font-weight: bold;
+}
+
 .table {
   width: 100%;
   margin-bottom: 2rem;
@@ -22,7 +28,7 @@
 
 /* Header Styling */
 .table th {
-  background: linear-gradient(90deg, #235a91, #2a74be);
+  background: #110c3f;
   color: #fff;
   font-weight: 600;
   letter-spacing: 0.3px;
