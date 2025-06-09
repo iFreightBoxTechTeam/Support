@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,5 +18,11 @@ throw new Error('Method not implemented.');
 
   goToMasters(){
     this.router.navigate(['/mastercompo']); 
+  }
+
+  @Output() openAddUser = new EventEmitter<void>();
+
+  onAddClick() {
+    this.openAddUser.emit();
   }
 }

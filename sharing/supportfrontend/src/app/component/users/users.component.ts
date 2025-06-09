@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AddUserComponent } from './add-user/add-user.component';
 
 @Component({
   selector: 'app-users',
@@ -95,7 +96,7 @@ export class UsersComponent {
       });
       this.newUserAdd = '';
 
-      // Move to last page automatically after adding
+    // Move to last page automatically after adding
       this.currentPage = this.totalPages;
     } else {
       alert('Please enter a user name.');
@@ -119,5 +120,11 @@ export class UsersComponent {
         user.name = updated.trim();
       }
     }
+  }
+
+  @ViewChild(AddUserComponent) addUser!: AddUserComponent;
+
+  openAddUserModal() {
+    this.addUser.openModal();
   }
 }

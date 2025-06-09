@@ -15,7 +15,12 @@
       [(ngModel)]="searchTerm"
       (input)="onSearch(searchTerm)"
     />
-    <button *ngIf="showAddButton" class="add-btn"><i class="fa fa-plus"></i> Add</button>
+    <button *ngIf="showAddButton" class="add-btn"
+         (click)="onAddClick()"
+        data-bs-toggle="modal"
+        data-bs-target="#addUserModal">
+        <i class="fa fa-plus"></i> Add
+    </button>
   </div>
 </div>
 
