@@ -1,150 +1,121 @@
-.user-card{
-  margin: 10px;
-}
-
-/* Header Section */
-.user-task {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  gap: 10px;
-}
-
-.user-task h1 {
-  font-size: 2.1rem;
-  margin-left: 10px;
-  font-weight: bold;
-  color: #1a2a6c;
-}
-
-.user-task {
-  display: block; /* or remove flex if not needed */
-}
-
-/* Add Button */
-.add-user-btn {
-  background-color: #1a2a6c;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.3s ease;
-  white-space: nowrap;
-}
-
-.add-user-btn:hover {
-  background-color: #0f1b42;
-}
-
-/* Table Styles */
-.user-details {
-  overflow-x: auto;
-}
-
-table {
+/* =====================
+   ✨ Table Styling
+   ===================== */
+.table {
   width: 100%;
+  margin-bottom: 2rem;
   border-collapse: collapse;
-  background-color: #fdfdfd;
+  background-color: #fff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
 }
 
-thead tr {
-  background-color: #1a2a6c;
-  color: white;
-}
-
-thead th, tbody td {
-  padding: 14px 16px;
-  text-align: center;
+.table th,
+.table td {
+  padding: 1rem 1.25rem;
+  text-align: left;
   font-size: 0.95rem;
+  vertical-align: middle;
+  border-bottom: 1px solid #e6e9ec;
 }
 
-thead th {
+/* Header Styling */
+.table th {
+  background: linear-gradient(90deg, #235a91, #2a74be);
+  color: #fff;
   font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
-tbody tr {
-  border-bottom: 1px solid #e0e0e0;
-  transition: background-color 0.2s ease;
+/* Row Striping */
+.table tbody tr:nth-child(even) {
+  background-color: #f4f7fa;
 }
 
-tbody tr:hover {
-  background-color: #e6e8f1;
+/* Row Hover */
+.table tbody tr:hover {
+  background-color: #eaf4ff;
+  transition: background-color 0.3s ease;
 }
 
-tbody td {
-  color: #333;
-}
-
-/* Action Buttons */
+/* =====================
+   ✏️ Action Buttons
+   ===================== */
 .edit-btn,
 .delete-btn {
-  padding: 2px 6px;
-  font-size: 0.85rem;
-  border-radius: 2px;
+  background-color: transparent;
   border: none;
   cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 0.3rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-button i.fa {
-  font-size: 1rem;
+.edit-btn svg,
+.delete-btn svg {
+  stroke: #6c757d;
+  transition: stroke 0.2s ease;
 }
 
-button {
-  background-color: transparent;
-  border: none;         /* optional: remove border too */
-  color: inherit;        /* inherit text color */
+.edit-btn:hover svg {
+  stroke: #198754; /* Bootstrap success green */
 }
 
-svg{
-  height: 25px;
+.delete-btn:hover svg {
+  stroke: #dc3545; /* Bootstrap danger red */
 }
 
+.edit-btn:hover,
+.delete-btn:hover {
+  background-color: rgba(13, 110, 253, 0.1);
+  transform: scale(1.08);
+}
+
+/* =====================
+   📄 Pagination
+   ===================== */
 .pagination-nav {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
   gap: 0.5rem;
-  margin-top: 1rem;
-  user-select: none;
 }
 
 .pagination-btn {
-  padding: 0.4rem 0.8rem;
-  border: 1px solid #ccc;
-  background-color: white;
-  color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  color: #495057;
+  font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: all 0.3s ease;
+  min-width: 40px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .pagination-btn:hover:not(:disabled) {
-  background-color: #e2e6ea;
+  background-color: #0d6efd;
+  color: white;
+  border-color: #0d6efd;
 }
 
+.pagination-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
 
 .pagination-btn.active,
-.pagination-btn[aria-current="page"] {
-  background-color: #007bff;
-  color: white;
-  border-color: #007bff;
+.pagination-btn[aria-current='page'] {
+  background-color: #0d6efd;
+  color: #fff;
   font-weight: 600;
+  border-color: #0d6efd;
 }
-
-.pagination-btn:focus {
-  outline: 2px solid #007bff;
-  outline-offset: 2px;
-}
-

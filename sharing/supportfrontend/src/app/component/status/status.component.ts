@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,EventEmitter,Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddStatusComponent } from './add-status/add-status.component';
 
@@ -13,6 +13,7 @@ export class StatusComponent implements OnInit{
   }
   
   @ViewChild(AddStatusComponent) addStatus!: AddStatusComponent;
+  @Output() userAdded = new EventEmitter<any>();
 
   statusTypes = [
     { id: 101, type: 'Open' },
