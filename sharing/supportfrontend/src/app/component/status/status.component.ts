@@ -1,11 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { AddStatusComponent } from './add-status/add-status.component';
 
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
   styleUrls: ['./status.component.css']
 })
-export class StatusComponent {
+export class StatusComponent implements OnInit{
+  constructor(private router: Router) {}
+  ngOnInit(): void {
+  }
+  
+  @ViewChild(AddStatusComponent) addStatus!: AddStatusComponent;
 
   statusTypes = [
     { id: 101, type: 'Open' },
@@ -69,5 +76,9 @@ export class StatusComponent {
         existing.type = updated.trim();
       }
     }
+  }
+
+  openAddStatusModal() {
+    this.addStatus.openModal();
   }
 }

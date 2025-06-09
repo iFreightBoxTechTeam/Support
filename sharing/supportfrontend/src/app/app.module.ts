@@ -21,6 +21,7 @@ import { IssueTypeComponent } from './component/issue-type/issue-type.component'
 import { StatusComponent } from './component/status/status.component';
 import { NavMainComponent } from './nav-main/nav-main.component';
 import { AddUserComponent } from './component/users/add-user/add-user.component';
+import { AddStatusComponent } from './component/status/add-status/add-status.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AddUserComponent } from './component/users/add-user/add-user.component'
     IssueTypeComponent,
     StatusComponent,
     NavMainComponent,
-    AddUserComponent
+    AddUserComponent,
+    AddStatusComponent
       
   ],
   imports: [

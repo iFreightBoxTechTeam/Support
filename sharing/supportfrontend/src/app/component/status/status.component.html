@@ -1,4 +1,7 @@
-<app-nav-main [showAddButton]="true"></app-nav-main>
+<app-nav-main
+  [showAddButton]="true"
+  (openAddStatus)="openAddStatusModal()"
+></app-nav-main>
 
 <div class="status-type">
 
