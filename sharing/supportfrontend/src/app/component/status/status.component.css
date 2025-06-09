@@ -1,11 +1,8 @@
 .status-type {
   width: 90%;
-  max-width: 800px;
-  margin: 35px auto;
-  background-color: #fdfdfd;
-  border-radius: 10px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-  padding: 15px;
+  min-width: 360px;
+  margin: 5px auto;
+  padding: 5px;
   font-family: Arial, sans-serif;
 }
 
@@ -15,8 +12,8 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 5px;
+  margin-bottom: 10px;
 }
 
 .status-type-header h2 {
@@ -68,14 +65,15 @@
 /* Equal width columns */
 .status-table th{
   width: 33.33%; /* 3 columns equal width */
-  padding: 10px;
-  border: 1px solid #ddd;
+  padding: 12px;
+  /* border: 1px solid #ddd; */
   text-align: center;
 }
 .status-table td {
   width: 33.33%; /* 3 columns equal width */
-  padding: 2px;
-  border: 1px solid #ddd;
+  padding: 0px;
+  /* border: 1px solid #ddd; */
+  border-bottom: 1px solid #ddd;
   text-align: center;
 }
 
