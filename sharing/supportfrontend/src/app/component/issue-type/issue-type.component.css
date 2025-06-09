@@ -88,14 +88,15 @@
 .issue-table th{
   width: 33.33%;
   padding: 10px;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   text-align: center;
 }
 
 .issue-table td {
   width: 33.33%;
-  padding: 2px;
-  border: 1px solid #ddd;
+  padding: 0px;
+  /* border: 1px solid #ddd; */
+  border-bottom: 1px solid #ddd;
   text-align: center;
 }
 
