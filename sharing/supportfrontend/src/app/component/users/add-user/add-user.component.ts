@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-add-user',
@@ -6,6 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent {
+  @Output() userAdded = new EventEmitter<any>();
+
   newUser = {
     name: '',
     mobile: '',
@@ -14,12 +18,33 @@ export class AddUserComponent {
   };
 
   addUser() {
-    console.log('Add user clicked:', this.newUser);
-    // Add save logic here
+    if (this.newUser.name.trim()) {
+      this.userAdded.emit({ ...this.newUser });
+
+      this.newUser = { name: '', mobile: '', email: '', address: '' };
+
+      const modalElement = document.getElementById('addUserModal');
+      if (modalElement) {
+        const modalInstance = bootstrap.Modal.getInstance(modalElement);
+        if (modalInstance) {
+          modalInstance.hide();
+          document.body.classList.remove('modal-open');
+          const backdrop = document.querySelector('.modal-backdrop');
+          if (backdrop) {
+            backdrop.remove();
+          }
+        }
+      }
+    } else {
+      alert('Please enter a name.');
+    }
   }
 
   openModal() {
-    console.log('Opening modal...');
-    // implement modal logic if needed
+    const modalElement = document.getElementById('addUserModal');
+    if (modalElement) {
+      const modalInstance = new bootstrap.Modal(modalElement);
+      modalInstance.show();
+    }
   }
 }
