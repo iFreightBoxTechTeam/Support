@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, AfterViewInit } from '@angular/core';
 
 declare var bootstrap: any;
 
@@ -7,7 +7,7 @@ declare var bootstrap: any;
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css']
 })
-export class AddUserComponent {
+export class AddUserComponent implements AfterViewInit {
   @Output() userAdded = new EventEmitter<any>();
 
   newUser = {
@@ -17,34 +17,36 @@ export class AddUserComponent {
     address: ''
   };
 
+  modalInstance: any;
+
+  ngAfterViewInit() {
+    const modalElement = document.getElementById('addUserModal');
+    if (modalElement) {
+      this.modalInstance = new bootstrap.Modal(modalElement);
+    }
+  }
+
   addUser() {
     if (this.newUser.name.trim()) {
       this.userAdded.emit({ ...this.newUser });
-
       this.newUser = { name: '', mobile: '', email: '', address: '' };
+      this.modalInstance?.hide();
 
-      const modalElement = document.getElementById('addUserModal');
-      if (modalElement) {
-        const modalInstance = bootstrap.Modal.getInstance(modalElement);
-        if (modalInstance) {
-          modalInstance.hide();
-          document.body.classList.remove('modal-open');
-          const backdrop = document.querySelector('.modal-backdrop');
-          if (backdrop) {
-            backdrop.remove();
-          }
-        }
-      }
+      // Optional: Remove backdrop manually if it still lingers
+      setTimeout(() => {
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) backdrop.remove();
+      }, 300);
     } else {
       alert('Please enter a name.');
     }
   }
 
   openModal() {
-    const modalElement = document.getElementById('addUserModal');
-    if (modalElement) {
-      const modalInstance = new bootstrap.Modal(modalElement);
-      modalInstance.show();
-    }
+    this.modalInstance?.show();
+  }
+
+  closeModal() {
+    this.modalInstance?.hide();
   }
 }
