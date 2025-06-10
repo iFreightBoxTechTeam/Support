@@ -18,7 +18,7 @@ export class StatusComponent implements OnInit{
   }
   
   @ViewChild(AddStatusComponent) addStatus!: AddStatusComponent;
-  @Output() userAdded = new EventEmitter<any>();
+  // @Output() userAdded = new EventEmitter<any>();
 
   statusTypes : Status[] = [
     { id: 101, status_name: 'Open' },
