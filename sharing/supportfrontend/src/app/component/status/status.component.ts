@@ -12,42 +12,49 @@ interface Status {
   templateUrl: './status.component.html',
   styleUrls: ['./status.component.css']
 })
-export class StatusComponent implements OnInit{
+export class StatusComponent implements OnInit {
   constructor(private router: Router) {}
-  ngOnInit(): void {
-  }
-  
-  @ViewChild(AddStatusComponent) addStatus!: AddStatusComponent;
+  ngOnInit(): void {}
 
-  statusTypes : Status[] = [
+  @ViewChild('addStatusComponent') addStatus!: AddStatusComponent;
+
+  statusTypes: Status[] = [
     { id: 101, status_name: 'Open' },
     { id: 102, status_name: 'Work in Progress' },
-    { id: 103, status_name: 'Pending'},
+    { id: 103, status_name: 'Pending' },
     { id: 104, status_name: 'Completed' },
-    { id: 105, status_name: 'Work in Progress'},
-    { id: 106, status_name: 'Pending'},
-    { id: 107, status_name: 'Completed'},
-    { id: 109, status_name: 'Work in Progress'},
-    { id: 110, status_name: 'Pending'},
-    { id: 111, status_name: 'Completed'},
-    { id: 112, status_name: 'Work in Progress'},
-    { id: 113, status_name: 'Pending'},
-    { id: 114, status_name: 'Completed'},
+    { id: 105, status_name: 'Work in Progress' },
+    { id: 106, status_name: 'Pending' },
+    { id: 107, status_name: 'Completed' },
+    { id: 109, status_name: 'Work in Progress' },
+    { id: 110, status_name: 'Pending' },
+    { id: 111, status_name: 'Completed' },
+    { id: 112, status_name: 'Work in Progress' },
+    { id: 113, status_name: 'Pending' },
+    { id: 114, status_name: 'Completed' },
   ];
 
   newStatusType: string = '';
+  searchTerm: string = '';
   nextId = 115;
 
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
-  get totalPages(): number {
-    return Math.ceil(this.statusTypes.length / this.itemsPerPage);
+  get filteredStatusTypes(): Status[] {
+    if (!this.searchTerm.trim()) return this.statusTypes;
+    return this.statusTypes.filter(status =>
+      status.status_name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 
-  get paginatedStatusTypes() {
+  get totalPages(): number {
+    return Math.ceil(this.filteredStatusTypes.length / this.itemsPerPage);
+  }
+
+  get paginatedStatusTypes(): Status[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.statusTypes.slice(start, start + this.itemsPerPage);
+    return this.filteredStatusTypes.slice(start, start + this.itemsPerPage);
   }
 
   changePage(page: number): void {
@@ -94,6 +101,10 @@ export class StatusComponent implements OnInit{
   }
 
   openAddStatusModal() {
-    this.addStatus.openModal();
+    if (this.addStatus) {
+      this.addStatus.openModal();
+    } else {
+      console.error('AddStatusComponent is NOT yet initialized!');
+    }
   }
 }

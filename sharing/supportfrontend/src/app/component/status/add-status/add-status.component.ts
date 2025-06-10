@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 
 declare var bootstrap: any;
 
@@ -10,11 +10,19 @@ declare var bootstrap: any;
 
 export class AddStatusComponent{
   @Output() statusAdded = new EventEmitter<any>();
+  // @ViewChild('addStatusModal') addStatusModalRef!: ElementRef;
   modalInstance: any;
 
   newStatus = {
     status_name: ''
   };
+
+  ngAfterViewInit() {
+    const modalElement = document.getElementById('addStatusModal');
+    if (modalElement) {
+      this.modalInstance = new bootstrap.Modal(modalElement);
+    }
+  }
 
   addStatus() {
     console.log('Add Status clicked:', this.newStatus);
@@ -40,11 +48,19 @@ export class AddStatusComponent{
     }
   }
         
+  // openModal() {
+  //   const modalElement = document.getElementById('addStatusModal');
+  //   if (modalElement) {
+  //     const modalInstance = new bootstrap.Modal(modalElement); 
+  //     modalInstance.show();
+  //   }
+  // }
+
   openModal() {
-    const modalElement = document.getElementById('addStatusModal');
-    if (modalElement) {
-      const modalInstance = new bootstrap.Modal(modalElement); 
-      modalInstance.show();
-    }
+    this.modalInstance?.show();
+  }
+
+  closeModal() {
+    this.modalInstance?.hide();
   }
 }
