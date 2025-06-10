@@ -23,7 +23,7 @@ import { NavMainComponent } from './nav-main/nav-main.component';
 import { AddUserComponent } from './component/users/add-user/add-user.component';
 import { AddStatusComponent } from './component/status/add-status/add-status.component';
 import { AddIssueComponent } from './component/issue-type/add-issue/add-issue.component';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +49,8 @@ import { AddIssueComponent } from './component/issue-type/add-issue/add-issue.co
     BrowserModule,
     FormsModule,    
     AppRoutingModule,
+    HttpClientModule,
+    
     
   ],
   providers: [],

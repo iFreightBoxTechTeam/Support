@@ -28,14 +28,13 @@
       </thead>
       <tbody>
         <tr *ngFor="let issue of paginatedIssues">
-          <td (click)="editIssue(issue.id)" data-toggle="modal" data-target="#exampleModalLong" style="cursor: pointer;">
-            {{ issue.id }}
-          </td>
-          <td>{{ issue.user }}</td>
-          <td>{{ tenant.user }}</td>
-          <td>{{ issue.raisedDate | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
-          <td>{{ issue.status }}</td>
-          <td>{{ issue.module }}</td>
+  <td>{{ issue.issues_id }}</td>
+  <td>{{ issue.Name }}</td>
+  <td>{{ issue.TenantCode }}</td>
+  <td>{{ issue.LogTime | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
+  <td>{{ issue.StatusName }}</td>
+  <td>{{ issue.Module }}</td>
+
           <td> 
             <div class="btn-group">               
               <button class="btn btn-sm me-2" data-toggle="modal" data-target="#exampleModalLong" (click)="editIssue(issue.id)">

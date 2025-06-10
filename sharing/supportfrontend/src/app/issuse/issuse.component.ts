@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+
 import { ViewComponent } from '../component/view/view.component';
+import { IssueService } from '../issue.service';
 
 @Component({
   selector: 'app-issuse',
@@ -7,80 +9,40 @@ import { ViewComponent } from '../component/view/view.component';
   styleUrls: ['./issuse.component.css']
 })
 export class IssuseComponent implements OnInit {
-  issues: any[] = [];             // Full list
-  filteredIssues: any[] = [];     // Search filtered
+  issues: any[] = [];
+  filteredIssues: any[] = [];
   searchTerm: string = '';
-  @ViewChild(ViewComponent) ViewComponent!: ViewComponent;
-
   currentPage: number = 1;
   itemsPerPage: number = 10;
+  totalPages: number = 0;
+
+  @ViewChild(ViewComponent) ViewComponent!: ViewComponent;
 
   tenant = {
     user: 'TenantCode123'
   };
+
+  constructor(private issueService: IssueService) {}
 
   ngOnInit() {
     this.loadIssues();
   }
 
   loadIssues() {
-    this.issues = [
-      { id: 101, user: 'Alice', raisedDate: new Date('2025-06-01T14:30:00'), status: '', module: '' },
-      { id: 102, user: 'Priya', raisedDate: new Date('1997-06-01'), status: '', module: '' },
-      { id: 103, user: 'Aditya', raisedDate: new Date('2003-06-01'), status: '', module: '' },
-      { id: 104, user: 'Shreya', raisedDate: new Date('2004-06-01'), status: '', module: '' },
-      { id: 105, user: 'Fahim', raisedDate: new Date('2001-06-01'), status: '', module: '' },
-      { id: 106, user: 'Vijaya', raisedDate: new Date('2005-06-01'), status: '', module: '' },
-      { id: 107, user: 'laxmi', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 108, user: 'Riddhi', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 109, user: 'lokesh', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 110, user: 'Krishna', raisedDate: new Date('2005-06-01'), status: '', module: '' },
-      { id: 111, user: 'Siddhart', raisedDate: new Date('2001-06-01'), status: '', module: '' },
-      { id: 112, user: 'Bhavesh', raisedDate: new Date('1980-06-01'), status: '', module: '' },
-      { id: 113, user: 'Kevin', raisedDate: new Date('1995-06-01'), status: '', module: '' },
-      { id: 115, user: 'Palak', raisedDate: new Date('2010-06-01'), status: '', module: '' },
-      { id: 120, user: 'Shreyas', raisedDate: new Date('1990-06-01'), status: '', module: '' },
-      { id: 121, user: 'Rohit', raisedDate: new Date('1983-06-01'), status: '', module: '' },
-      { id: 168, user: 'MS DHONI', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 162, user: 'Yuvraj', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 161, user: 'Gill', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 160, user: 'Rahul', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 154, user: 'Pant', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 155, user: 'Pandya', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 152, user: 'Hardik', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 151, user: 'Phil', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 150, user: 'Liam', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 149, user: 'Mayank', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 148, user: 'Jack', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 147, user: 'Ryan', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 146, user: 'Mitchal', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 145, user: 'Tim', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 144, user: 'David', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 143, user: 'Sai', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 142, user: 'Sky', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 141, user: 'Bumrah', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 140, user: 'Dravid', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 139, raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 138, user: 'Govind', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 137, user: 'Rakesh', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 136, user: 'Noor', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 135, user: 'Ali', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 134, user: 'khan', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 133, user: 'Ansari', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 132, user: 'Adi', raisedDate: new Date('2025-06-01'), status: '', module: '' },
-      { id: 131, user: 'Prisha', raisedDate: new Date('2025-06-01'), status: '', module: '' }
-    ];
+    this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
+      this.issues = data;
+      this.filteredIssues = data;
+      console.log("API Response:", data);
 
-    this.filteredIssues = [...this.issues];
+      // Assuming API always returns full list with pagination handled manually.
+      this.totalPages = Math.ceil(this.filteredIssues.length / this.itemsPerPage);
+    });
   }
 
   onSearch(term: string) {
-    const lowerTerm = term.toLowerCase().trim();
+    this.searchTerm = term;
     this.currentPage = 1;
-
-    this.filteredIssues = this.issues.filter(issue =>
-      issue.user?.toLowerCase().includes(lowerTerm)
-    );
+    this.loadIssues(); // Load data with search filter applied from API
   }
 
   get paginatedIssues() {
@@ -88,13 +50,10 @@ export class IssuseComponent implements OnInit {
     return this.filteredIssues.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  get totalPages(): number {
-    return Math.ceil(this.filteredIssues.length / this.itemsPerPage);
-  }
-
   changePage(page: number) {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
+      this.loadIssues(); // Load next page
     }
   }
 
@@ -106,15 +65,14 @@ export class IssuseComponent implements OnInit {
     if (confirm('Are you sure you want to delete this issue?')) {
       this.issues = this.issues.filter(issue => issue.id !== id);
       this.filteredIssues = this.filteredIssues.filter(issue => issue.id !== id);
-
       if (this.currentPage > this.totalPages) {
         this.currentPage = this.totalPages || 1;
       }
     }
   }
+viewLog(id: string) {
+  console.log('View log for issue', id);
+  this.ViewComponent.openModal(id);  // 👈 pass issueId
+}
 
-  viewLog(id: number) {
-    console.log('View log for issue', id);
-    this.ViewComponent.openModal();
-  }
 }
