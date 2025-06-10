@@ -1,11 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-issue-type',
   templateUrl: './issue-type.component.html',
   styleUrls: ['./issue-type.component.css']
 })
-export class IssueTypeComponent {
+export class IssueTypeComponent implements AfterViewInit {
+  @ViewChild('addUserModal') addUserModalRef!: ElementRef;
+  @ViewChild('addIssueModal') addIssueModalRef!: ElementRef;
+
+  addUserModal: any;
+  addIssueModal: any;
+
+  // Change this based on the page — could come from router
+  currentPage = 'issue';
+
   issueTypes = [
     { id: 1, type: 'Bug' },
     { id: 2, type: 'Feature Request' },
@@ -19,38 +30,35 @@ export class IssueTypeComponent {
     { id: 10, type: 'Other' }
   ];
 
-  currentPage: number = 1;
-  itemsPerPage: number = 5;
+  selectedIssueType: string = '';
+  userName: string = '';
 
-  get totalPages(): number {
-    return Math.ceil(this.issueTypes.length / this.itemsPerPage);
+  ngAfterViewInit() {
+    this.addUserModal = new bootstrap.Modal(this.addUserModalRef.nativeElement);
+    this.addIssueModal = new bootstrap.Modal(this.addIssueModalRef.nativeElement);
   }
 
-  get paginatedIssues() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.issueTypes.slice(start, start + this.itemsPerPage);
-  }
-
-  changePage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
+  openModal() {
+    if (this.currentPage === 'user') {
+      this.addUserModal.show();
+    } else if (this.currentPage === 'issue') {
+      this.addIssueModal.show();
     }
   }
 
-  deleteIssue(id: number): void {
-    this.issueTypes = this.issueTypes.filter(issue => issue.id !== id);
-    if (this.currentPage > this.totalPages) {
-      this.currentPage = this.totalPages || 1;
-    }
+  saveUser() {
+    console.log('User saved:', this.userName);
+    this.userName = '';
+    this.addUserModal.hide();
   }
 
-  editIssue(id: number): void {
-    const issue = this.issueTypes.find(i => i.id === id);
-    if (issue) {
-      const updatedType = prompt('Edit Issue Type:', issue.type);
-      if (updatedType !== null && updatedType.trim() !== '') {
-        issue.type = updatedType.trim();
-      }
+  saveIssueType() {
+    if (this.selectedIssueType.trim()) {
+      console.log('Issue type saved:', this.selectedIssueType);
+      this.selectedIssueType = '';
+      this.addIssueModal.hide();
+    } else {
+      alert('Please select or enter an issue type.');
     }
   }
 }

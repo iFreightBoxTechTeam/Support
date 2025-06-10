@@ -22,6 +22,7 @@ import { StatusComponent } from './component/status/status.component';
 import { NavMainComponent } from './nav-main/nav-main.component';
 import { AddUserComponent } from './component/users/add-user/add-user.component';
 import { AddStatusComponent } from './component/status/add-status/add-status.component';
+import { AddIssueComponent } from './component/issue-type/add-issue/add-issue.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AddStatusComponent } from './component/status/add-status/add-status.com
     StatusComponent,
     NavMainComponent,
     AddUserComponent,
-    AddStatusComponent
+    AddStatusComponent,
+    AddIssueComponent
       
   ],
   imports: [
