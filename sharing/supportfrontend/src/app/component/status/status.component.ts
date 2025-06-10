@@ -18,7 +18,7 @@ export class StatusComponent implements OnInit{
   }
   
   @ViewChild(AddStatusComponent) addStatus!: AddStatusComponent;
-  @Output() userAdded = new EventEmitter<any>();
+  // @Output() userAdded = new EventEmitter<any>();
 
   statusTypes : Status[] = [
     { id: 101, status_name: 'Open' },
@@ -95,6 +95,12 @@ export class StatusComponent implements OnInit{
   }
 
   openAddStatusModal() {
+    // this.addStatus.openModal();
+    console.log('addStatus:', this.addStatus);
+  if(this.addStatus) {
     this.addStatus.openModal();
+  } else {
+    console.error('AddStatusComponent is NOT yet initialized!');
+  }
   }
 }
