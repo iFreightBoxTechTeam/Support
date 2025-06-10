@@ -14,8 +14,10 @@ interface Issue {
 })
 export class IssueTypeComponent {
   constructor(private router: Router) {}
-
+ 
   @ViewChild(AddIssueComponent) addIssue!: AddIssueComponent;
+selectedIssueId: number | null = null;
+
 
   issueTypes: Issue[] = [
     { id: 1, issue_name:'Bug' },
@@ -107,4 +109,9 @@ export class IssueTypeComponent {
     this.searchTerm = term;
     this.currentPage = 1;
   }
+
+    openIssueModal(issueId: number) {
+    this.selectedIssueId = issueId;
+  }
 }
+

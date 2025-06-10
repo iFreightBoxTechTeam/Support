@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input,OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-issue',
@@ -6,11 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./issue.component.css']
 })
 export class IssueComponent {
-  issueId: string = 'ISSUE-101';
+  @Input() issueId: number | string | undefined;
   overallStatus: string = 'Open';
   description: string = 'This is a hardcoded issue with pre-defined images.';
   assignTo: string = '';
   Status: string = 'Open';
+   ngOnInit() {}
 
   users: string[] = ['Vijaya', 'Shreya', 'Riddhi'];
   selectedImageUrl: string | null = null;
@@ -50,6 +51,7 @@ export class IssueComponent {
       overallStatus: 'Open'
     }
   ];
+issue: any;
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;

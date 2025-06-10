@@ -21,6 +21,8 @@ export class IssuseComponent implements OnInit {
   tenant = {
     user: 'TenantCode123'
   };
+openIssueModal: any;
+user: any;
 
   constructor(private issueService: IssueService) {}
 
