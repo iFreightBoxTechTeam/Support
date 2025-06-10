@@ -1,18 +1,15 @@
 <app-nav-main
   [showAddButton]="true"
   (openAddModal)="openAddStatusModal()"
+  (searchChange)="searchTerm = $event; currentPage = 1"
 ></app-nav-main>
+
 
 <app-add-status (statusAdded)="onStatusAdded($event)" #addStatusComponent></app-add-status>
 
 <div class="status-type">
-
   <div class="status-type-header">
     <h2>Status</h2>
-    <!-- <input type="text" class="status-add" [(ngModel)]="newStatusType" placeholder="Enter Status Type" />
-    <button class="add-btn" (click)="addStatusBtn()" title="Add Status">
-      <i class="fa fa-plus"></i> Add
-    </button> -->
   </div>
 
   <div class="status-table">
@@ -26,11 +23,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let status of paginatedStatusTypes">
-
           <td>{{ status.id }}</td>
           <td>{{ status.status_name }}</td>
           <td>
-            <button class="edit-btn" (click)="editStatus(status.id)" title="Edit">
+           <button class="edit-btn" (click)="editStatus(status.id)" title="Edit">
               <svg width="16px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.1498 7.93997L8.27978 19.81C7.21978 20.88 4.04977 21.3699 3.32977 20.6599C2.60977 19.9499 3.11978 16.78 4.17978 15.71L16.0498 3.84C16.5979 3.31801 17.3283 3.03097 18.0851 3.04019C18.842 3.04942 19.5652 3.35418 20.1004 3.88938C20.6356 4.42457 20.9403 5.14781 20.9496 5.90463C20.9588 6.66146 20.6718 7.39189 20.1498 7.93997V7.93997Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
             </button>
             <button class="delete-btn" (click)="deleteStatus(status.id)" title="Delete">
@@ -41,28 +37,24 @@
       </tbody>
     </table>
   </div>
-  
 
-   <nav class="pagination-nav" *ngIf="totalPages > 1">
-  <ul class="pagination">
-    <li class="page-item" [class.disabled]="currentPage === 1">
-      <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
-    </li>
+  <nav class="pagination-nav" *ngIf="totalPages > 1">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
+      </li>
 
-    <li
-      class="page-item"
-      *ngFor="let page of [].constructor(totalPages); let i = index"
-      [class.active]="currentPage === i + 1"
-    >
-      <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
-    </li>
+      <li
+        class="page-item"
+        *ngFor="let page of [].constructor(totalPages); let i = index"
+        [class.active]="currentPage === i + 1"
+      >
+        <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+      </li>
 
-    <li class="page-item" [class.disabled]="currentPage === totalPages">
-      <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
-    </li>
-  </ul>
-</nav>
-
-
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
 </div>
-
