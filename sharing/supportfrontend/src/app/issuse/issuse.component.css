@@ -1,10 +1,14 @@
+.issues_card{
+  margin: 20px;
+}
+
 /* Search Wrapper */
 .search-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .search-wrapper h1 {
@@ -175,3 +179,4 @@
   color: #3f51b5;
   border-color: #3f51b5;
 }
+

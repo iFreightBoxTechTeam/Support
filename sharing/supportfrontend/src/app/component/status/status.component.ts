@@ -2,6 +2,11 @@ import { Component, OnInit, ViewChild,EventEmitter,Output } from '@angular/core'
 import { Router } from '@angular/router';
 import { AddStatusComponent } from './add-status/add-status.component';
 
+interface Status {
+  id: number;
+  status_name: string;
+}
+
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
@@ -15,20 +20,20 @@ export class StatusComponent implements OnInit{
   @ViewChild(AddStatusComponent) addStatus!: AddStatusComponent;
   @Output() userAdded = new EventEmitter<any>();
 
-  statusTypes = [
-    { id: 101, type: 'Open' },
-    { id: 102, type: 'Work in Progress' },
-    { id: 103, type: 'Pending'},
-    { id: 104, type: 'Completed' },
-    { id: 105, type: 'Work in Progress'},
-    { id: 106, type: 'Pending'},
-    { id: 107, type: 'Completed'},
-    { id: 109, type: 'Work in Progress'},
-    { id: 110, type: 'Pending'},
-    { id: 111, type: 'Completed'},
-    { id: 112, type: 'Work in Progress'},
-    { id: 113, type: 'Pending'},
-    { id: 114, type: 'Completed'},
+  statusTypes : Status[] = [
+    { id: 101, status_name: 'Open' },
+    { id: 102, status_name: 'Work in Progress' },
+    { id: 103, status_name: 'Pending'},
+    { id: 104, status_name: 'Completed' },
+    { id: 105, status_name: 'Work in Progress'},
+    { id: 106, status_name: 'Pending'},
+    { id: 107, status_name: 'Completed'},
+    { id: 109, status_name: 'Work in Progress'},
+    { id: 110, status_name: 'Pending'},
+    { id: 111, status_name: 'Completed'},
+    { id: 112, status_name: 'Work in Progress'},
+    { id: 113, status_name: 'Pending'},
+    { id: 114, status_name: 'Completed'},
   ];
 
   newStatusType: string = '';
@@ -54,11 +59,21 @@ export class StatusComponent implements OnInit{
 
   addStatusBtn(): void {
     if (this.newStatusType.trim()) {
-      this.statusTypes.push({ id: this.nextId++, type: this.newStatusType.trim() });
+      this.statusTypes.push({ id: this.nextId++, status_name: this.newStatusType.trim() });
       this.newStatusType = '';
       this.currentPage = this.totalPages;
     } else {
       alert('Please enter a Status type.');
+    }
+  }
+
+  onStatusAdded(status: Omit<Status, 'id'>) {
+    if (status.status_name.trim()) {
+      this.statusTypes.push({
+        id: this.nextId++,
+        ...status,
+      });
+      this.currentPage = this.totalPages;
     }
   }
 
@@ -72,9 +87,9 @@ export class StatusComponent implements OnInit{
   editStatus(id: number): void {
     const existing = this.statusTypes.find(i => i.id === id);
     if (existing) {
-      const updated = prompt('Edit Status Type:', existing.type);
+      const updated = prompt('Edit Status Type:', existing.status_name);
       if (updated !== null && updated.trim() !== '') {
-        existing.type = updated.trim();
+        existing.status_name = updated.trim();
       }
     }
   }

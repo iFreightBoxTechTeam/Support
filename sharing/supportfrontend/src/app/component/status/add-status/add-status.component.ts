@@ -21,7 +21,7 @@ export class AddStatusComponent{
     if(this.newStatus.status_name.trim()){
       this.statusAdded.emit({...this.newStatus});
 
-      this.newStatus = {status_name: ''}
+      this.newStatus = {status_name: ''};
 
       const modalElement = document.getElementById('addStatusModal');
       if(modalElement){
@@ -42,8 +42,8 @@ export class AddStatusComponent{
         
   openModal() {
     const modalElement = document.getElementById('addStatusModal');
-    if(modalElement){
-      const modalInstance = new bootstrap.Modal(modalElement);
+    if (modalElement) {
+      const modalInstance = new bootstrap.Modal(modalElement); 
       modalInstance.show();
     }
   }

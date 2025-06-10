@@ -1,10 +1,21 @@
 .user-card{
-  margin: 20px;
+  margin: 25px;
 }
 
-.user-task h1{
-  color: #110c3f;
+.user-task {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  gap: 10px;
+}
+
+.user-task h1 {
+  font-size: 2.2rem;
+  margin: 0;
   font-weight: bold;
+  color: #1a2a6c;
 }
 
 .table {
@@ -12,26 +23,31 @@
   margin-bottom: 2rem;
   border-collapse: collapse;
   background-color: #fff;
-  border-radius: 0.75rem;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
 }
 
-.table th,
+.thead tr {
+  background-color: #1a2a6c;
+  color: white;
+}
+
 .table td {
-  padding: 1rem 1.25rem;
   text-align: left;
   font-size: 0.95rem;
   vertical-align: middle;
   border-bottom: 1px solid #e6e9ec;
+  text-align: center;
 }
 
 /* Header Styling */
 .table th {
-  background: #110c3f;
+  padding: 0.8 1.25rem;
+  background: #180f63;
   color: #fff;
-  font-weight: 600;
+  font-weight: bold;
   letter-spacing: 0.3px;
+  text-align: center;
 }
 
 /* Row Striping */
