@@ -19,11 +19,6 @@ export class IssuseComponent implements OnInit {
 
   @ViewChild(ViewComponent) ViewComponent!: ViewComponent;
 
-  tenant = {
-    user: 'TenantCode123'
-  };
-openIssueModal: any;
-user: any;
 
   constructor(private issueService: IssueService) {}
 
