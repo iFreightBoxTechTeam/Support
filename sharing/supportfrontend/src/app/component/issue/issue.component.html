@@ -1,14 +1,14 @@
-  <button type="button" class="modal-top-close" data-dismiss="modal" aria-label="Close">
-    &times;
-  </button>
+<button type="button" class="modal-top-close" data-dismiss="modal" aria-label="Close">
+  &times;
+</button>
 
 <div class="issue-container">
   <!-- Header -->
   <div class="header">
     <h2>Issue</h2>
     <div class="issue-meta">
-      <span class="issue-id">#225187</span>
-      <span class="status-label">Status:</span>
+      <span class="issue-id">#{{ issueId }}</span>
+      <span class="status-label">Status: {{ overallStatus }}</span>
     </div>
   </div>
 
@@ -18,14 +18,14 @@
     <div class="left-pane">
       <div class="form-group">
         <label>Description:</label>
-        <p class="description-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p class="description-text">{{ description }}</p>
       </div>
 
       <div class="form-group">
         <label>Assign To:</label>
         <select [(ngModel)]="assignTo">
           <option value="">-- Select --</option>
-          <option *ngFor="let user of ['Vijaya', 'Shreya', 'Riddhi', 'Aditya', 'Vijayalaxmi']" [value]="user">
+          <option *ngFor="let user of users" [value]="user">
             {{ user }}
           </option>
         </select>
@@ -52,6 +52,7 @@
 
       <div class="image-preview">
         <div class="image-card" *ngFor="let img of images; let i = index">
+          <p class="image-id">ID: {{ img.id }}</p>
           <img [src]="img.url" (click)="openImageModal(img.url)" alt="Preview" />
           <button class="delete-button" (click)="deleteImage(i)">×</button>
         </div>
