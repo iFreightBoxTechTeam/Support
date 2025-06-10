@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ViewComponent } from '../component/view/view.component';
-import { IssueService } from '../issue.service';
+import { IssueService,} from '../issue.service';
+
 
 @Component({
   selector: 'app-issuse',
@@ -18,9 +19,6 @@ export class IssuseComponent implements OnInit {
 
   @ViewChild(ViewComponent) ViewComponent!: ViewComponent;
 
-  tenant = {
-    user: 'TenantCode123'
-  };
 
   constructor(private issueService: IssueService) {}
 
@@ -36,7 +34,7 @@ export class IssuseComponent implements OnInit {
 
       // Assuming API always returns full list with pagination handled manually.
       this.totalPages = Math.ceil(this.filteredIssues.length / this.itemsPerPage);
-    });
+    }); 
   }
 
   onSearch(term: string) {

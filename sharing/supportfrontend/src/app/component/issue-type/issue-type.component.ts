@@ -2,10 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { AddIssueComponent } from './add-issue/add-issue.component';
 import { Router } from '@angular/router';
 
-interface Issue {
-  id: number;
-  issue_name: string;
-}
+import { Issue, IssueTypeService} from '..//..//issue-type.service';
+
+
+
 
 @Component({
   selector: 'app-issue-type',
@@ -13,22 +13,10 @@ interface Issue {
   styleUrls: ['./issue-type.component.css']
 })
 export class IssueTypeComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private issueTypeService: IssueTypeService) {}
 
   @ViewChild(AddIssueComponent) addIssue!: AddIssueComponent;
 
-  issueTypes: Issue[] = [
-    { id: 1, issue_name:'Bug' },
-    { id: 2, issue_name:'Feature Request' },
-    { id: 3, issue_name:'Improvement' },
-    { id: 4, issue_name:'Task' },
-    { id: 5, issue_name:'Support' },
-    { id: 6, issue_name:'Documentation' },
-    { id: 7, issue_name:'Maintenance' },
-    { id: 8, issue_name:'Performance' },
-    { id: 9, issue_name:'Security' },
-    { id: 10, issue_name:'Other' }
-  ];
 
   newIssueType: string = '';
   nextId = 11;
@@ -37,23 +25,41 @@ export class IssueTypeComponent {
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
-  ngOnInit(): void {}
+issueTypes: Issue[] = [];
 
-  get filteredIssues(): Issue[] {
-    if (!this.searchTerm.trim()) return this.issueTypes;
-    return this.issueTypes.filter(issue =>
-      issue.issue_name.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-  }
+ngOnInit(): void {
+  this.loadIssueTypes();
+}
+
+loadIssueTypes(): void {
+  this.issueTypeService.getIssueTypes().
+  subscribe({
+    
+    next: (data) => {
+      console.log('API data:', data); 
+      this.issueTypes = data.map(item => ({
+        id: item.id,
+        issue_type: item.issue_type // Mapping backend field to frontend model
+      }));
+    },
+    
+    error: (err) => {
+      console.error('Failed to load issue types:', err);
+    }
+  });}
+
+get filteredIssues(): Issue[] {
+  return this.issueTypes;
+}
 
   get totalPages(): number {
     return Math.ceil(this.filteredIssues.length / this.itemsPerPage);
   }
 
   get paginatedIssues(): Issue[] {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filteredIssues.slice(start, start + this.itemsPerPage);
-  }
+  const start = (this.currentPage - 1) * this.itemsPerPage;
+  return this.filteredIssues.slice(start, start + this.itemsPerPage);
+}
 
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
@@ -63,7 +69,7 @@ export class IssueTypeComponent {
 
   addIssueBtn(): void {
     if (this.newIssueType.trim()) {
-      this.issueTypes.push({ id: this.nextId++, issue_name: this.newIssueType.trim() });
+      this.issueTypes.push({ id: this.nextId++, issue_type: this.newIssueType.trim() });
       this.newIssueType = '';
       this.currentPage = this.totalPages;
     } else {
@@ -72,7 +78,7 @@ export class IssueTypeComponent {
   }
 
   onIssueAdded(issue: Omit<Issue, 'id'>) {
-    if (issue.issue_name.trim()) {
+    if (issue.issue_type.trim()) {
       this.issueTypes.push({
         id: this.nextId++,
         ...issue,
@@ -91,9 +97,9 @@ export class IssueTypeComponent {
   editIssue(id: number): void {
     const issue = this.issueTypes.find(i => i.id === id);
     if (issue) {
-      const updatedType = prompt('Edit Issue Type:', issue.issue_name);
+      const updatedType = prompt('Edit Issue Type:', issue.issue_type);
       if (updatedType !== null && updatedType.trim() !== '') {
-        issue.issue_name = updatedType.trim();
+        issue.issue_type = updatedType.trim();
       }
     }
   }

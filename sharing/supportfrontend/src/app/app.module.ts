@@ -42,7 +42,8 @@ import { HttpClientModule } from '@angular/common/http';
     NavMainComponent,
     AddUserComponent,
     AddStatusComponent,
-    AddIssueComponent
+    AddIssueComponent,
+    
       
   ],
   imports: [
