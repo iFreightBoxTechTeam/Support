@@ -1,7 +1,9 @@
 <app-nav-main
   [showAddButton]="true"
   (openAddModal)="openAddIssueModal()"
+  (searchChange)="onSearchChange($event)"
 ></app-nav-main>
+
 
 <app-add-issue (issueAdded)="onIssueAdded($event)" #addIssueComponent></app-add-issue>
 

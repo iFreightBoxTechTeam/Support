@@ -14,13 +14,10 @@ interface Issue {
 })
 export class IssueTypeComponent {
   constructor(private router: Router) {}
-  ngOnInit(): void {
-  }
 
   @ViewChild(AddIssueComponent) addIssue!: AddIssueComponent;
-  
 
-  issueTypes = [
+  issueTypes: Issue[] = [
     { id: 1, issue_name:'Bug' },
     { id: 2, issue_name:'Feature Request' },
     { id: 3, issue_name:'Improvement' },
@@ -36,16 +33,26 @@ export class IssueTypeComponent {
   newIssueType: string = '';
   nextId = 11;
 
+  searchTerm: string = '';
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
-  get totalPages(): number {
-    return Math.ceil(this.issueTypes.length / this.itemsPerPage);
+  ngOnInit(): void {}
+
+  get filteredIssues(): Issue[] {
+    if (!this.searchTerm.trim()) return this.issueTypes;
+    return this.issueTypes.filter(issue =>
+      issue.issue_name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 
-  get paginatedIssues() {
+  get totalPages(): number {
+    return Math.ceil(this.filteredIssues.length / this.itemsPerPage);
+  }
+
+  get paginatedIssues(): Issue[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.issueTypes.slice(start, start + this.itemsPerPage);
+    return this.filteredIssues.slice(start, start + this.itemsPerPage);
   }
 
   changePage(page: number): void {
@@ -60,7 +67,7 @@ export class IssueTypeComponent {
       this.newIssueType = '';
       this.currentPage = this.totalPages;
     } else {
-      alert('Please enter a Status type.');
+      alert('Please enter an issue type.');
     }
   }
 
@@ -91,8 +98,13 @@ export class IssueTypeComponent {
     }
   }
 
-   openAddIssueModal() {
+  openAddIssueModal() {
     this.addIssue.openModal();
   }
 
+  // 🔍 This method handles search term emitted by app-nav-main
+  onSearchChange(term: string) {
+    this.searchTerm = term;
+    this.currentPage = 1;
+  }
 }
