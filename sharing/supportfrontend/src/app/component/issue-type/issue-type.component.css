@@ -1,8 +1,8 @@
 /* Main container styling */
 .issue-type {
   width: 100%;
-  margin: 0;
-  padding: 30px;
+  margin: 2px auto;
+  padding: 5px;
   background-color: #fdfdfd;
   font-family: Arial, sans-serif;
   box-sizing: border-box;
@@ -14,9 +14,8 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
   margin-bottom: 10px;
-  padding: 0 30px;
 }
 
 .issue-type-header h2 {
@@ -27,49 +26,11 @@
   color: #333;
 }
 
-.issue-type-top-bar {
-  display: flex;
-  justify-content: center; /* Center input + button */
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-
-  /* Optional: center the whole block */
-  width: 100%;
-}
-
-/* .issue-add {
-  flex: 1 1 auto;
-  min-width: 200px;
-  max-width: 600px;
-  padding: 10px 8px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-} */
-
-/* .add-btn {
-  flex: 0 0 auto;
-  background-color: #246985;
-  color: white;
-  border: none;
-  padding: 10px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.2s ease;
-  min-width: 80px;
-} */
-
-.add-btn:hover {
-  background-color: #175168;
-}
-
 /* Table container */
 .issue-table {
   width: 100%;
   overflow-x: auto;
-  padding: 0 30px;
+  padding: 0 0px;
   box-sizing: border-box;
 }
 
@@ -137,14 +98,14 @@
   }
 
   .issue-table {
-    padding: 0 15px;
+    padding: 0 0x;
   }
 }
 
 /* Optional: add some padding on larger screens */
 @media (min-width: 768px) {
   .issue-type {
-    padding: 40px 80px;
+    padding: 25px 80px;
   }
 }
 
