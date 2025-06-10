@@ -16,6 +16,8 @@ export class IssueTypeComponent {
   constructor(private router: Router, private issueTypeService: IssueTypeService) {}
 
   @ViewChild(AddIssueComponent) addIssue!: AddIssueComponent;
+selectedIssueId: number | null = null;
+
 
 
   newIssueType: string = '';
@@ -113,4 +115,9 @@ get filteredIssues(): Issue[] {
     this.searchTerm = term;
     this.currentPage = 1;
   }
+
+    openIssueModal(issueId: number) {
+    this.selectedIssueId = issueId;
+  }
 }
+
