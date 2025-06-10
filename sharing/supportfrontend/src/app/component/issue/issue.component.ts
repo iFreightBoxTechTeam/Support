@@ -1,4 +1,7 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component,Input,OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { IssueService } from 'src/app/issue.service';
 
 @Component({
   selector: 'app-issue',
@@ -11,7 +14,8 @@ export class IssueComponent {
   description: string = 'This is a hardcoded issue with pre-defined images.';
   assignTo: string = '';
   Status: string = 'Open';
-   ngOnInit() {}
+  apiUrl: any;
+   
 
   users: string[] = ['Vijaya', 'Shreya', 'Riddhi'];
   selectedImageUrl: string | null = null;
@@ -52,6 +56,26 @@ export class IssueComponent {
     }
   ];
 issue: any;
+constructor(private issueService: IssueService,private http: HttpClient) {}
+private issueData: any; 
+ ngOnInit() {
+  this.issue = this.issueService.getIssue() || {}; 
+
+
+ if (!this.issue || Object.keys(this.issue).length === 0) {
+    console.error("Error: Issue is not set correctly in issue.component.ts");
+  }
+
+  console.log("Loaded Issue in issue.component.ts:", this.issue);
+}
+setIssue(issue: any) {
+  if (!issue) {
+    console.error("Error: Trying to set an undefined issue.");
+    return;
+  }
+  this.issueData = issue;
+  console.log("Issue stored in service:", this.issueData);
+}
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -78,6 +102,17 @@ issue: any;
   deleteImage(index: number): void {
     this.images.splice(index, 1);
   }
+ updateIssue(userId: number, issueData: any) {
+  this.issueService.updateIssue(userId, issueData).subscribe(
+    (response) => {
+      console.log('Issue updated successfully:', response);
+    },
+    (error) => {
+      console.error('Error updating issue:', error);
+    }
+  );
+  
+}
 
   openImageModal(url: string): void {
     this.selectedImageUrl = url;
@@ -88,13 +123,34 @@ issue: any;
   }
 
   saveIssue(): void {
-    console.log('Saving issue:', {
-      id: this.issueId,
-      status: this.overallStatus,
-      description: this.description,
-      images: this.images
-    });
+  if (!this.issueId) {
+    console.error("Error: issueId is missing");
+    return;
   }
+
+  const issueData = {
+    StatusName: this.overallStatus,
+    AssignTo: this.assignTo,
+    ImagePaths: this.images.map(img => img.url)
+  };
+
+  console.log("Updating Issue:", this.issueId, issueData); // Debug log
+
+  this.issueService.updateIssue(this.issueId as number, issueData).subscribe(
+    response => {
+      console.log("Issue updated:", response);
+    },
+    error => console.error("Error updating issue:", error)
+  );
+}
+
+getIssue() {
+  console.log("Fetching issue from service:", this.issueService.getIssue());
+return this.issueService.getIssue() || null;
+}
+  editIssue(issueId: number): void {
+  this.issueId = issueId;
+}
 
   triggerFileInput(): void {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;

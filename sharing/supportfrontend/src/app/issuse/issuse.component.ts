@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { ViewComponent } from '../component/view/view.component';
 import { IssueService,} from '../issue.service';
@@ -16,8 +16,8 @@ export class IssuseComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 0;
-
-  @ViewChild(ViewComponent) ViewComponent!: ViewComponent;
+ 
+@ViewChild(ViewComponent) viewComponent!: ViewComponent;
 
 
   constructor(private issueService: IssueService) {}
@@ -27,14 +27,22 @@ export class IssuseComponent implements OnInit {
   }
 
   loadIssues() {
+    // this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
+    //   this.issues = data;
+    //   this.filteredIssues = data;
+    //   console.log("API Response:", data);
+
+    //   // Assuming API always returns full list with pagination handled manually.
+    //   this.totalPages = Math.ceil(this.filteredIssues.length / this.itemsPerPage);
+    // }); 
     this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
+    if (Array.isArray(data)) {
       this.issues = data;
       this.filteredIssues = data;
-      console.log("API Response:", data);
-
-      // Assuming API always returns full list with pagination handled manually.
-      this.totalPages = Math.ceil(this.filteredIssues.length / this.itemsPerPage);
-    }); 
+    } else {
+      console.error("Error: API did not return an array", data);
+    }
+  });
   }
 
   onSearch(term: string) {
@@ -54,10 +62,19 @@ export class IssuseComponent implements OnInit {
       this.loadIssues(); // Load next page
     }
   }
+editIssue(issueId: string) {
+  const selectedIssue = this.paginatedIssues.find(issue => issue.issues_id === issueId);
+  console.log("Selected Issue Before Setting in Service:", selectedIssue);
 
-  editIssue(id: number) {
-    console.log('Edit issue', id);
+  if (!selectedIssue) {
+    console.error("Error: No issue found for ID:", issueId);
+    return;
   }
+
+  this.issueService.setIssue(selectedIssue);
+}
+
+
 
   deleteIssue(id: number) {
     if (confirm('Are you sure you want to delete this issue?')) {
@@ -70,7 +87,9 @@ export class IssuseComponent implements OnInit {
   }
 viewLog(id: string) {
   console.log('View log for issue', id);
-  this.ViewComponent.openModal(id);  // 👈 pass issueId
+  // this.viewComponent.openModal(id);
+
+    // 👈 pass issueId
 }
 
 }
