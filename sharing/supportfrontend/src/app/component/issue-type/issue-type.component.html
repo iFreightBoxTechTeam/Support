@@ -22,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let issue of paginatedIssues">
+        <tr *ngFor="let issue of issueTypes">
   <td>{{ issue.id }}</td>
   <td>{{ issue.issue_type }}</td>
             <button class="edit-btn" (click)="editIssue(issue.id)" title="Edit">

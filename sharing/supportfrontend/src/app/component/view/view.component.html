@@ -21,9 +21,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let entry of history">
-  <td>{{ entry.Raised_date | date:'short' }}</td>
-  <td>{{ entry.statusname }}</td>
-  <td>{{ entry.name }}</td>
+  <td>{{ entry.LogTime | date:'short' }}</td>
+  <td>{{ entry.StatusName }}</td>
+  <td>{{ entry.Name }}</td>
 </tr>
       </tbody>
     </table>

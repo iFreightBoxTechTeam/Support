@@ -15,10 +15,13 @@ export class ViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.showModal = false;
+    
   }
 
-  openModal(issueId: number) {
-    this.loadHistory(issueId);
+  openModal(UserId: number) {
+    this.loadHistory(UserId);
+    console.log("Fetching history for user ID:", UserId);
+
     this.showModal = true;
   }
 
@@ -26,23 +29,25 @@ export class ViewComponent implements OnInit {
     this.showModal = false;
     this.history = []; 
   }
+loadHistory(UserId: number) {
 
-  loadHistory(issueId: number) {
-  const apiUrl = `https://localhost:44321/api/values/view/{issues_id}`;
+  const apiUrl = `https://localhost:44321/api/values/view/${UserId}`;
 
   this.http.get<any[]>(apiUrl).subscribe(data => {
-    const issue = data.find(x => x.issues_id === issueId);
-    if (issue) {
-      
-      this.history = [
-        { date: issue.Raised_date, status: issue.statusname, username: issue.name },
-        console.log("API Response:", data)
-        // optionally more steps from issue object if present
-      ];
+    // const issue = data.find(x => x.UserId === UserId);
+    console.log('issue',  data)
+    if (data) {
+      this.history = data
+        // { date: data.Raised_date, status: data.statusname, username: data.name }
+        // You had a stray `console.log()` inside the array — move it outside
+      ;
+      console.log("API Response:", data);
     } else {
       console.warn('Issue not found');
     }
   }, error => {
     console.error('Error fetching from API:', error);
-  });}
+  });
+}
+
 }

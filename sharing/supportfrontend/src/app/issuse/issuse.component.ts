@@ -1,13 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { ViewComponent } from '../component/view/view.component';
-import { IssueService,} from '../issue.service';
-
+import { IssueService } from '../issue.service';
 
 @Component({
   selector: 'app-issuse',
   templateUrl: './issuse.component.html',
-  styleUrls: ['./issuse.component.css']
+  styleUrls: ['./issuse.component.css'],
 })
 export class IssuseComponent implements OnInit {
   issues: any[] = [];
@@ -18,7 +17,6 @@ export class IssuseComponent implements OnInit {
   totalPages: number = 0;
  
 @ViewChild(ViewComponent) viewComponent!: ViewComponent;
-
 
   constructor(private issueService: IssueService) {}
 
@@ -48,7 +46,7 @@ export class IssuseComponent implements OnInit {
   onSearch(term: string) {
     this.searchTerm = term;
     this.currentPage = 1;
-    this.loadIssues(); // Load data with search filter applied from API
+    this.loadIssues();
   }
 
   get paginatedIssues() {
@@ -59,7 +57,7 @@ export class IssuseComponent implements OnInit {
   changePage(page: number) {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
-      this.loadIssues(); // Load next page
+      this.loadIssues();
     }
   }
 editIssue(issueId: string) {
@@ -78,18 +76,30 @@ editIssue(issueId: string) {
 
   deleteIssue(id: number) {
     if (confirm('Are you sure you want to delete this issue?')) {
-      this.issues = this.issues.filter(issue => issue.id !== id);
-      this.filteredIssues = this.filteredIssues.filter(issue => issue.id !== id);
+      this.issues = this.issues.filter((issue) => issue.issues_id !== id);
+      this.filteredIssues = this.filteredIssues.filter(
+        (issue) => issue.issues_id !== id
+      );
+      this.totalPages = Math.ceil(this.filteredIssues.length / this.itemsPerPage);
       if (this.currentPage > this.totalPages) {
         this.currentPage = this.totalPages || 1;
       }
     }
   }
-viewLog(id: string) {
-  console.log('View log for issue', id);
-  // this.viewComponent.openModal(id);
-
-    // 👈 pass issueId
+viewLog(issue: any) {
+  
+  console.log("Issue object:", issue);
+  console.log("Issue.userid:", issue?.UserId);
+  this.viewComponent.openModal(issue?.UserId);
 }
 
+
+
+  saveIssue() {
+    console.log('Save changes clicked for issue', this.selectedIssueId);
+    // Add your save logic or emit event to <app-issue> component
+  }
+  selectedIssueId(arg0: string, selectedIssueId: any) {
+    throw new Error('Method not implemented.');
+  }
 }

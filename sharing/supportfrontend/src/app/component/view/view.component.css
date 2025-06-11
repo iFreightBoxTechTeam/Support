@@ -73,7 +73,7 @@
 
 
 
-tbody td:hover {
+tbody tr:hover td {
   background-color: #e0f7fa;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
