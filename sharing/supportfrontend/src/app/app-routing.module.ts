@@ -10,6 +10,7 @@ import { MasterCompoComponent } from './component/master-compo/master-compo.comp
 import { UsersComponent } from './component/users/users.component';
 import { StatusComponent } from './component/status/status.component';
 import { IssueTypeComponent } from './component/issue-type/issue-type.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -36,7 +37,8 @@ const routes: Routes = [
   {path:'mastercompo', component: MasterCompoComponent},
   {path:'users', component: UsersComponent},
   {path:'status', component: StatusComponent},
-  {path:'issue-type', component: IssueTypeComponent}
+  {path:'issue-type', component: IssueTypeComponent},
+  {path:'**',component:PagenotfoundComponent }
 ];
 
 

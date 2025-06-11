@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 
 import { IssueComponent } from './component/issue/issue.component';
 import { MasterComponent } from './component/master/master.component';
-import { PaginationComponent } from './pagination/pagination.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IssuseComponent } from './issuse/issuse.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -24,6 +23,7 @@ import { AddUserComponent } from './component/users/add-user/add-user.component'
 import { AddStatusComponent } from './component/status/add-status/add-status.component';
 import { AddIssueComponent } from './component/issue-type/add-issue/add-issue.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +43,7 @@ import { HttpClientModule } from '@angular/common/http';
     AddUserComponent,
     AddStatusComponent,
     AddIssueComponent,
+    PagenotfoundComponent,
     
       
   ],

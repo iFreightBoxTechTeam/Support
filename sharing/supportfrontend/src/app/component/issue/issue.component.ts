@@ -1,26 +1,22 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component,Input,OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { IssueService } from 'src/app/issue.service';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-issue',
   templateUrl: './issue.component.html',
   styleUrls: ['./issue.component.css']
 })
-export class IssueComponent {
-  @Input() issueId: number | string | undefined;
+export class IssueComponent implements OnInit {
+  @Input() issueId!: number | string;
+
   overallStatus: string = 'Open';
   description: string = 'This is a hardcoded issue with pre-defined images.';
   assignTo: string = '';
   Status: string = 'Open';
-  apiUrl: any;
-   
 
-  users: string[] = ['Vijaya', 'Shreya', 'Riddhi'];
+  users: string[] = ['Vijay', 'Shreya', 'Riddhi'];
   selectedImageUrl: string | null = null;
 
-  imageCounter: number = 3;
+  imageCounter: number = 0; // Will be set based on last image ID
 
   images: Array<{
     id: string;
@@ -55,27 +51,19 @@ export class IssueComponent {
       overallStatus: 'Open'
     }
   ];
-issue: any;
-constructor(private issueService: IssueService,private http: HttpClient) {}
-private issueData: any; 
- ngOnInit() {
-  this.issue = this.issueService.getIssue() || {}; 
+  issueService: any;
 
+  ngOnInit(): void {
+    console.log('Received issue ID:', this.issueId);
 
- if (!this.issue || Object.keys(this.issue).length === 0) {
-    console.error("Error: Issue is not set correctly in issue.component.ts");
+    // ✅ Auto set imageCounter based on the highest current image number
+    const maxId = this.images.reduce((max, img) => {
+      const num = parseInt(img.id.split('-')[1]);
+      return isNaN(num) ? max : Math.max(max, num);
+    }, 0);
+
+    this.imageCounter = maxId;
   }
-
-  console.log("Loaded Issue in issue.component.ts:", this.issue);
-}
-setIssue(issue: any) {
-  if (!issue) {
-    console.error("Error: Trying to set an undefined issue.");
-    return;
-  }
-  this.issueData = issue;
-  console.log("Issue stored in service:", this.issueData);
-}
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -83,11 +71,11 @@ setIssue(issue: any) {
       Array.from(input.files).forEach(file => {
         const reader = new FileReader();
         reader.onload = (e: any) => {
-          this.imageCounter++;
+          this.imageCounter++; // Auto increment image ID
           const newImage = {
             id: `IMG-${this.imageCounter.toString().padStart(3, '0')}`,
             url: e.target.result,
-            file: file,
+            file,
             assignTo: '',
             status: 'Open',
             overallStatus: this.overallStatus
@@ -104,10 +92,10 @@ setIssue(issue: any) {
   }
  updateIssue(userId: number, issueData: any) {
   this.issueService.updateIssue(userId, issueData).subscribe(
-    (response) => {
+    (response: any) => {
       console.log('Issue updated successfully:', response);
     },
-    (error) => {
+    (error: any) => {
       console.error('Error updating issue:', error);
     }
   );
@@ -127,35 +115,4 @@ setIssue(issue: any) {
     console.error("Error: issueId is missing");
     return;
   }
-
-  const issueData = {
-    StatusName: this.overallStatus,
-    AssignTo: this.assignTo,
-    ImagePaths: this.images.map(img => img.url)
-  };
-
-  console.log("Updating Issue:", this.issueId, issueData); // Debug log
-
-  this.issueService.updateIssue(this.issueId as number, issueData).subscribe(
-    response => {
-      console.log("Issue updated:", response);
-    },
-    error => console.error("Error updating issue:", error)
-  );
-}
-
-getIssue() {
-  console.log("Fetching issue from service:", this.issueService.getIssue());
-return this.issueService.getIssue() || null;
-}
-  editIssue(issueId: number): void {
-  this.issueId = issueId;
-}
-
-  triggerFileInput(): void {
-    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-    if (fileInput) {
-      fileInput.click();
-    }
-  }
-}
+  }}
