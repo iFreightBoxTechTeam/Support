@@ -35,7 +35,7 @@ export class ViewComponent implements OnInit {
     if (issue) {
       this.history = [
         { date: issue.LogTime, status: issue.StatusName, username: issue.Name },
-        // optionally more steps from issue object if present
+       
       ];
     } else {
       console.warn('Issue not found');

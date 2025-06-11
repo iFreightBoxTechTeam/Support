@@ -1,22 +1,22 @@
-import { Component,Input,OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-issue',
   templateUrl: './issue.component.html',
   styleUrls: ['./issue.component.css']
 })
-export class IssueComponent {
-  @Input() issueId: number | string | undefined;
+export class IssueComponent implements OnInit {
+  @Input() issueId!: number | string;
+
   overallStatus: string = 'Open';
   description: string = 'This is a hardcoded issue with pre-defined images.';
   assignTo: string = '';
   Status: string = 'Open';
-   ngOnInit() {}
 
-  users: string[] = ['Vijaya', 'Shreya', 'Riddhi'];
+  users: string[] = ['Vijay', 'Shreya', 'Riddhi'];
   selectedImageUrl: string | null = null;
 
-  imageCounter: number = 3;
+  imageCounter: number = 0; // Will be set based on last image ID
 
   images: Array<{
     id: string;
@@ -51,7 +51,18 @@ export class IssueComponent {
       overallStatus: 'Open'
     }
   ];
-issue: any;
+
+  ngOnInit(): void {
+    console.log('Received issue ID:', this.issueId);
+
+    // ✅ Auto set imageCounter based on the highest current image number
+    const maxId = this.images.reduce((max, img) => {
+      const num = parseInt(img.id.split('-')[1]);
+      return isNaN(num) ? max : Math.max(max, num);
+    }, 0);
+
+    this.imageCounter = maxId;
+  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -59,11 +70,11 @@ issue: any;
       Array.from(input.files).forEach(file => {
         const reader = new FileReader();
         reader.onload = (e: any) => {
-          this.imageCounter++;
+          this.imageCounter++; // Auto increment image ID
           const newImage = {
             id: `IMG-${this.imageCounter.toString().padStart(3, '0')}`,
             url: e.target.result,
-            file: file,
+            file,
             assignTo: '',
             status: 'Open',
             overallStatus: this.overallStatus
@@ -94,12 +105,5 @@ issue: any;
       description: this.description,
       images: this.images
     });
-  }
-
-  triggerFileInput(): void {
-    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-    if (fileInput) {
-      fileInput.click();
-    }
   }
 }

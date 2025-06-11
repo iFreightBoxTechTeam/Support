@@ -61,9 +61,7 @@
   transition: background-color 0.3s ease;
 }
 
-/* =====================
-   ✏️ Action Buttons
-   ===================== */
+
 .edit-btn,
 .delete-btn {
   background-color: transparent;
@@ -97,9 +95,6 @@
   transform: scale(1.08);
 }
 
-/* =====================
-   📄 Pagination
-   ===================== */
 .pagination-nav {
   display: flex;
   justify-content: center;
@@ -123,16 +118,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.pagination-btn:hover:not(:disabled) {
-  background-color: #0d6efd;
-  color: white;
-  border-color: #0d6efd;
-}
 
-.pagination-btn:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
 
 .pagination-btn.active,
 .pagination-btn[aria-current='page'] {
