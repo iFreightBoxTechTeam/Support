@@ -19,14 +19,14 @@
   width: 90%;
   max-width: 600px;
   border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); */
   position: relative;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Hover effect on modal content */
 .modal-content:hover tr {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); */
   background-color: #f9f9f9;
 
 }
@@ -45,7 +45,7 @@
 
 .close-button:hover {
   color: red;
-  background-color: #f3e9fc;
+ 
 }
 
 /* Modal title */
@@ -76,5 +76,5 @@
 tbody tr:hover td {
   background-color: #e0f7fa;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
 }
