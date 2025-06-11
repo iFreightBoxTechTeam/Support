@@ -30,7 +30,7 @@ export class ViewComponent implements OnInit {
     this.history = []; 
   }
 loadHistory(UserId: number) {
-  debugger;
+
   const apiUrl = `https://localhost:44321/api/values/view/${UserId}`;
 
   this.http.get<any[]>(apiUrl).subscribe(data => {
