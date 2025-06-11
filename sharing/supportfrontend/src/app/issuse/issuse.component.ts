@@ -86,6 +86,7 @@ editIssue(issueId: string) {
       }
     }
   }
+<<<<<<< Updated upstream
 viewLog(issue: any) {
   
   console.log("Issue object:", issue);
@@ -94,9 +95,17 @@ viewLog(issue: any) {
 }
 
 
+=======
+viewLog(id: string) {
+  console.log('View log for issue', id);
+  // this.viewComponent.openModal(id);
+
+    // 👈 pass issueId
+}
+>>>>>>> Stashed changes
 
   saveIssue() {
-    console.log('Save changes clicked for issue', this.selectedIssueId);
+    // console.log('Save changes clicked for issue', this.selectedIssueId);
     // Add your save logic or emit event to <app-issue> component
   }
   selectedIssueId(arg0: string, selectedIssueId: any) {

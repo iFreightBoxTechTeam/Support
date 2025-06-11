@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { AddIssueComponent } from './add-issue/add-issue.component';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -13,7 +13,12 @@ import { Issue, IssueTypeService} from '..//..//issue-type.service';
   styleUrls: ['./issue-type.component.css']
 })
 export class IssueTypeComponent {
+<<<<<<< Updated upstream
   constructor(private router: Router, private issueTypeService: IssueTypeService,private http: HttpClient) {}
+=======
+  constructor(private router: Router, private issueTypeService: IssueTypeService, private cd: ChangeDetectorRef) {}
+
+>>>>>>> Stashed changes
 
   @ViewChild(AddIssueComponent) addIssue!: AddIssueComponent;
 selectedIssueId: number | null = null;
@@ -30,6 +35,7 @@ Issue:any[]=[];
 issueTypes: Issue[] = [];
 
 ngOnInit(): void {
+  console.log('ngOnInit triggered');
   this.loadIssueTypes();
 }
 
@@ -37,6 +43,7 @@ ngOnInit(): void {
 //   this.issueTypeService.getIssueTypes().
 //   subscribe({
 
+<<<<<<< Updated upstream
 //     next: (data) => {
 //       console.log('API data:', data); 
 //       this.issueTypes = data.map(item => ({
@@ -65,6 +72,20 @@ ngOnInit(): void {
       console.log("API Response:", data);
     } else {
       console.warn('Issue not found');
+=======
+    next: (data) => {
+  console.log('Raw API Response:', data);
+  console.log('Total Pages:', this.totalPages);
+  this.issueTypes = data.map(item => ({
+    id: item.id,
+    issue_type: item.issue_type 
+  }));
+  console.log('Mapped Issues:', this.issueTypes);
+},
+     
+    error: (err) => {
+      console.error('Failed to load issue types:', err);
+>>>>>>> Stashed changes
     }
   }, error => {
     console.error('Error fetching from API:', error);
@@ -79,10 +100,10 @@ get filteredIssues(): Issue[] {
     return Math.ceil(this.filteredIssues.length / this.itemsPerPage);
   }
 
-  get paginatedIssues(): Issue[] {
-  const start = (this.currentPage - 1) * this.itemsPerPage;
-  return this.filteredIssues.slice(start, start + this.itemsPerPage);
-}
+//   get paginatedIssues(): Issue[] {
+//   const start = (this.currentPage - 1) * this.itemsPerPage;
+//   return this.filteredIssues.slice(start, start + this.itemsPerPage);
+// }
 
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
