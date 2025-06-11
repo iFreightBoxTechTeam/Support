@@ -4,8 +4,6 @@
   (searchChange)="searchTerm = $event; currentPage = 1"
 ></app-nav-main>
 
-<h1>Hello</h1>
-
 <app-add-status (statusAdded)="onStatusAdded($event)" #addStatusComponent></app-add-status>
 
 <div class="status-type">
@@ -14,6 +12,7 @@
   </div>
 
   <div class="status-table">
+    <!--Table-->
     <table>
       <thead>
         <tr>
