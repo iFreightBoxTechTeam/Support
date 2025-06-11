@@ -90,16 +90,6 @@ get filteredIssues(): Issue[] {
     }
   }
 
-  addIssueBtn(): void {
-    if (this.newIssueType.trim()) {
-      this.issueTypes.push({ id: this.nextId++, issue_type: this.newIssueType.trim() });
-      this.newIssueType = '';
-      this.currentPage = this.totalPages;
-    } else {
-      alert('Please enter an issue type.');
-    }
-  }
-
   onIssueAdded(issue: Omit<Issue, 'id'>) {
     if (issue.issue_type.trim()) {
       this.issueTypes.push({
@@ -111,21 +101,49 @@ get filteredIssues(): Issue[] {
   }
 
   deleteIssue(id: number): void {
-    this.issueTypes = this.issueTypes.filter(issue => issue.id !== id);
-    if (this.currentPage > this.totalPages) {
-      this.currentPage = this.totalPages || 1;
-    }
-  }
+  const apiUrl = `https://localhost:44321/api/issuetype/${id}`;
 
-  editIssue(id: number): void {
-    const issue = this.issueTypes.find(i => i.id === id);
-    if (issue) {
-      const updatedType = prompt('Edit Issue Type:', issue.issue_type);
-      if (updatedType !== null && updatedType.trim() !== '') {
-        issue.issue_type = updatedType.trim();
+  if (confirm('Are you sure you want to delete this issue?')) {
+    this.http.delete(apiUrl).subscribe({
+      next: () => {
+        this.Issue = this.Issue.filter(issue => issue.Id !== id);
+        console.log('Issue deleted successfully.');
+        if (this.currentPage > this.totalPages) {
+          this.currentPage = this.totalPages || 1;
+        }
+      },
+      error: (err) => {
+        console.error('Error deleting issue:', err);
+        alert('Failed to delete issue.');
       }
+    });
+  }
+  
+}
+
+
+ editIssue(id: number): void {
+  const issue = this.Issue.find(i => i.Id === id);
+  if (issue) {
+    const updatedType = prompt('Edit Issue Type:', issue.Issue_Type);
+    if (updatedType !== null && updatedType.trim() !== '') {
+      const apiUrl = `https://localhost:44321/api/issuetype/${id}`;
+      const updatedData = { Issue_Type: updatedType.trim() };
+
+      this.http.put(apiUrl, updatedData).subscribe({
+        next: () => {
+          issue.Issue_Type = updatedType.trim(); // update locally too
+          console.log('Issue updated successfully.');
+        },
+        error: (err) => {
+          console.error('Error updating issue:', err);
+          alert('Failed to update issue.');
+        }
+      });
     }
   }
+}
+
 
   openAddIssueModal() {
     this.addIssue.openModal();
@@ -140,5 +158,6 @@ get filteredIssues(): Issue[] {
     openIssueModal(issueId: number) {
     this.selectedIssueId = issueId;
   }
+  
 }
 

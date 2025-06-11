@@ -75,7 +75,7 @@ setIssue(issue: any) {
     return;
   }
   this.issueData = issue;
-  console.log("Issue stored in service:", this.issueData);
+  console.log("Issue stored in components:", this.issueData);
 }
 
   onFileSelected(event: Event): void {
