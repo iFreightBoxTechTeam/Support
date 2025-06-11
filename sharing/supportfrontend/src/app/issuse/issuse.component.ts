@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+
 import { ViewComponent } from '../component/view/view.component';
 import { IssueService } from '../issue.service';
 
@@ -14,9 +15,8 @@ export class IssuseComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 0;
-  selectedIssueId!: number;
-
-  @ViewChild(ViewComponent) ViewComponent!: ViewComponent;
+ 
+@ViewChild(ViewComponent) viewComponent!: ViewComponent;
 
   constructor(private issueService: IssueService) {}
 
@@ -25,13 +25,22 @@ export class IssuseComponent implements OnInit {
   }
 
   loadIssues() {
-    this.issueService
-      .getIssues(this.searchTerm, this.currentPage, this.itemsPerPage)
-      .subscribe((data) => {
-        this.issues = data;
-        this.filteredIssues = data;
-        this.totalPages = Math.ceil(this.filteredIssues.length / this.itemsPerPage);
-      });
+    // this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
+    //   this.issues = data;
+    //   this.filteredIssues = data;
+    //   console.log("API Response:", data);
+
+    //   // Assuming API always returns full list with pagination handled manually.
+    //   this.totalPages = Math.ceil(this.filteredIssues.length / this.itemsPerPage);
+    // }); 
+    this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
+    if (Array.isArray(data)) {
+      this.issues = data;
+      this.filteredIssues = data;
+    } else {
+      console.error("Error: API did not return an array", data);
+    }
+  });
   }
 
   onSearch(term: string) {
@@ -77,15 +86,20 @@ editIssue(issueId: string) {
       }
     }
   }
+viewLog(issue: any) {
+  
+  console.log("Issue object:", issue);
+  console.log("Issue.userid:", issue?.UserId);
+  this.viewComponent.openModal(issue?.UserId);
+}
 
 
-  viewLog(id: string) {
-    console.log('View log for issue', id);
-    // this.ViewComponent.openModal(id);
-  }
 
   saveIssue() {
     console.log('Save changes clicked for issue', this.selectedIssueId);
     // Add your save logic or emit event to <app-issue> component
+  }
+  selectedIssueId(arg0: string, selectedIssueId: any) {
+    throw new Error('Method not implemented.');
   }
 }

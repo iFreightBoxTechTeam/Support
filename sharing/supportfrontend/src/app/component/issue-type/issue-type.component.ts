@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { AddIssueComponent } from './add-issue/add-issue.component';
 import { Router } from '@angular/router';
-
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Issue, IssueTypeService} from '..//..//issue-type.service';
 
 
@@ -13,11 +13,11 @@ import { Issue, IssueTypeService} from '..//..//issue-type.service';
   styleUrls: ['./issue-type.component.css']
 })
 export class IssueTypeComponent {
-  constructor(private router: Router, private issueTypeService: IssueTypeService) {}
+  constructor(private router: Router, private issueTypeService: IssueTypeService,private http: HttpClient) {}
 
   @ViewChild(AddIssueComponent) addIssue!: AddIssueComponent;
 selectedIssueId: number | null = null;
-
+Issue:any[]=[];
 
 
   newIssueType: string = '';
@@ -33,23 +33,43 @@ ngOnInit(): void {
   this.loadIssueTypes();
 }
 
-loadIssueTypes(): void {
-  this.issueTypeService.getIssueTypes().
-  subscribe({
+// loadIssueTypes(): void {
+//   this.issueTypeService.getIssueTypes().
+//   subscribe({
 
-    next: (data) => {
-      console.log('API data:', data); 
-      this.issueTypes = data.map(item => ({
-        id: item.id,
-        issue_type: item.issue_type 
+//     next: (data) => {
+//       console.log('API data:', data); 
+//       this.issueTypes = data.map(item => ({
+//         id: item.id,
+//         issue_type: item.issue_type 
         
-      }));
-    },
+//       }));
+//     },
     
-    error: (err) => {
-      console.error('Failed to load issue types:', err);
+//     error: (err) => {
+//       console.error('Failed to load issue types:', err);
+//     }
+//   });}
+  loadIssueTypes() {
+
+  const apiUrl ='https://localhost:44321/api/issuetype';
+
+  this.http.get<any[]>(apiUrl).subscribe(data => {
+    // const issue = data.find(x => x.UserId === UserId);
+    console.log('issue',  data)
+    if (data) {
+      this.Issue = data
+        // { date: data.Raised_date, status: data.statusname, username: data.name }
+        // You had a stray `console.log()` inside the array — move it outside
+      ;
+      console.log("API Response:", data);
+    } else {
+      console.warn('Issue not found');
     }
-  });}
+  }, error => {
+    console.error('Error fetching from API:', error);
+  });
+}
 
 get filteredIssues(): Issue[] {
   return this.issueTypes;
