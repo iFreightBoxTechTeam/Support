@@ -36,12 +36,13 @@ ngOnInit(): void {
 loadIssueTypes(): void {
   this.issueTypeService.getIssueTypes().
   subscribe({
-    
+
     next: (data) => {
       console.log('API data:', data); 
       this.issueTypes = data.map(item => ({
         id: item.id,
-        issue_type: item.issue_type // Mapping backend field to frontend model
+        issue_type: item.issue_type 
+        
       }));
     },
     

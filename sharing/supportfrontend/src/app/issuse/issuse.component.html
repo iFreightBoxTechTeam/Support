@@ -17,7 +17,7 @@
     <table class="table table-striped table-bordered table-hover">
       <thead class="table-light">
         <tr>
-          <th>Issue ID</th>
+          <th>user ID</th>
           <th>User</th>
           <th>Tenant Code</th>
           <th>Raised Date</th>
@@ -28,19 +28,16 @@
       </thead>
       <tbody>
         <tr *ngFor="let issue of paginatedIssues">
-          <td>{{ issue.issues_id }}</td>
-          <td>{{ issue.Name }}</td>
-          <td>{{ issue.TenantCode }}</td>
-          <td>{{ issue.LogTime | date: 'yyyy-MM-dd hh:mm:ss a' }}</td>
-          <td>{{ issue.StatusName }}</td>
-          <td>{{ issue.Module }}</td>
-          <td>
-            <button
-              class="btn btn-sm me-2"
-              data-bs-toggle="modal"
-              data-bs-target="#issueModal"
-              (click)="openIssueModal(issue.issues_id)"
-            >
+  <td>{{ issue.UserId }}</td>
+  <td>{{ issue.Name }}</td>
+  <td>{{ issue.TenantCode }}</td>
+  <td>{{ issue.LogTime | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
+  <td>{{ issue.StatusName }}</td>
+  <td>{{ issue.Module }}</td>
+
+          <td> 
+            <div class="btn-group">               
+              <button class="btn btn-sm me-2" data-toggle="modal" data-target="#exampleModalLong" (click)="editIssue(issue.issues_id )">
               
               <svg
                 width="18"

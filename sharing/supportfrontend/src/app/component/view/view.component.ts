@@ -17,25 +17,27 @@ export class ViewComponent implements OnInit {
     this.showModal = false;
   }
 
-  openModal(issueId: string) {
+  openModal(issueId: number) {
     this.loadHistory(issueId);
     this.showModal = true;
   }
 
   closeModal(): void {
     this.showModal = false;
-    this.history = []; // reset on close
+    this.history = []; 
   }
 
-  loadHistory(issueId: string) {
-  const apiUrl = `https://localhost:44321/api/values`;
+  loadHistory(issueId: number) {
+  const apiUrl = `https://localhost:44321/api/values/view/{issues_id}`;
 
   this.http.get<any[]>(apiUrl).subscribe(data => {
     const issue = data.find(x => x.issues_id === issueId);
     if (issue) {
+      
       this.history = [
-        { date: issue.LogTime, status: issue.StatusName, username: issue.Name },
-       
+        { date: issue.Raised_date, status: issue.statusname, username: issue.name },
+        console.log("API Response:", data)
+        // optionally more steps from issue object if present
       ];
     } else {
       console.warn('Issue not found');
