@@ -86,20 +86,20 @@ editIssue(issueId: string) {
       }
     }
   }
-viewLog(id: string) {
-  console.log('View log for issue', id);
-  // this.viewComponent.openModal(id);
-
-    // 👈 pass issueId
+viewLog(issue: any) {
+  
+  console.log("Issue object:", issue);
+  console.log("Issue.userid:", issue?.UserId);
+  this.viewComponent.openModal(issue?.UserId);
 }
 
-  viewLog(id: string) {
-    console.log('View log for issue', id);
-    this.ViewComponent.openModal(id);
-  }
+
 
   saveIssue() {
     console.log('Save changes clicked for issue', this.selectedIssueId);
     // Add your save logic or emit event to <app-issue> component
+  }
+  selectedIssueId(arg0: string, selectedIssueId: any) {
+    throw new Error('Method not implemented.');
   }
 }

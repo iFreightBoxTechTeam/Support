@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { IssueTypeService } from 'src/app/issue-type.service';
+
 
 declare var bootstrap: any;
 
@@ -14,36 +16,77 @@ export class AddIssueComponent {
   newIssue = {
     issue_name: ''
   };
+    constructor(private issueService: IssueTypeService) {}
 
-  addIssue() {
-    console.log('Add Issue clicked:', this.newIssue);
-    if(this.newIssue.issue_name.trim()){
-      this.issueAdded.emit({...this.newIssue});
+ 
+  // addIssue() {
+  //   if (this.newIssue.issue_name.trim()) {
+  //     const apiIssue = { Issue_Type: this.newIssue.issue_name };
 
-      this.newIssue = {issue_name: ''};
-
-      const modalElement = document.getElementById('addIssueModal');
-      if(modalElement){
-        const modalInstance = bootstrap.Modal.getInstance(modalElement);
-        if(modalInstance){
-          modalInstance.hide();
-          document.body.classList.remove('modal-open');
-          const backdrop = document.querySelector('.modal-backdrop');
-          if (backdrop) {
-            backdrop.remove();
-          }
-        }
-      }
-    } else {
-      alert('Please enter a issue name.');
-    }
-  }
+  //     this.issueService.addIssue(apiIssue).subscribe({
+  //       next: (res) => {
+  //         console.log('Issue added successfully:', res);
+  //         this.issueAdded.emit({...this.newIssue});
+  //         this.newIssue = { issue_name: '' };
+  //         this.closeModal();
+  //       },
+  //       error: (err) => {
+  //         console.error('Error adding issue:', err);
+  //         alert('Failed to add issue.');
+  //       }
+  //     });
+  //   } else {
+  //     alert('Please enter an issue name.');
+  //   }
+  // }
         
+addIssue() {
+  const trimmedName = this.newIssue.issue_name.trim();
+
+  if (!trimmedName) {
+    alert('Please enter an issue name.');
+    return;
+  }
+
+  const apiIssue = { Issue_Type: trimmedName };
+
+  this.issueService.addIssue(apiIssue).subscribe({
+    next: (res) => {
+      console.log('Issue added successfully:', res);
+
+      // Emit the actual issue returned from backend
+      this.issueAdded.emit(res);
+
+      // Clear the form
+      this.newIssue = { issue_name: '' };
+
+      // Close modal or UI
+      this.closeModal();
+    },
+    error: (err) => {
+      console.error('Error adding issue:', err);
+      alert('Failed to add issue.');
+    }
+  });
+}
+
   openModal() {
     const modalElement = document.getElementById('addIssueModal');
     if (modalElement) {
-      const modalInstance = new bootstrap.Modal(modalElement); 
+      const modalInstance = new bootstrap.Modal(modalElement);
       modalInstance.show();
     }
   }
+closeModal() {
+    const modalElement = document.getElementById('addIssueModal');
+    if (modalElement) {
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      if (modalInstance) {
+        modalInstance.hide();
+        document.body.classList.remove('modal-open');
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+          backdrop.remove();
+        }
+      }}}
 }

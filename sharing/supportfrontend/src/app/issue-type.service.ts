@@ -11,6 +11,9 @@ export interface Issue {
   providedIn: 'root'
 })
 export class IssueTypeService {
+  getIssues(searchTerm: string, currentPage: number, itemsPerPage: number) {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = 'https://localhost:44321/api/issuetype'; // Update this if needed
 
   constructor(private http: HttpClient) {}
@@ -18,4 +21,16 @@ export class IssueTypeService {
   getIssueTypes(): Observable<Issue[]> {
     return this.http.get<Issue[]>(this.apiUrl);
   }
+
+  addIssue(issue: { Issue_Type: string }): Observable<any> {
+    return this.http.post(this.apiUrl, issue);
+  }
+  updateIssue(id: number, issue: { Issue_Type: string }): Observable<any> {
+  return this.http.put(`http://localhost:your-port/api/issuetype/${id}`, issue);
+}
+
+deleteIssue(id: number): Observable<any> {
+  return this.http.delete(`http://localhost:your-port/api/issuetype/${id}`);
+}
+
 }
