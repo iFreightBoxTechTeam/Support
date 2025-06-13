@@ -64,7 +64,7 @@ ngOnInit(): void {
       ;
       console.log("API Response:", data);
     } else {
-      console.warn('Issue not found');
+      console.log('Issue not found');
     }
   }, error => {
     console.error('Error fetching from API:', error);
@@ -149,7 +149,7 @@ get filteredIssues(): Issue[] {
     this.addIssue.openModal();
   }
 
-  // 🔍 This method handles search term emitted by app-nav-main
+  
   onSearchChange(term: string) {
     this.searchTerm = term;
     this.currentPage = 1;
@@ -160,4 +160,6 @@ get filteredIssues(): Issue[] {
   }
   
 }
+
+
 
