@@ -23,11 +23,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of paginatedUsers">
-          <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
+        <tr *ngFor="let user of users">
+          <td>{{ user.issuesid }}</td>
+          <td>{{ user.Name }}</td>
           <td>{{ user.mobile }}</td>
-          <td>{{ user.email }}</td>
+          <td>{{ user.Email }}</td>
           <td>{{ user.address }}</td>
           <td>
             <button

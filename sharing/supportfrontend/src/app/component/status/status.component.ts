@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddStatusComponent } from './add-status/add-status.component';
+import { HttpClient } from '@angular/common/http';
 
 interface Status {
   id: number;
@@ -13,26 +14,11 @@ interface Status {
   styleUrls: ['./status.component.css']
 })
 export class StatusComponent implements OnInit {
-  constructor(private router: Router) {}
-  ngOnInit(): void {}
-
+  constructor(private router: Router,private http: HttpClient) {}
+  
   @ViewChild('addStatusComponent') addStatus!: AddStatusComponent;
 
-  statusTypes: Status[] = [
-    { id: 101, status_name: 'Open' },
-    { id: 102, status_name: 'Work in Progress' },
-    { id: 103, status_name: 'Pending' },
-    { id: 104, status_name: 'Completed' },
-    { id: 105, status_name: 'Work in Progress' },
-    { id: 106, status_name: 'Pending' },
-    { id: 107, status_name: 'Completed' },
-    { id: 109, status_name: 'Work in Progress' },
-    { id: 110, status_name: 'Pending' },
-    { id: 111, status_name: 'Completed' },
-    { id: 112, status_name: 'Work in Progress' },
-    { id: 113, status_name: 'Pending' },
-    { id: 114, status_name: 'Completed' },
-  ];
+  statusTypes: any[] = [];
 
   newStatusType: string = '';
   searchTerm: string = '';
@@ -40,6 +26,32 @@ export class StatusComponent implements OnInit {
 
   currentPage: number = 1;
   itemsPerPage: number = 5;
+
+  ngOnInit(): void {
+  this.loadstatus();
+}
+
+
+  loadstatus() {
+
+  const apiUrl ='https://localhost:44321/api/status';
+
+  this.http.get<any[]>(apiUrl).subscribe(data => {
+    // const issue = data.find(x => x.UserId === UserId);
+    console.log('issue',  data)
+    if (data) {
+      this.statusTypes = data
+        // { date: data.Raised_date, status: data.statusname, username: data.name }
+        // You had a stray `console.log()` inside the array — move it outside
+      ;
+      console.log("API Response:", data);
+    } else {
+      console.warn('Issue not found');
+    }
+  }, error => {
+    console.error('Error fetching from API:', error);
+  });
+}
 
   get filteredStatusTypes(): Status[] {
     if (!this.searchTerm.trim()) return this.statusTypes;
@@ -90,15 +102,29 @@ export class StatusComponent implements OnInit {
     }
   }
 
-  editStatus(id: number): void {
-    const existing = this.statusTypes.find(i => i.id === id);
-    if (existing) {
-      const updated = prompt('Edit Status Type:', existing.status_name);
-      if (updated !== null && updated.trim() !== '') {
-        existing.status_name = updated.trim();
-      }
-    }
+editStatus(status: any): void {
+  if (!status || !status.StatusId) {
+    console.error('Invalid status object:', status);
+    return;
   }
+
+  const updatedType = prompt('Edit Status Name:', status.StatusName);
+  if (updatedType !== null && updatedType.trim() !== '') {
+    const apiUrl = `https://localhost:44321/api/status/${status.StatusId}`;
+    const updatedData = { StatusName: updatedType.trim() };
+
+    this.http.put(apiUrl, updatedData).subscribe({
+      next: () => {
+        status.StatusName = updatedType.trim(); // update locally
+        console.log('Status updated successfully.');
+      },
+      error: (err) => {
+        console.error('Error updating status:', err);
+        alert('Failed to update status.');
+      }
+    });
+  }
+}
 
   openAddStatusModal() {
     if (this.addStatus) {
@@ -107,4 +133,5 @@ export class StatusComponent implements OnInit {
       console.error('AddStatusComponent is NOT yet initialized!');
     }
   }
+
 }
