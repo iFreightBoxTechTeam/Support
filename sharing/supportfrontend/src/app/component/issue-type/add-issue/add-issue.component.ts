@@ -88,5 +88,6 @@ closeModal() {
         if (backdrop) {
           backdrop.remove();
         }
+      
       }}}
 }
