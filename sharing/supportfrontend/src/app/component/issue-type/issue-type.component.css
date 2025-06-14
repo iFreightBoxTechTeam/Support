@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 
-/* Header with title, input, and add button */
+/* Header with title */
 .issue-type-header {
   display: flex;
   flex-wrap: wrap;
@@ -30,7 +30,7 @@
 .issue-table {
   width: 100%;
   overflow-x: auto;
-  padding: 0 0px;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -46,17 +46,15 @@
   color: white;
 }
 
-.issue-table th{
+.issue-table th {
   width: 33.33%;
   padding: 10px;
-  /* border: 1px solid #ddd; */
   text-align: center;
 }
 
 .issue-table td {
   width: 33.33%;
-  padding: 0px;
-  /* border: 1px solid #ddd; */
+  padding: 8px 0;
   border-bottom: 1px solid #ddd;
   text-align: center;
 }
@@ -81,39 +79,20 @@
   transition: color 0.2s ease;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .issue-type-header h2 {
-    font-size: 1.3rem;
-  }
-
-  .issue-add,
-  .add-btn {
-    flex: 1 1 100%;
-    min-width: auto;
-  }
-
-  .add-btn {
-    width: auto;
-  }
-
-  .issue-table {
-    padding: 0 0x;
-  }
+.edit-btn:hover {
+  color: #1a2a6c; /* Dark blue */
 }
 
-/* Optional: add some padding on larger screens */
-@media (min-width: 768px) {
-  .issue-type {
-    padding: 25px 80px;
-  }
+.delete-btn:hover {
+  color: #d9534f; /* Bootstrap red */
 }
 
-
+/* Pagination */
 .pagination-nav {
   display: flex;
   justify-content: center;
   margin-top: 1rem;
+  gap: 5px;
 }
 
 .pagination-nav button {
@@ -123,10 +102,46 @@
   background-color: white;
   cursor: pointer;
   border-radius: 4px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.pagination-nav button:hover:not(:disabled) {
+  background-color: #e7e7e7;
+}
+
+.pagination-nav button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .pagination-nav button.active {
   background-color: #007bff;
   color: white;
   border-color: #007bff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .issue-type-header h2 {
+    font-size: 1.3rem;
+  }
+
+  /* You can add input and button responsiveness here if needed */
+
+  .issue-table {
+    padding: 0;
+  }
+
+  .issue-table th,
+  .issue-table td {
+    padding: 6px 4px;
+  }
+}
+
+/* Optional: add some padding on larger screens */
+@media (min-width: 768px) {
+  .issue-type {
+    padding: 25px 80px;
+  }
 }

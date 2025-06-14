@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { IssueTypeService } from 'src/app/issue-type.service';
 
-
 declare var bootstrap: any;
 
 @Component({
@@ -10,84 +9,83 @@ declare var bootstrap: any;
   styleUrls: ['./add-issue.component.css']
 })
 export class AddIssueComponent {
- @Output() issueAdded = new EventEmitter<any>();
+  @Output() issueAdded = new EventEmitter<any>();
+  @Output() issueUpdated = new EventEmitter<any>();
+
   modalInstance: any;
+  isEditMode: boolean = false;
 
-  newIssue = {
-    issue_name: ''
-  };
-    constructor(private issueService: IssueTypeService) {}
+ newIssue: {
+  id?: number | string;
+  issue_name: string;
+} = { issue_name: '' };
 
- 
-  // addIssue() {
-  //   if (this.newIssue.issue_name.trim()) {
-  //     const apiIssue = { Issue_Type: this.newIssue.issue_name };
 
-  //     this.issueService.addIssue(apiIssue).subscribe({
-  //       next: (res) => {
-  //         console.log('Issue added successfully:', res);
-  //         this.issueAdded.emit({...this.newIssue});
-  //         this.newIssue = { issue_name: '' };
-  //         this.closeModal();
-  //       },
-  //       error: (err) => {
-  //         console.error('Error adding issue:', err);
-  //         alert('Failed to add issue.');
-  //       }
-  //     });
-  //   } else {
-  //     alert('Please enter an issue name.');
-  //   }
-  // }
-        
-addIssue() {
-  const trimmedName = this.newIssue.issue_name.trim();
+  constructor(private issueService: IssueTypeService) {}
 
-  if (!trimmedName) {
-    alert('Please enter an issue name.');
-    return;
-  }
-
-  const apiIssue = { Issue_Type: trimmedName };
-
-  this.issueService.addIssue(apiIssue).subscribe({
-    next: (res) => {
-      console.log('Issue added successfully:', res);
-
-      // Emit the actual issue returned from backend
-      this.issueAdded.emit(res);
-
-      // Clear the form
+  openModal(issue?: any) {
+    if (issue) {
+      this.isEditMode = true;
+      this.newIssue = { id: issue.Id, issue_name: issue.Issue_Type };
+    } else {
+      this.isEditMode = false;
       this.newIssue = { issue_name: '' };
-
-      // Close modal or UI
-      this.closeModal();
-    },
-    error: (err) => {
-      console.error('Error adding issue:', err);
-      alert('Failed to add issue.');
     }
-  });
-}
 
-  openModal() {
     const modalElement = document.getElementById('addIssueModal');
     if (modalElement) {
-      const modalInstance = new bootstrap.Modal(modalElement);
-      modalInstance.show();
+      this.modalInstance = new bootstrap.Modal(modalElement);
+      this.modalInstance.show();
     }
   }
-closeModal() {
-    const modalElement = document.getElementById('addIssueModal');
-    if (modalElement) {
-      const modalInstance = bootstrap.Modal.getInstance(modalElement);
-      if (modalInstance) {
-        modalInstance.hide();
-        document.body.classList.remove('modal-open');
-        const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-          backdrop.remove();
+
+  addIssue() {
+    const trimmedName = this.newIssue.issue_name.trim();
+
+    if (!trimmedName) {
+      alert('Please enter an issue name.');
+      return;
+    }
+
+    if (this.isEditMode && this.newIssue.id != null) {
+      // Update issue
+      this.issueService.updateIssue(Number(this.newIssue.id), { Issue_Type: trimmedName }).subscribe({
+        next: (res) => {
+          console.log('Issue updated successfully:', res);
+          this.issueUpdated.emit(res);
+          this.closeModal();
+          this.newIssue = { issue_name: '' };
+        },
+        error: (err) => {
+          console.error('Error updating issue:', err);
+          alert('Failed to update issue.');
         }
-      
-      }}}
+      });
+    } else {
+      // Add new issue
+      this.issueService.addIssue({ Issue_Type: trimmedName }).subscribe({
+        next: (res) => {
+          console.log('Issue added successfully:', res);
+          this.issueAdded.emit(res);
+          this.closeModal();
+          this.newIssue = { issue_name: '' };
+        },
+        error: (err) => {
+          console.error('Error adding issue:', err);
+          alert('Failed to add issue.');
+        }
+      });
+    }
+  }
+
+  closeModal() {
+    if (this.modalInstance) {
+      this.modalInstance.hide();
+      document.body.classList.remove('modal-open');
+      const backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) {
+        backdrop.remove();
+      }
+    }
+  }
 }
