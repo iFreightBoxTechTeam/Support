@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { ViewComponent } from '../component/view/view.component';
 import { IssueService } from '../issue.service';
+import { IssueComponent } from '../component/issue/issue.component';
 
 @Component({
   selector: 'app-issuse',
@@ -17,6 +18,7 @@ export class IssuseComponent implements OnInit {
   totalPages: number = 0;
  
 @ViewChild(ViewComponent) viewComponent!: ViewComponent;
+@ViewChild(IssueComponent) issueComponent!: IssueComponent;
 
   constructor(private issueService: IssueService) {}
 
@@ -41,7 +43,14 @@ export class IssuseComponent implements OnInit {
       console.error("Error: API did not return an array", data);
     }
   });
+  this.issueService.getIssues('', 1, 10).subscribe(data => {
+      if (Array.isArray(data)) {
+        this.issues = data;
+        this.filteredIssues = data;
+      }
+    });
   }
+  
 
   onSearch(term: string) {
     this.searchTerm = term;
@@ -60,16 +69,17 @@ export class IssuseComponent implements OnInit {
       this.loadIssues();
     }
   }
-editIssue(issueId: string) {
-  const selectedIssue = this.paginatedIssues.find(issue => issue.issues_id === issueId);
+editIssue(issue: any) {
+  const selectedIssue = this.paginatedIssues.find(issue => issue.UserId === issue.UserId);
   console.log("Selected Issue Before Setting in Service:", selectedIssue);
 
   if (!selectedIssue) {
-    console.error("Error: No issue found for ID:", issueId);
+    console.error("Error: No issue found for ID:", issue.UserId);
     return;
   }
 
-  this.issueService.setIssue(selectedIssue);
+  // this.issueService.setIssue(selectedIssue);
+  this.issueComponent.openIssueModal(issue?.UserId);
 }
 
 

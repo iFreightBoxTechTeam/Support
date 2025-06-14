@@ -18,7 +18,7 @@ export class IssueTypeComponent {
   @ViewChild(AddIssueComponent) addIssue!: AddIssueComponent;
 selectedIssueId: number | null = null;
 Issue:any[]=[];
-
+ apiUrl ='https://localhost:44321/api/issuetype';
 
   newIssueType: string = '';
   nextId = 11;
@@ -33,28 +33,12 @@ ngOnInit(): void {
   this.loadIssueTypes();
 }
 
-// loadIssueTypes(): void {
-//   this.issueTypeService.getIssueTypes().
-//   subscribe({
 
-//     next: (data) => {
-//       console.log('API data:', data); 
-//       this.issueTypes = data.map(item => ({
-//         id: item.id,
-//         issue_type: item.issue_type 
-        
-//       }));
-//     },
-    
-//     error: (err) => {
-//       console.error('Failed to load issue types:', err);
-//     }
-//   });}
   loadIssueTypes() {
 
-  const apiUrl ='https://localhost:44321/api/issuetype';
+  
 
-  this.http.get<any[]>(apiUrl).subscribe(data => {
+  this.http.get<any[]>(this.apiUrl).subscribe(data => {
     // const issue = data.find(x => x.UserId === UserId);
     console.log('issue',  data)
     if (data) {
@@ -79,7 +63,7 @@ get filteredIssues(): Issue[] {
     return Math.ceil(this.filteredIssues.length / this.itemsPerPage);
   }
 
-  get paginatedIssues(): Issue[] {
+  get Issues(): Issue[] {
   const start = (this.currentPage - 1) * this.itemsPerPage;
   return this.filteredIssues.slice(start, start + this.itemsPerPage);
 }
@@ -101,10 +85,10 @@ get filteredIssues(): Issue[] {
   }
 
   deleteIssue(id: number): void {
-  const apiUrl = `https://localhost:44321/api/issuetype/${id}`;
+  
 
   if (confirm('Are you sure you want to delete this issue?')) {
-    this.http.delete(apiUrl).subscribe({
+    this.http.delete(this.apiUrl).subscribe({
       next: () => {
         this.Issue = this.Issue.filter(issue => issue.Id !== id);
         console.log('Issue deleted successfully.');

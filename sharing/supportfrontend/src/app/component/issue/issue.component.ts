@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component,Input,OnInit } from '@angular/core';
+import { Component,ElementRef,Input,OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IssueService } from 'src/app/issue.service';
 
@@ -21,7 +21,9 @@ export class IssueComponent implements OnInit {
   users: string[] = ['Vijay', 'Shreya', 'Riddhi'];
   selectedImageUrl: string | null = null;
 
-  imageCounter: number = 0; // Will be set based on last image ID
+  imageCounter: number = 0;
+  showIssueModal: boolean = false;
+  @ViewChild('issueModal') issueModal!: ElementRef;
 
   images: Array<{
     id: string;
@@ -84,7 +86,7 @@ setIssue(issue: any) {
       Array.from(input.files).forEach(file => {
         const reader = new FileReader();
         reader.onload = (e: any) => {
-          this.imageCounter++; // Auto increment image ID
+          this.imageCounter++; 
           const newImage = {
             id: `IMG-${this.imageCounter.toString().padStart(3, '0')}`,
             url: e.target.result,
@@ -135,7 +137,7 @@ setIssue(issue: any) {
     ImagePaths: this.images.map(img => img.url)
   };
 
-  console.log("Updating Issue:", this.issueId, issueData); // Debug log
+  console.log("Updating Issue:", this.issueId, issueData); 
 
   this.issueService.updateIssue(this.issueId as number, issueData).subscribe(
     response => {
@@ -145,13 +147,14 @@ setIssue(issue: any) {
   );
 }
 
+
 getIssue() {
   console.log("Fetching issue from service:", this.issueService.getIssue());
 return this.issueService.getIssue() || null;
 }
-  editIssue(issueId: number): void {
-  this.issueId = issueId;
-}
+//   editIssue(issueId: number): void {
+//   this.issueId = issueId;
+// }
 
   triggerFileInput(): void {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
@@ -159,4 +162,17 @@ return this.issueService.getIssue() || null;
       fileInput.click();
     }
   }
+
+    openIssueModal(UserId: any) {
+    // this.loadHistory(UserId);
+    console.log("Fetching history for user ID:", UserId);
+
+    this.showIssueModal = true;
+  }
+
+  closeIssueModal(): void {
+    this.showIssueModal = false;
+    // this.history = []; 
+  }
+
 }

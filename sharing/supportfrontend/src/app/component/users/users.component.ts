@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { AddUserComponent } from './add-user/add-user.component';
+import { HttpClient } from '@angular/common/http';
 
 interface User {
   id: number;
@@ -23,31 +24,39 @@ export class UsersComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
-  users: User[] = [
-    { id: 101, name: 'Riddhi Gonji', mobile: '7896457896', email: 'riddhi2gmail.com', address: 'Panvel' },
-    { id: 102, name: 'Vijaya Chikane', mobile: '9875647854', email: 'vijaya@gmail.com', address: 'Thane' },
-    { id: 103, name: 'Parul Mishra', mobile: '7854698754', email: 'shreya@gmail.com', address: 'Nala Sopara' },
-    { id: 104, name: 'Aaditya', mobile: '9654789444', email: 'aaditya@gmail.com', address: 'Borivali' },
-    { id: 105, name: 'Vijaya Lakshmi', mobile: '7896845325', email: 'Vijayalakshmi@gmail.com', address: 'Goregaon' },
-    { id: 106, name: 'Priya', mobile: '9785412236', email: 'priya@gmail.com', address: 'Mira Road' },
-    { id: 122, name: 'Fahim', mobile: '9875647854', email: 'Fahim@gmail.com', address: 'Dashir' },
-    { id: 134, name: 'Siddhart', mobile: '9875647854', email: 'sidhu@gmail.com', address: 'Mira road' },
-    { id: 152, name: 'Krishna', mobile: '9875647854', email: 'krishna@gmail.com', address: 'Mira road' },
-    { id: 144, name: 'Vijaya Chikane', mobile: '9875647854', email: 'vijaya@gmail.com', address: 'Thane' },
-    { id: 155, name: 'Kevin', mobile: '9875647854', email: 'kevin@gmail.com', address: 'Gujarat' },
-    { id: 162, name: 'Bhavesh', mobile: '9875647854', email: 'bhavesha@gmail.com', address: 'Thane' },
-    { id: 172, name: 'Virat', mobile: '9875647854', email: 'virat@gmail.com', address: 'Delhi' },
-    { id: 182, name: 'Mahindra', mobile: '9875647854', email: 'mahi@gmail.com', address: 'Ranchi' },
-    { id: 192, name: 'Rohit', mobile: '9875647854', email: 'rohit@gmail.com', address: 'Dadar' },
-  ];
+  users: any[] = [] ;
+   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.searchQuery = '';
+    this.loaduser();
   }
+  loaduser() {
+
+  const apiUrl ='https://localhost:44321/api/values/users';
+
+  this.http.get<any[]>(apiUrl).subscribe(data => {
+
+    console.log('issue',  data)
+    if (data) {
+      this.users = data
+
+      ;
+      console.log("API Response:", data);
+    } else {
+      console.warn('Issue not found');
+    }
+  }, error => {
+    console.error('Error fetching from API:', error);
+  });
+}
+
 
   get filteredUsers(): User[] {
-    return this.users.filter((user) =>
-      user.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+    return this.users.filter(user =>
+  user.name?.toLowerCase().includes(this.searchQuery)
+
+
     );
   }
 
@@ -85,15 +94,30 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  editUser(id: number) {
-    const user = this.users.find((u) => u.id === id);
-    if (user) {
-      const updated = prompt('Edit Name:', user.name);
-      if (updated !== null && updated.trim() !== '') {
-        user.name = updated.trim();
-      }
+  
+
+ editUser(id: number): void {
+  const issue = this.users.find(i => i.Id === id);
+  if (issue) {
+    const updatedType = prompt('Edit Issue Type:', issue.Issue_Type);
+    if (updatedType !== null && updatedType.trim() !== '') {
+      const apiUrl = `https://localhost:44321/api/values/users/${id}`;
+      const updatedData = { Issue_Type: updatedType.trim() };
+
+      this.http.put(apiUrl, updatedData).subscribe({
+        next: () => {
+          issue.Issue_Type = updatedType.trim(); // update locally too
+          console.log('Issue updated successfully.');
+        },
+        error: (err) => {
+          console.error('Error updating issue:', err);
+          alert('Failed to update issue.');
+        }
+      });
     }
   }
+}
+
 
   deleteUser(id: number) {
     this.users = this.users.filter((user) => user.id !== id);
