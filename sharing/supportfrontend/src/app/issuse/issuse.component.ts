@@ -85,25 +85,18 @@ editIssue(issue: any) {
 }
 
 
+deleteIssue(id: number) {
+  this.http.delete(`https://localhost:44321/api/values/${id}`).subscribe(
+    (res) => {
+      console.log("Issue deleted successfully");
+      this.loadIssues();
+    },
+    (err) => {
+      console.error("Error deleting issue:", err);
+    }
+  );
+}
 
-  deleteIssue(id: number) {
-    if (confirm('Are you sure you want to delete this issue?')) {
-    this.http.delete(`https://localhost:44321/api/values/${id}`).subscribe({
-      next: () => {
-        this.issues = this.issues.filter(issue => issue.Id !== id);
-        console.log('Issue deleted successfully.');
-        if (this.currentPage > this.totalPages) {
-          this.currentPage = this.totalPages || 1;
-        }
-      },
-      error: (err) => {
-        console.error('Error deleting issue:', err);
-        alert('Failed to delete issue.');
-      }
-    });
-  }
-  
-  }
 viewLog(issue: any) {
   
   console.log("Issue object:", issue);

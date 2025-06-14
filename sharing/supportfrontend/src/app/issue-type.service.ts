@@ -14,7 +14,7 @@ export class IssueTypeService {
   getIssues(searchTerm: string, currentPage: number, itemsPerPage: number) {
     throw new Error('Method not implemented.');
   }
-  private apiUrl = 'https://localhost:44321/api/issuetype'; // Update this if needed
+  private apiUrl = 'https://localhost:44321/api/issuetype'; 
 
   constructor(private http: HttpClient) {}
 

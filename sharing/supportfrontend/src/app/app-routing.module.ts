@@ -16,23 +16,11 @@ const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'issues', component: IssuseComponent },
-  {
-    path:'issue',
-    component: IssueComponent
-  },
-  {
-    path:'master',
-    component: MasterComponent
-  },
-  {
-    path:'view',
-    component:ViewComponent
-  },
-  // {
-  //   path:'view-table',
-  //   component:ViewComponent
-  // },
+  {path:'issue',component: IssueComponent},
+  {path:'master',component: MasterComponent},
+  { path:'view',component:ViewComponent},
 
+  
   {path:'gear', component:GearComponent},
   {path:'mastercompo', component: MasterCompoComponent},
   {path:'users', component: UsersComponent},

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class IssueService {
  
-  private apiUrl = 'https://localhost:44321/api/values'; // Replace xxxx with your API port
+  private apiUrl = 'https://localhost:44321/api/values'; 
 
   constructor(private http: HttpClient) {}
 private issueData: any;
