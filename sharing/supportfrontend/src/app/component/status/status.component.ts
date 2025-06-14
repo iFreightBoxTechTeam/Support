@@ -110,7 +110,7 @@ editStatus(status: any): void {
 
   const updatedType = prompt('Edit Status Name:', status.StatusName);
   if (updatedType !== null && updatedType.trim() !== '') {
-    const apiUrl = `https://localhost:44321/api/status/${status.StatusId}`;
+    const apiUrl = `https://localhost:44321/api/status/${status.statusid}`;
     const updatedData = { StatusName: updatedType.trim() };
 
     this.http.put(apiUrl, updatedData).subscribe({
