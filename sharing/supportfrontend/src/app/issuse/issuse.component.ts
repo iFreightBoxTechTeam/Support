@@ -3,6 +3,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ViewComponent } from '../component/view/view.component';
 import { IssueService } from '../issue.service';
 import { IssueComponent } from '../component/issue/issue.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-issuse',
@@ -19,8 +20,9 @@ export class IssuseComponent implements OnInit {
  
 @ViewChild(ViewComponent) viewComponent!: ViewComponent;
 @ViewChild(IssueComponent) issueComponent!: IssueComponent;
+ 
 
-  constructor(private issueService: IssueService) {}
+  constructor(private issueService: IssueService, private http:HttpClient) {}
 
   ngOnInit() {
     this.loadIssues();
@@ -86,15 +88,21 @@ editIssue(issue: any) {
 
   deleteIssue(id: number) {
     if (confirm('Are you sure you want to delete this issue?')) {
-      this.issues = this.issues.filter((issue) => issue.issues_id !== id);
-      this.filteredIssues = this.filteredIssues.filter(
-        (issue) => issue.issues_id !== id
-      );
-      this.totalPages = Math.ceil(this.filteredIssues.length / this.itemsPerPage);
-      if (this.currentPage > this.totalPages) {
-        this.currentPage = this.totalPages || 1;
+    this.http.delete(`https://localhost:44321/api/values/${id}`).subscribe({
+      next: () => {
+        this.issues = this.issues.filter(issue => issue.Id !== id);
+        console.log('Issue deleted successfully.');
+        if (this.currentPage > this.totalPages) {
+          this.currentPage = this.totalPages || 1;
+        }
+      },
+      error: (err) => {
+        console.error('Error deleting issue:', err);
+        alert('Failed to delete issue.');
       }
-    }
+    });
+  }
+  
   }
 viewLog(issue: any) {
   

@@ -86,9 +86,14 @@ get filteredIssues(): Issue[] {
 
   deleteIssue(id: number): void {
   
+// this.http.delete(`https://localhost:44321/api/issuetype/${id}`)
+//   .subscribe({
+//     next: () => console.log('Deleted'),
+//     error: err => console.error('Error deleting issue:', err)
+//   });
 
   if (confirm('Are you sure you want to delete this issue?')) {
-    this.http.delete(this.apiUrl).subscribe({
+    this.http.delete(`https://localhost:44321/api/issuetype/${id}`).subscribe({
       next: () => {
         this.Issue = this.Issue.filter(issue => issue.Id !== id);
         console.log('Issue deleted successfully.');

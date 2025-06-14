@@ -11,6 +11,10 @@ export class IssueService {
 
   constructor(private http: HttpClient) {}
 private issueData: any;
+getissueById(userId: number): Observable<any> {
+  return this.http.get<any>(`https://localhost:44321/api/values/u/${userId}`);
+
+}
 
  setIssue(issue: any) {
   if (!issue) {

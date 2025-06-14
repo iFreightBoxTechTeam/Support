@@ -11,10 +11,10 @@ import { IssueService } from 'src/app/issue.service';
 export class IssueComponent implements OnInit {
   @Input() issueId!: number | string;
 
-  overallStatus: string = 'Open';
+  overallStatus: string = '';
   description: string = 'This is a hardcoded issue with pre-defined images.';
   assignTo: string = '';
-  Status: string = 'Open';
+  Status: string = '';
   apiUrl: any;
    
 
@@ -149,12 +149,12 @@ setIssue(issue: any) {
 
 
 getIssue() {
-  console.log("Fetching issue from service:", this.issueService.getIssue());
+  console.log("Fetching issue from :", this.issueService.getIssue());
 return this.issueService.getIssue() || null;
-}
+// }
 //   editIssue(issueId: number): void {
 //   this.issueId = issueId;
-// }
+}
 
   triggerFileInput(): void {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
@@ -163,12 +163,24 @@ return this.issueService.getIssue() || null;
     }
   }
 
-    openIssueModal(UserId: any) {
-    // this.loadHistory(UserId);
-    console.log("Fetching history for user ID:", UserId);
+  openIssueModal(userId: number): void {
+  console.log("Fetching history for user ID:", userId);
 
-    this.showIssueModal = true;
-  }
+  this.issueService.getissueById(userId).subscribe(
+    (response) => {
+      this.issue = response[0];
+      this.issueId = userId;
+      
+      this.showIssueModal = true;
+
+      console.log("Fetched Issue Details:", this.issue);
+    },
+    (error) => {
+      console.error("Error fetching issue:", error);
+    }
+  );
+}
+
 
   closeIssueModal(): void {
     this.showIssueModal = false;

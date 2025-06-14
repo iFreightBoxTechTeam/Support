@@ -29,6 +29,7 @@ export class StatusComponent implements OnInit {
 
   ngOnInit(): void {
   this.loadstatus();
+  
 }
 
 
@@ -103,19 +104,22 @@ export class StatusComponent implements OnInit {
   }
 
 editStatus(status: any): void {
-  if (!status || !status.StatusId) {
+  if (!status || !status.statusid) {
     console.error('Invalid status object:', status);
     return;
   }
 
-  const updatedType = prompt('Edit Status Name:', status.StatusName);
+  const updatedType = prompt('Edit Status Name:', status.statusname);
   if (updatedType !== null && updatedType.trim() !== '') {
     const apiUrl = `https://localhost:44321/api/status/${status.statusid}`;
-    const updatedData = { StatusName: updatedType.trim() };
+    const updatedData = {
+      StatusId: status.statusid,
+      StatusName: updatedType.trim()
+    };
 
     this.http.put(apiUrl, updatedData).subscribe({
       next: () => {
-        status.StatusName = updatedType.trim(); // update locally
+        status.statusname = updatedType.trim(); // update locally
         console.log('Status updated successfully.');
       },
       error: (err) => {
@@ -125,6 +129,7 @@ editStatus(status: any): void {
     });
   }
 }
+
 
   openAddStatusModal() {
     if (this.addStatus) {
