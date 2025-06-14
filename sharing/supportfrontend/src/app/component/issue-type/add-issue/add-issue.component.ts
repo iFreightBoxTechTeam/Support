@@ -11,7 +11,7 @@ declare var bootstrap: any;
 })
 export class AddIssueComponent {
  @Output() issueAdded = new EventEmitter<any>();
-  modalInstance: any;
+  modalInstance: any; 
 
   newIssue = {
     issue_name: ''
