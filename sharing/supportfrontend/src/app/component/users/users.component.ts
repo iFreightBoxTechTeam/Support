@@ -75,8 +75,30 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  openAddUserModal() {
+   openAddUserModal() {
+
     this.addUserComponent.openModal();
+
+  }
+
+   editUser(user: any) {
+
+    this.addUserComponent.openModal(user);
+
+  }
+
+
+
+  onUserUpdated(updatedUser: any) {
+
+    const index = this.users.findIndex(u => u.id === updatedUser.id);
+
+    if (index > -1) {
+
+      this.users[index] = updatedUser;
+
+    }
+
   }
 
   onSearchChange(newSearch: string) {
@@ -93,30 +115,6 @@ export class UsersComponent implements OnInit {
       this.currentPage = this.totalPages;
     }
   }
-
-  
-
- editUser(id: number): void {
-  const issue = this.users.find(i => i.Id === id);
-  if (issue) {
-    const updatedType = prompt('Edit Issue Type:', issue.Issue_Type);
-    if (updatedType !== null && updatedType.trim() !== '') {
-      const apiUrl = `https://localhost:44321/api/values/users/${id}`;
-      const updatedData = { Issue_Type: updatedType.trim() };
-
-      this.http.put(apiUrl, updatedData).subscribe({
-        next: () => {
-          issue.Issue_Type = updatedType.trim(); // update locally too
-          console.log('Issue updated successfully.');
-        },
-        error: (err) => {
-          console.error('Error updating issue:', err);
-          alert('Failed to update issue.');
-        }
-      });
-    }
-  }
-}
 
 
   deleteUser(id: number) {

@@ -2,8 +2,8 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5  class="modal-title">{{ isEditMode ? 'Edit User' : 'Add New User' }}</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
       </div>
       <div class="modal-body">
         <form (ngSubmit)="addUser()">
@@ -23,7 +23,7 @@
             <label for="userAddress" class="form-label">Address</label>
             <input type="text" class="form-control" id="userAddress" [(ngModel)]="newUser.address" name="address" />
           </div>
-          <button type="submit" class="btn btn-primary">Add User</button>
+          <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Update User' : 'Add User' }}</button>
         </form>
       </div>
     </div>

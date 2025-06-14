@@ -5,7 +5,7 @@
 ></app-nav-main>
 
 <!-- Add User Modal Component -->
-<app-add-user (userAdded)="onUserAdded($event)" #addUserComponent></app-add-user>
+<app-add-user (userAdded)="onUserAdded($event)" (userUpdated)="onUserUpdated($event)" #addUserComponent></app-add-user>
 
 <div class="user-card">
   <div class="user-task">
@@ -32,7 +32,7 @@
           <td>
             <button
               class="edit-btn"
-              (click)="editUser(user.id)"
+              (click)="editUser(user)"
               title="Edit"
               aria-label="Edit user"
             >

@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
 
 declare var bootstrap: any;
 
@@ -10,7 +10,10 @@ declare var bootstrap: any;
 export class AddUserComponent implements AfterViewInit {
   @Output() userAdded = new EventEmitter<any>();
 
+  @Output() userUpdated = new EventEmitter<any>();
+
   newUser = {
+    id: 0,
     name: '',
     mobile: '',
     email: '',
@@ -18,6 +21,7 @@ export class AddUserComponent implements AfterViewInit {
   };
 
   modalInstance: any;
+  isEditMode: boolean = false;
 
   ngAfterViewInit() {
     const modalElement = document.getElementById('addUserModal');
@@ -26,25 +30,52 @@ export class AddUserComponent implements AfterViewInit {
     }
   }
 
+ openModal(user?: any) {
+
+    if (user) {
+
+      this.isEditMode = true;
+
+      this.newUser = { ...user };
+
+    } else {
+
+      this.isEditMode = false;
+
+      this.newUser = { id: 0, name: '', mobile: '', email: '', address: '' };
+
+    }
+
+    this.modalInstance?.show();
+
+  }
+
+
+
   addUser() {
+
     if (this.newUser.name.trim()) {
-      this.userAdded.emit({ ...this.newUser });
-      this.newUser = { name: '', mobile: '', email: '', address: '' };
+
+      if (this.isEditMode) {
+
+        this.userUpdated.emit({ ...this.newUser });
+
+      } else {
+
+        this.userAdded.emit({ ...this.newUser });
+
+      }
+
       this.modalInstance?.hide();
 
-      // Optional: Remove backdrop manually if it still lingers
-      setTimeout(() => {
-        const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) backdrop.remove();
-      }, 300);
     } else {
+
       alert('Please enter a name.');
+
     }
+
   }
 
-  openModal() {
-    this.modalInstance?.show();
-  }
 
   closeModal() {
     this.modalInstance?.hide();
