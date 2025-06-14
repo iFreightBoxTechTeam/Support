@@ -14,8 +14,12 @@ interface Status {
   styleUrls: ['./status.component.css']
 })
 export class StatusComponent implements OnInit {
-  constructor(private router: Router,private http: HttpClient) {}
-  
+    constructor(private router: Router,private http: HttpClient) {}
+
+    ngOnInit(): void {
+      this.loadstatus();
+     }
+
   @ViewChild('addStatusComponent') addStatus!: AddStatusComponent;
 
   statusTypes: any[] = [];
@@ -26,11 +30,6 @@ export class StatusComponent implements OnInit {
 
   currentPage: number = 1;
   itemsPerPage: number = 5;
-
-  ngOnInit(): void {
-  this.loadstatus();
-}
-
 
   loadstatus() {
 
@@ -75,6 +74,11 @@ export class StatusComponent implements OnInit {
     }
   }
 
+  openAddStatusModal() {
+    this.addStatus.openModal();
+  }
+
+
   addStatusBtn(): void {
     if (this.newStatusType.trim()) {
       this.statusTypes.push({ id: this.nextId++, status_name: this.newStatusType.trim() });
@@ -95,43 +99,19 @@ export class StatusComponent implements OnInit {
     }
   }
 
-  deleteStatus(id: number): void {
-    this.statusTypes = this.statusTypes.filter(item => item.id !== id);
-    if (this.currentPage > this.totalPages) {
-      this.currentPage = this.totalPages || 1;
+   onStatusUpdated(updatedStatus: Status) {
+    const index = this.statusTypes.findIndex(s => s.id === updatedStatus.id);
+    if (index > -1) {
+      this.statusTypes[index] = updatedStatus;
     }
   }
 
-editStatus(status: any): void {
-  if (!status || !status.StatusId) {
-    console.error('Invalid status object:', status);
-    return;
+  deleteStatus(id: number) {
+    this.statusTypes = this.statusTypes.filter(s => s.id !== id);
   }
 
-  const updatedType = prompt('Edit Status Name:', status.StatusName);
-  if (updatedType !== null && updatedType.trim() !== '') {
-    const apiUrl = `https://localhost:44321/api/status/${status.statusid}`;
-    const updatedData = { StatusName: updatedType.trim() };
-
-    this.http.put(apiUrl, updatedData).subscribe({
-      next: () => {
-        status.StatusName = updatedType.trim(); // update locally
-        console.log('Status updated successfully.');
-      },
-      error: (err) => {
-        console.error('Error updating status:', err);
-        alert('Failed to update status.');
-      }
-    });
-  }
-}
-
-  openAddStatusModal() {
-    if (this.addStatus) {
-      this.addStatus.openModal();
-    } else {
-      console.error('AddStatusComponent is NOT yet initialized!');
-    }
+  editStatus(status: Status) {
+    this.addStatus.openModal(status);
   }
 
 }
