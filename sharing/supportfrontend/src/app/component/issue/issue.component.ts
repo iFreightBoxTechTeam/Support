@@ -149,7 +149,7 @@ setIssue(issue: any) {
 
 
 getIssue() {
-  console.log("Fetching issue from :", this.issueService.getIssue());
+  console.log("Fetching issue from components:", this.issueService.getIssue());
 return this.issueService.getIssue() || null;
 // }
 //   editIssue(issueId: number): void {
