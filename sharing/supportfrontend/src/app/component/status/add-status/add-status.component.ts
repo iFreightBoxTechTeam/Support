@@ -1,4 +1,6 @@
-import {Component, EventEmitter, Output, AfterViewInit} from '@angular/core';
+import { Component, EventEmitter, Output, AfterViewInit } from '@angular/core';
+import { Status, StatusService } from 'src/app/status.service';
+ // adjust path as needed
 
 declare var bootstrap: any;
 
@@ -7,19 +9,19 @@ declare var bootstrap: any;
   templateUrl: './add-status.component.html',
   styleUrls: ['./add-status.component.css']
 })
-
 export class AddStatusComponent implements AfterViewInit {
-  @Output() statusAdded = new EventEmitter<any>();
-
-   @Output() statusUpdated = new EventEmitter<any>();
+  @Output() statusAdded = new EventEmitter<Status>();
+  @Output() statusUpdated = new EventEmitter<Status>();
 
   modalInstance: any;
   isEditMode: boolean = false;
 
-  newStatus = {
+  newStatus: Status = {
     id: 0,
-    status_name: ''
+    StatusName: ''
   };
+
+  constructor(private statusService: StatusService) {}
 
   ngAfterViewInit() {
     const modalElement = document.getElementById('addStatusModal');
@@ -28,34 +30,72 @@ export class AddStatusComponent implements AfterViewInit {
     }
   }
 
-  openModal(status?: any) {
+  openModal(status?: Status) {
     if (status) {
       this.isEditMode = true;
       this.newStatus = { ...status };
     } else {
       this.isEditMode = false;
-      this.newStatus = { id: 0, status_name: '' };
+      this.newStatus = { id: 0, StatusName: '' };
     }
     this.modalInstance?.show();
   }
-
-
 addStatus() {
+  console.log('Submitting new status:', this.newStatus);  // debug log
 
-    if (this.newStatus.status_name.trim()) {
-      if (this.isEditMode) {
-        this.statusUpdated.emit({ ...this.newStatus });
-      } else {
-        this.statusAdded.emit({ ...this.newStatus });
-      }
-      this.modalInstance?.hide();
+  if (this.newStatus.StatusName?.trim()) {
+    if (this.isEditMode) {
+      this.statusService.updateStatus(this.newStatus).subscribe({
+        next: (updatedStatus) => {
+          this.statusUpdated.emit(updatedStatus);
+          this.modalInstance?.hide();
+        },
+        error: (err) => {
+          alert('Failed to update status.');
+          console.error(err);
+        }
+      });
     } else {
-      alert('Please enter a Status Name.');
+      this.statusService.addStatus(this.newStatus).subscribe({
+        next: (addedStatus) => {
+          this.statusAdded.emit(addedStatus);
+          this.modalInstance?.hide();
+        },
+        error: (err) => {
+          alert('Failed to add status.');
+          console.error('Add error:', err);
+        }
+      });
     }
+  } else {
+    alert('Please enter a Status Name.');
   }
+}
 
+//  addStatus() {
+
+//     if (this.newUser.name.trim()) {
+
+//       if (this.isEditMode) {
+
+//         this.statusUpdated.emit({ ...this.newUser });
+
+//       } else {
+
+//         this.statusAdded.emit({ ...this.newUser });
+
+//       }
+
+//       this.modalInstance?.hide();
+
+//     } else {
+
+//       alert('Please enter a status name.');
+
+//     }
+
+//   }
   closeModal() {
     this.modalInstance?.hide();
   }
-
 }

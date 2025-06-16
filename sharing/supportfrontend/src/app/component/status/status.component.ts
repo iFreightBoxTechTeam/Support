@@ -2,11 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddStatusComponent } from './add-status/add-status.component';
 import { HttpClient } from '@angular/common/http';
+import { Status } from 'src/app/status.service';
 
-interface Status {
-  id: number;
-  status_name: string;
-}
+
+
 
 @Component({
   selector: 'app-status',
@@ -30,6 +29,7 @@ export class StatusComponent implements OnInit {
 
   currentPage: number = 1;
   itemsPerPage: number = 5;
+  
 
   loadstatus() {
 
@@ -88,18 +88,14 @@ export class StatusComponent implements OnInit {
       alert('Please enter a Status type.');
     }
   }
+onStatusAdded(status: Status) {
+  console.log('New status added:', status);
+  this.statusTypes.push(status);
+  console.log('Updated statusTypes:', this.statusTypes);
+  this.currentPage = this.totalPages;
+}
 
-  onStatusAdded(status: Omit<Status, 'id'>) {
-    if (status.status_name.trim()) {
-      this.statusTypes.push({
-        id: this.nextId++,
-        ...status,
-      });
-      this.currentPage = this.totalPages;
-    }
-  }
-
-   onStatusUpdated(updatedStatus: Status) {
+  onStatusUpdated(updatedStatus: Status) {
     const index = this.statusTypes.findIndex(s => s.id === updatedStatus.id);
     if (index > -1) {
       this.statusTypes[index] = updatedStatus;
@@ -118,6 +114,7 @@ deleteStatus(id: number) {
     }
   });
 }
+
 
 
   editStatus(status: Status) {
