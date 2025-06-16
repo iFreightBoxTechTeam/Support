@@ -128,19 +128,24 @@ setIssue(issue: any) {
   }
 saveIssue() {
   const payload = {
-    StatusName: this.issue.StatusName,   // or new status from select
+    StatusName: this.issue.StatusName,
     AssignTo: this.assignTo,
-    ImagePaths: this.images.map(img => img.url) // if you're saving image URLs
+    ImagePaths: this.images.map(img => img.url)
   };
 
   console.log("Sending PUT payload:", payload);
 
   this.http.put(`https://localhost:44321/api/values/${this.issue.UserId}`, payload)
     .subscribe(
-      res => console.log("Update success", res),
+      res => {
+        console.log("Update success", res);
+        // Close modal using jQuery
+        ($('#myModal') as any).modal('hide');
+      },
       err => console.error("Update error", err)
     );
 }
+
 
 
 

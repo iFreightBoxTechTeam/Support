@@ -58,7 +58,7 @@
 
 /* Search Input */
 .search-input {
-  padding-left: 2rem;
+  padding-left: 3px;
   width: 100%;
   height: 38px;
   font-size: 14px;
@@ -69,6 +69,7 @@
   background-color: #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
 }
 
 .search-input:focus {
@@ -78,7 +79,7 @@
 }
 
 /* Search Icon */
-.search-icon {
+/* .search-icon {
   position: absolute;
   left: 10px;
   top: 50%;
@@ -87,7 +88,8 @@
   font-size: 16px;
   pointer-events: none;
   transition: opacity 0.3s ease;
-}
+  border-radius: 20px;
+} */
 
 /* Hide search icon when input is focused or not empty */
 .search-input:focus ~ .search-icon,
