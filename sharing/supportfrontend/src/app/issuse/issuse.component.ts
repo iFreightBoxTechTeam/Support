@@ -88,7 +88,7 @@ editIssue(issue: any) {
 
   deleteIssue(id: number) {
     if (confirm('Are you sure you want to delete this issue?')) {
-    this.http.delete(`https://localhost:44321/api/issuetype/${id}`).subscribe({
+    this.http.delete(`https://localhost:44321/api/values/${id}`).subscribe({
       next: () => {
         this.issues = this.issues.filter(issue => issue.Id !== id);
         console.log('Issue deleted successfully.');
