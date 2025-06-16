@@ -128,9 +128,9 @@ setIssue(issue: any) {
   }
 saveIssue() {
   const payload = {
-    StatusName: this.issue.StatusName,
+    StatusName: this.issue.StatusName,   // or new status from select
     AssignTo: this.assignTo,
-    ImagePaths: this.images.map(img => img.url)
+    ImagePaths: this.images.map(img => img.url) // if you're saving image URLs
   };
 
   console.log("Sending PUT payload:", payload);
@@ -139,13 +139,13 @@ saveIssue() {
     .subscribe(
       res => {
         console.log("Update success", res);
-        // Close modal using jQuery
-        ($('#myModal') as any).modal('hide');
+        this.closeIssueModal(); // <-- make sure this is INSIDE the arrow function
       },
-      err => console.error("Update error", err)
+      err => {
+        console.error("Update error", err);
+      }
     );
 }
-
 
 
 
