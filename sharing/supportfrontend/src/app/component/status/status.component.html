@@ -4,7 +4,7 @@
   (searchChange)="searchTerm = $event; currentPage = 1"
 ></app-nav-main>
 
-<app-add-status (statusAdded)="onStatusAdded($event)" #addStatusComponent></app-add-status>
+<app-add-status (statusAdded)="onStatusAdded($event)" (statusUpdated)="onStatusUpdated($event)" #addStatusComponent></app-add-status>
 
 <div class="status-type">
   <div class="status-type-header">
@@ -16,14 +16,12 @@
     <table>
       <thead>
         <tr>
-        
           <th>Status</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let status of statusTypes">
-   
           <td>{{ status.StatusName }}</td>
           <td>
            <button class="edit-btn" (click)="editStatus(status)" title="Edit">

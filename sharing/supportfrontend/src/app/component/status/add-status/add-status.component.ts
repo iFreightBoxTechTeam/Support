@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output, AfterViewInit} from '@angular/core';
 
 declare var bootstrap: any;
 
@@ -8,12 +8,16 @@ declare var bootstrap: any;
   styleUrls: ['./add-status.component.css']
 })
 
-export class AddStatusComponent{
+export class AddStatusComponent implements AfterViewInit {
   @Output() statusAdded = new EventEmitter<any>();
-  // @ViewChild('addStatusModal') addStatusModalRef!: ElementRef;
+
+   @Output() statusUpdated = new EventEmitter<any>();
+
   modalInstance: any;
+  isEditMode: boolean = false;
 
   newStatus = {
+    id: 0,
     status_name: ''
   };
 
@@ -24,43 +28,34 @@ export class AddStatusComponent{
     }
   }
 
-  addStatus() {
-    console.log('Add Status clicked:', this.newStatus);
-    if(this.newStatus.status_name.trim()){
-      this.statusAdded.emit({...this.newStatus});
-
-      this.newStatus = {status_name: ''};
-
-      const modalElement = document.getElementById('addStatusModal');
-      if(modalElement){
-        const modalInstance = bootstrap.Modal.getInstance(modalElement);
-        if(modalInstance){
-          modalInstance.hide();
-          document.body.classList.remove('modal-open');
-          const backdrop = document.querySelector('.modal-backdrop');
-          if (backdrop) {
-            backdrop.remove();
-          }
-        }
-      }
+  openModal(status?: any) {
+    if (status) {
+      this.isEditMode = true;
+      this.newStatus = { ...status };
     } else {
-      alert('Please enter a status name.');
+      this.isEditMode = false;
+      this.newStatus = { id: 0, status_name: '' };
     }
-  }
-        
-  // openModal() {
-  //   const modalElement = document.getElementById('addStatusModal');
-  //   if (modalElement) {
-  //     const modalInstance = new bootstrap.Modal(modalElement); 
-  //     modalInstance.show();
-  //   }
-  // }
-
-  openModal() {
     this.modalInstance?.show();
+  }
+
+
+addStatus() {
+
+    if (this.newStatus.status_name.trim()) {
+      if (this.isEditMode) {
+        this.statusUpdated.emit({ ...this.newStatus });
+      } else {
+        this.statusAdded.emit({ ...this.newStatus });
+      }
+      this.modalInstance?.hide();
+    } else {
+      alert('Please enter a Status Name.');
+    }
   }
 
   closeModal() {
     this.modalInstance?.hide();
   }
+
 }
