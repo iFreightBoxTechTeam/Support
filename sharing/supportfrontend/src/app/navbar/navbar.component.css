@@ -30,14 +30,14 @@
   transform: scale(1.05);
 }
 
-/* Navigation links container */
+
 .navbar-nav {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-/* Nav links styling */
+
 .nav-link {
   color: #555; /* dark grey text */
   text-decoration: none;

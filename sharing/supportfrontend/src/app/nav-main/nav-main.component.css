@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  top: -1px;  /* Moves the entire back button div up */
+  top: -1px; 
 }
 
 .back-btn svg {
