@@ -67,6 +67,7 @@ export class AddUserComponent implements AfterViewInit {
       }
 
       this.modalInstance?.hide();
+      
 
     } else {
 
