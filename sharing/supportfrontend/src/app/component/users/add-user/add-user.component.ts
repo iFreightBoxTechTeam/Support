@@ -30,50 +30,30 @@ export class AddUserComponent implements AfterViewInit {
     }
   }
 
+ private nextId = 201;
+
  openModal(user?: any) {
-
     if (user) {
-
       this.isEditMode = true;
-
       this.newUser = { ...user };
-
     } else {
-
       this.isEditMode = false;
-
-      this.newUser = { id: 0, name: '', mobile: '', email: '', address: '' };
-
+      this.newUser = { id: this.nextId++, name: '', mobile: '', email: '', address: '' };
     }
-
     this.modalInstance?.show();
-
   }
 
-
-
   addUser() {
-
     if (this.newUser.name.trim()) {
-
       if (this.isEditMode) {
-
         this.userUpdated.emit({ ...this.newUser });
-
       } else {
-
         this.userAdded.emit({ ...this.newUser });
-
       }
-
       this.modalInstance?.hide();
-
     } else {
-
       alert('Please enter a name.');
-
     }
-
   }
 
 

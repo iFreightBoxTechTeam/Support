@@ -4,7 +4,10 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Issue, IssueTypeService} from '..//..//issue-type.service';
 
-
+interface Issue_Type {
+  id: number;
+  issue_type: string;
+}
 
 
 @Component({
@@ -27,7 +30,7 @@ Issue:any[]=[];
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
-issueTypes: Issue[] = [];
+issueTypes: Issue_Type[] = [];
 
 ngOnInit(): void {
   this.loadIssueTypes();
@@ -55,18 +58,21 @@ ngOnInit(): void {
   });
 }
 
-get filteredIssues(): Issue[] {
-  return this.issueTypes;
+get filteredIssues(): Issue_Type[] {
+    if (!this.searchTerm.trim()) return this.issueTypes;
+    return this.issueTypes.filter(issue =>
+      issue.issue_type.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
 }
 
   get totalPages(): number {
     return Math.ceil(this.filteredIssues.length / this.itemsPerPage);
   }
 
-  get Issues(): Issue[] {
-  const start = (this.currentPage - 1) * this.itemsPerPage;
-  return this.filteredIssues.slice(start, start + this.itemsPerPage);
-}
+  get paginatedIssueTypes(): Issue_Type[] {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredIssues.slice(start, start + this.itemsPerPage);
+  }
 
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
@@ -74,13 +80,20 @@ get filteredIssues(): Issue[] {
     }
   }
 
-  onIssueAdded(issue: Omit<Issue, 'id'>) {
+  onIssueAdded(issue: Omit<Issue_Type, 'id'>) {
     if (issue.issue_type.trim()) {
       this.issueTypes.push({
         id: this.nextId++,
         ...issue,
       });
       this.currentPage = this.totalPages;
+    }
+  }
+
+  onIssueUpdated(updatedIssue: Issue_Type) {
+    const index = this.issueTypes.findIndex(i => i.id === updatedIssue.id);
+    if (index > -1) {
+      this.issueTypes[index] = updatedIssue;
     }
   }
 

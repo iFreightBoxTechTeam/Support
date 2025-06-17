@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, AfterViewInit } from '@angular/core';
 import { IssueTypeService } from 'src/app/issue-type.service';
 
 declare var bootstrap: any;
@@ -16,10 +16,16 @@ export class AddIssueComponent {
   isEditMode: boolean = false;
 
  newIssue: {
-  id?: number | string;
-  issue_name: string;
+  id?: number | string,
+  issue_name: ''
 } = { issue_name: '' };
 
+   ngAfterViewInit() {
+    const modalElement = document.getElementById('addIssueModal');
+    if (modalElement) {
+      this.modalInstance = new bootstrap.Modal(modalElement);
+    }
+  }
 
   constructor(private issueService: IssueTypeService) {}
 

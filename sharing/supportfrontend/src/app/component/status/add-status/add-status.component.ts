@@ -30,13 +30,15 @@ export class AddStatusComponent implements AfterViewInit {
     }
   }
 
+  private nextId = 201;
+
   openModal(status?: Status) {
     if (status) {
       this.isEditMode = true;
       this.newStatus = { ...status };
     } else {
       this.isEditMode = false;
-      this.newStatus = { id: 0, StatusName: '' };
+      this.newStatus = { id: this.nextId++, StatusName: '' };
     }
     this.modalInstance?.show();
   }
