@@ -141,7 +141,8 @@ saveIssue() {
     .subscribe(
       res => {
         console.log("Update success", res);
-        this.closeIssueModal(); // <-- make sure this is INSIDE the arrow function
+        this.closeIssueModal(); 
+        this.issueService.getIssues()
       },
       err => {
         console.error("Update error", err);

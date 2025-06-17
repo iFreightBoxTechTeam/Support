@@ -14,10 +14,14 @@ export class IssuseComponent implements OnInit {
   issues: any[] = [];
   filteredIssues: any[] = [];
   searchTerm: string = '';
-  currentPage: number = 1;
-  itemsPerPage: number = 10;
-  totalPages: number = 0;
- 
+  // currentPage: number = 1;
+  // itemsPerPage: number = 5;
+  // totalPages: number = 0;
+
+  currentPage = 1;
+itemsPerPage = 10;
+
+
 @ViewChild(ViewComponent) viewComponent!: ViewComponent;
 @ViewChild(IssueComponent) issueComponent!: IssueComponent;
  
@@ -60,19 +64,44 @@ export class IssuseComponent implements OnInit {
     this.loadIssues();
   }
 
-  get paginatedIssues() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filteredIssues.slice(startIndex, startIndex + this.itemsPerPage);
-  }
+get pagesArray() {
+  return Array(this.totalPages).fill(0);
+}
 
-  changePage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.loadIssues();
-    }
+
+get totalPages(): number {
+  return Math.ceil(this.filteredIssues.length / this.itemsPerPage);
+}
+
+get paginatedIssues() {
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  return this.filteredIssues.slice(startIndex, startIndex + this.itemsPerPage);
+}
+
+changePage(page: number) {
+  if (page >= 1 && page <= this.totalPages) {
+    this.currentPage = page;
+    // remove loadIssues if it's reloading/resetting the list
   }
+}
+
+
+
+
+
+  // get paginatedIssues() {
+  //   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  //   return this.filteredIssues.slice(startIndex, startIndex + this.itemsPerPage);
+  // }
+
+  // changePage(page: number) {
+  //   if (page >= 1 && page <= this.totalPages) {
+  //     this.currentPage = page;
+  //     this.loadIssues();
+  //   }
+  // }
 editIssue(issue: any) {
-  const selectedIssue = this.paginatedIssues.find(issue => issue.UserId === issue.UserId);
+  const selectedIssue = this.paginatedIssues.find(i => i.UserId === issue.UserId);
   console.log("Selected Issue Before Setting in Service:", selectedIssue);
 
   if (!selectedIssue) {
