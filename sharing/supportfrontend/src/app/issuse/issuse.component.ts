@@ -71,7 +71,7 @@ export class IssuseComponent implements OnInit {
       this.loadIssues();
     }
   }
-  
+
 editIssue(issue: any) {
   const selectedIssue = this.paginatedIssues.find(issue => issue.UserId === issue.UserId);
   console.log("Selected Issue Before Setting in Service:", selectedIssue);
