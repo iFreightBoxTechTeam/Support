@@ -106,6 +106,8 @@ setIssue(issue: any) {
     this.images.splice(index, 1);
   }
  updateIssue(userId: number, issueData: any) {
+  console.log('Sending issue data:', issueData); // Add this
+
   this.issueService.updateIssue(userId, issueData).subscribe(
     (response) => {
       console.log('Issue updated successfully:', response);
@@ -114,8 +116,8 @@ setIssue(issue: any) {
       console.error('Error updating issue:', error);
     }
   );
-  
 }
+
 
   openImageModal(url: string): void {
     this.selectedImageUrl = url;
@@ -124,28 +126,30 @@ setIssue(issue: any) {
   closeImageModal(): void {
     this.selectedImageUrl = null;
   }
-
-  saveIssue(): void {
-  if (!this.issueId) {
-    console.error("Error: issueId is missing");
-    return;
-  }
-
-  const issueData = {
-    StatusName: this.overallStatus,
+saveIssue() {
+  const payload = {
+    StatusName: this.issue.StatusName,   // or new status from select
     AssignTo: this.assignTo,
-    ImagePaths: this.images.map(img => img.url)
+    ImagePaths: this.images.map(img => img.url) // if you're saving image URLs
   };
 
-  console.log("Updating Issue:", this.issueId, issueData); 
+  console.log("Sending PUT payload:", payload);
+  console.log("this.issue.StatusName = ", this.issue.StatusName);
 
-  this.issueService.updateIssue(this.issueId as number, issueData).subscribe(
-    response => {
-      console.log("Issue updated:", response);
-    },
-    error => console.error("Error updating issue:", error)
-  );
+
+  this.http.put(`https://localhost:44321/api/values/${this.issue.UserId}`, payload)
+    .subscribe(
+      res => {
+        console.log("Update success", res);
+        this.closeIssueModal(); // <-- make sure this is INSIDE the arrow function
+      },
+      err => {
+        console.error("Update error", err);
+      }
+    );
 }
+
+
 
 
 getIssue() {
@@ -179,7 +183,9 @@ return this.issueService.getIssue() || null;
       console.error("Error fetching issue:", error);
     }
   );
+
 }
+
 
 
   closeIssueModal(): void {

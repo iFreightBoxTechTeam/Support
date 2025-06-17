@@ -39,16 +39,16 @@
       </div>
 
       <div class="form-group">
-        <label>Status:</label>
-        <select >
-          <option >{{issue.StatusName}}</option>
-          <option value="Open">Open</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Resolved">Resolved</option>
-          <option value="Closed">Closed</option>
-        </select>
-      </div>
-    </div>
+  <label>Status:</label>
+  <select [(ngModel)]="issue.StatusName" class="form-control" name="status">
+      <option >{{issue.StatusName}}</option>
+    <option value="Open">Open</option>
+    <option value="In Progress">In Progress</option>
+    <option value="Resolved">Resolved</option>
+    <option value="Closed">Closed</option>
+  </select>
+</div>
+
 
     <!-- Right: Image Upload and Preview -->
     <div class="right-pane">

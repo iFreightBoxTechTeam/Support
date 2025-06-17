@@ -22,7 +22,7 @@ export class IssuseComponent implements OnInit {
 @ViewChild(IssueComponent) issueComponent!: IssueComponent;
  
 
-  constructor(private issueService: IssueService, private http:HttpClient) {}
+  constructor(private issueService: IssueService, private http :HttpClient) {}
 
   ngOnInit() {
     this.loadIssues();
@@ -71,6 +71,7 @@ export class IssuseComponent implements OnInit {
       this.loadIssues();
     }
   }
+
 editIssue(issue: any) {
   const selectedIssue = this.paginatedIssues.find(issue => issue.UserId === issue.UserId);
   console.log("Selected Issue Before Setting in Service:", selectedIssue);

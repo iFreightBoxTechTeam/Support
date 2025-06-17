@@ -2,11 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddStatusComponent } from './add-status/add-status.component';
 import { HttpClient } from '@angular/common/http';
+import { Status } from 'src/app/status.service';
 
-interface Status {
-  id: number;
-  status_name: string;
-}
+
+
 
 @Component({
   selector: 'app-status',
@@ -14,8 +13,12 @@ interface Status {
   styleUrls: ['./status.component.css']
 })
 export class StatusComponent implements OnInit {
-  constructor(private router: Router,private http: HttpClient) {}
-  
+    constructor(private router: Router,private http: HttpClient) {}
+
+    ngOnInit(): void {
+      this.loadstatus();
+     }
+
   @ViewChild('addStatusComponent') addStatus!: AddStatusComponent;
 
   statusTypes: any[] = [];
@@ -26,12 +29,7 @@ export class StatusComponent implements OnInit {
 
   currentPage: number = 1;
   itemsPerPage: number = 5;
-
-  ngOnInit(): void {
-  this.loadstatus();
   
-}
-
 
   loadstatus() {
 
@@ -76,6 +74,11 @@ export class StatusComponent implements OnInit {
     }
   }
 
+  openAddStatusModal() {
+    this.addStatus.openModal();
+  }
+
+
   addStatusBtn(): void {
     if (this.newStatusType.trim()) {
       this.statusTypes.push({ id: this.nextId++, status_name: this.newStatusType.trim() });
@@ -85,58 +88,37 @@ export class StatusComponent implements OnInit {
       alert('Please enter a Status type.');
     }
   }
+onStatusAdded(status: Status) {
+  console.log('New status added:', status);
+  this.statusTypes.push(status);
+  console.log('Updated statusTypes:', this.statusTypes);
+  this.currentPage = this.totalPages;
+}
 
-  onStatusAdded(status: Omit<Status, 'id'>) {
-    if (status.status_name.trim()) {
-      this.statusTypes.push({
-        id: this.nextId++,
-        ...status,
-      });
-      this.currentPage = this.totalPages;
+  onStatusUpdated(updatedStatus: Status) {
+    const index = this.statusTypes.findIndex(s => s.id === updatedStatus.id);
+    if (index > -1) {
+      this.statusTypes[index] = updatedStatus;
     }
   }
+deleteStatus(id: number) {
+  if (!confirm('Are you sure you want to delete this status?')) return;
 
-  deleteStatus(id: number): void {
-    this.statusTypes = this.statusTypes.filter(item => item.id !== id);
-    if (this.currentPage > this.totalPages) {
-      this.currentPage = this.totalPages || 1;
+  this.http.delete(`https://localhost:44321/api/status/${id}`).subscribe({
+    next: () => {
+      this.statusTypes = this.statusTypes.filter(s => s.id !== id);
+      console.log('Deleted successfully');
+    },
+    error: (error) => {
+      console.error('Failed to delete:', error);
     }
-  }
-
-editStatus(status: any): void {
-  if (!status || !status.statusid) {
-    console.error('Invalid status object:', status);
-    return;
-  }
-
-  const updatedType = prompt('Edit Status Name:', status.statusname);
-  if (updatedType !== null && updatedType.trim() !== '') {
-    const apiUrl = `https://localhost:44321/api/status/${status.statusid}`;
-    const updatedData = {
-      StatusId: status.statusid,
-      StatusName: updatedType.trim()
-    };
-
-    this.http.put(apiUrl, updatedData).subscribe({
-      next: () => {
-        status.statusname = updatedType.trim(); // update locally
-        console.log('Status updated successfully.');
-      },
-      error: (err) => {
-        console.error('Error updating status:', err);
-        alert('Failed to update status.');
-      }
-    });
-  }
+  });
 }
 
 
-  openAddStatusModal() {
-    if (this.addStatus) {
-      this.addStatus.openModal();
-    } else {
-      console.error('AddStatusComponent is NOT yet initialized!');
-    }
+
+  editStatus(status: Status) {
+    this.addStatus.openModal(status);
   }
 
 }
