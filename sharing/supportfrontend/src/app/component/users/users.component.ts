@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, DoCheck } from '@angular/core';
 import { AddUserComponent } from './add-user/add-user.component';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/app/user.service';
@@ -16,7 +16,7 @@ interface User {
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit , DoCheck {
   @ViewChild('addUserComponent') addUserComponent!: AddUserComponent;
 
   searchQuery: string = '';
@@ -26,14 +26,25 @@ export class UsersComponent implements OnInit {
   itemsPerPage: number = 5;
 
   AddModal: boolean = false;
+  onEditMode:boolean = false;
 
-  users: any[] = this.user_serve.users;
+
+
+  Users: any[] = this.user_serve.users;
+
+ 
   constructor(private http: HttpClient , private user_serve: UserService) { }
 
   ngOnInit() {
     this.searchQuery = '';
     this.loaduser();
   }
+
+   ngDoCheck(){
+    // this.Users = this.user_serve.users;
+    // console.log(this.Users);
+  }
+
   loaduser() {
 
     const apiUrl = 'https://localhost:44321/api/values/users';
@@ -42,7 +53,7 @@ export class UsersComponent implements OnInit {
 
       console.log('issue', data)
       if (data) {
-        this.users = data
+        this.Users = data
 
           ;
         console.log("API Response:", data);
@@ -56,7 +67,7 @@ export class UsersComponent implements OnInit {
 
 
   get filteredUsers(): User[] {
-    return this.users.filter(user =>
+    return this.Users.filter(user =>
       user.name?.toLowerCase().includes(this.searchQuery)
 
 
@@ -85,9 +96,12 @@ export class UsersComponent implements OnInit {
 
   }
 
-  editUser(user: any) {
+  edit_user:any ;
 
-    this.addUserComponent.openModal(user);
+  editUser(user: any) {
+    this.AddModal = true;
+    this.onEditMode = true;
+    this.edit_user = user
 
   }
 
@@ -95,13 +109,15 @@ export class UsersComponent implements OnInit {
 
   onUserUpdated(updatedUser: any) {
 
-    const index = this.users.findIndex(u => u.id === updatedUser.id);
+    const index = this.Users.findIndex(u => u.id === updatedUser.id);
 
     if (index > -1) {
 
-      this.users[index] = updatedUser;
+      this.user_serve.users[index] = updatedUser;
 
     }
+
+    console.log(updatedUser);
 
   }
 
@@ -119,10 +135,14 @@ export class UsersComponent implements OnInit {
   }
 
 
-  deleteUser(id: number) {
-    this.users = this.users.filter((user) => user.id !== id);
-    if (this.currentPage > this.totalPages) {
-      this.currentPage = this.totalPages || 1;
-    }
+  deleteUser(user_obj:any) {
+    this.user_serve.users = this.user_serve.users.filter((x)=>x!==user_obj)
+    this.Users = this.user_serve.users;
+  //   if (this.currentPage > this.totalPages) {
+  //     this.currentPage = this.totalPages || 1;
+  //   }
+  console.log(this.Users);
   }
 }
+
+

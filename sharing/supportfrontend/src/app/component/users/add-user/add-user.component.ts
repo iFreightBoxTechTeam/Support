@@ -1,4 +1,6 @@
-import { Component, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef, Input, OnInit } from '@angular/core';
+import { UserService } from 'src/app/user.service';
+
 
 declare var bootstrap: any;
 
@@ -7,10 +9,14 @@ declare var bootstrap: any;
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css']
 })
-export class AddUserComponent implements AfterViewInit {
+export class AddUserComponent implements AfterViewInit ,OnInit{
+  constructor(private user : UserService){};
+
   @Output() userAdded = new EventEmitter<any>();
 
   @Output() userUpdated = new EventEmitter<any>();
+
+  @Input() editVal:any;
 
   newUser = {
     id: 0,
@@ -20,43 +26,45 @@ export class AddUserComponent implements AfterViewInit {
     address: ''
   };
 
+  ngOnInit(){
+    if(this.isEditMode){
+      this.newUser.name = this.editVal.name;
+      this.newUser.mobile = this.editVal.mobile;
+      this.newUser.email = this.editVal.email;
+      this.newUser.address = this.editVal.address;
+    }
+  }
+
   @Output() removeModal:EventEmitter<boolean> = new EventEmitter<boolean>()
 
   // modalInstance: any;
-  isEditMode: boolean = false;
+  @Input() isEditMode: boolean = false;
 
   ngAfterViewInit() {
-    // const modalElement = document.getElementById('addUserModal');
-    // if (modalElement) {
-    //   this.modalInstance = new bootstrap.Modal(modalElement);
-    // }
+    
   }
 
  private nextId = 201;
 
- openModal(user?: any) {
-    // if (user) {
-    //   this.isEditMode = true;
-    //   this.newUser = { ...user };
-    // } else {
-    //   this.isEditMode = false;
-    //   this.newUser = { id: this.nextId++, name: '', mobile: '', email: '', address: '' };
-    // }
-    // this.modalInstance?.show();
-  }
-
   addUser() {
     if (this.newUser.name.trim()) {
-      this.newUser ={ id: this.nextId++, name: this.newUser.name, mobile: this.newUser.mobile, email: this.newUser.email, address: this.newUser.address };
       if (this.isEditMode) {
+        
+        this.newUser ={ id: this.editVal.id,  name: this.newUser.name, mobile: this.newUser.mobile, email: this.newUser.email, address: this.newUser.address };
         this.userUpdated.emit({ ...this.newUser });
       } else {
+        this.newUser ={ id: this.user.currentId+1,  name: this.newUser.name, mobile: this.newUser.mobile, email: this.newUser.email, address: this.newUser.address };
+        this.user.currentId++;
         this.userAdded.emit({ ...this.newUser });
       }
       this.closeModal();
     } else {
       alert('Please enter a name.');
     }
+  }
+
+  editUser(){
+    this.isEditMode = true;
   }
 
 

@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div
+<!-- <div
   class="modal fade"
   id="addIssueModal"
   tabindex="-1"
@@ -31,6 +31,52 @@
               id="issueName"
               [(ngModel)]="newIssue.issue_name"
               name="issue_name"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            {{ isEditMode ? 'Update Issue' : 'Add Issue' }}
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div> -->
+
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="addIssueModal"
+  tabindex="-1"
+  aria-labelledby="addIssueModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="addIssueModalLabel">
+          {{ isEditMode ? 'Edit Issue' : 'Add New Issue' }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeModal()" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form (ngSubmit)="addIssue()" #issueForm="ngForm">
+          <div class="form-group">
+            <label for="issueName" class="form-label">Issue Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="issueName"
+              [(ngModel)]="newIssue.issue_Type"
+              name="issueName"
               required
             />
           </div>

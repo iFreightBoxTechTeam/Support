@@ -6,7 +6,7 @@
 ></app-nav-main>
 
 <!-- Add User Modal Component -->
-<app-add-user *ngIf="AddModal" (removeModal)="openAddUserModal($event)" (userAdded)="onUserAdded($event)" (userUpdated)="onUserUpdated($event)" #addUserComponent></app-add-user>
+<app-add-user *ngIf="AddModal" [editVal]="edit_user" [isEditMode]="onEditMode" (removeModal)="openAddUserModal($event)" (userAdded)="onUserAdded($event)" (userUpdated)="onUserUpdated($event)" #addUserComponent></app-add-user>
 
 <div class="user-card">
   <div class="user-task">
@@ -24,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users">
+        <tr *ngFor="let user of Users">
           <td>{{ user.id }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.mobile }}</td>
@@ -57,7 +57,7 @@
             &nbsp;
             <button
               class="delete-btn"
-              (click)="deleteUser(user.id)"
+              (click)="deleteUser(user)"
               title="Delete"
               aria-label="Delete user"
             >
