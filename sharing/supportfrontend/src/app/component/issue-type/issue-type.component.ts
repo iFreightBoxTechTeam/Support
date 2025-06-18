@@ -292,6 +292,3 @@ loadIssueTypes() {
   }
   
 }
-
-
-//error
