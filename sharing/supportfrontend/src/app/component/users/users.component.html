@@ -26,9 +26,9 @@
         <tr *ngFor="let user of users">
           <td>{{ user.issuesid }}</td>
           <td>{{ user.Name }}</td>
-          <td>{{ user.mobile }}</td>
+          <td>{{ user.Mobile_number }}</td>
           <td>{{ user.Email }}</td>
-          <td>{{ user.address }}</td>
+          <td>{{ user.Addresh }}</td>
           <td>
             <button
               class="edit-btn"
@@ -56,7 +56,7 @@
             &nbsp;
             <button
               class="delete-btn"
-              (click)="deleteUser(user.id)"
+              (click)="deleteUser(user.issuesid)"
               title="Delete"
               aria-label="Delete user"
             >
