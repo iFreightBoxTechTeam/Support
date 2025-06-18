@@ -136,7 +136,7 @@ import { User, UserService } from 'src/app/user.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
 })
-export class UsersComponent implements OnInit , DoCheck {
+export class UsersComponent implements OnInit {
   @ViewChild('addUserComponent') addUserComponent!: AddUserComponent;
 
   searchQuery: string = '';

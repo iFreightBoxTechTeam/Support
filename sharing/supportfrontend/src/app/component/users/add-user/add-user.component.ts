@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 
 declare var bootstrap: any;
@@ -14,8 +14,6 @@ export class AddUserComponent implements AfterViewInit {
 
   @Output() userUpdated = new EventEmitter<any>();
 
-  @Input() editVal:any;
-
   newUser = {
     id: 0,
     name: '',
@@ -24,22 +22,14 @@ export class AddUserComponent implements AfterViewInit {
     address: ''
   };
 
-  ngOnInit(){
-    if(this.isEditMode){
-      this.newUser.name = this.editVal.name;
-      this.newUser.mobile = this.editVal.mobile;
-      this.newUser.email = this.editVal.email;
-      this.newUser.address = this.editVal.address;
-    }
-  }
-
-  @Output() removeModal:EventEmitter<boolean> = new EventEmitter<boolean>()
-
-  // modalInstance: any;
-  @Input() isEditMode: boolean = false;
+  modalInstance: any;
+  isEditMode: boolean = false;
 
   ngAfterViewInit() {
-    
+    const modalElement = document.getElementById('addUserModal');
+    if (modalElement) {
+      this.modalInstance = new bootstrap.Modal(modalElement);
+    }
   }
 
  private nextId = 201;
@@ -56,22 +46,17 @@ openModal(user?: any) {
   // Show the modal
   this.modalInstance?.show();
 }
-addUser() {
-  if (this.newUser.name && this.newUser.name.trim()) {
-    if (this.isEditMode) {
-      this.userUpdated.emit({ ...this.newUser });
+  addUser() {
+    if (this.newUser.name.trim()) {
+      if (this.isEditMode) {
+        this.userUpdated.emit({ ...this.newUser });
+      } else {
+        this.userAdded.emit({ ...this.newUser });
+      }
+      this.modalInstance?.hide();
     } else {
-      // Don't emit undefined or incomplete object
-      this.userAdded.emit({ ...this.newUser });
+      alert('Please enter a name.');
     }
-    this.modalInstance?.hide();
-  } else {
-    alert('Please enter a name.');
-  }
-}
-
-  editUser(){
-    this.isEditMode = true;
   }
 
 

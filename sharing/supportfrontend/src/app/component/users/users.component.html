@@ -1,12 +1,11 @@
-
 <app-nav-main
   [showAddButton]="true"
-  (openAddModal)="openAddUserModal($event)"
+  (openAddModal)="openAddUserModal()"
   (searchChange)="onSearchChange($event)"
 ></app-nav-main>
 
 <!-- Add User Modal Component -->
-<app-add-user *ngIf="AddModal" [editVal]="edit_user" [isEditMode]="onEditMode" (removeModal)="openAddUserModal($event)" (userAdded)="onUserAdded($event)" (userUpdated)="onUserUpdated($event)" #addUserComponent></app-add-user>
+<app-add-user (userAdded)="onUserAdded($event)" (userUpdated)="onUserUpdated($event)" #addUserComponent></app-add-user>
 
 <div class="user-card">
   <div class="user-task">
@@ -27,11 +26,13 @@
         <tr *ngFor="let user of users">
           <td>{{ user.issuesid }}</td>
           <td>{{ user.Name }}</td>
+
           <td>{{ user.Mobile_number }}</td>
           <td>{{ user.Email }}</td>
+        
           <td>{{ user.Addresh }}</td>
           <td>
-            <button
+<button
               class="edit-btn"
               (click)="editUser(user)"
               title="Edit"
@@ -54,9 +55,10 @@
                 />
               </svg>
             </button>
-            &nbsp;
+    
             <button
               class="delete-btn"
+
               (click)="deleteUser(user.issuesid)"
               title="Delete"
               aria-label="Delete user"
@@ -98,7 +100,6 @@
     </table>
   </div>
 </div>
-
 <!-- Pagination -->
 <nav *ngIf="totalPages > 1" aria-label="User list pagination" class="pagination-nav">
   <button
@@ -119,14 +120,7 @@
   >
     {{ i + 1 }}
   </button>
-<!-- <button
-    (click)="changePage(currentPage + 1)"
-    [disabled]="currentPage === totalPages"
-    aria-label="Next page"
-    class="pagination-btn"
-  >
-    Next
-  </button> -->
+
   <button
     (click)="changePage(currentPage + 1)"
     [disabled]="currentPage === totalPages"
