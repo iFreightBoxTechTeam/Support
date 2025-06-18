@@ -136,7 +136,7 @@ import { User, UserService } from 'src/app/user.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit , DoCheck {
   @ViewChild('addUserComponent') addUserComponent!: AddUserComponent;
 
   searchQuery: string = '';
@@ -236,3 +236,5 @@ deleteUser(id: number) {
     this.currentPage = 1;
   }
 }
+
+

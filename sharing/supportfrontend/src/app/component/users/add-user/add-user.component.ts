@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
 
 
 declare var bootstrap: any;
@@ -14,6 +14,8 @@ export class AddUserComponent implements AfterViewInit {
 
   @Output() userUpdated = new EventEmitter<any>();
 
+  @Input() editVal:any;
+
   newUser = {
     id: 0,
     name: '',
@@ -22,14 +24,22 @@ export class AddUserComponent implements AfterViewInit {
     address: ''
   };
 
-  modalInstance: any;
-  isEditMode: boolean = false;
+  ngOnInit(){
+    if(this.isEditMode){
+      this.newUser.name = this.editVal.name;
+      this.newUser.mobile = this.editVal.mobile;
+      this.newUser.email = this.editVal.email;
+      this.newUser.address = this.editVal.address;
+    }
+  }
+
+  @Output() removeModal:EventEmitter<boolean> = new EventEmitter<boolean>()
+
+  // modalInstance: any;
+  @Input() isEditMode: boolean = false;
 
   ngAfterViewInit() {
-    const modalElement = document.getElementById('addUserModal');
-    if (modalElement) {
-      this.modalInstance = new bootstrap.Modal(modalElement);
-    }
+    
   }
 
  private nextId = 201;
@@ -59,6 +69,10 @@ addUser() {
     alert('Please enter a name.');
   }
 }
+
+  editUser(){
+    this.isEditMode = true;
+  }
 
 
   closeModal() {
