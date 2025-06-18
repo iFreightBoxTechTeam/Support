@@ -32,48 +32,27 @@ export class AddStatusComponent implements AfterViewInit {
 
   private nextId = 201;
 
-  openModal(status?: Status) {
-    if (status) {
-      this.isEditMode = true;
-      this.newStatus = { ...status };
-    } else {
-      this.isEditMode = false;
-      this.newStatus = { id: this.nextId++, StatusName: '' };
-    }
-    this.modalInstance?.show();
-  }
-addStatus() {
-  console.log('Submitting new status:', this.newStatus);  // debug log
-
-  if (this.newStatus.StatusName?.trim()) {
-    if (this.isEditMode) {
-      this.statusService.updateStatus(this.newStatus).subscribe({
-        next: (updatedStatus) => {
-          this.statusUpdated.emit(updatedStatus);
-          this.modalInstance?.hide();
-        },
-        error: (err) => {
-          alert('Failed to update status.');
-          console.error(err);
-        }
-      });
-    } else {
-      this.statusService.addStatus(this.newStatus).subscribe({
-        next: (addedStatus) => {
-          this.statusAdded.emit(addedStatus);
-          this.modalInstance?.hide();
-        },
-        error: (err) => {
-          alert('Failed to add status.');
-          console.error('Add error:', err);
-        }
-      });
-    }
+openModal(status?: Status) {
+  if (status) {
+    this.isEditMode = true;
+    this.newStatus = { ...status };  // ❗ CHECK HERE
   } else {
-    alert('Please enter a Status Name.');
+    this.isEditMode = false;
+    this.newStatus = { id: this.nextId++, StatusName: '' };
   }
+  this.modalInstance?.show();
 }
 
+addStatus() {
+  console.log('Submitting new status:', this.newStatus);  // debug log
+if (this.isEditMode) {
+  if (!this.newStatus.id) {
+    console.error('Missing status ID!');
+    alert('Error: Status ID is missing for update.');
+    return;
+  }
+      }
+    }
 //  addStatus() {
 
 //     if (this.newUser.name.trim()) {

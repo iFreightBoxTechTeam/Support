@@ -67,7 +67,7 @@ itemsPerPage = 10;
 get pagesArray() {
   return Array(this.totalPages).fill(0);
 }
-
+  
 
 get totalPages(): number {
   return Math.ceil(this.filteredIssues.length / this.itemsPerPage);

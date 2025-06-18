@@ -116,7 +116,7 @@ export class AddIssueComponent implements AfterViewInit {
 
  newIssue: Issue = {
   id: 0,
-  issue_Type: ''
+  Issue_Type: ''
 };
 
     constructor(private issueService: IssueTypeService) {}
@@ -136,7 +136,7 @@ export class AddIssueComponent implements AfterViewInit {
       this.newIssue = { ...issue };
     } else {
       this.isEditMode = false;
-      this.newIssue = { id: this.nextId++, issue_Type: '' };
+      this.newIssue = { id: this.nextId++, Issue_Type: '' };
     }
     this.modalInstance?.show();
   }
@@ -144,7 +144,7 @@ export class AddIssueComponent implements AfterViewInit {
   addIssue() {
     console.log('Submitting new issue:', this.newIssue);
 
-  if (this.newIssue.issue_Type?.trim()) {
+  if (this.newIssue.Issue_Type?.trim()) {
     if (this.isEditMode) {
       this.issueService.updateIssue(this.newIssue).subscribe({
         next: (updatedIssue) => {

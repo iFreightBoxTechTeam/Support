@@ -42,7 +42,7 @@ import { Observable } from 'rxjs';
 
 export interface Issue {
  id: number;
-  issue_Type: string;
+  Issue_Type: string;
 }
 
 @Injectable({
