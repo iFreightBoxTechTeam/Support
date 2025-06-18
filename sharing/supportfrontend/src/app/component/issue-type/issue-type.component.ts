@@ -50,26 +50,26 @@
 //     });
 //   }
 
-  loadIssueTypes() {
+//   loadIssueTypes() {
 
   
 
-  this.http.get<any[]>(this.apiUrl).subscribe(data => {
-    // const issue = data.find(x => x.UserId === UserId);
-    console.log('issue',  data)
-    if (data) {
-      this.Issue = data
-        // { date: data.Raised_date, status: data.statusname, username: data.name }
-        // You had a stray `console.log()` inside the array — move it outside
-      ;
-      console.log("API Response:", data);
-    } else {
-      console.warn('Issue not found');
-    }
-  }, error => {
-    console.error('Error fetching from API:', error);
-  });
-}
+//   this.http.get<any[]>(this.apiUrl).subscribe(data => {
+//     // const issue = data.find(x => x.UserId === UserId);
+//     console.log('issue',  data)
+//     if (data) {
+//       this.Issue = data
+//         // { date: data.Raised_date, status: data.statusname, username: data.name }
+//         // You had a stray `console.log()` inside the array — move it outside
+//       ;
+//       console.log("API Response:", data);
+//     } else {
+//       console.warn('Issue not found');
+//     }
+//   }, error => {
+//     console.error('Error fetching from API:', error);
+//   });
+// }
 
 // get filteredIssues(): Issue_Type[] {
 //     if (!this.searchTerm.trim()) return this.issueTypes;
@@ -192,7 +192,7 @@ export class IssueTypeComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient) {}
 
     ngOnInit(): void {
-      this.loadIssueType();
+      this.loadIssueTypes();
     }
 
   @ViewChild('addIssueComponent') addIssue!: AddIssueComponent;
@@ -206,7 +206,7 @@ export class IssueTypeComponent implements OnInit {
     currentPage: number = 1;
     itemsPerPage: number = 5;
 
-loadIssueType() {
+loadIssueTypes() {
 
     const apiUrl ='https://localhost:44321/api/issuetype';
 
