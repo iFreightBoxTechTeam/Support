@@ -1,11 +1,11 @@
-------------------------------------------------status table---------------------------------------------------------
+﻿------------------------------------------------status table---------------------------------------------------------
 create table sttabble(statusid UNIQUEIDENTIFIER primary key Default newid(),
 						statusname varchar(50));
-drop table issues;
-select * from img_table;
+drop table users;
+select * from sttabble;
 DELETE FROM statuslog;
 SELECT * FROM statuslog WHERE statusid = '00000000-0000-0000-0000-000000000000';
-select * from issues;
+	
 drop procedure sp_GetMatableByid;
 EXEC sp_SearchMatables @SearchTerm = 'zsdC', @PageNumber = 1, @PageSize = 10;
 ALTER TABLE issues DROP COLUMN taken_time;
@@ -15,23 +15,35 @@ FROM INFORMATION_SCHEMA.COLUMNS
 WHERE TABLE_NAME = 'issues' AND COLUMN_NAME = 'taken_time';
 
 
----------------------------------------------------------------------------login -------------------------------------------------------------
+---------------------------------------------------------------------------users -------------------------------------------------------------
 CREATE TABLE users (
-    issues_isINT IDENTITY(1,1) PRIMARY KEY ,
+    issuesid INT IDENTITY(1,1) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL
 );
-----------------------------------------------------------------login in get-----------------------------------------------------------------
+
+----------------------------------------------------------------user in get-----------------------------------------------------------------
+CREATE or alter PROCEDURE GetUser
+    
+AS
+BEGIN
+    SELECT issuesid , name, email
+    FROM users
+    
+END;
+
+
 CREATE PROCEDURE GetUserByName
     @name VARCHAR(100)
 AS
 BEGIN
-    SELECT issues_id , name, email
+    SELECT issuesid , name, email
     FROM users
     WHERE name = @name;
 END;
-------------------------------------------------------------------login insert--------------------------------------------------------------
+------------------------------------------------------------------users insert--------------------------------------------------------------
+SELECT * FROM users;
 
 CREATE or alter PROCEDURE InsertUser
     @name VARCHAR(100),
@@ -468,41 +480,51 @@ END
 	END;
 
 
-EXEC sp_helptext 'sp_UpdateMatableByUserId'
+EXEC sp_helptext 'sp_UpdateissuestableByUserId'
 CREATE OR ALTER PROCEDURE sp_UpdateissuestableByUserId
     @userid INT,
-    @statusid UNIQUEIDENTIFIER,
+    @statusname NVARCHAR(100),   -- Accept status name instead of ID
     @ImagePaths VARCHAR(255),
     @assignto NVARCHAR(500)
 AS
 BEGIN
     SET NOCOUNT ON;
 
+    DECLARE @StatusId UNIQUEIDENTIFIER;
     DECLARE @SolveStatusId UNIQUEIDENTIFIER;
 
-    -- Get the statusid for 'solve' status name (case insensitive)
-    SELECT TOP 1 @SolveStatusId = statusid 
-    FROM sttabble 
-    WHERE LOWER(statusname) = 'solve';
+    -- Get the statusid from sttabble using the provided status name
+    SELECT TOP 1 @StatusId = statusid
+    FROM sttabble
+    WHERE LOWER(statusname) = LOWER(@statusname);
 
+    -- Get the statusid for 'solve'
+    SELECT TOP 1 @SolveStatusId = statusid
+    FROM sttabble
+    WHERE LOWER(statusname) = LOWER(@statusname);
+
+    -- Update the issues table
     UPDATE issues
-SET 
-    statusid = @statusid,
-    assign_to = COALESCE(@assignto, assign_to),
-    resolve_date = CASE 
-                      WHEN @statusid = @SolveStatusId THEN GETDATE()
-                      ELSE resolve_date
-                   END,
-    taken_time = CASE 
-                     WHEN @statusid = @SolveStatusId THEN DATEDIFF(MINUTE, '19700101', GETDATE())
-                     ELSE taken_time
-                 END
-
-
+    SET 
+        statusid = @StatusId,
+        assign_to = COALESCE(@assignto, assign_to),
+        resolve_date = CASE 
+                          WHEN @StatusId = @SolveStatusId THEN GETDATE()
+                          ELSE resolve_date
+                       END,
+        taken_time = CASE 
+                         WHEN @StatusId = @SolveStatusId THEN DATEDIFF(MINUTE, '19700101', GETDATE())
+                         ELSE taken_time
+                     END
     WHERE userid = @userid;
 END;
 
 
+EXEC sp_UpdateissuestableByUserId 
+    @userid = 892,  -- Replace with a real user ID
+    @statusname = 'InProgress',  -- Replace with an actual UNIQUEIDENTIFIER from sttabble
+    @ImagePaths = 'image1.jpg,image2.jpg',  -- Replace with real image paths if needed
+    @assignto = 'John Doe';  -- Replace with actual assignee name
 
 ---------------------------------------------------------------------delete-----------------------------------------------------
 CREATE OR ALTER PROCEDURE sp_Deleteissues
@@ -614,6 +636,7 @@ CREATE TABLE img_table (
     imagepath VARCHAR(255) NOT NULL,
     FOREIGN KEY (issuesTableid) REFERENCES issues(issues_id ) ON DELETE CASCADE
 );
+select * from
 -----------------------------------------------------------
 ALTER TABLE statuslog
 ADD CONSTRAINT FK__statuslog__matableid
@@ -848,3 +871,41 @@ BEGIN
 END
 EXEC sp_helptext 'sp_GetIssue';
 EXEC sp_GetIssue @userid = 5;
+----------------------------------------------------------------sps for status
+CREATE PROCEDURE sp_InsertStatus
+    @statusname VARCHAR(50)
+AS
+BEGIN
+    INSERT INTO sttabble (statusname)
+    VALUES (@statusname);
+END;
+
+
+CREATE PROCEDURE sp_GetAllStatuses
+AS
+BEGIN
+    SELECT * FROM sttabble;
+END;
+CREATE PROCEDURE sp_GetStatusById
+    @statusid UNIQUEIDENTIFIER
+AS
+BEGIN
+    SELECT * FROM sttabble
+    WHERE statusid = @statusid;
+END;
+CREATE PROCEDURE sp_UpdateStatus
+    @statusid UNIQUEIDENTIFIER,
+    @statusname VARCHAR(50)
+AS
+BEGIN
+    UPDATE sttabble
+    SET statusname = @statusname
+    WHERE statusid = @statusid;
+END;
+CREATE PROCEDURE sp_DeleteStatus
+    @statusid UNIQUEIDENTIFIER
+AS
+BEGIN
+    DELETE FROM sttabble
+    WHERE statusid = @statusid;
+END;
