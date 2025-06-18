@@ -16,7 +16,8 @@ interface User {
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
-  @ViewChild('addUserComponent') addUserComponent!: AddUserComponent;
+  
+ @ViewChild('addUserComponent') addUserComponent!: AddUserComponent;
 
   searchQuery: string = '';
   nextId = 200;
@@ -77,7 +78,7 @@ export class UsersComponent implements OnInit {
 
    openAddUserModal() {
 
-    this.addUserComponent.openModal();
+     this.addUserComponent.openModal(); 
 
   }
 
@@ -123,3 +124,5 @@ export class UsersComponent implements OnInit {
     }
   }
 }
+
+
