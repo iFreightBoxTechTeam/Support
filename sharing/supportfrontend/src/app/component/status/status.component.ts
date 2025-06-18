@@ -4,9 +4,6 @@ import { AddStatusComponent } from './add-status/add-status.component';
 import { HttpClient } from '@angular/common/http';
 import { Status } from 'src/app/status.service';
 
-
-
-
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
@@ -88,6 +85,7 @@ export class StatusComponent implements OnInit {
       alert('Please enter a Status type.');
     }
   }
+  
 onStatusAdded(status: Status) {
   console.log('New status added:', status);
   this.statusTypes.push(status);
