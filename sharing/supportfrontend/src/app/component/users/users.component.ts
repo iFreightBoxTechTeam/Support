@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { AddUserComponent } from './add-user/add-user.component';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from 'src/app/user.service';
 
 interface User {
   id: number;
@@ -24,8 +25,10 @@ export class UsersComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
-  users: any[] = [] ;
-   constructor(private http: HttpClient) {}
+  AddModal: boolean = false;
+
+  users: any[] = this.user_serve.users;
+  constructor(private http: HttpClient , private user_serve: UserService) { }
 
   ngOnInit() {
     this.searchQuery = '';
@@ -33,28 +36,28 @@ export class UsersComponent implements OnInit {
   }
   loaduser() {
 
-  const apiUrl ='https://localhost:44321/api/values/users';
+    const apiUrl = 'https://localhost:44321/api/values/users';
 
-  this.http.get<any[]>(apiUrl).subscribe(data => {
+    this.http.get<any[]>(apiUrl).subscribe(data => {
 
-    console.log('issue',  data)
-    if (data) {
-      this.users = data
+      console.log('issue', data)
+      if (data) {
+        this.users = data
 
-      ;
-      console.log("API Response:", data);
-    } else {
-      console.warn('Issue not found');
-    }
-  }, error => {
-    console.error('Error fetching from API:', error);
-  });
-}
+          ;
+        console.log("API Response:", data);
+      } else {
+        console.warn('Issue not found');
+      }
+    }, error => {
+      console.error('Error fetching from API:', error);
+    });
+  }
 
 
   get filteredUsers(): User[] {
     return this.users.filter(user =>
-  user.name?.toLowerCase().includes(this.searchQuery)
+      user.name?.toLowerCase().includes(this.searchQuery)
 
 
     );
@@ -75,13 +78,14 @@ export class UsersComponent implements OnInit {
     }
   }
 
-   openAddUserModal() {
+  openAddUserModal(value: boolean) {
+    this.AddModal = value;
 
-    this.addUserComponent.openModal();
+    // this.addUserComponent.openModal();
 
   }
 
-   editUser(user: any) {
+  editUser(user: any) {
 
     this.addUserComponent.openModal(user);
 
@@ -106,14 +110,12 @@ export class UsersComponent implements OnInit {
     this.currentPage = 1;
   }
 
-  onUserAdded(user: Omit<User, 'id'>) {
+  onUserAdded(user: any) {
     if (user.name.trim()) {
-      this.users.push({
-        id: this.nextId++,
-        ...user,
-      });
+      this.user_serve.users.push(user);
       this.currentPage = this.totalPages;
     }
+    console.log(user);
   }
 
 

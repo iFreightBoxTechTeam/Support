@@ -24,6 +24,7 @@ import { AddStatusComponent } from './component/status/add-status/add-status.com
 import { AddIssueComponent } from './component/issue-type/add-issue/add-issue.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { UserService } from './user.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     
     
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

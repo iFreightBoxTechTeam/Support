@@ -1,11 +1,12 @@
+
 <app-nav-main
   [showAddButton]="true"
-  (openAddModal)="openAddUserModal()"
+  (openAddModal)="openAddUserModal($event)"
   (searchChange)="onSearchChange($event)"
 ></app-nav-main>
 
 <!-- Add User Modal Component -->
-<app-add-user (userAdded)="onUserAdded($event)" (userUpdated)="onUserUpdated($event)" #addUserComponent></app-add-user>
+<app-add-user *ngIf="AddModal" (removeModal)="openAddUserModal($event)" (userAdded)="onUserAdded($event)" (userUpdated)="onUserUpdated($event)" #addUserComponent></app-add-user>
 
 <div class="user-card">
   <div class="user-task">
@@ -24,10 +25,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let user of users">
-          <td>{{ user.issuesid }}</td>
-          <td>{{ user.Name }}</td>
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
           <td>{{ user.mobile }}</td>
-          <td>{{ user.Email }}</td>
+          <td>{{ user.email }}</td>
           <td>{{ user.address }}</td>
           <td>
             <button

@@ -11,7 +11,7 @@ export class NavMainComponent {
 
   searchTerm: string = '';
 
-  @Output() openAddModal = new EventEmitter<void>();
+  @Output() openAddModal = new EventEmitter<boolean>();
   @Output() searchChange = new EventEmitter<string>();
 
   constructor(private router: Router) {}
@@ -21,7 +21,7 @@ export class NavMainComponent {
   }
 
   onAddClick() {
-    this.openAddModal.emit();
+    this.openAddModal.emit(true);
   }
 
 onSearch(searchText: string) {
