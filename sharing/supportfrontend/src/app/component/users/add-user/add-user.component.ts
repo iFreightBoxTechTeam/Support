@@ -46,18 +46,19 @@ openModal(user?: any) {
   // Show the modal
   this.modalInstance?.show();
 }
-  addUser() {
-    if (this.newUser.name.trim()) {
-      if (this.isEditMode) {
-        this.userUpdated.emit({ ...this.newUser });
-      } else {
-        this.userAdded.emit({ ...this.newUser });
-      }
-      this.modalInstance?.hide();
+addUser() {
+  if (this.newUser.name && this.newUser.name.trim()) {
+    if (this.isEditMode) {
+      this.userUpdated.emit({ ...this.newUser });
     } else {
-      alert('Please enter a name.');
+      // Don't emit undefined or incomplete object
+      this.userAdded.emit({ ...this.newUser });
     }
+    this.modalInstance?.hide();
+  } else {
+    alert('Please enter a name.');
   }
+}
 
 
   closeModal() {

@@ -210,29 +210,26 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  onUserAdded(user: Omit<User, 'id'>) {
-    if (user.Name.trim()) {
-      this.userService.addUser(user).subscribe({
-        next: (newUser) => {
-          this.users.push(newUser);
-          this.currentPage = this.totalPages;
-        },
-        error: (err) => console.error('Error adding user:', err)
-      });
-    }
-  }
-
-  deleteUser(id: number) {
-    this.userService.deleteUser(id).subscribe({
-      next: () => {
-        this.users = this.users.filter(user => user.issuesid !== id);
-        if (this.currentPage > this.totalPages) {
-          this.currentPage = this.totalPages || 1;
-        }
+ onUserAdded(user: Omit<User, 'id'>) {
+  if (user.Name.trim()) {
+    this.userService.addUser(user).subscribe({
+      next: (newUser) => {
+        this.users.push(newUser);
+        this.currentPage = this.totalPages;
       },
-      error: (err) => console.error('Error deleting user:', err)
+      error: (err) => console.error('Error adding user:', err)
     });
   }
+}
+
+deleteUser(id: number) {
+  this.userService.deleteUser(id).subscribe({
+    next: () => {
+      this.users = this.users.filter(user => user.issuesid !== id);
+    },
+    error: err => console.error('Error deleting user:', err)
+  });
+}
 
   onSearchChange(newSearch: string) {
     this.searchQuery = newSearch;
