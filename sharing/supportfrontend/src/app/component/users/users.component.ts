@@ -116,7 +116,6 @@ export class UsersComponent implements OnInit {
     }
   }
 
-
   deleteUser(id: number) {
     this.users = this.users.filter((user) => user.id !== id);
     if (this.currentPage > this.totalPages) {
