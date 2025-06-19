@@ -21,14 +21,13 @@ export class UserService {
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl);
   }
-
- addUser(user: Omit<User, 'id'>): Observable<User> {
-  return this.http.post<User>(this.apiUrl, user); // Don't send `id` if it's generated in backend
+addUser(user: Omit<User, 'issuesid'>): Observable<User> {
+  return this.http.post<User>(this.apiUrl, user);
 }
 
-  updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/${user.issuesid}`, user);
-  }
+updateUser(user: User): Observable<User> {
+  return this.http.put<User>(`${this.apiUrl}/${user.issuesid}`, user);
+}
 
   deleteUser(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
