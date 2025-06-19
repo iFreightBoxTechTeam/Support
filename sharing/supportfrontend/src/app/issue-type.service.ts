@@ -61,3 +61,4 @@ export class IssueTypeService {
     return this.http.put<Issue>(`${this.apiUrl}/${issue.id}`, issue);
   }
 }
+
