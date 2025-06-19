@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
   nextId = 200;
 
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 10;
 
   users: any[] = [] ;
    constructor(private http: HttpClient) {}
@@ -36,21 +36,21 @@ export class UsersComponent implements OnInit {
 
   const apiUrl ='https://localhost:44321/api/values/users';
 
-  this.http.get<any[]>(apiUrl).subscribe(data => {
+    this.http.get<any[]>(apiUrl).subscribe(data => {
 
-    console.log('issue',  data)
-    if (data) {
-      this.users = data
+      console.log('issue',  data)
+      if (data) {
+        this.users = data
 
-      ;
-      console.log("API Response:", data);
-    } else {
-      console.warn('Issue not found');
-    }
-  }, error => {
-    console.error('Error fetching from API:', error);
-  });
-}
+        ;
+        console.log("API Response:", data);
+      } else {
+        console.warn('Issue not found');
+      }
+    }, error => {
+      console.error('Error fetching from API:', error);
+    });
+  }
 
 
   get filteredUsers(): User[] {
@@ -60,6 +60,7 @@ export class UsersComponent implements OnInit {
 
     );
   }
+
 
   get totalPages(): number {
     return Math.ceil(this.filteredUsers.length / this.itemsPerPage);
@@ -102,9 +103,20 @@ export class UsersComponent implements OnInit {
 
   }
 
+
+  // deleteUser(id: number) {
+  //   this.userService.deleteUser(id).subscribe({
+  //     next: () => {
+  //       this.users = this.users.filter(user => user.issuesid !== id);
+  //     },
+  //     error: err => console.error('Error deleting user:', err)
+  //   });
+  // }
+
   onSearchChange(newSearch: string) {
     this.searchQuery = newSearch;
     this.currentPage = 1;
+    this.users = this.filteredUsers;
   }
 
   onUserAdded(user: Omit<User, 'id'>) {
@@ -124,4 +136,5 @@ export class UsersComponent implements OnInit {
     }
   }
 }
+
 

@@ -24,8 +24,8 @@ export class NavMainComponent {
     this.openAddModal.emit();
   }
 
-onSearch(searchText: string) {
-  console.log(searchText);
+onSearch() {
+  
 this.searchChange.emit(this.searchTerm);
 
 }
