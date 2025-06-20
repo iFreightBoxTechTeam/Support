@@ -15,7 +15,7 @@ import { GearComponent } from './gear/gear.component';
 import { ViewComponent } from './component/view/view.component';
 
 import { MasterCompoComponent } from './component/master-compo/master-compo.component';
-import { UserComponent } from './component/users/users.component';
+import { UsersComponent } from './component/users/users.component';
 import { IssueTypeComponent } from './component/issue-type/issue-type.component';
 import { StatusComponent } from './component/status/status.component';
 import { NavMainComponent } from './nav-main/nav-main.component';
@@ -38,7 +38,7 @@ import { UserService } from './user.service';
     ViewComponent,
     
     MasterCompoComponent,
-    UserComponent,
+    UsersComponent,
     IssueTypeComponent,
     StatusComponent,
     NavMainComponent,

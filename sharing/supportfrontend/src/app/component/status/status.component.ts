@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AddStatusComponent } from './add-status/add-status.component';
 import { HttpClient } from '@angular/common/http';
 import { Status } from 'src/app/status.service';
+import { IssueService } from 'src/app/issue.service';
 
 @Component({
   selector: 'app-status',
@@ -10,7 +11,7 @@ import { Status } from 'src/app/status.service';
   styleUrls: ['./status.component.css']
 })
 export class StatusComponent implements OnInit {
-    constructor(private router: Router,private http: HttpClient) {}
+    constructor(private router: Router,private http: HttpClient,private issueService: IssueService) {}
 
     ngOnInit(): void {
       this.loadstatus();
@@ -113,6 +114,17 @@ deleteStatus(id: number) {
   });
 }
 
+ updateIssue(userId: number, issueData: any) {
+    console.log('Sending issue data:', issueData);
+
+    this.issueService.updateIssue(userId, issueData).subscribe(
+      (response: any) => {
+        console.log('Issue updated successfully:', response);
+      },
+      (error: any) => {
+        console.error('Error updating issue:', error);
+      }
+    );}
 
 
   editStatus(status: Status) {

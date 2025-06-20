@@ -234,3 +234,7 @@ C:\Users\IFBDEV8\source\repos\shreya\Support\Support\sharing\supportissuesbacend
 C:\Users\IFBDEV8\source\repos\shreya\Support\Support\sharing\supportissuesbacend\bin\Antlr3.Runtime.pdb
 C:\Users\IFBDEV8\source\repos\shreya\Support\Support\sharing\supportissuesbacend\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\IFBDEV8\source\repos\shreya\Support\Support\sharing\supportissuesbacend\obj\Debug\supportissuesbacend.csproj.CopyComplete
+C:\Users\IFBDEV8\source\repos\shreya\Support\sharing\supportfrontend\support\Support\sharing\supportissuesbacend\obj\Debug\supportissuesbacend.csproj.AssemblyReference.cache
+C:\Users\IFBDEV8\source\repos\shreya\Support\sharing\supportfrontend\support\Support\sharing\supportissuesbacend\obj\Debug\supportissuesbacend.csproj.CoreCompileInputs.cache
+C:\Users\IFBDEV8\source\repos\shreya\Support\sharing\supportfrontend\support\Support\sharing\supportissuesbacend\obj\Debug\supportissuesbacend.dll
+C:\Users\IFBDEV8\source\repos\shreya\Support\sharing\supportfrontend\support\Support\sharing\supportissuesbacend\obj\Debug\supportissuesbacend.pdb

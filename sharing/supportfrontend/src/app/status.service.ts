@@ -21,7 +21,8 @@ export class StatusService {
   return this.http.post<Status>(this.apiUrl, status);
 }
 
-  updateStatus(status: Status): Observable<Status> {
-    return this.http.put<Status>(`${this.apiUrl}/${status.id}`, status);
-  }
+updateIssue(userId: number, data: any): Observable<any> {
+  return this.http.put(`https://localhost:44321/api/values/${userId}`, data);
+}
+
 }
