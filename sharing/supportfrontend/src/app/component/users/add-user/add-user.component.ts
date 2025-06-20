@@ -1,77 +1,86 @@
-import { Component, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
-
-declare var bootstrap: any;
-
+import { Component, EventEmitter, Output } from '@angular/core';
+import { User, UserService } from 'src/app/user.service';
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css']
 })
-export class AddUserComponent implements AfterViewInit {
+export class AddUserComponent {
+  @Output() userAdded = new EventEmitter<User>();
+  @Output() userUpdated = new EventEmitter<User>();
 
-  @Output() userAdded = new EventEmitter<any>();
-
-  @Output() userUpdated = new EventEmitter<any>();
+  isEditMode: boolean = false;
+  showModal: boolean = false;
 
   newUser = {
-    id: 0,
+
     name: '',
     mobile: '',
     email: '',
-    address: ''
+   
+    addresh: '',
+    issuesid: 0,
   };
 
-  modalInstance: any;
-  isEditMode: boolean = false;
 
-  ngAfterViewInit() {
-    const modalElement = document.getElementById('addUserModal');
-    if (modalElement) {
-      this.modalInstance = new bootstrap.Modal(modalElement);
-    }
+  constructor(private userService: UserService) {}
+
+  openModal(): void {
+    this.resetForm();
+    this.isEditMode = false;
+    this.showModal = true;
   }
-  showModal = false;
-
- private nextId = 201;
-
-// openModal(user?: any) {
-//   if (user) {
-//     this.isEditMode = true;
-//     this.newUser = { ...user };
-//   } else {
-//     this.isEditMode = false;
-//     this.newUser = { id: this.nextId++, name: '', mobile: '', email: '', address: '' };
-//   }
-
-//   // Show the modal
-//   this.modalInstance?.show();
-// }
-  addUser() {
-    if (this.newUser.name.trim()) {
-      if (this.isEditMode) {
-        this.userUpdated.emit({ ...this.newUser });
-      } else {
-        this.userAdded.emit({ ...this.newUser });
-      }
-      this.modalInstance?.hide();
-      this.loadUsers();
-    } else {
-      alert('Please enter a name.');
-    }
-  }
-  loadUsers() {
+  resetForm() {
     throw new Error('Method not implemented.');
   }
-    openModal() {
+
+  closeModal(): void {
+    this.showModal = false;
+  }
+
+
+  editExistingUser(user: User): void {
+    this.isEditMode = true;
+
+    this.newUser = {
+      name: user.Name,
+      mobile: user.Mobile_number,
+      email: user.Email,
+      addresh: user.Addresh,
+      issuesid: user.issuesid,
+    };
     this.showModal = true;
   }
 
-  closeModal() {
-    this.showModal = false;
-  }
-}
+  addUser(): void {
+    console.log('Payload to send:', this.newUser);
 
+    const payload = {
+      Name: this.newUser.name,
+      Mobile_number: this.newUser.mobile,
+      Email: this.newUser.email,
+      Addresh: this.newUser.addresh,
+    };
+
+    if (this.isEditMode) {
+      const updatePayload: User = {
+        issuesid: this.newUser.issuesid,
+        ...payload,
+      };
+
+      this.userService.updateUser(updatePayload).subscribe((updatedUser) => {
+        this.userUpdated.emit(updatedUser);
+        this.closeModal();
+      });
+    } else {
+
+      this.userService.addUser(payload).subscribe((createdUser) => {
+        this.userAdded.emit(createdUser);
+        this.closeModal();
+      });
+    }
+  }
 
 // declare var bootstrap: any;
 
@@ -147,4 +156,4 @@ export class AddUserComponent implements AfterViewInit {
 //     this.modalInstance?.hide();
  
  
-
+}

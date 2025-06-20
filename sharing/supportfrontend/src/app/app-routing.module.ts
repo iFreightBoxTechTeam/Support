@@ -7,7 +7,7 @@ import { IssueComponent } from './component/issue/issue.component';
 import { MasterComponent } from './component/master/master.component';
 import { ViewComponent } from './component/view/view.component';
 import { MasterCompoComponent } from './component/master-compo/master-compo.component';
-import { UsersComponent } from './component/users/users.component';
+import { UserComponent } from './component/users/users.component';
 import { StatusComponent } from './component/status/status.component';
 import { IssueTypeComponent } from './component/issue-type/issue-type.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
@@ -23,7 +23,7 @@ const routes: Routes = [
   
   {path:'gear', component:GearComponent},
   {path:'mastercompo', component: MasterCompoComponent},
-  {path:'users', component: UsersComponent},
+  {path:'users', component: UserComponent},
   {path:'status', component: StatusComponent},
   {path:'issue-type', component: IssueTypeComponent},
   {path:'**',component:PagenotfoundComponent }
