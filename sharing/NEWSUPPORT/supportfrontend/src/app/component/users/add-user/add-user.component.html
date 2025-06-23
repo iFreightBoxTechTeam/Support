@@ -1,0 +1,116 @@
+<!-- <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5  class="modal-title">{{ isEditMode ? 'Edit User' : 'Add New User' }}</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addUser()">
+          <div class="mb-3">
+            <label for="userName" class="form-label">Name</label>
+            <input type="text" class="form-control" id="userName" [(ngModel)]="newUser.name" name="name" required />
+          </div>
+          <div class="mb-3">
+            <label for="userMobile" class="form-label">Mobile</label>
+            <input type="text" class="form-control" id="userMobile" [(ngModel)]="newUser.mobile" name="mobile" />
+          </div>
+          <div class="mb-3">
+            <label for="userEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="userEmail" [(ngModel)]="newUser.email" name="email" />
+          </div>
+          <div class="mb-3">
+            <label for="useraddresh" class="form-label">addresh</label>
+            <input type="text" class="form-control" id="useraddresh" [(ngModel)]="newUser.addresh" name="addresh" />
+          </div>
+          <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Update User' : 'Add User' }}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Modal HTML -->
+<div
+  class="modal-backdrop fade show"
+  *ngIf="showModal"
+  style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,.5); z-index: 1040;"
+></div>
+
+
+<div
+  class="modal fade show d-block"
+  *ngIf="showModal"
+  tabindex="-1"
+  style="background: rgba(0, 0, 0, 0.3); z-index: 1050;"
+  role="dialog"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+       
+        <h5 class="modal-title">
+          {{ isEditMode ? 'Edit User' : 'Add New User' }}
+        </h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addUser()">
+          <div class="mb-3">
+            <label for="userName" class="form-label">Name</label>
+
+            <input
+              type="text"
+              class="form-control"
+              id="userName"
+              [(ngModel)]="newUser.name"
+              name="name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="userMobile" class="form-label">Mobile</label>
+          
+            <input
+              type="text"
+              class="form-control"
+              id="userMobile"
+              [(ngModel)]="newUser.mobile"
+              name="mobile"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="userEmail" class="form-label">Email</label>
+
+            <input
+              type="email"
+              class="form-control"
+              id="userEmail"
+              [(ngModel)]="newUser.email"
+              name="email"
+            />
+          </div>
+          <div class="mb-3">
+           
+          
+            <label for="useraddresh" class="form-label">addresh</label>
+            <input
+              type="text"
+              class="form-control"
+              id="useraddresh"
+              [(ngModel)]="newUser.addresh"
+              name="addresh"
+            />
+          </div>
+          
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            {{ isEditMode ? 'Update User' : 'Add User' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
