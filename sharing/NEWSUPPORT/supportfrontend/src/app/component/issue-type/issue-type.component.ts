@@ -273,22 +273,49 @@ loadIssueTypes() {
     }
   }
 
-  deleteIssue(id: number) {
-  if (confirm('Are you sure you want to delete this issue?')) return;
+deleteIssue(id: number): void {
+  if (confirm('Are you sure you want to delete this issue?')) {
+    const apiUrl = `https://localhost:44321/api/issuetype/${id}`;
 
-    this.http.delete(`https://localhost:44321/api/issuetype/${id}`).subscribe({
+    this.http.delete(apiUrl).subscribe({
       next: () => {
-        this.issueTypes = this.issueTypes.filter(i => i.id !== id);
+        this.issueTypes = this.issueTypes.filter(issue => issue.id !== id);
         console.log('Issue deleted successfully.');
+        if (this.currentPage > this.totalPages) {
+          this.currentPage = this.totalPages || 1;
+        }
       },
-      error: (error) => {
-        console.error('Failed to delete:', error);
+      error: (err) => {
+        console.error('Error deleting issue:', err);
+        alert('Failed to delete issue.');
       }
     });
-  } 
-  
-  editIssue(issue: Issue) {
-    this.addIssue.openModal(issue);
   }
+}
+
+  
+  
+  editIssue(id: number): void {
+  const issue = this.issueTypes.find(i => i.Id === id);
+  
+  if (issue) {
+   
+    if (issue !== null && issue.trim() !== '') {
+      const apiUrl = `https://localhost:44321/api/issuetype/${id}`;
+      const updatedData = { Issue_Type: issue.trim() };
+
+      this.http.put(apiUrl, updatedData).subscribe({
+        next: () => {
+          issue.Issue_Type = issue.trim(); // update locally too
+          console.log('Issue updated successfully.');
+        },
+        error: (err) => {
+          console.error('Error updating issue:', err);
+          alert('Failed to update issue.');
+        }
+      });
+    }
+  }
+}
   
 }
