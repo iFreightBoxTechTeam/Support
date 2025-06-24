@@ -163,7 +163,7 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.fetchUsers();
   }
-  loaduser() {
+  loaduser() {}
 
   fetchUsers(): void {
     this.userService.getUsers().subscribe((data) => {
