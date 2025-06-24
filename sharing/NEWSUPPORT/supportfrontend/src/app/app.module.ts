@@ -13,6 +13,7 @@ import { IssuseComponent } from './issuse/issuse.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { GearComponent } from './gear/gear.component';
 import { ViewComponent } from './component/view/view.component';
+// Adjust path as needed
 
 import { MasterCompoComponent } from './component/master-compo/master-compo.component';
 import { UserComponent } from './component/users/users.component';
@@ -35,7 +36,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     GearComponent,
     IssueComponent,
     ViewComponent,
-    
+   
     MasterCompoComponent,
     UserComponent,
     IssueTypeComponent,
