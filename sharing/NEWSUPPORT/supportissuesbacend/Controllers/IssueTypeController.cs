@@ -30,7 +30,7 @@ namespace userproblem.Controllers
                     {
                         issueTypes.Add(new IssueType
                         {
-                            Id = reader.GetInt32(reader.GetOrdinal("id")),
+                            id = reader.GetInt32(reader.GetOrdinal("id")),
                             Issue_Type = reader.GetString(reader.GetOrdinal("issue_type"))
                         });
                     }
@@ -40,16 +40,16 @@ namespace userproblem.Controllers
             return issueTypes;
         }
         [HttpGet]
-        [Route("api/issuetype/{id}")]
+        [Route("api/issuetype/{issuesid}")]
         // GET api/issuetype/5
-        public IssueType Get(int id)
+        public IssueType Get(int issuesid)
         {
             IssueType issueType = null;
 
             using (var cmd = new SqlCommand("sp_GetIssueTypeById", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@issuesid", issuesid);
                 conn.Open();
 
                 using (var reader = cmd.ExecuteReader())
@@ -58,7 +58,7 @@ namespace userproblem.Controllers
                     {
                         issueType = new IssueType
                         {
-                            Id = reader.GetInt32(reader.GetOrdinal("id")),
+                            id = reader.GetInt32(reader.GetOrdinal("id")),
                             Issue_Type = reader.GetString(reader.GetOrdinal("issue_type"))
                         };
                     }

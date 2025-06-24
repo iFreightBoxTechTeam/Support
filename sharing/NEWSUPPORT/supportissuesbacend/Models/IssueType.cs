@@ -7,7 +7,7 @@ namespace WebApplication2.Models
 {
     public class IssueType
     {
-        public int Id { get; set; }
+        public int id { get; set; }
         public string Issue_Type { get; set; }
     }
 }

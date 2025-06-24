@@ -176,12 +176,10 @@
   
 // }
 
-
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+
 import { AddIssueComponent } from './add-issue/add-issue.component';
-import { HttpClient } from '@angular/common/http';
-import { Issue} from 'src/app/issue-type.service';
+import { Issue, IssueTypeService } from 'src/app/issue-type.service';
 
 @Component({
   selector: 'app-issue-type',
@@ -189,45 +187,70 @@ import { Issue} from 'src/app/issue-type.service';
   styleUrls: ['./issue-type.component.css']
 })
 export class IssueTypeComponent implements OnInit {
-  constructor(private router: Router, private http: HttpClient) {}
+  isEditModalVisible = false;
 
-    ngOnInit(): void {
-      this.loadIssueTypes();
+  editIssueData: Issue = { id: 0, Issue_Type: '' };
+
+    @ViewChild('addIssueComponent') addIssue!: AddIssueComponent;
+
+  issueTypes: Issue[] = [];
+  newIssueType: string = '';
+  searchTerm: string = '';
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+
+  constructor(private issueService: IssueTypeService) {}
+
+
+  // close modal
+  closeEditModal() {
+    this.isEditModalVisible = false;
+  }
+
+  // on submit modal form
+  submitEdit() {
+    if (!this.editIssueData.Issue_Type.trim()) {
+      alert('Issue Type is required');
+      return;
     }
 
-  @ViewChild('addIssueComponent') addIssue!: AddIssueComponent;
-
-    issueTypes: any[] = [];
-
-    newIssueType: string = '';
-    searchTerm: string = '';
-    nextId = 115;
-
-    currentPage: number = 1;
-    itemsPerPage: number = 5;
-
-loadIssueTypes() {
-
-    const apiUrl ='https://localhost:44321/api/issuetype';
-
-    this.http.get<any[]>(apiUrl).subscribe(data => {
-      console.log('issue', data);
-      if (data) {
-        this.issueTypes = data;
-        console.log("API Response:", data);
-      } else {
-        console.warn('Issue not found');
+    this.issueService.updateIssue(this.editIssueData).subscribe({
+      next: () => {
+        // update local array
+        const index = this.issueTypes.findIndex(i => i.id === this.editIssueData.id);
+        if (index > -1) {
+          this.issueTypes[index] = { ...this.editIssueData };
+        }
+        this.closeEditModal();
+      },
+      error: err => {
+        console.error('Update failed', err);
+        alert('Failed to update issue');
       }
-    }, error => {
-      console.error('Error fetching from API:', error);
+    });
+  }
+
+
+  ngOnInit(): void {
+    this.loadIssueTypes();
+  }
+
+  loadIssueTypes(): void {
+    this.issueService.getAllIssues().subscribe({
+      next: (data) => {
+        this.issueTypes = data;
+      },
+      error: (err) => {
+        console.error('Error loading issues:', err);
+      }
     });
   }
 
   get filteredIssueTypes(): Issue[] {
-      if (!this.searchTerm.trim()) return this.issueTypes;
-      return this.issueTypes.filter(issue =>
-        issue.issue_type.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
+    if (!this.searchTerm.trim()) return this.issueTypes;
+    return this.issueTypes.filter(issue =>
+      issue.Issue_Type.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 
   get totalPages(): number {
@@ -245,77 +268,74 @@ loadIssueTypes() {
     }
   }
 
-  openAddIssueModal() {
+  openAddIssueModal(): void {
     this.addIssue.openModal();
   }
 
   addIssueBtn(): void {
-    if (this.newIssueType.trim()) {
-      this.issueTypes.push({ id: this.nextId++, status_name: this.newIssueType.trim() });
-      this.newIssueType = '';
-      this.currentPage = this.totalPages;
+    const trimmed = this.newIssueType.trim();
+    if (trimmed) {
+      const newIssue: Issue = { id: 0, Issue_Type: trimmed }; // id = 0 for backend to assign
+      this.issueService.addIssue(newIssue).subscribe({
+        next: (created) => {
+          this.issueTypes.push(created);
+          this.newIssueType = '';
+          this.currentPage = this.totalPages;
+        },
+        error: (err) => {
+          console.error('Error adding issue:', err);
+        }
+      });
     } else {
-      alert('Please enter a Issue type.');
+      alert('Please enter an Issue type.');
     }
   }
 
-  onIssueAdded(issue: Issue) {
-    console.log('New issue added:', issue);
+  onIssueAdded(issue: Issue): void {
     this.issueTypes.push(issue);
-    console.log('Updated statusTypes:', this.issueTypes);
     this.currentPage = this.totalPages;
   }
 
-  onIssueUpdated(updatedIssue: Issue) {
+  onIssueUpdated(updatedIssue: Issue): void {
     const index = this.issueTypes.findIndex(i => i.id === updatedIssue.id);
     if (index > -1) {
       this.issueTypes[index] = updatedIssue;
     }
   }
 
-deleteIssue(id: number): void {
-  if (confirm('Are you sure you want to delete this issue?')) {
-    const apiUrl = `https://localhost:44321/api/issuetype/${id}`;
-
-    this.http.delete(apiUrl).subscribe({
-      next: () => {
-        this.issueTypes = this.issueTypes.filter(issue => issue.id !== id);
-        console.log('Issue deleted successfully.');
-        if (this.currentPage > this.totalPages) {
-          this.currentPage = this.totalPages || 1;
-        }
-      },
-      error: (err) => {
-        console.error('Error deleting issue:', err);
-        alert('Failed to delete issue.');
-      }
-    });
-  }
-}
-
-  
-  
-  editIssue(id: number): void {
-  const issue = this.issueTypes.find(i => i.Id === id);
-  
-  if (issue) {
-   
-    if (issue !== null && issue.trim() !== '') {
-      const apiUrl = `https://localhost:44321/api/issuetype/${id}`;
-      const updatedData = { Issue_Type: issue.trim() };
-
-      this.http.put(apiUrl, updatedData).subscribe({
+  deleteIssue(id: number): void {
+    if (confirm('Are you sure you want to delete this issue?')) {
+      this.issueService.deleteIssue(id).subscribe({
         next: () => {
-          issue.Issue_Type = issue.trim(); // update locally too
-          console.log('Issue updated successfully.');
+          this.issueTypes = this.issueTypes.filter(issue => issue.id !== id);
+          if (this.currentPage > this.totalPages) {
+            this.currentPage = this.totalPages || 1;
+          }
+        },
+        error: (err) => {
+          console.error('Error deleting issue:', err);
+          alert('Failed to delete issue.');
+        }
+      });
+    }
+  }
+
+  editIssue(issue: Issue): void {
+
+    const newName = prompt('Edit issue type:', issue.Issue_Type);
+    if (newName && newName.trim()) {
+      const updatedIssue: Issue = { ...issue, Issue_Type: newName.trim() };
+      this.issueService.updateIssue(updatedIssue).subscribe({
+        next: () => {
+          issue.Issue_Type = updatedIssue.Issue_Type;
         },
         error: (err) => {
           console.error('Error updating issue:', err);
           alert('Failed to update issue.');
         }
       });
+        this.editIssueData = { ...issue };
+    
     }
   }
-}
-  
 }
