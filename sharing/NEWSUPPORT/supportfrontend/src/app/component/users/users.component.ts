@@ -150,7 +150,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 export class UserComponent implements OnInit {
   users: User[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 5;
   pageSize: number = 5;
   totalPages: number = 1;
 
@@ -163,7 +163,7 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.fetchUsers();
   }
-  loaduser() {
+  loaduser() {}
 
   fetchUsers(): void {
     this.userService.getUsers().subscribe((data) => {
