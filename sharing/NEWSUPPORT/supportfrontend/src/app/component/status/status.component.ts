@@ -53,7 +53,7 @@ export class StatusComponent implements OnInit {
   get filteredStatusTypes(): Status[] {
     if (!this.searchTerm.trim()) return this.statusTypes;
     return this.statusTypes.filter(status =>
-      status.status_name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      status.StatusName.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
