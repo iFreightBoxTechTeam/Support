@@ -1,6 +1,6 @@
 // src/app/issue.model.ts
 
 export interface Issue {
-  id: number;
+  issuesid: number;
   Issue_Type: string;
 }

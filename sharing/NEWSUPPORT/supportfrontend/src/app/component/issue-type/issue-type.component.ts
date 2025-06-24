@@ -189,7 +189,7 @@ import { Issue, IssueTypeService } from 'src/app/issue-type.service';
 export class IssueTypeComponent implements OnInit {
   isEditModalVisible = false;
 
-  editIssueData: Issue = { id: 0, Issue_Type: '' };
+  editIssueData: Issue = { issuesid: 0, Issue_Type: '' };
 
     @ViewChild('addIssueComponent') addIssue!: AddIssueComponent;
 
@@ -217,7 +217,7 @@ export class IssueTypeComponent implements OnInit {
     this.issueService.updateIssue(this.editIssueData).subscribe({
       next: () => {
         // update local array
-        const index = this.issueTypes.findIndex(i => i.id === this.editIssueData.id);
+        const index = this.issueTypes.findIndex(i => i.issuesid === this.editIssueData.issuesid);
         if (index > -1) {
           this.issueTypes[index] = { ...this.editIssueData };
         }
@@ -238,6 +238,7 @@ export class IssueTypeComponent implements OnInit {
   loadIssueTypes(): void {
     this.issueService.getAllIssues().subscribe({
       next: (data) => {
+        console.log("zsdb jvlf",data)
         this.issueTypes = data;
       },
       error: (err) => {
@@ -275,7 +276,7 @@ export class IssueTypeComponent implements OnInit {
   addIssueBtn(): void {
     const trimmed = this.newIssueType.trim();
     if (trimmed) {
-      const newIssue: Issue = { id: 0, Issue_Type: trimmed }; // id = 0 for backend to assign
+      const newIssue: Issue = { issuesid: 0, Issue_Type: trimmed }; // id = 0 for backend to assign
       this.issueService.addIssue(newIssue).subscribe({
         next: (created) => {
           this.issueTypes.push(created);
@@ -297,17 +298,18 @@ export class IssueTypeComponent implements OnInit {
   }
 
   onIssueUpdated(updatedIssue: Issue): void {
-    const index = this.issueTypes.findIndex(i => i.id === updatedIssue.id);
+    const index = this.issueTypes.findIndex(i => i.issuesid === updatedIssue.issuesid);
     if (index > -1) {
       this.issueTypes[index] = updatedIssue;
     }
   }
 
-  deleteIssue(id: number): void {
+  deleteIssue(issue:Issue): void {
+    console.log('skdvb kszjv b', issue.issuesid);
     if (confirm('Are you sure you want to delete this issue?')) {
-      this.issueService.deleteIssue(id).subscribe({
+      this.issueService.deleteIssue(issue.issuesid).subscribe({
         next: () => {
-          this.issueTypes = this.issueTypes.filter(issue => issue.id !== id);
+          this.issueTypes = this.issueTypes.filter(issue => issue.issuesid !== issue.issuesid);
           if (this.currentPage > this.totalPages) {
             this.currentPage = this.totalPages || 1;
           }
@@ -317,6 +319,7 @@ export class IssueTypeComponent implements OnInit {
           alert('Failed to delete issue.');
         }
       });
+      this.editIssueData = { ...issue };
     }
   }
 

@@ -24,7 +24,7 @@ export class IssueTypeService {
   }
 
   updateIssue(issue: Issue): Observable<Issue> {
-    return this.http.put<Issue>(`${this.apiUrl}/${issue.id}`, issue);
+    return this.http.put<Issue>(`${this.apiUrl}/${issue.issuesid}`, issue);
   }
 
   deleteIssue(id: number): Observable<void> {
