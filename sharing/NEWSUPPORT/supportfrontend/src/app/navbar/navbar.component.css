@@ -18,17 +18,7 @@
   align-items: center;
 }
 
-/* Logo */
-.navbar-brand img {
-  height: 62px;
-  width: 170px;
-  object-fit: contain;
-  transition: transform 0.3s ease;
-}
 
-.navbar-brand img:hover {
-  transform: scale(1.05);
-}
 
 
 .navbar-nav {

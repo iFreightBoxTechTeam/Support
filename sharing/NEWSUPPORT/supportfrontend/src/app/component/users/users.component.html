@@ -58,7 +58,6 @@
     
             <button
               class="delete-btn"
-
               (click)="deleteUser(user.issuesid)"
               title="Delete"
               aria-label="Delete user"
@@ -114,7 +113,7 @@
 
   <button
     *ngFor="let page of [].constructor(totalPages); let i = index"
-    (click)="changePage(i + 1) "
+    (click)="changePage(i + 1)"
     [class.active]="currentPage === i + 1"
     [attr.aria-current]="currentPage === i + 1 ? 'page' : null"
     class="pagination-btn"
@@ -132,15 +131,15 @@
   </button>
   
 </nav> -->
-<app-nav-main
+<!-- <app-nav-main
   [showAddButton]="true"
   (openAddModal)="openAddUserModal()"
   (searchChange)="onSearchChange($event)"
-></app-nav-main>
+></app-nav-main> -->
 
 
 <app-add-user (userAdded)="onUserAdded($event)" (userUpdated)="onUserUpdated($event)" #addUserComponent></app-add-user>
-
+<app-nav-main></app-nav-main>
 <div class="user-card">
   <div class="user-task">
     <h1>User</h1>
