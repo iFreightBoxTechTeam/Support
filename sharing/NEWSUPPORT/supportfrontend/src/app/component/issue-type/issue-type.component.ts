@@ -183,7 +183,7 @@ import { Issue, IssueTypeService } from 'src/app/issue-type.service';
 
 @Component({
   selector: 'app-issue-type',
-  templateUrl: './issue-type.component.html',
+  templateUrl: 'issue-type.component.html',
   styleUrls: ['./issue-type.component.css']
 })
 export class IssueTypeComponent implements OnInit {
