@@ -167,8 +167,14 @@ export class StatusComponent implements OnInit {
     );
   }
     
+  // editStatus(status: Status) {
+  //   this.addStatus.openModal(status);
+  // }
+
   editStatus(status: Status) {
-    this.addStatus.openModal(status);
+    this.statusService.getStatusById(status.StatusId).subscribe(fetched => {
+      this.addStatus.openModal(fetched); // Open modal with up-to-date data
+    });
   }
 
 }

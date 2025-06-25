@@ -31,4 +31,8 @@ export class StatusService {
     return this.http.put(`${this.apiUrl}/${statusId}`, status);
   }
 
+  getStatusById(id: string): Observable<Status> {
+    return this.http.get<Status>(`${this.apiUrl}/${id}`);
+  }
+
 }

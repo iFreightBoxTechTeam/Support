@@ -74,6 +74,7 @@ export class AddStatusComponent implements AfterViewInit {
   this.newStatus.StatusName = trimmedName;
   if (this.isEditMode && this.newStatus.StatusId) {
     this.statusUpdated.emit({ ...this.newStatus });
+    // this.statusUpdated.emit({ StatusId: '', StatusName: this.newStatus.StatusName });
   } else {
     // Emit with empty GUID (backend will generate one)
     this.statusAdded.emit({ StatusId: '', StatusName: this.newStatus.StatusName });
