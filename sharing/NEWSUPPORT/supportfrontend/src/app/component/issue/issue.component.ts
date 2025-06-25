@@ -143,6 +143,8 @@ saveIssue() {
         console.log("Update success", res);
         this.closeIssueModal(); 
         this.issueService.getIssues()
+        this.issue = this.issueService.getIssue()
+        
       },
       err => {
         console.error("Update error", err);
