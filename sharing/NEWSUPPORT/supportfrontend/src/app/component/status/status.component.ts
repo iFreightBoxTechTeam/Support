@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddStatusComponent } from './add-status/add-status.component';
 import { HttpClient } from '@angular/common/http';
-import { Status } from 'src/app/status.service';
+import { Status, StatusService } from 'src/app/status.service';
 import { IssueService } from 'src/app/issue.service';
 
 @Component({
@@ -11,7 +11,12 @@ import { IssueService } from 'src/app/issue.service';
   styleUrls: ['./status.component.css']
 })
 export class StatusComponent implements OnInit {
-    constructor(private router: Router,private http: HttpClient,private issueService: IssueService) {}
+    constructor(
+      private router: Router,
+      private http: HttpClient,
+      private issueService: IssueService,
+      private statusService: StatusService  
+    ) {}
 
     ngOnInit(): void {
       this.loadstatus();
@@ -28,32 +33,45 @@ export class StatusComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
   
+  // loadstatus() {
+  //   const apiUrl = 'https://localhost:44321/api/status';
+  //   this.http.get<any[]>(apiUrl).subscribe(data => {
+  //     if (Array.isArray(data)) {
+  //       this.statusTypes = data.filter(x => x != null); // ✅ filter out nulls
+  //     } else {
+  //       this.statusTypes = [];
+  //     }
+  //   }, error => {
+  //     console.error('Error fetching from API:', error);
+  //     this.statusTypes = [];
+  //   });
+  // }
 
   loadstatus() {
+    const apiUrl = 'https://localhost:44321/api/status';
 
-  const apiUrl ='https://localhost:44321/api/status';
-
-  this.http.get<any[]>(apiUrl).subscribe(data => {
-    // const issue = data.find(x => x.UserId === UserId);
-    console.log('issue',  data)
-    if (data) {
-      this.statusTypes = data
-        // { date: data.Raised_date, status: data.statusname, username: data.name }
-        // You had a stray `console.log()` inside the array — move it outside
-      ;
-      console.log("API Response:", data);
-    } else {
-      console.warn('Issue not found');
-    }
-  }, error => {
-    console.error('Error fetching from API:', error);
-  });
-}
+    this.http.get<any[]>(apiUrl).subscribe(
+      data => {
+        console.log('API Response:', data);
+        if (data) {
+          // Sort by created date (most recent at bottom)
+          this.statusTypes = data.sort((a, b) =>
+            new Date(a.CreatedAt).getTime() - new Date(b.CreatedAt).getTime()
+          );
+        } else {
+          console.warn('No data received');
+        }
+      },
+      error => {
+        console.error('Error fetching from API:', error);
+      }
+    );
+  }
 
   get filteredStatusTypes(): Status[] {
     if (!this.searchTerm.trim()) return this.statusTypes;
     return this.statusTypes.filter(status =>
-      status.StatusName.toLowerCase().includes(this.searchTerm.toLowerCase())
+      (status.StatusName || '').toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
@@ -87,46 +105,100 @@ export class StatusComponent implements OnInit {
     }
   }
   
-onStatusAdded(status: Status) {
-  console.log('New status added:', status);
-  this.statusTypes.push(status);
-  console.log('Updated statusTypes:', this.statusTypes);
-  this.currentPage = this.totalPages;
-}
+  // onStatusAdded(status: Status) {
+  //   console.log('New status added:', status);
+  //   this.statusTypes.push(status);
+  //   console.log('Updated statusTypes:', this.statusTypes);
+  //   this.currentPage = this.totalPages;
+  // }
+
+  // onStatusAdded(status: Status) {
+  //   this.statusService.statusAdded(status).subscribe(
+  //     (savedStatus) => {
+  //       this.statusTypes.push(savedStatus);
+  //       this.currentPage = this.totalPages;
+  //       console.log('Status saved and added to list:', savedStatus);
+  //     },
+  //     (error) => {
+  //       console.error('Error saving status to backend:', error);
+  //       alert('Failed to save status to server.');
+  //     }
+  //   );
+  // }
+
+  // onStatusAdded(status: Status) {
+  //   if (!status.StatusName.trim()) {
+  //     console.warn('Empty status name, not saving.');
+  //     return;
+  //   }
+
+  //   this.statusService.statusAdded(status).subscribe({
+  //     next: (savedStatus) => {
+  //       this.statusTypes.push(savedStatus);
+  //       this.currentPage = this.totalPages;
+  //       console.log('Status saved and added:', savedStatus);
+  //     },
+  //     error: (err) => {
+  //       console.error('Error saving status:', err);
+  //     }
+  //   });
+  // }
+
+  onStatusAdded(status: Status) {
+    this.statusService.statusAdded(status).subscribe({
+      next: (savedStatus) => {
+        // this.statusTypes.push(savedStatus);  
+        console.log('New status added:', status);
+        this.statusTypes.push(status); // Appends to the end
+        this.currentPage = this.totalPages;
+      },
+      error: (err) => {
+        console.error('Error saving status:', err);
+      }
+    });
+  }
 
   onStatusUpdated(updatedStatus: Status) {
-    const index = this.statusTypes.findIndex(s => s.id === updatedStatus.id);
-    if (index > -1) {
-      this.statusTypes[index] = updatedStatus;
-    }
+    this.statusService.statusUpdated(updatedStatus.StatusId, updatedStatus).subscribe(
+      () => {
+        const index = this.statusTypes.findIndex(s => s.StatusId === updatedStatus.StatusId);
+        if (index > -1) this.statusTypes[index] = updatedStatus;
+      },
+      (error: any) => console.error('Error updating status:', error)
+    );
   }
-deleteStatus(id: number) {
-  if (!confirm('Are you sure you want to delete this status?')) return;
 
-  this.http.delete(`https://localhost:44321/api/status/${id}`).subscribe({
-    next: () => {
-      this.statusTypes = this.statusTypes.filter(s => s.id !== id);
-      console.log('Deleted successfully');
-    },
-    error: (error) => {
-      console.error('Failed to delete:', error);
-    }
-  });
-}
+  deleteStatus(StatusId: string) {
+    if (!confirm('Are you sure you want to delete this status?')) return;
 
- updateIssue(userId: number, issueData: any) {
-    console.log('Sending issue data:', issueData);
+    this.http.delete(`https://localhost:44321/api/status/${StatusId}`).subscribe({
+      next: () => {
+        this.statusTypes = this.statusTypes.filter(s => s.StatusId !== StatusId);
+        console.log('Deleted successfully');
+      },
+      error: (error) => {
+        console.error('Failed to delete:', error);
+      }
+    });
+  }
 
-    this.issueService.updateIssue(userId, issueData).subscribe(
-      (response: any) => {
-        console.log('Issue updated successfully:', response);
+  updateStatus(statusId: string, status: Status) {
+    console.log('Sending status update:', status);
+    this.statusService.statusUpdated(statusId, status).subscribe(
+      (response: Status) => {
+        console.log('Status updated successfully:', response);
+
+        const index = this.statusTypes.findIndex(s => s.StatusId === statusId);
+        if (index > -1) {
+          this.statusTypes[index] = status;
+        }
       },
       (error: any) => {
-        console.error('Error updating issue:', error);
+        console.error('Error updating status:', error);
       }
-    );}
-
-
+    );
+  }
+    
   editStatus(status: Status) {
     this.addStatus.openModal(status);
   }

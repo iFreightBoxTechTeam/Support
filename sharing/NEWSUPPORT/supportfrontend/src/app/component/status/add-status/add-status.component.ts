@@ -16,67 +16,101 @@ export class AddStatusComponent implements AfterViewInit {
   modalInstance: any;
   isEditMode: boolean = false;
 
-  newStatus: Status = {
-    id: 0,
+  // newStatus: Status = {
+  //   StatusId: 0,
+  //   StatusName: ''
+  // };
+
+   newStatus: Status = {
+    StatusId: '',
     StatusName: ''
   };
 
+  generateGuid(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      const r = Math.random() * 16 | 0;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
   constructor(private statusService: StatusService) {}
 
+  // ngAfterViewInit() {
+  //   const modalElement = document.getElementById('addStatusModal');
+  //   if (modalElement) {
+  //     this.modalInstance = new bootstrap.Modal(modalElement);
+  //   }
+  // }
+
+  // ngAfterViewInit() {
+  //   setTimeout(() => {
+  //     const modalElement = document.getElementById('addStatusModal');
+  //     if (modalElement) {
+  //       this.modalInstance = new bootstrap.Modal(modalElement);
+  //     }
+  //   });
+  // }
+
   ngAfterViewInit() {
-    const modalElement = document.getElementById('addStatusModal');
-    if (modalElement) {
-      this.modalInstance = new bootstrap.Modal(modalElement);
+    setTimeout(() => {
+      const modalElement = document.getElementById('addStatusModal');
+      if (modalElement) {
+        this.modalInstance = new (window as any).bootstrap.Modal(modalElement, {
+          backdrop: 'static',
+          keyboard: false
+        });
+      } else {
+        console.error('Modal element not found.');
+      }
+    });
+  }
+
+  openModal(status?: Status) {
+    if (status) {
+      this.isEditMode = true;
+      this.newStatus = { ...status };  
+    } else {
+      this.isEditMode = false;
+      // this.newStatus = { StatusId: this.nextId++, StatusName: '' };
+      this.newStatus = { StatusId: '', StatusName: '' };
     }
+    this.modalInstance?.show();
   }
 
-  private nextId = 201;
 
-openModal(status?: Status) {
-  if (status) {
-    this.isEditMode = true;
-    this.newStatus = { ...status };  // ❗ CHECK HERE
-  } else {
-    this.isEditMode = false;
-    this.newStatus = { id: this.nextId++, StatusName: '' };
-  }
-  this.modalInstance?.show();
-}
+//  addStatus() {
+//     if (this.newStatus.StatusName.trim()) {
+//       if (this.isEditMode) {
+//         this.statusUpdated.emit({ ...this.newStatus });
+//       } else {
+//         this.statusAdded.emit({ ...this.newStatus });
+//       }
+//       this.modalInstance?.hide();
+//     } else {
+//       alert('Please enter a status name.');
+//     }
+//   }
 
-addStatus() {
-  console.log('Submitting new status:', this.newStatus);  // debug log
-if (this.isEditMode) {
-  if (!this.newStatus.id) {
-    console.error('Missing status ID!');
-    alert('Error: Status ID is missing for update.');
+ addStatus() {
+  const trimmedName = this.newStatus.StatusName?.trim();
+
+  if (!trimmedName) {
+    alert('Please enter a status name.');
     return;
   }
-      }
-    }
-//  addStatus() {
+  this.newStatus.StatusName = trimmedName;
+  if (this.isEditMode && this.newStatus.StatusId) {
+    this.statusUpdated.emit({ ...this.newStatus });
+  } else {
+    // Emit with empty GUID (backend will generate one)
+    this.statusAdded.emit({ StatusId: '', StatusName: this.newStatus.StatusName });
+  }
+  this.modalInstance?.hide();
+}
 
-//     if (this.newUser.name.trim()) {
-
-//       if (this.isEditMode) {
-
-//         this.statusUpdated.emit({ ...this.newUser });
-
-//       } else {
-
-//         this.statusAdded.emit({ ...this.newUser });
-
-//       }
-
-//       this.modalInstance?.hide();
-
-//     } else {
-
-//       alert('Please enter a status name.');
-
-//     }
-
-//   }
   closeModal() {
     this.modalInstance?.hide();
   }
+
 }
