@@ -149,7 +149,6 @@ export class AddIssueComponent implements AfterViewInit {
       this.issueService.updateIssue(this.newIssue).subscribe({
         next: (updatedIssue) => {
           this.issueUpdated.emit(updatedIssue);
-          
           this.modalInstance?.hide();
 
         },
@@ -161,11 +160,10 @@ export class AddIssueComponent implements AfterViewInit {
     } else {
       console.log('Submitting new issue:', this.newIssue);
       this.issueService.addIssue(this.newIssue).subscribe({
-        next:(addedIssue) => {
-  this.issueAdded.emit(addedIssue); // 👈 This will now contain real issue data
-  this.modalInstance?.hide();
-},
-
+        next: (addedIssue) => {
+          this.issueAdded.emit(addedIssue);
+          this.modalInstance?.hide();
+        },
         error: (err) => {
           alert('Failed to add issue.');
           console.error('Add error:', err);
