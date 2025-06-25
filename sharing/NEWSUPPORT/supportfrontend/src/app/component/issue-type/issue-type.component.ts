@@ -299,12 +299,19 @@ export class IssueTypeComponent implements OnInit {
   // }
 onIssueAdded(issue: Issue) {
   console.log('Received new issue:', issue);
-  this.issueTypes = [...this.issueTypes, issue]; // Important: use spread!
+
+  this.issueTypes = [...this.issueTypes, issue];
+    this.loadIssueTypes(); // Important: use spread!
 }
   onIssueUpdated(updatedIssue: Issue): void {
     const index = this.issueTypes.findIndex(i => i.issuesid === updatedIssue.issuesid);
-    if (index > -1) {
+    this.loadIssueTypes();
+   if (this.currentPage > this.totalPages) {
+      this.currentPage = this.totalPages || 1;
+      
       this.issueTypes[index] = updatedIssue;
+      
+       
     }
   }
 
@@ -316,6 +323,8 @@ onIssueAdded(issue: Issue) {
           this.issueTypes = this.issueTypes.filter(issue => issue.issuesid !== issue.issuesid);
           if (this.currentPage > this.totalPages) {
             this.currentPage = this.totalPages || 1;
+            
+            this.loadIssueTypes();
           }
         },
         error: (err) => {
@@ -333,8 +342,9 @@ onIssueAdded(issue: Issue) {
 }
 
   // editIssue(issue: Issue): void {
+ 
 
-  //   const newName = prompt('Edit issue type:', issue.Issue_Type);
+  //   const newName =  this.addIssue.openModal(issue); ;
   //   if (newName && newName.trim()) {
   //     const updatedIssue: Issue = { ...issue, Issue_Type: newName.trim() };
   //     this.issueService.updateIssue(updatedIssue).subscribe({

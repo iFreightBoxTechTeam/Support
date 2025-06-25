@@ -149,6 +149,7 @@ export class AddIssueComponent implements AfterViewInit {
       this.issueService.updateIssue(this.newIssue).subscribe({
         next: (updatedIssue) => {
           this.issueUpdated.emit(updatedIssue);
+          
           this.modalInstance?.hide();
 
         },
