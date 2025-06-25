@@ -293,7 +293,8 @@ export class IssueTypeComponent implements OnInit {
   }
 
   onIssueAdded(issue: Issue): void {
-    this.issueTypes.push(issue);
+    // this.issueTypes.push(issue);
+    this.issueTypes = [...this.issueTypes, issue];
     this.currentPage = this.totalPages;
   }
 

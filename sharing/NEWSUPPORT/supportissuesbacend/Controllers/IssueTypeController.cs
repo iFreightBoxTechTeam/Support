@@ -116,7 +116,7 @@ namespace userproblem.Controllers
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["YourConnectionStringName"].ConnectionString))
+                
                 using (SqlCommand cmd = new SqlCommand("sp_DeleteIssueType", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
