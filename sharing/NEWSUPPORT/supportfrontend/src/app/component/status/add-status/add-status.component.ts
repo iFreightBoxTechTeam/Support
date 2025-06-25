@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Output, AfterViewInit } from '@angular/core';
 import { Status, StatusService } from 'src/app/status.service';
- // adjust path as needed
 
 declare var bootstrap: any;
 
@@ -16,11 +15,6 @@ export class AddStatusComponent implements AfterViewInit {
   modalInstance: any;
   isEditMode: boolean = false;
 
-  // newStatus: Status = {
-  //   StatusId: 0,
-  //   StatusName: ''
-  // };
-
    newStatus: Status = {
     StatusId: '',
     StatusName: ''
@@ -35,13 +29,6 @@ export class AddStatusComponent implements AfterViewInit {
   }
 
   constructor(private statusService: StatusService) {}
-
-  // ngAfterViewInit() {
-  //   const modalElement = document.getElementById('addStatusModal');
-  //   if (modalElement) {
-  //     this.modalInstance = new bootstrap.Modal(modalElement);
-  //   }
-  // }
 
   // ngAfterViewInit() {
   //   setTimeout(() => {
@@ -78,23 +65,8 @@ export class AddStatusComponent implements AfterViewInit {
     this.modalInstance?.show();
   }
 
-
-//  addStatus() {
-//     if (this.newStatus.StatusName.trim()) {
-//       if (this.isEditMode) {
-//         this.statusUpdated.emit({ ...this.newStatus });
-//       } else {
-//         this.statusAdded.emit({ ...this.newStatus });
-//       }
-//       this.modalInstance?.hide();
-//     } else {
-//       alert('Please enter a status name.');
-//     }
-//   }
-
  addStatus() {
   const trimmedName = this.newStatus.StatusName?.trim();
-
   if (!trimmedName) {
     alert('Please enter a status name.');
     return;
