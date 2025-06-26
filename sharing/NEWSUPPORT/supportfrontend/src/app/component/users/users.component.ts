@@ -134,7 +134,7 @@
 
 
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { User, UserService } from 'src/app/user.service';
 
 import { AddUserComponent } from './add-user/add-user.component';
@@ -147,12 +147,14 @@ import { AddUserComponent } from './add-user/add-user.component';
 })
 
 
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit , DoCheck {
   users: User[] = [];
+  users_permanent:User[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 10;
   pageSize: number = 5;
-  totalPages: number = 1;
+  // totalPages: number = 1;
+  searchQuery:string = '';
 
 
   @ViewChild('addUserComponent') addUserComponent!: AddUserComponent;
@@ -162,20 +164,42 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchUsers();
+    
   }
+
+  ngDoCheck(): void {
+     
+  }
+
   loaduser() {}
 
   fetchUsers(): void {
     this.userService.getUsers().subscribe((data) => {
       this.users = data;
-      this.calculatePagination();
+      this.users_permanent = data;
+      // this.calculatePagination();
+      console.log(data);
+      
     });
+    
   }
 
-
-  calculatePagination(): void {
-    this.totalPages = Math.ceil(this.users.length / this.pageSize);
+  get filteredUsers(): User[] {
+    return this.users_permanent.filter((x)=>x.Name?.toLocaleLowerCase().includes(this.searchQuery.toLocaleLowerCase()));
   }
+
+  get totalPages(): number {
+    return Math.ceil(this.filteredUsers.length / this.itemsPerPage);
+  }
+
+  get paginatedUsers(): User[] {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredUsers.slice(start, start + this.itemsPerPage);
+  }
+
+  // calculatePagination(): void {
+  //   this.totalPages = Math.ceil(this.users.length / this.pageSize);
+  // }
 
   changePage(page: number): void {
     
@@ -183,7 +207,7 @@ export class UserComponent implements OnInit {
   }
 
   openAddUserModal(): void {
-    this.addUserComponent.openModal();
+    this.addUserComponent.onAddUser();
   }
 
 
@@ -201,6 +225,7 @@ export class UserComponent implements OnInit {
     this.addUserComponent.editExistingUser(user);
   }
 
+
   deleteUser(id: number): void {
     if (confirm('Are you sure you want to delete this user?')) {
       this.userService.deleteUser(id).subscribe(() => {
@@ -212,5 +237,8 @@ export class UserComponent implements OnInit {
   
   onSearchChange(searchValue: string): void {
     // Optional search handling logic here
+    this.searchQuery = searchValue;
+    this.currentPage = 1;
+    this.users = this.filteredUsers;
   }
 }

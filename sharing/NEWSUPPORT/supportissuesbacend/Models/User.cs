@@ -15,7 +15,7 @@ namespace WebApplication2.Models
         public string Mobile_number { get; set; }
 
 
-        public string PasswordHash { get; set; } // Plain password should not be stored!
+
 
         public static implicit operator User(issuestable v)
         {

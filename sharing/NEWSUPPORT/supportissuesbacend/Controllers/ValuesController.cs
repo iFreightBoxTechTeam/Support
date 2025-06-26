@@ -305,7 +305,7 @@ namespace WebApplication2.Controllers
         [Route("api/values/users")]
         public IHttpActionResult RegisterUser([FromBody] User user)
         {
-            if (user == null || string.IsNullOrWhiteSpace(user.Name) || string.IsNullOrWhiteSpace(user.Email) || string.IsNullOrWhiteSpace(user.PasswordHash))
+            if (user == null || string.IsNullOrWhiteSpace(user.Name) || string.IsNullOrWhiteSpace(user.Email) )
             {
                 return BadRequest("Invalissues_id user data provissues_ided.");
             }
@@ -320,7 +320,7 @@ namespace WebApplication2.Controllers
                     cmd.Parameters.AddWithValue("@email", user.Email);
                     cmd.Parameters.AddWithValue("@addresh", user.Addresh);
                     cmd.Parameters.AddWithValue("@mobile_number", user.Mobile_number);
-                    cmd.Parameters.AddWithValue("@password_hash", user.PasswordHash); // assume already hashed
+                  
 
                     con.Open();
                     cmd.ExecuteNonQuery();
