@@ -139,7 +139,12 @@
 
 
 <app-add-user (userAdded)="onUserAdded($event)" (userUpdated)="onUserUpdated($event)" #addUserComponent></app-add-user>
-<app-nav-main></app-nav-main>
+<app-nav-main
+  [showAddButton]="true"
+  (openAddModal)="openAddUserModal()"
+  (searchChange)="onSearchChange($event)"
+></app-nav-main>
+<!-- <app-nav-main></app-nav-main> -->
 <div class="user-card">
   <div class="user-task">
     <h1>User</h1>
@@ -156,7 +161,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users">
+        <tr *ngFor="let user of paginatedUsers">
           <td>{{ user.issuesid }}</td>
           <td>{{ user.Name }}</td>
           <td>{{ user.Mobile_number }}</td>
@@ -232,7 +237,7 @@
 </div>
 
 
-<nav *ngIf="totalPages > 1" aria-label="User list pagination" class="pagination-nav">
+<nav aria-label="User list pagination" class="pagination-nav">
   <button
     (click)="changePage(currentPage - 1)"
     [disabled]="currentPage === 1"

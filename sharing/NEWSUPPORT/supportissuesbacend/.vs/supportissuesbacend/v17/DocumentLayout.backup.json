@@ -1,9 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Riddhi\\RIDDI2\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\",
+  "WorkspaceRootPath": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|d:\\riddhi\\riddi2\\support\\sharing\\newsupport\\supportissuesbacend\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|c:\\pratish\\support_clone\\support\\sharing\\newsupport\\supportissuesbacend\\controllers\\valuescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:controllers\\valuescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|c:\\pratish\\support_clone\\support\\sharing\\newsupport\\supportissuesbacend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|c:\\pratish\\support_clone\\support\\sharing\\newsupport\\supportissuesbacend\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
@@ -14,19 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Models\\User.cs",
+              "RelativeToolTip": "Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T11:37:29.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ValuesController.cs",
+              "DocumentMoniker": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\ValuesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ValuesController.cs",
+              "ToolTip": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\ValuesController.cs",
+              "RelativeToolTip": "Controllers\\ValuesController.cs",
+              "ViewState": "AgIAAC0BAAAAAAAAAAAAAC8BAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T10:18:53.358Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Web.config",
-              "DocumentMoniker": "D:\\Riddhi\\RIDDI2\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Web.config",
+              "DocumentMoniker": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Web.config",
               "RelativeDocumentMoniker": "Web.config",
-              "ToolTip": "D:\\Riddhi\\RIDDI2\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Web.config",
+              "ToolTip": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Web.config",
               "RelativeToolTip": "Web.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAsAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2025-06-26T11:11:39.371Z",
+              "WhenOpened": "2025-06-25T08:10:46.01Z",
               "EditorCaption": ""
             }
           ]
