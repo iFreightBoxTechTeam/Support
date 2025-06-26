@@ -23,7 +23,8 @@ export class IssueComponent implements OnInit {
 
   imageCounter: number = 0;
   showIssueModal: boolean = false;
-  @ViewChild('issueModal') issueModal!: ElementRef;
+ @ViewChild(IssueComponent) issueComponent!: IssueComponent;
+
 
   images: Array<{
     id: string;
