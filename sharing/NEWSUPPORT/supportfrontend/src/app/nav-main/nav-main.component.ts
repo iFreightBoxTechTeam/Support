@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AddUserComponent } from '../component/users/add-user/add-user.component';
 
 @Component({
   selector: 'app-nav-main',
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class NavMainComponent {
   @Input() showAddButton: boolean = true;
+
 
   searchTerm: string = '';
 
