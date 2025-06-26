@@ -9,6 +9,7 @@ import { IssueService } from 'src/app/issue.service';
   styleUrls: ['./issue.component.css']
 })
 export class IssueComponent implements OnInit {
+  [x: string]: any;
   @Input() issueId!: number | string;
 
   overallStatus: string = '';
@@ -59,6 +60,7 @@ export class IssueComponent implements OnInit {
     }
   ];
 issue: any;
+  
 constructor(private issueService: IssueService,private http: HttpClient) {}
 private issueData: any; 
  ngOnInit() {
@@ -128,30 +130,25 @@ setIssue(issue: any) {
   }
 saveIssue() {
   const payload = {
-    StatusName: this.issue.StatusName,   // or new status from select
+    StatusName: this.issue.StatusName,
     AssignTo: this.assignTo,
-    ImagePaths: this.images.map(img => img.url) // if you're saving image URLs
+    ImagePaths: this.images.map(img => img.url)
   };
-
-  console.log("Sending PUT payload:", payload);
-  
-
 
   this.http.put(`https://localhost:44321/api/values/${this.issue.UserId}`, payload)
     .subscribe(
       res => {
-        console.log("this.issue.StatusName = ", this.issue.StatusName);
         console.log("Update success", res);
+        this['issueUpdated'].emit(payload);  // <-- Notify parent
         this.closeIssueModal(); 
-        
-        this.issue = this.issueService.getIssue()
-        
+         this.issue = this.issueService.getIssue(); 
       },
       err => {
         console.error("Update error", err);
       }
     );
 }
+
 
 
 

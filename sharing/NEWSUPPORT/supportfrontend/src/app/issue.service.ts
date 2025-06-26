@@ -46,6 +46,7 @@ getissueById(userId: number): Observable<any> {
   return this.http.put(`${this.apiUrl}/${userId}`, issueData, { headers });
 }
   getIssueById(issueId: number): Observable<any> {
+    
   return this.http.get(`${this.apiUrl}//issues_id/${issueId}`);
 }
 triggerIssueTypesReload() {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 import { ViewComponent } from '../component/view/view.component';
 import { IssueService } from '../issue.service';
@@ -21,7 +21,7 @@ export class IssuseComponent implements OnInit {
   currentPage = 1;
 itemsPerPage = 10;
 
-
+ @Output() issueUpdated = new EventEmitter<void>();
 @ViewChild(ViewComponent) viewComponent!: ViewComponent;
 @ViewChild(IssueComponent) issueComponent!: IssueComponent;
  
@@ -114,6 +114,12 @@ editIssue(issue: any) {
   // this.issueService.setIssue(selectedIssue);
   this.issueComponent.openIssueModal(issue?.UserId);
 
+}
+onIssueUpdated(updatedData: any) {
+  console.log('Received update from child:', updatedData);
+
+  // Re-fetch the issue list or just update the local data
+  this.loadIssues(); // Or however you're populating your table
 }
 
 
