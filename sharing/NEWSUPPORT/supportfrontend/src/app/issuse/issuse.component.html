@@ -22,18 +22,18 @@
           <th>Tenant Code</th>
           <th>Raised Date</th>
           <th>Status</th>
-          <th>Module</th>
+          <th>Assig To</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let issue of paginatedIssues">
-  <td>{{ issue.UserId }}</td>
+  <td><button class="btn btn-sm me-2" (click)="editIssue(issue)">{{ issue.UserId }}</button></td>
    <td>{{ issue.Name }}</td>
   <td>{{ issue.TenantCode }}</td>
   <td>{{ issue.LogTime | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
   <td>{{ issue.StatusName }}</td>
-  <td>{{ issue.Module }}</td>
+  <td>{{ issue.AssignTo }}</td>
 
           <td> 
             <div class="btn-group">     

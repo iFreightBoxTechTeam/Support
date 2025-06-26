@@ -32,20 +32,6 @@ export class StatusComponent implements OnInit {
 
   currentPage: number = 1;
   itemsPerPage: number = 5;
-  
-  // loadstatus() {
-  //   const apiUrl = 'https://localhost:44321/api/status';
-  //   this.http.get<any[]>(apiUrl).subscribe(data => {
-  //     if (Array.isArray(data)) {
-  //       this.statusTypes = data.filter(x => x != null); // ✅ filter out nulls
-  //     } else {
-  //       this.statusTypes = [];
-  //     }
-  //   }, error => {
-  //     console.error('Error fetching from API:', error);
-  //     this.statusTypes = [];
-  //   });
-  // }
 
   loadstatus() {
     const apiUrl = 'https://localhost:44321/api/status';
@@ -55,9 +41,12 @@ export class StatusComponent implements OnInit {
         console.log('API Response:', data);
         if (data) {
           // Sort by created date (most recent at bottom)
-          this.statusTypes = data.sort((a, b) =>
-            new Date(a.CreatedAt).getTime() - new Date(b.CreatedAt).getTime()
-          );
+            // this.statusTypes = data.sort((a, b) =>
+            //   new Date(a.CreatedAt).getTime() - new Date(b.CreatedAt).getTime()
+            // );
+           this.statusTypes = data.sort((a, b) =>
+              a.StatusName.localeCompare(b.StatusName)
+            );
         } else {
           console.warn('No data received');
         }
@@ -67,7 +56,7 @@ export class StatusComponent implements OnInit {
       }
     );
   }
-
+  
   get filteredStatusTypes(): Status[] {
     if (!this.searchTerm.trim()) return this.statusTypes;
     return this.statusTypes.filter(status =>
@@ -105,27 +94,6 @@ export class StatusComponent implements OnInit {
     }
   }
   
-  // onStatusAdded(status: Status) {
-  //   console.log('New status added:', status);
-  //   this.statusTypes.push(status);
-  //   console.log('Updated statusTypes:', this.statusTypes);
-  //   this.currentPage = this.totalPages;
-  // }
-
-  // onStatusAdded(status: Status) {
-  //   this.statusService.statusAdded(status).subscribe(
-  //     (savedStatus) => {
-  //       this.statusTypes.push(savedStatus);
-  //       this.currentPage = this.totalPages;
-  //       console.log('Status saved and added to list:', savedStatus);
-  //     },
-  //     (error) => {
-  //       console.error('Error saving status to backend:', error);
-  //       alert('Failed to save status to server.');
-  //     }
-  //   );
-  // }
-
   // onStatusAdded(status: Status) {
   //   if (!status.StatusName.trim()) {
   //     console.warn('Empty status name, not saving.');
@@ -199,8 +167,14 @@ export class StatusComponent implements OnInit {
     );
   }
     
+  // editStatus(status: Status) {
+  //   this.addStatus.openModal(status);
+  // }
+
   editStatus(status: Status) {
-    this.addStatus.openModal(status);
+    this.statusService.getStatusById(status.StatusId).subscribe(fetched => {
+      this.addStatus.openModal(fetched); // Open modal with up-to-date data
+    });
   }
 
 }
