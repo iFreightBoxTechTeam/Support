@@ -1,246 +1,268 @@
-/* Container */
-.issue-container {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: #f9fafb;
-  border-radius: 10px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #222;
+/* Modal container */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Header */
+/* Modal content */
+.modal-content {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 24px;
+  width: 600px;
+  max-width: 95%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* Modal header */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 28px;
-  border-bottom: 2px solid #e0e7ef;
-  padding-bottom: 10px;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
 }
 
-.issue-meta {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+.header h2 {
+  margin: 0;
+  font-size: 30px;
+  color: #2d3748;
 }
 
-.issue-id {
-  background: #5a67d8; /* Indigo */
-  color: #fff;
-  padding: 6px 14px;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.05em;
-  user-select: none;
-  box-shadow: 0 2px 6px rgba(90, 103, 216, 0.35);
+.issue-meta{
+  margin-right: 40px;
+  margin-bottom: 10px;
 }
 
-.status-label {
-  font-size: 15px;
-  color: #4a5568; /* cool gray */
-  font-weight: 600;
-  text-transform: uppercase;
-  background-color: #edf2f7; /* light gray background for better visibility */
-  padding: 6px 14px;          /* enough vertical and horizontal padding */
-  border-radius: 12px;
-  display: inline-block;
-  line-height: 1.3;           /* control line height for vertical centering */
-  height: 36px;               /* fixed height */
-  max-width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  box-sizing: border-box;     /* include padding in height */
-  user-select: none;
+.issue-meta span {
+  background: #edf2f7;
+  color: #4a5568;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-left: 8px;
 }
 
-/* Two-column layout */
+
+/* Layout */
 .issue-content {
   display: flex;
-  gap: 48px;
+  gap: 24px;
   flex-wrap: wrap;
 }
 
 .left-pane,
 .right-pane {
   flex: 1 1 45%;
-  min-width: 280px;
+  min-width: 260px;
 }
 
-/* Form groups */
+/* Form styling */
 .form-group {
-  margin-bottom: 24px;
+  margin-bottom: 18px;
 }
 
 label {
-  font-weight: 700;
+  font-weight: 600;
+  margin-bottom: 6px;
   display: block;
-  margin-bottom: 8px;
-  color: #2d3748; /* dark slate */
-  font-size: 15px;
+  font-size: 14px;
+  color: #2d3748;
 }
 
 .description-text {
-  font-style: italic;
-  color: #718096; /* slate gray */
   font-size: 14px;
-  margin-top: 4px;
+  color: #718096;
+  font-style: italic;
+  background-color: #f7fafc;
+  padding: 10px;
+  border-radius: 6px;
 }
 
-/* Dropdowns */
+/* Select dropdown */
 select {
   width: 100%;
-  padding: 10px 14px;
-  font-size: 15px;
-  border-radius: 8px;
-  border: 1.8px solid #cbd5e0;
+  padding: 8px 12px;
+  border: 1.5px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 14px;
   background-color: #fff;
-  transition: border-color 0.25s ease;
 }
 
 select:focus {
   outline: none;
   border-color: #5a67d8;
-  box-shadow: 0 0 6px rgba(90, 103, 216, 0.5);
+  box-shadow: 0 0 0 2px rgba(90, 103, 216, 0.3);
 }
 
-/* Upload Button */
+/* Upload button */
 .upload-button {
-  padding: 10px 18px;
-  font-size: 15px;
-  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
   background-color: #5a67d8;
   color: #fff;
-  border-radius: 8px;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 3px 8px rgba(90, 103, 216, 0.4);
+  transition: background 0.3s ease;
 }
 
 .upload-button:hover {
   background-color: #434aa8;
 }
 
-/* Image preview */
+/* Scrollable image preview */
 .image-preview {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 12px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-  gap: 16px;
-  margin-top: 14px;
-  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 12px;
+  padding-right: 4px;
 }
 
+/* Individual image card */
 .image-card {
   position: relative;
-  width: 90px;
-  height: 90px;
-  border-radius: 12px;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.image-card:hover {
-  transform: scale(1.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f0f0f0;
 }
 
 .image-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  border-radius: 12px;
+}
+
+/* Image ID (optional) */
+.image-id {
+  font-size: 11px;
+  color: #2d3748;
+  margin-bottom: 4px;
 }
 
 /* Delete button */
 .delete-button {
   position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: #e53e3e; /* bright red */
+  top: 0px;
+  right: 0px;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  background-color: #e53e3e;
   color: white;
-  border: none;
   border-radius: 50%;
-  width: 22px;
-  height: 22px;
-  font-size: 16px;
+  border: none;
   cursor: pointer;
-  line-height: 22px;
-  text-align: center;
-  box-shadow: 0 0 6px rgba(229, 62, 62, 0.7);
-  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .delete-button:hover {
-  background-color: #9b2c2c;
+  background-color: #c53030;
 }
 
-/* Modal */
+/* Modal overlay for full image */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(17, 24, 39, 0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: rgba(0, 0, 0, 0.85);
   z-index: 1100;
-  padding: 20px;
-}
-
-.modal-content {
-  position: relative;
-  max-width: 850px;          /* Increased modal width */
-  max-height: 90vh;          /* Increased modal height */
-  padding: 24px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 16px;
 }
 
-.modal-content img {
+.modal-overlay .modal-content {
+  max-width: 800px;
+  max-height: 90vh;
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
+  background: #fff;
+  padding: 0;
+}
+
+.modal-overlay .modal-content img {
   max-width: 100%;
   max-height: 85vh;
   border-radius: 10px;
-  user-select: none;
 }
 
-/* Close buttons */
-.close-button,
-.modal-top-close {
+/* Close button inside modal */
+.modal-top-close,
+.close-button {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 18px;
+  right: 10px;
   background-color: #e53e3e;
   color: #fff;
   border: none;
+  font-size: 18px;
+  width: 30px;
+  height: 30px;
   border-radius: 6px;
-  font-size: 22px;
-  width: 36px;
-  height: 36px;
   cursor: pointer;
-  font-weight: 700;
-  line-height: 34px;
+  line-height: 28px;
   text-align: center;
-  box-shadow: 0 2px 10px rgba(229, 62, 62, 0.7);
-  transition: background-color 0.3s ease;
 }
 
-.close-button:hover,
-.modal-top-close:hover {
+.modal-top-close:hover,
+.close-button:hover {
   background-color: #9b2c2c;
 }
 
+/* Footer */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.modal-footer .btn {
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-secondary {
+  background-color: #edf2f7;
+  color: #2d3748;
+}
+
+.btn-secondary:hover {
+  background-color: #e2e8f0;
+}
+
+.btn-primary {
+  background-color: #5a67d8;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #434aa8;
+}
+
 /* Responsive */
-@media (max-width: 720px) {
+@media (max-width: 640px) {
   .issue-content {
     flex-direction: column;
   }
@@ -250,12 +272,13 @@ select:focus {
     flex: 1 1 100%;
   }
 
-  .image-preview {
-    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-  }
-
   .image-card {
     width: 70px;
     height: 70px;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 16px;
   }
 }
