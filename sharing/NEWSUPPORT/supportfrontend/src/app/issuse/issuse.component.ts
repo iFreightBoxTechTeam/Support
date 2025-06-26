@@ -75,6 +75,7 @@ get totalPages(): number {
 
 get paginatedIssues() {
   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+
   return this.filteredIssues.slice(startIndex, startIndex + this.itemsPerPage);
 }
 
@@ -102,15 +103,17 @@ changePage(page: number) {
   // }
 editIssue(issue: any) {
   const selectedIssue = this.paginatedIssues.find(i => i.UserId === issue.UserId);
+  
   console.log("Selected Issue Before Setting in Service:", selectedIssue);
 
   if (!selectedIssue) {
     console.error("Error: No issue found for ID:", issue.UserId);
     return;
   }
-
+ 
   // this.issueService.setIssue(selectedIssue);
   this.issueComponent.openIssueModal(issue?.UserId);
+
 }
 
 
@@ -123,7 +126,9 @@ editIssue(issue: any) {
         console.log('Issue deleted successfully.');
         if (this.currentPage > this.totalPages) {
           this.currentPage = this.totalPages || 1;
+          
         }
+        this.loadIssues();
       },
       error: (err) => {
         console.error('Error deleting issue:', err);
