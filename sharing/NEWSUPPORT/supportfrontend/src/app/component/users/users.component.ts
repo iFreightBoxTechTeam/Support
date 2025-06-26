@@ -171,7 +171,7 @@ export class UserComponent implements OnInit , DoCheck {
      
   }
 
-  loaduser() {}
+
 
   fetchUsers(): void {
     this.userService.getUsers().subscribe((data) => {
@@ -194,6 +194,7 @@ export class UserComponent implements OnInit , DoCheck {
 
   get paginatedUsers(): User[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
+    
     return this.filteredUsers.slice(start, start + this.itemsPerPage);
   }
 
@@ -229,7 +230,7 @@ export class UserComponent implements OnInit , DoCheck {
   deleteUser(id: number): void {
     if (confirm('Are you sure you want to delete this user?')) {
       this.userService.deleteUser(id).subscribe(() => {
-        this.fetchUsers();
+        this.fetchUsers()
       });
     }
   }
