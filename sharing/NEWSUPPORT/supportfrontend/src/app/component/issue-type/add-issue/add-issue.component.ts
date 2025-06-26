@@ -115,7 +115,7 @@ export class AddIssueComponent implements AfterViewInit {
   isEditMode: boolean = false;
 
  newIssue: Issue = {
-  id: 0,
+  issuesid: 0,
   Issue_Type: ''
 };
 
@@ -136,7 +136,7 @@ export class AddIssueComponent implements AfterViewInit {
       this.newIssue = { ...issue };
     } else {
       this.isEditMode = false;
-      this.newIssue = { id: this.nextId++, Issue_Type: '' };
+      this.newIssue = { issuesid: this.nextId++, Issue_Type: '' };
     }
     this.modalInstance?.show();
   }
@@ -149,7 +149,9 @@ export class AddIssueComponent implements AfterViewInit {
       this.issueService.updateIssue(this.newIssue).subscribe({
         next: (updatedIssue) => {
           this.issueUpdated.emit(updatedIssue);
+          
           this.modalInstance?.hide();
+
         },
         error: (err) => {
           alert('Failed to update issue.');
@@ -157,6 +159,7 @@ export class AddIssueComponent implements AfterViewInit {
         }
       });
     } else {
+      console.log('Submitting new issue:', this.newIssue);
       this.issueService.addIssue(this.newIssue).subscribe({
         next: (addedIssue) => {
           this.issueAdded.emit(addedIssue);
@@ -167,6 +170,7 @@ export class AddIssueComponent implements AfterViewInit {
           console.error('Add error:', err);
         }
       });
+       this.newIssue;
     }
   } else {
     alert('Please enter a Issue Name.');

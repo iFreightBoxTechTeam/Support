@@ -31,8 +31,8 @@
       <div class="form-group">
         <label>Assign To:</label>
         <select [(ngModel)]="assignTo">
-          <option>{{issue.assignTo}}</option>
-          <option value="">-- Select --</option>
+          <option  value="">{{issue.AssignTo}}</option>
+        
           <option *ngFor="let user of users" [value]="user">
             {{ user }}
           </option>

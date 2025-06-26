@@ -5,6 +5,7 @@ using System.Web.Http;
 
 using WebApplication2.Models;
 using System.Configuration;
+using System;
 
 namespace userproblem.Controllers
 {
@@ -19,7 +20,7 @@ namespace userproblem.Controllers
         {
             var issueTypes = new List<IssueType>();
 
-            using (var cmd = new SqlCommand("sp_GetIssueTypes", conn))
+            using (var cmd = new SqlCommand("sp_GetIssueType", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 conn.Open();
@@ -30,7 +31,7 @@ namespace userproblem.Controllers
                     {
                         issueTypes.Add(new IssueType
                         {
-                            id = reader.GetInt32(reader.GetOrdinal("id")),
+                            issuesid = reader.GetInt32(reader.GetOrdinal("issuesid")),
                             Issue_Type = reader.GetString(reader.GetOrdinal("issue_type"))
                         });
                     }
@@ -58,7 +59,7 @@ namespace userproblem.Controllers
                     {
                         issueType = new IssueType
                         {
-                            id = reader.GetInt32(reader.GetOrdinal("id")),
+                            issuesid = reader.GetInt32(reader.GetOrdinal("issuesid")),
                             Issue_Type = reader.GetString(reader.GetOrdinal("issue_type"))
                         };
                     }
@@ -86,6 +87,7 @@ namespace userproblem.Controllers
             return Ok("Issue type inserted successfully.");
         }
 
+  
         // PUT api/issuetype/5
         [HttpPut]
         [Route("api/issuetype/{id}")]
@@ -97,8 +99,11 @@ namespace userproblem.Controllers
             using (var cmd = new SqlCommand("sp_UpdateIssueType", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@id", id);
+
+                // Add both required parameters to the command
+                cmd.Parameters.AddWithValue("@issuesid", id);
                 cmd.Parameters.AddWithValue("@issue_type", issue.Issue_Type);
+
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -107,19 +112,31 @@ namespace userproblem.Controllers
         }
         [HttpDelete]
         [Route("api/issuetype/{id}")]
-
-        // DELETE api/issuetype/5
         public IHttpActionResult Delete(int id)
         {
-            using (var cmd = new SqlCommand("sp_DeleteIssueType", conn))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@id", id);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
+                
+                using (SqlCommand cmd = new SqlCommand("sp_DeleteIssueType", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@issuesid", id); // MATCH the stored procedure
 
-            return Ok("Issue type deleted successfully.");
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+
+                return Ok($"Issue type with ID {id} deleted successfully.");
+            }
+            catch (SqlException ex)
+            {
+                return BadRequest($"SQL Error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
+
     }
 }
