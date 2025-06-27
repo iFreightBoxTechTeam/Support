@@ -4,21 +4,18 @@
     
     <!-- Left: Dropdown -->
     <div class="page-selector d-flex align-items-center">
-      <label for="pageSelect" class="me-2">Go to:</label>
-      <select
-        id="pageSelect"
-        [(ngModel)]="currentPage"
-        (change)="changePage(currentPage)"
-        class="form-select form-select-sm"
-      >
-        <option *ngFor="let page of [].constructor(totalPages); let i = index" [value]="i + 1">
-          Page {{ i + 1 }}
-        </option>
-      </select>
+        <select id="pageSizeSelect" (change)="changePageSize($event)" >
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
     </div>
 
+
     <!-- Right: Pagination Controls -->
-    <nav *ngIf="totalPages > 1">
+    <nav >
       <ul class="pagination mb-0">
         <li class="page-item" [class.disabled]="currentPage === 1">
           <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>

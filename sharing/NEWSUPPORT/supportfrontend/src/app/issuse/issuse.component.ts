@@ -10,15 +10,18 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./issuse.component.css'],
 })
 export class IssuseComponent implements OnInit {
-  issues: any[] = [];
+    issues: any[] = [];
   filteredIssues: any[] = [];
   searchTerm: string = '';
 
-  currentPage = 1;
-  itemsPerPage = 5;
+currentPage = 1;
+itemsPerPage = 5;
+
+
 
   @ViewChild(ViewComponent) viewComponent!: ViewComponent;
   @ViewChild(IssueComponent) issueComponent!: IssueComponent;
+  
 
   constructor(private issueService: IssueService, private http: HttpClient) {}
 
@@ -36,6 +39,7 @@ export class IssuseComponent implements OnInit {
     }
   });
 }
+
 
   onSearch(term: string) {
     this.searchTerm = term;
@@ -106,18 +110,10 @@ export class IssuseComponent implements OnInit {
     this.issues[index] = updatedIssue;
   }
 
-  const filteredIndex = this.filteredIssues.findIndex(i => i.UserId === updatedIssue.UserId);
-  if (filteredIndex !== -1) {
-    this.filteredIssues[filteredIndex] = updatedIssue;
-  }
-
-  console.log("Issue updated in parent list:", updatedIssue);
 }
 
-onPageChange(page: number) {
-  this.currentPage = page;
-  this.loadIssues();
+changePer(event:any){
+  console.log(event);
+  this.itemsPerPage=event;
 }
-
-
 }

@@ -236,6 +236,11 @@
   </div>
 </div>
 
+<app-pagination
+  [totalPages]="totalPages"
+  [currentPage]="currentPage"
+  (pageChanged)="changePage($event)">
+</app-pagination>
 
 <!-- <nav aria-label="User list pagination" class="pagination-nav">
   <button

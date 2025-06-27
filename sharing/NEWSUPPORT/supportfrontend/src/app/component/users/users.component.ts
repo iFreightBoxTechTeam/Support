@@ -151,7 +151,7 @@ export class UserComponent implements OnInit , DoCheck {
   users: User[] = [];
   users_permanent:User[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 5;
   pageSize: number = 5;
   // totalPages: number = 1;
   searchQuery:string = '';
@@ -243,3 +243,5 @@ export class UserComponent implements OnInit , DoCheck {
     this.users = this.filteredUsers;
   }
 }
+
+
