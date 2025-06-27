@@ -134,32 +134,21 @@ saveIssue() {
     ImagePaths: this.images.map(img => img.url)
   };
 
+  console.log("Sending PUT payload:", payload);
+  
+
+
   this.http.put(`https://localhost:44321/api/values/${this.issue.UserId}`, payload)
     .subscribe(
       res => {
+        console.log("this.issue.StatusName = ", this.issue.StatusName);
         console.log("Update success", res);
 
+
         // Fetch the updated issue
-        this.issueService.getissueById(this.issue.UserId).subscribe(
-          updatedIssue => {
-            this.issue = updatedIssue[0];
 
-            // ✅ Update assignTo field after getting updated data
-            this.assignTo = this.issue.AssignTo;
-
-            // Notify parent
-            this.issueUpdated.emit(this.issue);
-
-            this.closeIssueModal();
-          },
-          err => {
-            console.error("Error fetching updated issue", err);
-            this.closeIssueModal();
-          }
-        );
       },
       err => {
-        console.error("Update error", err);
       }
     );
 }

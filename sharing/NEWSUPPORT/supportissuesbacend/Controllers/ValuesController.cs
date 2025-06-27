@@ -660,6 +660,7 @@ namespace WebApplication2.Controllers
 
             
         }
+
         [HttpDelete]
         [Route("api/values/users/{issuesid}")]
         public IHttpActionResult DeleteUser(int issuesid)
@@ -691,6 +692,7 @@ namespace WebApplication2.Controllers
                 return InternalServerError(ex);
             }
         }
+
         [HttpPut]
         [Route("api/values/users/{id}")]
         public IHttpActionResult UpdateUser(int id, [FromBody] User user)
