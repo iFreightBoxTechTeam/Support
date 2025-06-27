@@ -1,6 +1,9 @@
 /* Issues Card */
 .issues_card {
   margin: 20px;
+  
+  padding-bottom: 80px; 
+
 }
 
 /* Search Wrapper */
@@ -144,7 +147,7 @@
 }
 
 /* Pagination */
-.pagination-nav {
+/* .pagination-nav {
   margin-top: 1.5rem;
   display: flex;
   justify-content: center;
@@ -192,4 +195,4 @@
   background-color: #e0e0ff;
   color: #3f51b5;
   border-color: #3f51b5;
-}
+} */
