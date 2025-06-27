@@ -42,10 +42,12 @@
     </table>
   </div>
 
- <app-pagination
+<app-pagination
   [totalPages]="totalPages"
   [currentPage]="currentPage"
-  (pageChanged)="changePage($event)">
+  (perPage)="changePer($event)"
+  (pageChanged)="changePage($event)"
+  >
 </app-pagination>
 
 </div>

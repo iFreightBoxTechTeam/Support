@@ -379,6 +379,10 @@ onIssueAdded(issue: Issue) {
     this.confirm_delete = true;
     this.id_to_delete = id;
   }
+        changePer(event:any){
+  console.log(event);
+  this.itemsPerPage=event;
+}
 
 }
 

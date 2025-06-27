@@ -251,6 +251,10 @@ export class UserComponent implements OnInit , DoCheck {
       this.currentPage = 1;
       this.users = this.filteredUsers;
     } 
+    changePer(event:any){
+  console.log(event);
+  this.itemsPerPage=event;
+}
 
 }
 

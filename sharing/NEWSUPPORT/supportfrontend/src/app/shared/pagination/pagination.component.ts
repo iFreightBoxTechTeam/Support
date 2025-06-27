@@ -8,14 +8,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PaginationComponent {
 @Input() totalPages!: number;
-  @Input() currentPage: number = 1;
+ @Input() currentPage: number = 1;
 
   @Output() pageChanged = new EventEmitter<number>();
   @Output() perPage = new EventEmitter<string>();
 itemsPerPage: any;
 Math: any;
 filteredIssues: any;
-// perPage:any;
 setPage(page:number){
   this.currentPage=page
 }
@@ -31,5 +30,7 @@ setPage(page:number){
       this.perPage.emit(event.target.value)
       this.setPage=(event.page)
   }
-        
+        get pages(): number[] {
+  return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+}
 }
