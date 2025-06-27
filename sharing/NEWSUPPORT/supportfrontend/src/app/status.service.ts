@@ -35,4 +35,8 @@ export class StatusService {
     return this.http.get<Status>(`${this.apiUrl}/${id}`);
   }
 
+  deleteStatus(statusId: string): Observable<void> {
+    return this.http.delete<void>(`https://localhost:44321/api/status/${statusId}`);
+  }
+
 }

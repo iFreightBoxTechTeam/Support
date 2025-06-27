@@ -1,0 +1,19 @@
+<p>delete works!</p>
+<div class="custom-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Confirm Deletion</h2>
+        <span class="close-btn" (click)="removeModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="warning-icon">⚠️</div>
+        <p>Are you sure you want to delete this item?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn cancel-btn" (click)="removeModal()">Cancel</button>
+        <button class="btn delete-btn" (click)="deleteUser()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
