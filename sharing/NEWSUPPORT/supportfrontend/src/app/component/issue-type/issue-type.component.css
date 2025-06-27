@@ -7,6 +7,17 @@
   font-family: Arial, sans-serif;
   box-sizing: border-box;
 }
+/* Default gray background for every odd row (1st, 3rd, etc.) */
+.table tbody tr:nth-child(odd) {
+  background-color: #858383; /* Light gray */
+  cursor: default;
+}
+
+/* Hover effect only on every even row (2nd, 4th, etc.) */
+.table tbody tr:nth-child(even):hover {
+  background-color: #8c8a8a;
+  cursor: pointer;
+}
 
 /* Header with title */
 .issue-type-header {
