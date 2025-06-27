@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-delete-issue-type',
+  selector: 'delete-issue-type',
   templateUrl: './delete-issue-type.component.html',
   styleUrls: ['./delete-issue-type.component.css']
 })
@@ -11,7 +11,7 @@ export class DeleteIssueTypeComponent {
   removeModal(){
     this.remove_modal.emit();
   }
-  deleteUser(){
+  deleteIssueType(){
     this.delete_user.emit();
   }
 }

@@ -347,20 +347,30 @@ onIssueAdded(issue: Issue) {
 }
 
 
-undo_delete(){
+  undo_delete(){
     this.confirm_delete = false;
 
   }
 
-  user_deleted(){
-    this.confirm_delete=false;
-    this.issueService.getIssueById(this.id_to_delete).subscribe(() => {
-        this.loadIssueTypes();
-      });
-    
-  }
+ issue_type_deleted() {
+  this.confirm_delete = false;
 
-  deleteUser(id: number): void {
+  this.issueService.deleteIssue(this.id_to_delete).subscribe({
+    next: () => {
+      this.issueTypes = this.issueTypes.filter(issue => issue.issuesid !== this.id_to_delete);
+      if (this.currentPage > this.totalPages) {
+        this.currentPage = this.totalPages || 1;
+      }
+    },
+    error: (err) => {
+      console.error('Error deleting issue:', err);
+      alert('Failed to delete issue.');
+    }
+  });
+}
+
+
+  deleteIssueType(id: number): void {
     // if (confirm('Are you sure you want to delete this user?')) {
     //   this.userService.deleteUser(id).subscribe(() => {
     //     this.fetchUsers()
