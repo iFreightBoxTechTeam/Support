@@ -188,6 +188,9 @@ import { Issue, IssueTypeService } from 'src/app/issue-type.service';
 })
 export class IssueTypeComponent implements OnInit {
   isEditModalVisible = false;
+  
+  showDeleteModal: boolean = false;
+  issueToDelete: Issue | null = null;
 
   editIssueData: Issue = { issuesid: 0, Issue_Type: '' };
 
