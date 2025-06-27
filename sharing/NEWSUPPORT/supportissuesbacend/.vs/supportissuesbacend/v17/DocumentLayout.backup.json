@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Vijaya\\support\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|c:\\vijaya\\support\\support\\sharing\\newsupport\\supportissuesbacend\\controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|c:\\vijaya\\support\\support\\sharing\\newsupport\\supportissuesbacend\\controllers\\valuescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:controllers\\valuescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|C:\\Vijaya\\support\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|c:\\vijaya\\support\\support\\sharing\\newsupport\\supportissuesbacend\\controllers\\issuetypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:controllers\\issuetypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|C:\\Vijaya\\support\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\issuestablede.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:Controllers\\issuestablede.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|C:\\Vijaya\\support\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:Web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,19 +31,45 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "statuscontroller.cs",
-              "DocumentMoniker": "C:\\Vijaya\\support\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\statuscontroller.cs",
-              "RelativeDocumentMoniker": "Controllers\\statuscontroller.cs",
-              "ToolTip": "C:\\Vijaya\\support\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\statuscontroller.cs",
-              "RelativeToolTip": "Controllers\\statuscontroller.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABkAAAAXAAAAAAAAAA==",
+              "Title": "ValuesController.cs",
+              "DocumentMoniker": "C:\\Vijaya\\support\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\ValuesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ValuesController.cs",
+              "ToolTip": "C:\\Vijaya\\support\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\ValuesController.cs",
+              "RelativeToolTip": "Controllers\\ValuesController.cs",
+              "ViewState": "AgIAAE8BAAAAAAAAAAAcwHsBAABUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-25T08:59:49.737Z",
+              "WhenOpened": "2025-06-27T06:45:15.774Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "IssueTypeController.cs",
+              "DocumentMoniker": "C:\\Vijaya\\support\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\IssueTypeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\IssueTypeController.cs",
+              "ToolTip": "C:\\Vijaya\\support\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\IssueTypeController.cs",
+              "RelativeToolTip": "Controllers\\IssueTypeController.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAmwGUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:35:52.644Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "issuestablede.cs",
+              "DocumentMoniker": "C:\\Vijaya\\support\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\issuestablede.cs",
+              "RelativeDocumentMoniker": "Controllers\\issuestablede.cs",
+              "ToolTip": "C:\\Vijaya\\support\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\issuestablede.cs",
+              "RelativeToolTip": "Controllers\\issuestablede.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:35:45.067Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Web.config",
               "DocumentMoniker": "C:\\Vijaya\\support\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Web.config",
               "RelativeDocumentMoniker": "Web.config",
