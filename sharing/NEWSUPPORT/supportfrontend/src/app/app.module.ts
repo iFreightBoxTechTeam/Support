@@ -27,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { DeleteComponent } from './component/users/delete/delete.component';
 import { DeleteIssueTypeComponent } from './component/issue-type/delete/delete-issue-type/delete-issue-type.component';
+import { DeleteStatusComponent } from './component/status/delete-status/delete-status/delete-status.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { DeleteIssueTypeComponent } from './component/issue-type/delete/delete-i
     AddIssueComponent,
     PagenotfoundComponent,
     DeleteComponent,
-    DeleteIssueTypeComponent
+    DeleteIssueTypeComponent,
+    DeleteStatusComponent
     
       
   ],
