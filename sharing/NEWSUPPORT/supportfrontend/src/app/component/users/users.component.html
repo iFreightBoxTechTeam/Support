@@ -144,6 +144,7 @@
   (openAddModal)="openAddUserModal()"
   (searchChange)="onSearchChange($event)"
 ></app-nav-main>
+<app-delete *ngIf="confirm_delete" (remove_modal)="undo_delete()" (delete_user)="user_deleted()"></app-delete>
 <!-- <app-nav-main></app-nav-main> -->
 <div class="user-card">
   <div class="user-task">
@@ -233,6 +234,7 @@
         </tr>
       </tbody>
     </table>
+    
   </div>
 </div>
 
