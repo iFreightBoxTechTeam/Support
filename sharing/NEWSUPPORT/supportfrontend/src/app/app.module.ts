@@ -25,6 +25,7 @@ import { AddStatusComponent } from './component/status/add-status/add-status.com
 import { AddIssueComponent } from './component/issue-type/add-issue/add-issue.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     AddStatusComponent,
     AddIssueComponent,
     PagenotfoundComponent,
+    PaginationComponent,
     
       
   ],

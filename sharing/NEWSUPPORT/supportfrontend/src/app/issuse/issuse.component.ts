@@ -15,7 +15,7 @@ export class IssuseComponent implements OnInit {
   searchTerm: string = '';
 
   currentPage = 1;
-  itemsPerPage = 10;
+  itemsPerPage = 5;
 
   @ViewChild(ViewComponent) viewComponent!: ViewComponent;
   @ViewChild(IssueComponent) issueComponent!: IssueComponent;
@@ -26,18 +26,16 @@ export class IssuseComponent implements OnInit {
     this.loadIssues();
   }
 
-  loadIssues() {
-    this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
-      if (Array.isArray(data)) {
-        this.issues = data;
-        this.filteredIssues = data;
-      } else {
-        console.error("Error: API did not return an array", data);
-      }
-    });
-
-    // Optional: second redundant call removed to avoid duplication
-  }
+ loadIssues() {
+  this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
+    if (Array.isArray(data)) {
+      this.issues = data;
+      this.filteredIssues = data;
+    } else {
+      console.error("API did not return an array:", data);
+    }
+  });
+}
 
   onSearch(term: string) {
     this.searchTerm = term;
@@ -115,4 +113,11 @@ export class IssuseComponent implements OnInit {
 
   console.log("Issue updated in parent list:", updatedIssue);
 }
+
+onPageChange(page: number) {
+  this.currentPage = page;
+  this.loadIssues();
+}
+
+
 }
