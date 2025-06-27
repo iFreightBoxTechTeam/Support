@@ -1,43 +1,30 @@
-/* Main container styling */
+/* Issue-Type */
 .issue-type {
   width: 100%;
-  margin: 2px auto;
-  padding: 5px;
+  margin: 20px auto;
+  padding: 20px;
   background-color: #fdfdfd;
   font-family: Arial, sans-serif;
   box-sizing: border-box;
 }
-/* Default gray background for every odd row (1st, 3rd, etc.) */
-.table tbody tr:nth-child(odd) {
-  background-color: #858383; /* Light gray */
-  cursor: default;
-}
 
-/* Hover effect only on every even row (2nd, 4th, etc.) */
-.table tbody tr:nth-child(even):hover {
-  background-color: #8c8a8a;
-  cursor: pointer;
-}
-
-/* Header with title */
 .issue-type-header {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  gap: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
 }
 
 .issue-type-header h2 {
   flex: 1 1 100%;
-  margin: 0 0 10px 0;
-  font-size: 1.6rem;
-  font-weight: bold;
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
   color: #343a40;
 }
 
-/* Table container */
+/* Table */
 .issue-table {
   width: 100%;
   overflow-x: auto;
@@ -45,91 +32,140 @@
   box-sizing: border-box;
 }
 
-/* Table styling */
 .issue-table table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 12px;
   table-layout: fixed;
+  font-size: 0.95rem;
+  background: transparent;
 }
 
-.issue-table thead {
+.issue-table thead th {
   background-color: rgb(119, 123, 200);
   color: white;
+  text-align: center;
+  font-weight: 600;
+  padding: 10px 8px;
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  white-space: nowrap;
 }
 
-.issue-table th {
-  width: 33.33%;
-  padding: 10px;
-  text-align: center;
+.issue-table tbody tr {
+  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
-.issue-table td {
-  width: 33.33%;
-  padding: 8px 0;
-  border-bottom: 1px solid #ddd;
-  text-align: center;
+.issue-table tbody tr:nth-child(odd) {
+  background-color: #f1f1f1;
 }
 
 .issue-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #ffffff;
 }
 
 .issue-table tbody tr:hover {
   background-color: #f1f1f1;
 }
 
-/* Buttons inside table */
+.issue-table td {
+  padding: 10px 8px;
+  text-align: center;
+  vertical-align: middle;
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  background-color: inherit;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
 .edit-btn,
 .delete-btn {
-  background-color: transparent;
+  width: 32px;
+  height: 32px;
+  padding: 0;
   border: none;
+  background: none;
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  margin: 0 5px;
-  font-size: 16px;
-  color: #555;
-  transition: color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  line-height: 1;
+  box-sizing: border-box;
 }
 
-.edit-btn:hover {
-  color: #1a2a6c; /* Dark blue */
+.edit-btn svg,
+.delete-btn svg {
+  stroke: #6c757d;
+  width: 18px;
+  height: 18px;
+  transition: stroke 0.2s ease;
 }
 
+.edit-btn:hover svg {
+  stroke: #198754;
+}
+
+.delete-btn:hover svg {
+  stroke: #dc3545;
+}
+
+.edit-btn:hover,
 .delete-btn:hover {
-  color: #d9534f; /* Bootstrap red */
+  background-color: rgba(13, 110, 253, 0.1);
+  transform: scale(1.08);
 }
 
-/* Pagination */
+/* Pagination styles */
 .pagination-nav {
+  margin-top: 1.5rem;
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
-  gap: 5px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .pagination-nav button {
-  margin: 0 5px;
   padding: 6px 12px;
-  border: 1px solid #ccc;
-  background-color: white;
+  border-radius: 0;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  color: #343a40;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  border-radius: 4px;
-  font-weight: 600;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: all 0.3s ease;
+  min-width: 40px;
+  text-align: center;
+  box-shadow: none;
 }
 
-.pagination-nav button:hover:not(:disabled) {
-  background-color: #e7e7e7;
+.pagination-nav button.active {
+  background-color: #3f51b5;
+  color: #fff;
+  font-weight: 600;
+  border-color: #3f51b5;
+}
+
+.pagination-nav button:hover:not(.active):not(:disabled) {
+  background-color: #e0e0ff;
+  color: #3f51b5;
+  border-color: #3f51b5;
 }
 
 .pagination-nav button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
-}
-
-.pagination-nav button.active {
-  background-color: #007bff;
-  color: white;
-  border-color: #007bff;
 }
 
 /* Responsive adjustments */
@@ -138,19 +174,13 @@
     font-size: 1.3rem;
   }
 
-  /* You can add input and button responsiveness here if needed */
-
-  .issue-table {
-    padding: 0;
-  }
-
   .issue-table th,
   .issue-table td {
     padding: 6px 4px;
   }
 }
 
-/* Optional: add some padding on larger screens */
+/* Optional padding for medium/large screens */
 @media (min-width: 768px) {
   .issue-type {
     padding: 25px 80px;

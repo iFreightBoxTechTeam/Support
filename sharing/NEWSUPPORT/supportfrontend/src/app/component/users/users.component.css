@@ -1,4 +1,4 @@
-/* USER */
+/* User */
 .user-card {
   margin: 20px;
 }
@@ -18,7 +18,7 @@
   color: #343a40;
 }
 
-/* TABLE */
+/* Table */
 .table {
   width: 100%;
   border-collapse: separate;
@@ -46,7 +46,7 @@
   cursor: pointer;
 }
 
-/* STRIPING */
+/* Striping */
 .table tbody tr:nth-child(odd) {
   background-color: #f1f1f1;
 }
