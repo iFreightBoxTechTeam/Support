@@ -155,11 +155,14 @@ export class UserComponent implements OnInit , DoCheck {
   pageSize: number = 5;
   // totalPages: number = 1;
   searchQuery:string = '';
+  confirm_delete:boolean = false;
+  id_to_delete:any; ;
 
 
   @ViewChild('addUserComponent') addUserComponent!: AddUserComponent;
 
   constructor(private userService: UserService) {}
+
 
 
   ngOnInit(): void {
@@ -174,13 +177,15 @@ export class UserComponent implements OnInit , DoCheck {
   loaduser() {}
 
   fetchUsers(): void {
-    this.userService.getUsers().subscribe((data) => {
+ this.userService.getUsers().subscribe((data) => {
       this.users = data;
       this.users_permanent = data;
       // this.calculatePagination();
       console.log(data);
       
+      
     });
+   
     
   }
 
@@ -225,13 +230,29 @@ export class UserComponent implements OnInit , DoCheck {
     this.addUserComponent.editExistingUser(user);
   }
 
+  undo_delete(){
+    this.confirm_delete = false;
+  }
+
+  user_deleted(){
+    this.confirm_delete = false;
+    this.userService.deleteUser(this.id_to_delete).subscribe(() => {
+        this.fetchUsers();
+        console.log("the data is deleted!")
+      });
+  }
 
   deleteUser(id: number): void {
-    if (confirm('Are you sure you want to delete this user?')) {
-      this.userService.deleteUser(id).subscribe(() => {
-        this.fetchUsers();
-      });
-    }
+    this.confirm_delete = true;
+    this.id_to_delete = id;
+    // console.log("before confirmation!")
+    // if (confirm('Are you sure you want to delete this user?')) {
+    //   console.log("after confirmation!")
+    //   this.userService.deleteUser(id).subscribe(() => {
+    //     this.fetchUsers();
+    //     console.log("the data is deleted!")
+    //   });
+    // }
   }
 
   
