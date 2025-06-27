@@ -245,6 +245,7 @@ export class UserComponent implements OnInit , DoCheck {
   deleteUser(id: number): void {
     this.confirm_delete = true;
     this.id_to_delete = id;
+    // hello
     // console.log("before confirmation!")
     // if (confirm('Are you sure you want to delete this user?')) {
     //   console.log("after confirmation!")
