@@ -155,6 +155,8 @@ export class UserComponent implements OnInit , DoCheck {
   pageSize: number = 5;
   // totalPages: number = 1;
   searchQuery:string = '';
+  confirm_delete:boolean = false;
+  id_to_delete:any;
 
 
   @ViewChild('addUserComponent') addUserComponent!: AddUserComponent;
@@ -226,14 +228,30 @@ export class UserComponent implements OnInit , DoCheck {
     this.addUserComponent.editExistingUser(user);
   }
 
+  undo_delete(){
+    this.confirm_delete = false;
 
-  deleteUser(id: number): void {
-    if (confirm('Are you sure you want to delete this user?')) {
-      this.userService.deleteUser(id).subscribe(() => {
-        this.fetchUsers()
-      });
-    }
   }
+
+  user_deleted(){
+    this.confirm_delete=false;
+    this.userService.deleteUser(this.id_to_delete).subscribe(() => {
+        this.fetchUsers();
+      });
+    
+  }
+  deleteUser(id: number): void {
+    // if (confirm('Are you sure you want to delete this user?')) {
+    //   this.userService.deleteUser(id).subscribe(() => {
+    //     this.fetchUsers()
+    //   });
+    // }
+    this.confirm_delete = true;
+    this.id_to_delete = id;
+  }
+
+
+
 
   
   onSearchChange(searchValue: string): void {

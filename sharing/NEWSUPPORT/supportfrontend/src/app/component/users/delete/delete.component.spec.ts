@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IssueTypeComponent } from './issue-type.component';
+import { DeleteComponent } from './delete.component';
 
-describe('IssueTypeComponent', () => {
-  let component: IssueTypeComponent;
-  let fixture: ComponentFixture<IssueTypeComponent>;
+describe('DeleteComponent', () => {
+  let component: DeleteComponent;
+  let fixture: ComponentFixture<DeleteComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [IssueTypeComponent]
+      declarations: [DeleteComponent]
     });
-    fixture = TestBed.createComponent(IssueTypeComponent);
+    fixture = TestBed.createComponent(DeleteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
