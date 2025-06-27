@@ -156,7 +156,7 @@ export class UserComponent implements OnInit , DoCheck {
   // totalPages: number = 1;
   searchQuery:string = '';
   confirm_delete:boolean = false;
-  id_to_delete:any; ;
+  id_to_delete:any; 
 
 
   @ViewChild('addUserComponent') addUserComponent!: AddUserComponent;
