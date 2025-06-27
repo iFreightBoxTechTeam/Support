@@ -23,7 +23,7 @@
   margin: 0 0 10px 0;
   font-size: 1.6rem;
   font-weight: bold;
-  color: #1a2a6c;
+  color: #343a40;
 }
 
 /* Table container */
@@ -42,7 +42,7 @@
 }
 
 .issue-table thead {
-  background-color: #1a2a6c;
+  background-color: rgb(119, 123, 200);
   color: white;
 }
 
