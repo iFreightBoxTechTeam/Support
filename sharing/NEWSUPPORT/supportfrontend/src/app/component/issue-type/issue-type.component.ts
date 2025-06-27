@@ -202,6 +202,9 @@ export class IssueTypeComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
+  confirm_delete:boolean = false;
+  id_to_delete:any;
+
   constructor(private issueService: IssueTypeService) {}
 
 
@@ -342,6 +345,31 @@ onIssueAdded(issue: Issue) {
   editIssue(issue: Issue): void {
   this.addIssue.openModal(issue); // Pass the issue to modal for editing
 }
+
+
+undo_delete(){
+    this.confirm_delete = false;
+
+  }
+
+  user_deleted(){
+    this.confirm_delete=false;
+    this.issueService.getIssueById(this.id_to_delete).subscribe(() => {
+        this.loadIssueTypes();
+      });
+    
+  }
+
+  deleteUser(id: number): void {
+    // if (confirm('Are you sure you want to delete this user?')) {
+    //   this.userService.deleteUser(id).subscribe(() => {
+    //     this.fetchUsers()
+    //   });
+    // }
+    this.confirm_delete = true;
+    this.id_to_delete = id;
+  }
+
 }
 
   // editIssue(issue: Issue): void {
@@ -363,3 +391,5 @@ onIssueAdded(issue: Issue) {
     
   //   }
   // }
+
+
