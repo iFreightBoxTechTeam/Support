@@ -25,8 +25,9 @@ import { AddStatusComponent } from './component/status/add-status/add-status.com
 import { AddIssueComponent } from './component/issue-type/add-issue/add-issue.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
-import { SharedModule } from './shared/shared.module';
-
+import { DeleteComponent } from './component/users/delete/delete.component';
+import { DeleteIssueTypeComponent } from './component/issue-type/delete/delete-issue-type/delete-issue-type.component';
+import { DeleteStatusComponent } from './component/status/delete-status/delete-status/delete-status.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,9 @@ import { SharedModule } from './shared/shared.module';
     AddStatusComponent,
     AddIssueComponent,
     PagenotfoundComponent,
+    DeleteComponent,
+    DeleteIssueTypeComponent,
+    DeleteStatusComponent
     
       
   ],

@@ -40,10 +40,6 @@ export class StatusComponent implements OnInit {
       data => {
         console.log('API Response:', data);
         if (data) {
-          // Sort by created date (most recent at bottom)
-            // this.statusTypes = data.sort((a, b) =>
-            //   new Date(a.CreatedAt).getTime() - new Date(b.CreatedAt).getTime()
-            // );
            this.statusTypes = data.sort((a, b) =>
               a.StatusName.localeCompare(b.StatusName)
             );
@@ -93,24 +89,6 @@ export class StatusComponent implements OnInit {
       alert('Please enter a Status type.');
     }
   }
-  
-  // onStatusAdded(status: Status) {
-  //   if (!status.StatusName.trim()) {
-  //     console.warn('Empty status name, not saving.');
-  //     return;
-  //   }
-
-  //   this.statusService.statusAdded(status).subscribe({
-  //     next: (savedStatus) => {
-  //       this.statusTypes.push(savedStatus);
-  //       this.currentPage = this.totalPages;
-  //       console.log('Status saved and added:', savedStatus);
-  //     },
-  //     error: (err) => {
-  //       console.error('Error saving status:', err);
-  //     }
-  //   });
-  // }
 
   onStatusAdded(status: Status) {
     this.statusService.statusAdded(status).subscribe({
@@ -136,19 +114,19 @@ export class StatusComponent implements OnInit {
     );
   }
 
-  deleteStatus(StatusId: string) {
-    if (!confirm('Are you sure you want to delete this status?')) return;
+  // deleteStatus(StatusId: string) {
+  //   if (!confirm('Are you sure you want to delete this status?')) return;
 
-    this.http.delete(`https://localhost:44321/api/status/${StatusId}`).subscribe({
-      next: () => {
-        this.statusTypes = this.statusTypes.filter(s => s.StatusId !== StatusId);
-        console.log('Deleted successfully');
-      },
-      error: (error) => {
-        console.error('Failed to delete:', error);
-      }
-    });
-  }
+  //   this.http.delete(`https://localhost:44321/api/status/${StatusId}`).subscribe({
+  //     next: () => {
+  //       this.statusTypes = this.statusTypes.filter(s => s.StatusId !== StatusId);
+  //       console.log('Deleted successfully');
+  //     },
+  //     error: (error) => {
+  //       console.error('Failed to delete:', error);
+  //     }
+  //   });
+  // }
 
   updateStatus(statusId: string, status: Status) {
     console.log('Sending status update:', status);
@@ -174,6 +152,38 @@ export class StatusComponent implements OnInit {
   editStatus(status: Status) {
     this.statusService.getStatusById(status.StatusId).subscribe(fetched => {
       this.addStatus.openModal(fetched); // Open modal with up-to-date data
+    });
+  }
+
+  showDeleteModal = false;
+  statusToDelete: Status | null = null;
+
+  openDeleteConfirmation(status: Status): void {
+    this.statusToDelete = status;
+    this.showDeleteModal = true;
+  }
+
+  undoDelete(): void {
+    this.showDeleteModal = false;
+    this.statusToDelete = null;
+  }
+
+  confirmDeleteStatus(): void {
+    if (!this.statusToDelete) return;
+
+    this.statusService.deleteStatus(this.statusToDelete.StatusId).subscribe({
+      next: () => {
+        this.statusTypes = this.statusTypes.filter(
+          s => s.StatusId !== this.statusToDelete?.StatusId
+        );
+        console.log('Deleted successfully');
+        this.undoDelete(); // Hide modal
+      },
+      error: (error) => {
+        console.error('Failed to delete:', error);
+        alert('Delete failed.');
+        this.undoDelete(); // Hide modal even on failure
+      }
     });
   }
 

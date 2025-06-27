@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Controllers"
   ],
-  "SelectedNode": "\\Web.config",
+  "SelectedNode": "\\Controllers\\IssueTypeController.cs",
   "PreviewInSolutionExplorer": false
 }

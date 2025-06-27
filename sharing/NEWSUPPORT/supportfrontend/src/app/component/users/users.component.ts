@@ -225,23 +225,33 @@ export class UserComponent implements OnInit , DoCheck {
   editUser(user: User): void {
     this.addUserComponent.editExistingUser(user);
   }
-
-
-  deleteUser(id: number): void {
-    if (confirm('Are you sure you want to delete this user?')) {
-      this.userService.deleteUser(id).subscribe(() => {
-        this.fetchUsers()
-      });
-    }
-  }
-
   
-  onSearchChange(searchValue: string): void {
-    // Optional search handling logic here
-    this.searchQuery = searchValue;
-    this.currentPage = 1;
-    this.users = this.filteredUsers;
-  }
+  confirm_delete:boolean = false;
+  id_to_delete:any;
+
+    undo_delete(){
+      this.confirm_delete = false;
+    }
+
+    user_deleted(){
+      this.confirm_delete=false;
+      this.userService.deleteUser(this.id_to_delete).subscribe(() => {
+          this.fetchUsers();
+        });
+    }
+
+    deleteUser(id: number): void {
+      this.confirm_delete = true;
+      this.id_to_delete = id;
+    }
+
+    onSearchChange(searchValue: string): void {
+      // Optional search handling logic here
+      this.searchQuery = searchValue;
+      this.currentPage = 1;
+      this.users = this.filteredUsers;
+    } 
+
 }
 
 

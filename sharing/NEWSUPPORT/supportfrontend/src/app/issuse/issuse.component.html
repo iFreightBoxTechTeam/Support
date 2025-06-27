@@ -22,6 +22,7 @@
           <th>Tenant Code</th>
           <th>Raised Date</th>
           <th>Status</th>
+          <TH>TAKEN TIME </TH>
           <th>Assig To</th>
           <th>Action</th>
         </tr>
@@ -33,6 +34,7 @@
   <td>{{ issue.TenantCode }}</td>
   <td>{{ issue.LogTime | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
   <td>{{ issue.StatusName }}</td>
+  <TD>{{issue.TakenTime  }}</TD>
   <td>{{ issue.AssignTo }}</td>
 
           <td> 

@@ -188,6 +188,9 @@ import { Issue, IssueTypeService } from 'src/app/issue-type.service';
 })
 export class IssueTypeComponent implements OnInit {
   isEditModalVisible = false;
+  
+  showDeleteModal: boolean = false;
+  issueToDelete: Issue | null = null;
 
   editIssueData: Issue = { issuesid: 0, Issue_Type: '' };
 
@@ -198,6 +201,9 @@ export class IssueTypeComponent implements OnInit {
   searchTerm: string = '';
   currentPage: number = 1;
   itemsPerPage: number = 5;
+
+  confirm_delete:boolean = false;
+  id_to_delete:any;
 
   constructor(private issueService: IssueTypeService) {}
 
@@ -339,6 +345,41 @@ onIssueAdded(issue: Issue) {
   editIssue(issue: Issue): void {
   this.addIssue.openModal(issue); // Pass the issue to modal for editing
 }
+
+
+  undo_delete(){
+    this.confirm_delete = false;
+
+  }
+
+ issue_type_deleted() {
+  this.confirm_delete = false;
+
+  this.issueService.deleteIssue(this.id_to_delete).subscribe({
+    next: () => {
+      this.issueTypes = this.issueTypes.filter(issue => issue.issuesid !== this.id_to_delete);
+      if (this.currentPage > this.totalPages) {
+        this.currentPage = this.totalPages || 1;
+      }
+    },
+    error: (err) => {
+      console.error('Error deleting issue:', err);
+      alert('Failed to delete issue.');
+    }
+  });
+}
+
+
+  deleteIssueType(id: number): void {
+    // if (confirm('Are you sure you want to delete this user?')) {
+    //   this.userService.deleteUser(id).subscribe(() => {
+    //     this.fetchUsers()
+    //   });
+    // }
+    this.confirm_delete = true;
+    this.id_to_delete = id;
+  }
+
 }
 
   // editIssue(issue: Issue): void {
@@ -360,3 +401,5 @@ onIssueAdded(issue: Issue) {
     
   //   }
   // }
+
+
