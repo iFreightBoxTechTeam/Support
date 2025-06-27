@@ -1,4 +1,5 @@
-.issues_card{
+/* Issues Card */
+.issues_card {
   margin: 20px;
 }
 
@@ -8,7 +9,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.5rem;
 }
 
 .search-wrapper h1 {
@@ -22,7 +23,36 @@
   position: relative;
   width: 20%;
   min-width: 180px;
+  margin-top: -8px; /* 🟢 Move input upward */
 }
+
+/* Search Input */
+.search-input {
+  padding-left: 3px;
+  width: 100%;
+  height: 38px;
+  font-size: 14px;
+  border-radius: 12px;
+  border: 1px solid #ced4da;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #495057;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #3f51b5;
+  box-shadow: 0 0 6px rgba(63, 81, 181, 0.3);
+  outline: none;
+}
+
+.search-input:focus ~ .search-icon,
+.search-input:not(:placeholder-shown) ~ .search-icon {
+  opacity: 0;
+}
+
+/* Modal Overlay */
 .custom-modal-overlay {
   position: fixed;
   top: 0;
@@ -36,6 +66,7 @@
   z-index: 1050;
 }
 
+/* Modal Box */
 .custom-modal {
   background: white;
   width: 90%;
@@ -53,48 +84,6 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
-}
-
-
-/* Search Input */
-.search-input {
-  padding-left: 3px;
-  width: 100%;
-  height: 38px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: 1px solid #ced4da;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #495057;
-  background-color: #fff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  border-radius: 12px;
-}
-
-.search-input:focus {
-  border-color: #3f51b5;
-  box-shadow: 0 0 6px rgba(63, 81, 181, 0.3);
-  outline: none;
-}
-
-/* Search Icon */
-/* .search-icon {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #999;
-  font-size: 16px;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  border-radius: 20px;
-} */
-
-/* Hide search icon when input is focused or not empty */
-.search-input:focus ~ .search-icon,
-.search-input:not(:placeholder-shown) ~ .search-icon {
-  opacity: 0;
 }
 
 /* Table Styling */
@@ -115,10 +104,9 @@
   background-color: rgb(119, 123, 200);
 }
 
-/* Center table body cell contents */
 .table tbody td {
   text-align: center;
-  vertical-align: middle; /* vertically centers content in cell */
+  vertical-align: middle;
 }
 
 .table tbody tr {
@@ -131,7 +119,7 @@
   background-color: #f1f1f1;
 }
 
-/* Buttons in btn-group */
+/* Button Group */
 .btn-group .btn {
   padding: 4px 8px;
   min-width: 36px;
@@ -140,19 +128,17 @@
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  font-size: 0.875rem; /* changed to rem for better scalability */
+  font-size: 0.875rem;
   cursor: pointer;
-  border: none; /* Add if you want cleaner buttons, or style as needed */
+  border: none;
 }
 
-/* SVG icon inside buttons */
 .btn-group .btn svg {
   width: 18px;
   height: 18px;
-  /* stroke-width: 1.5;  Optional: Adjust if SVGs need consistent stroke */
 }
 
-/* Modal sizing */
+/* Modal Sizing */
 .custom-modal .modal-dialog {
   max-width: 450px;
   margin: 1.75rem auto;
@@ -163,7 +149,7 @@
   padding: 10px;
 }
 
-/* Pagination Styling */
+/* Pagination */
 .pagination-nav {
   margin-top: 1.5rem;
   display: flex;
@@ -213,4 +199,3 @@
   color: #3f51b5;
   border-color: #3f51b5;
 }
-

@@ -9,6 +9,7 @@ export interface User {
   Mobile_number: string;
   Email: string;
   Addresh: string;
+  
 }
 
 @Injectable({
@@ -24,8 +25,8 @@ export class UserService {
   }
 
 
-addUser(user: Omit<User, 'issuesid'>): Observable<User> {
-  return this.http.post<User>(this.apiUrl, user);
+addUser(val:any): Observable<any> {
+  return this.http.post<User>(this.apiUrl, val);
 }
 
 updateUser(user: User): Observable<User> {

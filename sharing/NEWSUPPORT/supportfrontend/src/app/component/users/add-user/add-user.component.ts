@@ -8,7 +8,7 @@ import { User, UserService } from 'src/app/user.service';
 })
 export class AddUserComponent {
 [x: string]: any;
-  @Output() userAdded = new EventEmitter<User>();
+  @Output() userAdded = new EventEmitter<any>();
   @Output() userUpdated = new EventEmitter<User>();
 
   isEditMode: boolean = false;
@@ -54,16 +54,38 @@ export class AddUserComponent {
     this.showModal = true;
   }
 
-  addUser(): void {
-    console.log('Payload to send:', this.newUser);
+  onAddUser(){
+    this.newUser = {
 
+    name: '',
+    mobile: '',
+    email: '',
+   
+    addresh: '',
+    issuesid: 0,
+  };
+    this.showModal = true
+  }
+
+
+
+  addUser(): void {
+    // console.log('Payload to send:', this.newUser);
+    this.closeModal();
     const payload = {
       Name: this.newUser.name,
       Mobile_number: this.newUser.mobile,
       Email: this.newUser.email,
       Addresh: this.newUser.addresh,
     };
-
+//     const payload = {
+//   "Name": "Pratish",
+//   "Email": "pra@gmail.com",
+//   "Addresh": "Delhi",
+//   "Mobile_number": "9876543210"
+// }
+    // const jsonString = JSON.stringify(payload);
+    console.log(payload);
     if (this.isEditMode) {
       const updatePayload: User = {
         issuesid: this.newUser.issuesid,
@@ -78,6 +100,7 @@ export class AddUserComponent {
 
       this.userService.addUser(payload).subscribe((createdUser) => {
         this.userAdded.emit(createdUser);
+        console.log("hi");
         this.closeModal();
       });
     }

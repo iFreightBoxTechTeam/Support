@@ -12,7 +12,7 @@
 </button>
 
 <div class="issue-container">
-  <!-- Header -->
+
   <div class="header">
     <h2>Issue</h2>
     <div class="issue-meta">
@@ -31,8 +31,8 @@
       <div class="form-group">
         <label>Assign To:</label>
         <select [(ngModel)]="assignTo">
-          <option>{{issue.assignTo}}</option>
-          <option value="">-- Select --</option>
+          <option  value="">{{issue.AssignTo}}</option>
+        
           <option *ngFor="let user of users" [value]="user">
             {{ user }}
           </option>
@@ -51,7 +51,7 @@
 </div>
 
 
-    <!-- Right: Image Upload and Preview -->
+
     <div class="right-pane">
       <div class="form-group">
         <label>Upload Images:</label>
@@ -69,7 +69,7 @@
     </div>
   </div>
 
-  <!-- Image Modal -->
+
   <div class="modal-overlay" *ngIf="selectedImageUrl" (click)="closeImageModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <img [src]="selectedImageUrl" alt="Full Image" />
@@ -83,33 +83,3 @@
       </div>
 </div>
 
-<!-- <div 
-  class="modal" 
-  *ngIf="showIssueModal" id="IssueComponent"
-  style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;"
->
-  <div 
-    class="modal-content" 
-    style="background: white; padding: 20px; width: 600px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);"
-  >
-    <span class="close-button" (click)="closeIssueModal()" style="float: right; font-size: 24px; cursor: pointer;">&times;</span>
-    <h3>Issue History  hiii vijaya</h3>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Status</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let entry of history">
-  <td>{{ entry.LogTime | date:'short' }}</td>
-  <td>{{ entry.StatusName }}</td>
-  <td>{{ entry.Name }}</td>
-</tr>
-      </tbody>
-    </table>
-  </div>
-</div> -->

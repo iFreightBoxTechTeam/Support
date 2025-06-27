@@ -305,7 +305,7 @@ namespace WebApplication2.Controllers
         [Route("api/values/users")]
         public IHttpActionResult RegisterUser([FromBody] User user)
         {
-            if (user == null || string.IsNullOrWhiteSpace(user.Name) || string.IsNullOrWhiteSpace(user.Email) || string.IsNullOrWhiteSpace(user.PasswordHash))
+            if (user == null || string.IsNullOrWhiteSpace(user.Name) || string.IsNullOrWhiteSpace(user.Email) )
             {
                 return BadRequest("Invalissues_id user data provissues_ided.");
             }
@@ -320,7 +320,7 @@ namespace WebApplication2.Controllers
                     cmd.Parameters.AddWithValue("@email", user.Email);
                     cmd.Parameters.AddWithValue("@addresh", user.Addresh);
                     cmd.Parameters.AddWithValue("@mobile_number", user.Mobile_number);
-                    cmd.Parameters.AddWithValue("@password_hash", user.PasswordHash); // assume already hashed
+   
 
                     con.Open();
                     cmd.ExecuteNonQuery();
@@ -660,11 +660,12 @@ namespace WebApplication2.Controllers
 
             
         }
+
         [HttpDelete]
-        [Route("api/values/users/{id}")]
-        public IHttpActionResult DeleteUser(int UserId)
+        [Route("api/values/users/{issuesid}")]
+        public IHttpActionResult DeleteUser(int issuesid)
         {
-            if (UserId <= 0)
+            if (issuesid <= 0)
                 return BadRequest("Invalid user ID.");
 
             try
@@ -674,13 +675,13 @@ namespace WebApplication2.Controllers
                     using (SqlCommand cmd = new SqlCommand("DeleteUserById", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@UserId", UserId);
+                        cmd.Parameters.AddWithValue("@issuesid", issuesid);
 
                         con.Open();
                         int rowsAffected = cmd.ExecuteNonQuery();
 
                         if (rowsAffected > 0)
-                            return Ok($"User with ID {UserId} deleted successfully.");
+                            return Ok($"User with ID {issuesid} deleted successfully.");
                         else
                             return NotFound();
                     }
@@ -691,6 +692,7 @@ namespace WebApplication2.Controllers
                 return InternalServerError(ex);
             }
         }
+
         [HttpPut]
         [Route("api/values/users/{id}")]
         public IHttpActionResult UpdateUser(int id, [FromBody] User user)

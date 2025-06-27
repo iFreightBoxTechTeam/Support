@@ -134,15 +134,18 @@ saveIssue() {
   };
 
   console.log("Sending PUT payload:", payload);
-  console.log("this.issue.StatusName = ", this.issue.StatusName);
+  
 
 
   this.http.put(`https://localhost:44321/api/values/${this.issue.UserId}`, payload)
     .subscribe(
       res => {
+        console.log("this.issue.StatusName = ", this.issue.StatusName);
         console.log("Update success", res);
         this.closeIssueModal(); 
-        this.issueService.getIssues()
+        
+        this.issue = this.issueService.getIssue()
+        
       },
       err => {
         console.error("Update error", err);

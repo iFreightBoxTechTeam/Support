@@ -183,7 +183,7 @@ import { Issue, IssueTypeService } from 'src/app/issue-type.service';
 
 @Component({
   selector: 'app-issue-type',
-  templateUrl: './issue-type.component.html',
+  templateUrl: 'issue-type.component.html',
   styleUrls: ['./issue-type.component.css']
 })
 export class IssueTypeComponent implements OnInit {
@@ -292,26 +292,39 @@ export class IssueTypeComponent implements OnInit {
     }
   }
 
-  onIssueAdded(issue: Issue): void {
-    this.issueTypes.push(issue);
-    this.currentPage = this.totalPages;
-  }
+  // onIssueAdded(issue: Issue): void {
+  //   // this.issueTypes.push(issue);
+  //   this.issueTypes = [...this.issueTypes, issue];
+  //   this.currentPage = this.totalPages;
+  // }
+onIssueAdded(issue: Issue) {
+  console.log('Received new issue:', issue);
 
+  this.issueTypes = [...this.issueTypes, issue];
+    this.loadIssueTypes(); // Important: use spread!
+}
   onIssueUpdated(updatedIssue: Issue): void {
     const index = this.issueTypes.findIndex(i => i.issuesid === updatedIssue.issuesid);
-    if (index > -1) {
+    this.loadIssueTypes();
+   if (this.currentPage > this.totalPages) {
+      this.currentPage = this.totalPages || 1;
+      
       this.issueTypes[index] = updatedIssue;
+      
+       
     }
   }
 
   deleteIssue(issue:Issue): void {
     console.log('skdvb kszjv b', issue.issuesid);
-    if (confirm('Are you sure you want to delete this issue?')) {
+    if (!confirm('Are you sure you want to delete this issues?')) return;
       this.issueService.deleteIssue(issue.issuesid).subscribe({
         next: () => {
           this.issueTypes = this.issueTypes.filter(issue => issue.issuesid !== issue.issuesid);
           if (this.currentPage > this.totalPages) {
             this.currentPage = this.totalPages || 1;
+            
+            this.loadIssueTypes();
           }
         },
         error: (err) => {
@@ -319,26 +332,31 @@ export class IssueTypeComponent implements OnInit {
           alert('Failed to delete issue.');
         }
       });
-      this.editIssueData = { ...issue };
-    }
+      
+    
   }
 
   editIssue(issue: Issue): void {
-
-    const newName = prompt('Edit issue type:', issue.Issue_Type);
-    if (newName && newName.trim()) {
-      const updatedIssue: Issue = { ...issue, Issue_Type: newName.trim() };
-      this.issueService.updateIssue(updatedIssue).subscribe({
-        next: () => {
-          issue.Issue_Type = updatedIssue.Issue_Type;
-        },
-        error: (err) => {
-          console.error('Error updating issue:', err);
-          alert('Failed to update issue.');
-        }
-      });
-        this.editIssueData = { ...issue };
-    
-    }
-  }
+  this.addIssue.openModal(issue); // Pass the issue to modal for editing
 }
+}
+
+  // editIssue(issue: Issue): void {
+ 
+
+  //   const newName =  this.addIssue.openModal(issue); ;
+  //   if (newName && newName.trim()) {
+  //     const updatedIssue: Issue = { ...issue, Issue_Type: newName.trim() };
+  //     this.issueService.updateIssue(updatedIssue).subscribe({
+  //       next: () => {
+  //         issue.Issue_Type = updatedIssue.Issue_Type;
+  //       },
+  //       error: (err) => {
+  //         console.error('Error updating issue:', err);
+  //         alert('Failed to update issue.');
+  //       }
+  //     });
+  //       this.editIssueData = { ...issue };
+    
+  //   }
+  // }
