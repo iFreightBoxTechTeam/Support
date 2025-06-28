@@ -60,11 +60,12 @@ itemsPerPage = 5;
     return this.filteredIssues.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  changePage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-    }
+changePage(page: number) {
+  if (page >= 1 && page <= this.totalPages) {
+    this.currentPage = page;
+    this.loadIssues();  // 🔁 This was missing
   }
+}
 
   editIssue(issue: any) {
     const selectedIssue = this.paginatedIssues.find(i => i.UserId === issue.UserId);
@@ -112,8 +113,10 @@ itemsPerPage = 5;
 
 }
 
-changePer(event:any){
-  console.log(event);
-  this.itemsPerPage=event;
+changePer(event: any) {
+  this.itemsPerPage = +event;
+  this.currentPage = 1; // Reset to page 1
+  this.loadIssues();    // Refresh data
 }
+
 }

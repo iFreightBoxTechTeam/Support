@@ -34,7 +34,7 @@
   <td>{{ issue.TenantCode }}</td>
   <td>{{ issue.LogTime | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
   <td>{{ issue.StatusName }}</td>
-  <TD>{{issue.TakenTime  }}</TD>
+<td>{{ issue.LogTime | daytime }}</td>
   <td>{{ issue.AssignTo }}</td>
 
           <td> 
@@ -87,11 +87,10 @@
   [totalPages]="totalPages"
   [currentPage]="currentPage"
   (perPage)="changePer($event)"
-  (pageChanged)="changePage($event)"
-  >
+  (pageChanged)="changePage($event)">
 </app-pagination>
-
 </div>
 
 
 <app-issue #IssueComponent></app-issue>
+

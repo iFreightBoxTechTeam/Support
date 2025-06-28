@@ -1,0 +1,9 @@
+.not-found-container {
+  text-align: center;
+  padding: 30px;
+  color: #3f51b5;
+}
+img {
+  max-width: 100%;
+  height: 400px;
+}

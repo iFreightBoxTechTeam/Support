@@ -29,6 +29,7 @@ import { DeleteComponent } from './component/users/delete/delete.component';
 import { DeleteIssueTypeComponent } from './component/issue-type/delete/delete-issue-type/delete-issue-type.component';
 import { DeleteStatusComponent } from './component/status/delete-status/delete-status/delete-status.component';
 import { SharedModule } from './shared/shared.module';
+import { DaytimePipe } from './daytime.pipe';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { SharedModule } from './shared/shared.module';
     PagenotfoundComponent,
     DeleteComponent,
     DeleteIssueTypeComponent,
-    DeleteStatusComponent
+    DeleteStatusComponent,
+    DaytimePipe
     
       
   ],

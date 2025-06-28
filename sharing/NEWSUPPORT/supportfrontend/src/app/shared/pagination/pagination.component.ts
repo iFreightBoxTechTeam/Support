@@ -1,36 +1,34 @@
-
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.css']
 })
-export class PaginationComponent {
-@Input() totalPages!: number;
- @Input() currentPage: number = 1;
+export class PaginationComponent implements OnInit {
+  @Input() totalPages: number = 1;
+  @Input() currentPage: number = 1;
 
   @Output() pageChanged = new EventEmitter<number>();
-  @Output() perPage = new EventEmitter<string>();
-itemsPerPage: any;
-Math: any;
-filteredIssues: any;
-setPage(page:number){
-  this.currentPage=page
-}
+  @Output() perPage = new EventEmitter<number>(); // emit number, not string
+
+  ngOnInit(): void {
+    console.log("Total Pages:", this.totalPages);
+  }
 
   changePage(page: number) {
     if (page >= 1 && page <= this.totalPages) {
-    this.currentPage = page;
       this.pageChanged.emit(page);
     }
   }
-  changePageSize(event:any) {
-      console.log(event.target.value);
-      this.perPage.emit(event.target.value)
-      this.setPage=(event.page)
+
+  changePageSize(event: any) {
+    const value = +event.target.value;
+    this.perPage.emit(value);  // emit selected value
+    this.changePage(1); // reset to page 1
   }
-        get pages(): number[] {
-  return Array.from({ length: this.totalPages }, (_, i) => i + 1);
-}
+
+  get pages(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
 }
