@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { IssueComponent } from './component/issue/issue.component';
 import { MasterComponent } from './component/master/master.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { IssuseComponent } from './issuse/issuse.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { GearComponent } from './gear/gear.component';
 import { ViewComponent } from './component/view/view.component';
@@ -28,8 +28,8 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { DeleteComponent } from './component/users/delete/delete.component';
 import { DeleteIssueTypeComponent } from './component/issue-type/delete/delete-issue-type/delete-issue-type.component';
 import { DeleteStatusComponent } from './component/status/delete-status/delete-status/delete-status.component';
-import { SharedModule } from './shared/shared.module';
 import { DaytimePipe } from './daytime.pipe';
+import { PaginationComponent } from './shared/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { DaytimePipe } from './daytime.pipe';
     GearComponent,
     IssueComponent,
     ViewComponent,
-   
+   DaytimePipe,
     MasterCompoComponent,
     UserComponent,
     IssueTypeComponent,
@@ -54,7 +54,7 @@ import { DaytimePipe } from './daytime.pipe';
     DeleteComponent,
     DeleteIssueTypeComponent,
     DeleteStatusComponent,
-    DaytimePipe
+    PaginationComponent
     
       
   ],
@@ -63,7 +63,6 @@ import { DaytimePipe } from './daytime.pipe';
     FormsModule,    
     AppRoutingModule,
     HttpClientModule,
-    SharedModule
     
     
   ],

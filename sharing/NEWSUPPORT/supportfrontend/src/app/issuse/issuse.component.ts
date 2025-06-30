@@ -1,8 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ViewComponent } from '../component/view/view.component';
-import { IssueService } from '../issue.service';
 import { IssueComponent } from '../component/issue/issue.component';
+import { IssueService } from '../issue.service';
 import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-issuse',
@@ -31,6 +32,7 @@ itemsPerPage = 5;
 
  loadIssues() {
   this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
+    console.log(data)
     if (Array.isArray(data)) {
       this.issues = data;
       this.filteredIssues = data;

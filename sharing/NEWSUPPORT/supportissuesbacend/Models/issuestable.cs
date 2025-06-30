@@ -24,7 +24,7 @@ namespace WebApplication1.Models
         
         public string AssignTo { get; set; }
         public DateTime? ResolveDate { get; set; }
-        public DateTime LogTime { get; set; }
+        public DateTime Raised_date { get; set; }
         public  decimal? TakenTime { get; set; }
         public string Email { get; internal set; }
     }

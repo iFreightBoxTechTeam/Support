@@ -4,7 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'daytime'
 })
 export class DaytimePipe implements PipeTransform {
-  transform(value: number | string | null | undefined): string {
+transform(value: number | string | null | undefined): string {
+  console.log('Pipe input:', value);
     if (value == null) {
       return 'N/A';
     }

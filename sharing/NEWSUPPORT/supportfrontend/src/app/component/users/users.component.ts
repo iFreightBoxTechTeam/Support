@@ -142,7 +142,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 @Component({
 
   selector: 'app-user',
-  templateUrl: './users.component.html', // Make sure the file name matches!
+  templateUrl: 'users.component.html', // Make sure the file name matches!
   styleUrls: ['./users.component.css']  
 })
 
