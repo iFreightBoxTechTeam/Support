@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { IssueComponent } from './component/issue/issue.component';
 import { MasterComponent } from './component/master/master.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { IssuseComponent } from './issuse/issuse.component';
+
 import { NavbarComponent } from './navbar/navbar.component';
 import { GearComponent } from './gear/gear.component';
 import { ViewComponent } from './component/view/view.component';
