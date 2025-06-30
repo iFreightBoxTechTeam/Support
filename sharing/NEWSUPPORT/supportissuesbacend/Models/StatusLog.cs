@@ -9,7 +9,7 @@ namespace WebApplication2.Models
         public string StatusName { get; set; }
         public Guid issues_id { get; set; }
         public string Name { get; set; }
-        public DateTime LogTime { get; set; }
+        public DateTime Raised_date { get; set; }
         public Guid StatusId { get; internal set; }
     }
 }

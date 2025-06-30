@@ -32,9 +32,10 @@
   <td><button class="btn btn-sm me-2" (click)="editIssue(issue)">{{ issue.UserId }}</button></td>
    <td>{{ issue.Name }}</td>
   <td>{{ issue.TenantCode }}</td>
-  <td>{{ issue.LogTime | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
+  <td>{{ issue.Raised_date | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
   <td>{{ issue.StatusName }}</td>
-<td>{{ issue.TakenTime | daytime   }}</td>
+<td><span>{{ issue.TakenTime | daytime }}</span>
+</td>
   <td>{{ issue.AssignTo }}</td>
 
           <td> 
