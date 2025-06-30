@@ -186,5 +186,9 @@ export class StatusComponent implements OnInit {
       }
     });
   }
+      changePer(event:any){
+  console.log(event);
+  this.itemsPerPage=event;
+}
 
 }
