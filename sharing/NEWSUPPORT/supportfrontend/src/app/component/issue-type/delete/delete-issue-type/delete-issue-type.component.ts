@@ -7,11 +7,11 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class DeleteIssueTypeComponent {
   @Output() remove_modal:EventEmitter<void> = new EventEmitter<void>();
-  @Output() delete_user:EventEmitter<void> = new EventEmitter<void>();
+  @Output() delete_issue_type:EventEmitter<void> = new EventEmitter<void>();
   removeModal(){
     this.remove_modal.emit();
   }
   deleteIssueType(){
-    this.delete_user.emit();
+    this.delete_issue_type.emit();
   }
 }

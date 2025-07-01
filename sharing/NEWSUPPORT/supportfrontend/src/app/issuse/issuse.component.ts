@@ -115,10 +115,45 @@ changePage(page: number) {
 
 }
 
-changePer(event: any) {
-  this.itemsPerPage = +event;
-  this.currentPage = 1; // Reset to page 1
-  this.loadIssues();    // Refresh data
-}
+  showDeleteModal = false;
+  issueToDelete: any = null;
+
+  openDeleteConfirmation(issue: any): void {
+    this.issueToDelete = issue;
+    this.showDeleteModal = true;
+  }
+
+  undoDelete(): void {
+    this.showDeleteModal = false;
+    this.issueToDelete = null;
+  }
+
+  confirmDeleteIssuse(): void {
+    if (!this.issueToDelete) return;
+
+    const id = this.issueToDelete.UserId;
+
+    this.http.delete(`https://localhost:44321/api/values/${id}`).subscribe({
+      next: () => {
+        this.issues = this.issues.filter(issue => issue.UserId !== id);
+        this.filteredIssues = this.filteredIssues.filter(issue => issue.UserId !== id);
+        console.log('Issue deleted successfully.');
+
+        this.undoDelete(); // Hide modal
+        this.loadIssues();
+      },
+      error: (err) => {
+        console.error('Error deleting issue:', err);
+        alert('Failed to delete issue.');
+        this.undoDelete(); // Hide modal even on failure
+      }
+    });
+  }
+
+  changePer(event: any) {
+    this.itemsPerPage = +event;
+    this.currentPage = 1; // Reset to page 1
+    this.loadIssues();    // Refresh data
+  }
 
 }
