@@ -28,6 +28,8 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { DeleteComponent } from './component/users/delete/delete.component';
 import { DeleteIssueTypeComponent } from './component/issue-type/delete/delete-issue-type/delete-issue-type.component';
 import { DeleteStatusComponent } from './component/status/delete-status/delete-status/delete-status.component';
+import { DaytimePipe } from './daytime.pipe';
+import { PaginationComponent } from './shared/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,7 @@ import { DeleteStatusComponent } from './component/status/delete-status/delete-s
     GearComponent,
     IssueComponent,
     ViewComponent,
-   
+   DaytimePipe,
     MasterCompoComponent,
     UserComponent,
     IssueTypeComponent,
@@ -51,7 +53,8 @@ import { DeleteStatusComponent } from './component/status/delete-status/delete-s
     PagenotfoundComponent,
     DeleteComponent,
     DeleteIssueTypeComponent,
-    DeleteStatusComponent
+    DeleteStatusComponent,
+    PaginationComponent
     
       
   ],

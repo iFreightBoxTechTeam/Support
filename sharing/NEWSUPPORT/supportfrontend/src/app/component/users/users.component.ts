@@ -142,7 +142,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 @Component({
 
   selector: 'app-user',
-  templateUrl: './users.component.html', // Make sure the file name matches!
+  templateUrl: 'users.component.html', // Make sure the file name matches!
   styleUrls: ['./users.component.css']  
 })
 
@@ -151,7 +151,7 @@ export class UserComponent implements OnInit , DoCheck {
   users: User[] = [];
   users_permanent:User[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 5;
   pageSize: number = 5;
   // totalPages: number = 1;
   searchQuery:string = '';
@@ -251,5 +251,11 @@ export class UserComponent implements OnInit , DoCheck {
       this.currentPage = 1;
       this.users = this.filteredUsers;
     } 
+    changePer(event:any){
+  console.log(event);
+  this.itemsPerPage=event;
+}
 
 }
+
+

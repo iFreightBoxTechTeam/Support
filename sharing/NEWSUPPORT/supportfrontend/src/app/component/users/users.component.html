@@ -238,8 +238,15 @@
   </div>
 </div>
 
+<app-pagination
+  [totalPages]="totalPages"
+  [currentPage]="currentPage"
+  (perPage)="changePer($event)"
+  (pageChanged)="changePage($event)">
+</app-pagination>
 
-<nav aria-label="User list pagination" class="pagination-nav">
+
+<!-- <nav aria-label="User list pagination" class="pagination-nav">
   <button
     (click)="changePage(currentPage - 1)"
     [disabled]="currentPage === 1"
@@ -268,4 +275,4 @@
     Next
   </button>
   
-</nav>
+</nav> -->
