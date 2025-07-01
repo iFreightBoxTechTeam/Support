@@ -1,20 +1,11 @@
-
-
-
-
-
-
-
-
-
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'durationFormat'
+  name: 'daytime'
 })
-export class DurationFormatPipe implements PipeTransform {
-
-  transform(value: number | string | null | undefined): string {
+export class DaytimePipe implements PipeTransform {
+transform(value: number | string | null | undefined): string {
+  console.log('Pipe input:', value);
     if (value == null) {
       return 'N/A';
     }
@@ -34,21 +25,15 @@ export class DurationFormatPipe implements PipeTransform {
       return 'N/A';
     }
 
-    // Calculate days, hours, minutes
     const days = Math.floor(minutes / (60 * 24));
     const hours = Math.floor((minutes % (60 * 24)) / 60);
     const mins = minutes % 60;
 
-    let result = '';
-    if (days > 0) {
-      result += days + (days === 1 ? ' day ' : ' days ');
-    }
-    if (hours > 0) {
-      result += hours + (hours === 1 ? ' hour ' : ' hours ');
-    }
-    if (mins > 0) {
-      result += mins + (mins === 1 ? ' minute' : ' minutes');
-    }
-    return result.trim();
+    const parts: string[] = [];
+    if (days > 0) parts.push(`${days} day${days > 1 ? 's' : ''}`);
+    if (hours > 0) parts.push(`${hours} hour${hours > 1 ? 's' : ''}`);
+    if (mins > 0) parts.push(`${mins} minute${mins > 1 ? 's' : ''}`);
+
+    return parts.join(' ') || '0 minutes';
   }
 }

@@ -63,7 +63,7 @@
 ></app-nav-main>
 
 <app-add-issue (issueAdded)="onIssueAdded($event)"  (issueUpdated)="onIssueUpdated($event)" #addIssueComponent></app-add-issue>
-<delete-issue-type *ngIf="confirm_delete" (remove_modal)="undo_delete()" (delete_user)="issue_type_deleted()"></delete-issue-type>
+<delete-issue-type *ngIf="confirm_delete" (remove_modal)="undo_delete()" (delete_issue_type)="issue_type_deleted()"></delete-issue-type>
 
 <div class="issue-type">
   <div class="issue-type-header">
@@ -97,24 +97,12 @@
   </div>
 
   <!-- Pagination -->
-   <nav class="pagination-nav" *ngIf="totalPages > 1">
-    <ul class="pagination">
-      <li class="page-item" [class.disabled]="currentPage === 1">
-        <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
-      </li>
+<app-pagination
+  [totalPages]="totalPages"
+  [currentPage]="currentPage"
+  (perPage)="changePer($event)"
+  (pageChanged)="changePage($event)">
+</app-pagination>
 
-      <li
-        class="page-item"
-        *ngFor="let page of [].constructor(totalPages); let i = index"
-        [class.active]="currentPage === i + 1"
-      >
-        <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
-      </li>
-
-      <li class="page-item" [class.disabled]="currentPage === totalPages">
-        <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
-      </li>
-    </ul>
-  </nav>
 </div>
 

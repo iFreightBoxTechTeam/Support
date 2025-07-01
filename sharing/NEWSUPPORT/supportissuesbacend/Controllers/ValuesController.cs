@@ -46,7 +46,7 @@ namespace WebApplication2.Controllers
                                 StatusName = reader["statusname"].ToString(),
                                 Name = reader["name"].ToString(),
                                 TenantCode = reader["tenantcode"].ToString(),
-                                LogTime = Convert.ToDateTime(reader["Raised_date"]),
+                                Raised_date = Convert.ToDateTime(reader["Raised_date"]),
                                 UserId = Convert.ToInt32(reader["userid"]),
                                 Module = reader["module"] != DBNull.Value ? reader["module"].ToString() : null,
                                 AssignTo = reader["assign_to"] != DBNull.Value ? reader["assign_to"].ToString() : null,
@@ -122,7 +122,7 @@ namespace WebApplication2.Controllers
                         StatusName = reader["statusname"].ToString(),
                         Name = reader["name"].ToString(),
                         TenantCode = reader["tenantcode"].ToString(),
-                        LogTime = Convert.ToDateTime(reader["Raised_date"]),
+                        Raised_date = Convert.ToDateTime(reader["Raised_date"]),
                         UserId = Convert.ToInt32(reader["UserId"]),
                         Module = reader["module"] != DBNull.Value ? reader["module"].ToString() : null,
 
@@ -166,7 +166,7 @@ namespace WebApplication2.Controllers
                     StatusName = reader["statusname"].ToString(),
                     issues_id = Guid.Parse(reader["issuesissues_id"].ToString()),
                     Name = reader["issues_name"].ToString(),
-                    LogTime = Convert.ToDateTime(reader["logtime"])
+                    Raised_date = Convert.ToDateTime(reader["Raised_date"])
                 });
             }
             con.Close();
@@ -195,7 +195,7 @@ namespace WebApplication2.Controllers
                         StatusName = reader["statusname"].ToString(),
                         issues_id = Guid.Parse(reader["issuesissues_id"].ToString()),
                         Name = reader["issues_name"].ToString(),
-                        LogTime = Convert.ToDateTime(reader["logtime"])
+                        Raised_date = Convert.ToDateTime(reader["Raised_date"])
                     });
                 }
                 con.Close();
@@ -236,7 +236,7 @@ namespace WebApplication2.Controllers
                         StatusName = reader["statusname"].ToString(),
                         Name = reader["name"].ToString(),
                         TenantCode = reader["tenantcode"].ToString(),
-                        LogTime = Convert.ToDateTime(reader["Raised_date"]),
+                        Raised_date = Convert.ToDateTime(reader["Raised_date"]),
                         UserId = Convert.ToInt32(reader["UserId"]),
                         Module = reader["module"] != DBNull.Value ? reader["module"].ToString() : null,
 
@@ -422,86 +422,89 @@ namespace WebApplication2.Controllers
             }
         }
 
-    [HttpPut]
-    [Route("api/values/{UserId}")]
-    public IHttpActionResult Put(int UserId, [FromBody] issuestable issuestable)
-    {
-      if (issuestable == null)
-        return BadRequest("Invalid input data.");
-
-      if (string.IsNullOrWhiteSpace(issuestable.StatusName))
-        return BadRequest("Status name is required.");
-
-      try
-      {
-        using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString))
+        [HttpPut]
+        [Route("api/values/{UserId}")]
+        public IHttpActionResult Put(int UserId, [FromBody] issuestable issuestable)
         {
-          con.Open();
-          SqlTransaction transaction = con.BeginTransaction();
+            if (UserId <= 0)
+                return BadRequest("Invalid UserId.");
 
-          try
-          {
-            // Step 1: Get statusid from status name
-            Guid statusId;
-            using (SqlCommand statusCmd = new SqlCommand("SELECT TOP 1 statusid FROM sttabble WHERE LOWER(statusname) = LOWER(@StatusName)", con, transaction))
+            if (issuestable == null)
+                return BadRequest("Invalid input data.");
+
+            if (string.IsNullOrWhiteSpace(issuestable.StatusName))
+                return BadRequest("Status name is required.");
+
+            try
             {
-              statusCmd.Parameters.AddWithValue("@StatusName", issuestable.StatusName);
-              object result = statusCmd.ExecuteScalar();
-
-              if (result == null)
-              {
-                // If status not found, create a new one
-                statusId = Guid.NewGuid();
-                using (SqlCommand insertStatusCmd = new SqlCommand("INSERT INTO sttabble (statusid, statusname) VALUES (@Id, @Name)", con, transaction))
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString))
                 {
-                  insertStatusCmd.Parameters.AddWithValue("@Id", statusId);
-                  insertStatusCmd.Parameters.AddWithValue("@Name", issuestable.StatusName);
-                  insertStatusCmd.ExecuteNonQuery();
+                    con.Open();
+                    using (SqlTransaction transaction = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            // Step 1: Get statusid from status name
+                            Guid statusId;
+                            using (SqlCommand statusCmd = new SqlCommand("SELECT TOP 1 statusid FROM sttabble WHERE LOWER(statusname) = LOWER(@StatusName)", con, transaction))
+                            {
+                                statusCmd.Parameters.AddWithValue("@StatusName", issuestable.StatusName);
+                                object result = statusCmd.ExecuteScalar();
+
+                                if (result == null)
+                                {
+                                    // If status not found, create a new one
+                                    statusId = Guid.NewGuid();
+                                    using (SqlCommand insertStatusCmd = new SqlCommand("INSERT INTO sttabble (statusid, statusname) VALUES (@Id, @Name)", con, transaction))
+                                    {
+                                        insertStatusCmd.Parameters.AddWithValue("@Id", statusId);
+                                        insertStatusCmd.Parameters.AddWithValue("@Name", issuestable.StatusName);
+                                        insertStatusCmd.ExecuteNonQuery();
+                                    }
+                                }
+                                else
+                                {
+                                    statusId = (Guid)result;
+                                }
+                            }
+
+                            // Step 2: Update the issues using your SP
+                            using (SqlCommand cmd = new SqlCommand("sp_UpdateissuestableByUserId", con, transaction))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue("@userid", UserId);
+                                cmd.Parameters.AddWithValue("@statusname", issuestable.StatusName);
+
+                                string imagePathsCsv = (issuestable.ImagePaths != null && issuestable.ImagePaths.Any())
+                                    ? string.Join(",", issuestable.ImagePaths)
+                                    : string.Empty;
+                                cmd.Parameters.AddWithValue("@ImagePaths", imagePathsCsv);
+                                cmd.Parameters.AddWithValue("@assignto", (object)issuestable.AssignTo ?? DBNull.Value);
+
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            transaction.Commit();
+                            return Ok(new { message = "Record updated successfully.", userId = UserId });
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            return InternalServerError(ex);
+                        }
+                    }
                 }
-              }
-              else
-              {
-                statusId = (Guid)result;
-              }
             }
-
-            // Step 2: Update the issues using your new SP
-            using (SqlCommand cmd = new SqlCommand("sp_UpdateissuestableByUserId", con, transaction))
+            catch (Exception ex)
             {
-              cmd.CommandType = CommandType.StoredProcedure;
-              cmd.Parameters.AddWithValue("@userid", UserId);
-              cmd.Parameters.AddWithValue("@statusName", issuestable.StatusName);
-
-              string imagePathsCsv = (issuestable.ImagePaths != null && issuestable.ImagePaths.Any())
-                  ? string.Join(",", issuestable.ImagePaths)
-                  : string.Empty;
-              cmd.Parameters.AddWithValue("@ImagePaths", imagePathsCsv);
-              cmd.Parameters.AddWithValue("@assignto", (object)issuestable.AssignTo ?? DBNull.Value);
-
-              cmd.ExecuteNonQuery();
+                return InternalServerError(ex);
             }
-
-            transaction.Commit();
-            return Ok("Record updated successfully.");
-          }
-          catch (Exception ex)
-          {
-            transaction.Rollback();
-            return InternalServerError(ex);
-          }
         }
-      }
-      catch (Exception ex)
-      {
-        return InternalServerError(ex);
-      }
-    }
 
 
 
 
-
-    [HttpGet]
+        [HttpGet]
         [Route("api/values/search")]
         public IHttpActionResult Searchissuess(string searchTerm = "", int page = 1, int pageSize = 10)
         {
@@ -544,7 +547,7 @@ namespace WebApplication2.Controllers
                                 Name = reader["name"].ToString(),
                                 Description = reader["descriptions"].ToString(),
                                 TenantCode = reader["tenantcode"].ToString(),
-                                LogTime = Convert.ToDateTime(reader["Raised_date"]),
+                                Raised_date = Convert.ToDateTime(reader["Raised_date"]),
                                 UserId = Convert.ToInt32(reader["UserId"]),
                                 StatusName = reader["statusname"].ToString(),
                                 Module = reader["module"] != DBNull.Value ? reader["module"].ToString() : null,
@@ -648,7 +651,7 @@ namespace WebApplication2.Controllers
                     {
                         history.Add(new issuestable
                         {
-                            LogTime = Convert.ToDateTime(reader["Raised_date"]),
+                            Raised_date = Convert.ToDateTime(reader["Raised_date"]),
                             StatusName = reader["statusname"].ToString(),
                             Name = reader["name"].ToString(),
                             
