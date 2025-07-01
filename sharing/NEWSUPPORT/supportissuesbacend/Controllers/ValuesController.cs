@@ -22,7 +22,6 @@ namespace WebApplication2.Controllers
 
             try
             {
-                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString))
                 using (SqlCommand cmd = new SqlCommand("sp_Getissues", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;

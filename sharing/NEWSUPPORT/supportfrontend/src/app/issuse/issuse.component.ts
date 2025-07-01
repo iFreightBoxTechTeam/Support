@@ -29,6 +29,7 @@ itemsPerPage = 5;
   ngOnInit() {
     this.loadIssues();
   }
+  
 
  loadIssues() {
   this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
@@ -156,4 +157,5 @@ changePage(page: number) {
     this.loadIssues();    // Refresh data
   }
 
+  
 }
