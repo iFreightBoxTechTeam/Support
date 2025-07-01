@@ -143,7 +143,8 @@ saveIssue() {
       res => {
         console.log("this.issue.StatusName = ", this.issue.StatusName);
         console.log("Update success", res);
-
+        
+        this.showIssueModal = false;
 
         // Fetch the updated issue
 
