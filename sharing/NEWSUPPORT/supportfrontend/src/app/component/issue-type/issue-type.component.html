@@ -63,7 +63,7 @@
 ></app-nav-main>
 
 <app-add-issue (issueAdded)="onIssueAdded($event)"  (issueUpdated)="onIssueUpdated($event)" #addIssueComponent></app-add-issue>
-<delete-issue-type *ngIf="confirm_delete" (remove_modal)="undo_delete()" (delete_user)="issue_type_deleted()"></delete-issue-type>
+<delete-issue-type *ngIf="confirm_delete" (remove_modal)="undo_delete()" (delete_issue_type)="issue_type_deleted()"></delete-issue-type>
 
 <div class="issue-type">
   <div class="issue-type-header">

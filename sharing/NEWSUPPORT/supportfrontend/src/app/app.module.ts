@@ -30,6 +30,7 @@ import { DeleteIssueTypeComponent } from './component/issue-type/delete/delete-i
 import { DeleteStatusComponent } from './component/status/delete-status/delete-status/delete-status.component';
 import { DaytimePipe } from './daytime.pipe';
 import { PaginationComponent } from './shared/pagination/pagination.component';
+import { DeleteIssuseComponent } from './issuse/delete/delete-issuse/delete-issuse.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
     DeleteComponent,
     DeleteIssueTypeComponent,
     DeleteStatusComponent,
-    PaginationComponent
+    PaginationComponent,
+    DeleteIssuseComponent
     
       
   ],
