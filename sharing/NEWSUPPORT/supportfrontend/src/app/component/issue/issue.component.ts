@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { IssueTypeService } from 'src/app/issue-type.service';
 import { IssueService } from 'src/app/issue.service';
 
 @Component({
@@ -22,7 +23,7 @@ export class IssueComponent implements OnInit {
 
   imageCounter: number = 0;
   showIssueModal: boolean = false;
-
+issueTypes: any[] = [];
   @ViewChild(IssueComponent) issueComponent!: IssueComponent;
 
   images: Array<{
@@ -62,9 +63,12 @@ export class IssueComponent implements OnInit {
   issue: any;
   private issueData: any;
 
-  constructor(private issueService: IssueService, private http: HttpClient) {}
+  constructor(private issueService: IssueService,private issueTypeService: IssueTypeService, private http: HttpClient) {}
 
   ngOnInit() {
+     this.issueTypeService.getAllIssues().subscribe(data => {
+    this.issueTypes = data;
+  });
     this.issue = this.issueService.getIssue() || {};
     if (!this.issue || Object.keys(this.issue).length === 0) {
       console.log("Error: Issue is not set correctly in issue.component.ts");
@@ -131,7 +135,8 @@ saveIssue() {
   const payload = {
     StatusName: this.issue.StatusName,
     AssignTo: this.assignTo || this.issue.AssignTo,
-    ImagePaths: this.images.map(img => img.url)
+    ImagePaths: this.images.map(img => img.url),
+    IssueType:this.issue.IssueType
   };
 
   console.log("Sending PUT payload:", payload);
@@ -152,6 +157,7 @@ saveIssue() {
       err => {
       }
     );
+    this.issue;
 }
 
 
