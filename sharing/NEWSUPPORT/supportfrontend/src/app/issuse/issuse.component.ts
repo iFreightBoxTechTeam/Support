@@ -78,7 +78,7 @@ changePage(page: number) {
       console.error("Error: No issue found for ID:", issue.UserId);
       return;
     }
-
+    
     this.issueComponent.openIssueModal(issue?.UserId);
   }
 

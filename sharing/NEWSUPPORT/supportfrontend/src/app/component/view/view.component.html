@@ -21,7 +21,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let entry of history">
-  <td>{{ entry.LogTime | date:'short' }}</td>
+  <td>{{ entry.Raised_date  | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
   <td>{{ entry.StatusName }}</td>
   <td>{{ entry.Name }}</td>
 </tr>

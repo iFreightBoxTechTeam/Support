@@ -41,13 +41,24 @@
 
       <div class="form-group">
   <label>Status:</label>
-  <select [(ngModel)]="issue.StatusName" class="form-control" name="status">
+  <select [(ngModel)]="issue.StatusName" >
       <option >{{issue.StatusName}}</option>
     <option value="Open">Open</option>
     <option value="In Progress">In Progress</option>
     <option value="Solved">Solved</option>
     <option value="Closed">Closed</option>
   </select>
+</div>
+  <div class="form-group">
+  <label>IssuesType:</label>
+  <select [(ngModel)]="issue.IssueType">
+ <option >{{issue.IssueType}}</option>
+  <option *ngFor="let type of issueTypes" [value]="type.Issue_Type">
+  {{ type.Issue_Type }}
+</option>
+
+</select>
+
 </div>
 
 
