@@ -19,7 +19,7 @@ export class NavMainComponent {
   constructor(private router: Router) {}
 
   goToMasters() {
-    this.router.navigate(['/mastercompo']);
+    this.router.navigate(['/issues']);
   }
 
   onAddClick() {

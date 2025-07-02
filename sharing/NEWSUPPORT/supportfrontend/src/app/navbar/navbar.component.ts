@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,6 +20,12 @@ export class NavbarComponent {
 
   goToGear(){
    this.router.navigate(['/gear'])
+  }
+
+  @Output() toggleMasterPopup = new EventEmitter<void>();
+
+  onGearClick() {
+    this.toggleMasterPopup.emit();
   }
 
 }
