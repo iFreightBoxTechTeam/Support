@@ -238,20 +238,20 @@ export class IssueTypeComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
     this.loadIssueTypes();
   }
 
   loadIssueTypes(): void {
-    this.issueService.getAllIssues().subscribe({
-      next: (data) => {
-        console.log("zsdb jvlf",data)
-        this.issueTypes = data;
-      },
-      error: (err) => {
-        console.error('Error loading issues:', err);
-      }
-    });
-  }
+     this.issueService.getAllIssues().subscribe({
+    next: (data) => {
+      this.issueTypes = data;
+      console.log("Issue types loaded:", this.issueTypes);
+    },
+    error: (err) => {
+      console.error('Error loading issue types:', err);
+    }
+  });}
 
   get filteredIssueTypes(): Issue[] {
     if (!this.searchTerm.trim()) return this.issueTypes;

@@ -22,7 +22,6 @@ namespace WebApplication2.Controllers
 
             try
             {
-                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString))
                 using (SqlCommand cmd = new SqlCommand("sp_Getissues", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -51,7 +50,8 @@ namespace WebApplication2.Controllers
                                 Module = reader["module"] != DBNull.Value ? reader["module"].ToString() : null,
                                 AssignTo = reader["assign_to"] != DBNull.Value ? reader["assign_to"].ToString() : null,
                                 ResolveDate = reader["resolve_date"] != DBNull.Value ? (DateTime?)reader["resolve_date"] : null,
-                                TakenTime = reader["taken_time"] != DBNull.Value ? Convert.ToInt32(reader["taken_time"]) : (int?)null
+                                TakenTime = reader["taken_time"] != DBNull.Value ? Convert.ToInt32(reader["taken_time"]) : (int?)null,
+                                IssueType =reader["module"] != DBNull.Value ? reader["issuetype"].ToString() : null,
                             });
                         }
                     }
@@ -129,6 +129,7 @@ namespace WebApplication2.Controllers
                         AssignTo = reader["assign_to"] != DBNull.Value ? reader["assign_to"].ToString() : null,
                         ResolveDate = reader["resolve_date"] != DBNull.Value ? (DateTime?)reader["resolve_date"] : null,
                         TakenTime = reader["taken_time"] != DBNull.Value ? Convert.ToInt32(reader["taken_time"]) : (int?)null,
+                        IssueType = reader["module"] != DBNull.Value ? reader["issuetype"].ToString() : null,
                     });
                 }
                 con.Close();
@@ -378,7 +379,7 @@ namespace WebApplication2.Controllers
                         cmd.Parameters.AddWithValue("@TenantCode", issuestable.TenantCode);
                         cmd.Parameters.AddWithValue("@UserId", issuestable.UserId);
                         cmd.Parameters.AddWithValue("@Module", issuestable.Module );
-                                                                                                     
+                        cmd.Parameters.AddWithValue("@IssueType", issuestable.IssueType);
 
 
 
@@ -480,6 +481,7 @@ namespace WebApplication2.Controllers
                                     : string.Empty;
                                 cmd.Parameters.AddWithValue("@ImagePaths", imagePathsCsv);
                                 cmd.Parameters.AddWithValue("@assignto", (object)issuestable.AssignTo ?? DBNull.Value);
+                                cmd.Parameters.AddWithValue("@issuetype", issuestable.IssueType);
 
                                 cmd.ExecuteNonQuery();
                             }
