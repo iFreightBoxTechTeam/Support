@@ -15,7 +15,7 @@ namespace WebApplication2.Controllers
 
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString);
         [HttpGet]
-        [Route("api/values/")]
+        [Route("api/values")]
         public IHttpActionResult Get(string searchTerm = "", int pageNumber = 1, int pageSize = 10)
         {
             List<issuestable> list = new List<issuestable>();
@@ -37,6 +37,7 @@ namespace WebApplication2.Controllers
                         {
                             list.Add(new issuestable
                             {
+                                Issues_Number = Convert.ToInt32(reader["issues_number"]),
                                 issues_id = Guid.Parse(reader["issues_id"].ToString()),
                                 Description = reader["descriptions"].ToString(),
                                 ImagePaths = reader["imagepaths"] != DBNull.Value
@@ -51,7 +52,8 @@ namespace WebApplication2.Controllers
                                 AssignTo = reader["assign_to"] != DBNull.Value ? reader["assign_to"].ToString() : null,
                                 ResolveDate = reader["resolve_date"] != DBNull.Value ? (DateTime?)reader["resolve_date"] : null,
                                 TakenTime = reader["taken_time"] != DBNull.Value ? Convert.ToInt32(reader["taken_time"]) : (int?)null,
-                                IssueType =reader["module"] != DBNull.Value ? reader["issuetype"].ToString() : null,
+                                IssueType =reader["module"] != DBNull.Value ? reader["issuetype"].ToString() : null
+
                             });
                         }
                     }
@@ -114,6 +116,7 @@ namespace WebApplication2.Controllers
                 {
                     masters.Add(new issuestable
                     {
+                        Issues_Number = Convert.ToInt32(reader["issues_number"]),
                         issues_id = Guid.Parse(reader["issues_id"].ToString()),
                         Description = reader["descriptions"].ToString(),
                         ImagePaths = reader["imagepaths"] != DBNull.Value
@@ -147,6 +150,120 @@ namespace WebApplication2.Controllers
                 return InternalServerError(ex);
             }
         }
+
+
+
+        [HttpGet]
+        [Route("api/values/i/{Issues_Number}")]
+        public IHttpActionResult GetissuesbyIssues_Number(int Issues_Number)
+        {
+            List<issuestable> masters = new List<issuestable>();
+            SqlCommand cmd = new SqlCommand("sp_Getbyissuesnumber", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@issue_number", Issues_Number);
+
+            try
+            {
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    masters.Add(new issuestable
+                    {
+                        Issues_Number = Convert.ToInt32(reader["issues_number"]),
+                        issues_id = Guid.Parse(reader["issues_id"].ToString()),
+                        Description = reader["descriptions"].ToString(),
+                        ImagePaths = reader["imagepaths"] != DBNull.Value
+                            ? reader["imagepaths"].ToString().Split(',').ToList()
+                            : new List<string>(),
+                        StatusName = reader["statusname"].ToString(),
+                        Name = reader["name"].ToString(),
+                        TenantCode = reader["tenantcode"].ToString(),
+                        Raised_date = Convert.ToDateTime(reader["Raised_date"]),
+                        UserId = Convert.ToInt32(reader["UserId"]),
+                        Module = reader["module"] != DBNull.Value ? reader["module"].ToString() : null,
+
+                        AssignTo = reader["assign_to"] != DBNull.Value ? reader["assign_to"].ToString() : null,
+                        ResolveDate = reader["resolve_date"] != DBNull.Value ? (DateTime?)reader["resolve_date"] : null,
+                        TakenTime = reader["taken_time"] != DBNull.Value ? Convert.ToInt32(reader["taken_time"]) : (int?)null,
+                        IssueType = reader["module"] != DBNull.Value ? reader["issuetype"].ToString() : null,
+                    });
+                }
+                con.Close();
+
+                if (!masters.Any())
+                    return NotFound();
+
+                return Ok(masters);
+            }
+            catch (Exception ex)
+            {
+                if (con.State == ConnectionState.Open)
+                    con.Close();
+
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/values/byuser_code")]
+        public IHttpActionResult GetIssuesByUserIdOrTenantCode(string tenantcode, int? userid = null)
+        {
+            List<issuestable> masters = new List<issuestable>();
+            SqlCommand cmd = new SqlCommand("sp_Getbyuseridorcode", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@tenantcode", tenantcode);
+
+            // Optional parameter: only add if it has a value
+            if (userid.HasValue)
+                cmd.Parameters.AddWithValue("@userid", userid.Value);
+            else
+                cmd.Parameters.AddWithValue("@userid", DBNull.Value);
+
+            try
+            {
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    masters.Add(new issuestable
+                    {
+                        Issues_Number = Convert.ToInt32(reader["issues_number"]),
+                        issues_id = Guid.Parse(reader["issues_id"].ToString()),
+                        Description = reader["descriptions"].ToString(),
+                        ImagePaths = reader["imagepaths"] != DBNull.Value
+                            ? reader["imagepaths"].ToString().Split(',').ToList()
+                            : new List<string>(),
+                        StatusName = reader["statusname"].ToString(),
+                        Name = reader["name"].ToString(),
+                        TenantCode = reader["tenantcode"].ToString(),
+                        Raised_date = Convert.ToDateTime(reader["Raised_date"]),
+                        UserId = Convert.ToInt32(reader["UserId"]),
+                        Module = reader["module"] != DBNull.Value ? reader["module"].ToString() : null,
+                        AssignTo = reader["assign_to"] != DBNull.Value ? reader["assign_to"].ToString() : null,
+                        ResolveDate = reader["resolve_date"] != DBNull.Value ? (DateTime?)reader["resolve_date"] : null,
+                        TakenTime = reader["taken_time"] != DBNull.Value ? Convert.ToInt32(reader["taken_time"]) : (int?)null,
+                        IssueType = reader["issuetype"] != DBNull.Value ? reader["issuetype"].ToString() : null
+                    });
+                }
+                con.Close();
+
+                if (!masters.Any())
+                    return NotFound();
+
+                return Ok(masters);
+            }
+            catch (Exception ex)
+            {
+                if (con.State == ConnectionState.Open)
+                    con.Close();
+
+                return InternalServerError(ex);
+            }
+        }
+
+
+
 
         [HttpGet]
         [Route("api/values/logs")]

@@ -17,6 +17,7 @@ namespace WebApplication2.Controllers
         public int UserId { get; set; }
         public string Module { get; set; }
         public string IssueType { get; set; }
+        public int Issues_Number { get; set; }
         public string AssignTo { get; set; }
         public DateTime? ResolveDate { get; set; }
 
