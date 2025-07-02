@@ -20,8 +20,8 @@ namespace WebApplication1.Models
 
         public string Module { get; set; }
         // StatusLog fields
-  
-        
+        public string IssueType { get; set; }
+
         public string AssignTo { get; set; }
         public DateTime? ResolveDate { get; set; }
         public DateTime Raised_date { get; set; }
