@@ -62,11 +62,14 @@
 
        
         <div class="mb-3">
-          <label for="filterDate" class="form-label">Raised Date</label>
+          <label for="filterDate" class="form-label">Start Date</label>
+          <input type="date" id="filterDate" class="form-control" [(ngModel)]="filter.raisedDate" name="raisedDate" />
+           <label for="filterDate" class="form-label">End Date</label>
           <input type="date" id="filterDate" class="form-control" [(ngModel)]="filter.raisedDate" name="raisedDate" />
         </div>
 
         <!-- Status -->
+          <label for="filterStatus" class="form-label">Status</label>
     <select id="filterStatus" class="form-select" [(ngModel)]="filter.status" name="status">
   <option value="">Select Status</option>
   <option *ngFor="let status of statuses" [value]="status.StatusId">
