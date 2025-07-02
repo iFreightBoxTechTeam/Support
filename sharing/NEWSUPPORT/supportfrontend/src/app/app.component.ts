@@ -8,6 +8,13 @@ import { Component } from '@angular/core';
 
 })
 export class AppComponent {
-  title = 'supportfrontend';
+  showPopup = false;
 
+  togglePopup() {
+    this.showPopup = !this.showPopup;
+  }
+
+  hidePopup() {
+    this.showPopup = false;
+  }
 }
