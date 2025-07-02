@@ -1,34 +1,50 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ViewComponent } from '../component/view/view.component';
 import { IssueComponent } from '../component/issue/issue.component';
 import { IssueService } from '../issue.service';
 import { HttpClient } from '@angular/common/http';
+import { Status,StatusService } from '../status.service';
 
-
+declare var bootstrap: any;
 @Component({
   selector: 'app-issuse',
   templateUrl: './issuse.component.html',
   styleUrls: ['./issuse.component.css'],
 })
-export class IssuseComponent implements OnInit {
+export class IssuseComponent implements OnInit, AfterViewInit {
     issues: any[] = [];
   filteredIssues: any[] = [];
   searchTerm: string = '';
-
+ private offcanvasInstance: any;
 currentPage = 1;
 itemsPerPage = 5;
 
+statuses: Status[] = [];
+  filter = {
+    user: '',
+    tenantCode: '',
+    raisedDate: '',
+    status: '',
+    assignedTo: ''
+  };
 
 
   @ViewChild(ViewComponent) viewComponent!: ViewComponent;
   @ViewChild(IssueComponent) issueComponent!: IssueComponent;
   
 
-  constructor(private issueService: IssueService, private http: HttpClient) {}
+  constructor(
+  private issueService: IssueService,
+  private http: HttpClient,
+  private statusService: StatusService
+) {}
+
 
   ngOnInit() {
     this.loadIssues();
+    this.loadStatuses();
   }
+  
 
  loadIssues() {
   this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
@@ -42,7 +58,16 @@ itemsPerPage = 5;
   });
 }
 
-
+loadStatuses() {
+  this.statusService.getAllStatuses().subscribe({
+    next: (data) => {
+      this.statuses = data;
+    },
+    error: (err) => {
+      console.error('Error fetching statuses:', err);
+    }
+  });
+}
   onSearch(term: string) {
     this.searchTerm = term;
     this.currentPage = 1;
@@ -156,4 +181,24 @@ changePage(page: number) {
     this.loadIssues();    // Refresh data
   }
 
+
+
+applyFilters() {
+  console.log('Filters:', this.filter);
+
+  
 }
+ngAfterViewInit() {
+    const element = document.getElementById('offcanvasRight');
+    if (element) {
+      this.offcanvasInstance = new bootstrap.Offcanvas(element);
+    }
+  }
+
+  openOffcanvas() {
+    this.offcanvasInstance.show();
+  }
+
+}
+
+

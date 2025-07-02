@@ -32,7 +32,6 @@
         <label>Assign To:</label>
         <select [(ngModel)]="assignTo">
           <option  value="">{{issue.AssignTo}}</option>
-        
           <option *ngFor="let user of users" [value]="user">
             {{ user }}
           </option>

@@ -19,6 +19,10 @@ export class StatusService {
 
   constructor(private http: HttpClient) { }
 
+  getAllStatuses(): Observable<Status[]> {
+  return this.http.get<Status[]>(this.apiUrl);
+}
+
   statusAdded(status: Status): Observable<Status> {
     return this.http.post<Status>(this.apiUrl, status);
   }
