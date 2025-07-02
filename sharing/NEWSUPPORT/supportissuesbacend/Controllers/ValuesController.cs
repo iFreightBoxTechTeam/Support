@@ -263,8 +263,6 @@ namespace WebApplication2.Controllers
         }
 
 
-
-
         [HttpGet]
         [Route("api/values/logs")]
         public IEnumerable<StatusLog> GetStatusLogs()
@@ -282,7 +280,7 @@ namespace WebApplication2.Controllers
                     Id = Guid.Parse(reader["issues_id"].ToString()),
                     StatusId = reader["statusid"] != DBNull.Value ? Guid.Parse(reader["statusid"].ToString()) : Guid.Empty,
                     StatusName = reader["statusname"].ToString(),
-                    issues_id = Guid.Parse(reader["issuesissues_id"].ToString()),
+                   
                     Name = reader["issues_name"].ToString(),
                     Raised_date = Convert.ToDateTime(reader["Raised_date"])
                 });
