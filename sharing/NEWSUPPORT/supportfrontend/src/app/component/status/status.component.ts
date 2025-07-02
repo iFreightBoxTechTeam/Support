@@ -19,7 +19,7 @@ export class StatusComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-      this.loadstatus();
+      this.loadStatus();
      }
 
   @ViewChild('addStatusComponent') addStatus!: AddStatusComponent;
@@ -33,25 +33,19 @@ export class StatusComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
-  loadstatus() {
-    const apiUrl = 'https://localhost:44321/api/status';
-
-    this.http.get<any[]>(apiUrl).subscribe(
-      data => {
-        console.log('API Response:', data);
-        if (data) {
-           this.statusTypes = data.sort((a, b) =>
-              a.StatusName.localeCompare(b.StatusName)
-            );
-        } else {
-          console.warn('No data received');
-        }
-      },
-      error => {
-        console.error('Error fetching from API:', error);
-      }
-    );
-  }
+loadStatus() {
+  this.statusService.getAllStatuses().subscribe({
+    next: (data) => {
+      console.log('Statuses:', data);
+      this.statusTypes = data.sort((a, b) =>
+        a.StatusName.localeCompare(b.StatusName)
+      );
+    },
+    error: (err) => {
+      console.error('Failed to load statuses:', err);
+    }
+  });
+}
   
   get filteredStatusTypes(): Status[] {
     if (!this.searchTerm.trim()) return this.statusTypes;

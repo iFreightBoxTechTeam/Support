@@ -5,6 +5,7 @@ import { IssueService } from '../issue.service';
 import { HttpClient } from '@angular/common/http';
 import { Status,StatusService } from '../status.service';
 
+
 declare var bootstrap: any;
 @Component({
   selector: 'app-issuse',
@@ -20,12 +21,14 @@ currentPage = 1;
 itemsPerPage = 5;
 
 statuses: Status[] = [];
+
+
   filter = {
     user: '',
     tenantCode: '',
     raisedDate: '',
     status: '',
-    assignedTo: ''
+    assignTo: 'null'
   };
 
 
@@ -68,6 +71,9 @@ loadStatuses() {
     }
   });
 }
+
+
+
   onSearch(term: string) {
     this.searchTerm = term;
     this.currentPage = 1;
