@@ -27,6 +27,7 @@ statuses: Status[] = [];
     user: '',
     tenantCode: '',
     raisedDate: '',
+    ResolveDate:'',
     status: '',
     assignTo: 'null'
   };
