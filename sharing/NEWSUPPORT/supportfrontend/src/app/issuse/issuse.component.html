@@ -90,9 +90,7 @@
   <label for="filterAssignedTo" class="form-label">Assign To</label>
   <select id="filterAssignedTo" class="form-select" [(ngModel)]="filter.assignTo" name="assignedTo">
    <option value="">Select User</option>
-   <option *ngFor="let issue of issues" [ngValue]="issue">
-  {{issue.AssignTo}}
-</option>
+   <option *ngFor="let issue of issues" [value]="issue.AssignTo">{{ issue.AssignTo }}</option>
   </select>
 </div>
 

@@ -12,7 +12,7 @@ declare var bootstrap: any;
   templateUrl: './issuse.component.html',
   styleUrls: ['./issuse.component.css'],
 })
-export class IssuseComponent implements OnInit, AfterViewInit {
+export class IssuseComponent implements OnInit, AfterViewInit, AfterViewInit {
     issues: any[] = [];
   filteredIssues: any[] = [];
   searchTerm: string = '';
@@ -52,14 +52,12 @@ filter = {
     this.loadIssues();
     this.loadStatuses();
   }
-  loadIssues() {
+loadIssues() {
   this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
     console.log(data)
     if (Array.isArray(data)) {
       this.issues = data;
-      this.filteredIssues = data;
-      // this.applyFilters();
-      this.filteredIssues = [...this.issues];
+      this.filteredIssues = data; // ✅ show full list initially
     } else {
       console.error("API did not return an array:", data);
     }
@@ -75,6 +73,7 @@ filter = {
 //     }
 //   });
 // }
+
 
 
 loadStatuses() {
@@ -201,35 +200,26 @@ confirmDeleteIssuse(): void {
 
 
 applyFilters() {
-  const { userId, tenantCode, startDate, endDate, status, assignTo } = this.filter;
-
   this.filteredIssues = this.issues.filter(issue => {
-    const issueDate = new Date(issue.RaisedDate);
-    const start = startDate ? new Date(startDate) : null;
-    const end = endDate ? new Date(endDate) : null;
+    const issueDate = new Date(issue.Raised_date); // ✅ Make sure it's Raised_date not RaisedDate
+    const start = this.filter.startDate ? new Date(this.filter.startDate) : null;
+    const end = this.filter.endDate ? new Date(this.filter.endDate) : null;
 
-    // ✅ Filter by UserId (exact match)
-    if (userId && issue.UserId != userId) return false;
-
-    // ✅ Filter by TenantCode (case insensitive contains)
-    if (tenantCode && !issue.TenantCode.toLowerCase().includes(tenantCode.toLowerCase())) {
-      return false;
-    }
-
-    // ✅ Filter by Date Range
+    if (this.filter.userId && issue.UserId != this.filter.userId) return false;
+    if (this.filter.tenantCode && !issue.TenantCode?.toLowerCase().includes(this.filter.tenantCode.toLowerCase())) return false;
     if (start && issueDate < start) return false;
     if (end && issueDate > end) return false;
-
-    // ✅ Filter by Status
-    if (status && issue.StatusId !== status) return false;
-
-    // ✅ Filter by AssignedTo
-    if (assignTo && assignTo !== '' && issue.AssignTo !== assignTo) return false;
+    if (this.filter.status && issue.StatusId != this.filter.status) return false;
+    if (this.filter.assignTo && this.filter.assignTo !== '' && issue.AssignTo?.toLowerCase() !== this.filter.assignTo.toLowerCase()) return false;
 
     return true;
   });
 
-  this.currentPage = 1; // Reset to first page after filtering
+  // ✅ Set current page and close offcanvas
+  this.currentPage = 1;
+  if (this.offcanvasInstance) {
+    this.offcanvasInstance.hide();
+  }
 }
 
 
@@ -240,11 +230,11 @@ getUniqueUserIds(): number[] {
 
 
 ngAfterViewInit() {
-    const element = document.getElementById('offcanvasRight');
-    if (element) {
-      this.offcanvasInstance = new bootstrap.Offcanvas(element);
-    }
+  const element = document.getElementById('offcanvasRight');
+  if (element) {
+    this.offcanvasInstance = new bootstrap.Offcanvas(element);
   }
+}
 
   openOffcanvas() {
     this.offcanvasInstance.show();
