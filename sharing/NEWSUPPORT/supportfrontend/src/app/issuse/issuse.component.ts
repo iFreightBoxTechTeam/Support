@@ -52,17 +52,29 @@ filter = {
     this.loadIssues();
     this.loadStatuses();
   }
-  
-loadIssues() {
+  loadIssues() {
   this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
+    console.log(data)
     if (Array.isArray(data)) {
       this.issues = data;
-      this.applyFilters(); // Apply filters after fetching
+      this.filteredIssues = data;
+      // this.applyFilters();
+      this.filteredIssues = [...this.issues];
     } else {
       console.error("API did not return an array:", data);
     }
   });
 }
+// loadIssues() {
+//   this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
+//     if (Array.isArray(data)) {
+//       this.issues = data;
+//       this.applyFilters(); // Apply filters after fetching
+//     } else {
+//       console.error("API did not return an array:", data);
+//     }
+//   });
+// }
 
 
 loadStatuses() {
