@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ViewComponent } from '../component/view/view.component';
 import { IssueComponent } from '../component/issue/issue.component';
 import { IssueService } from '../issue.service';
@@ -20,16 +20,21 @@ export class IssuseComponent implements OnInit, AfterViewInit {
 currentPage = 1;
 itemsPerPage = 5;
 
+
+showDeleteModal = false;
+issueToDelete: any = null;
+
 statuses: Status[] = [];
 
+filter = {
+  userId: '',
+  tenantCode: '',
+  startDate: '',
+  endDate: '',
+  status: '',
+  assignTo: 'null'
+};
 
-  filter = {
-    user: '',
-    tenantCode: '',
-    raisedDate: '',
-    status: '',
-    assignTo: 'null'
-  };
 
 
   @ViewChild(ViewComponent) viewComponent!: ViewComponent;
@@ -48,18 +53,17 @@ statuses: Status[] = [];
     this.loadStatuses();
   }
   
-
- loadIssues() {
+loadIssues() {
   this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
-    console.log(data)
     if (Array.isArray(data)) {
       this.issues = data;
-      this.filteredIssues = data;
+      this.applyFilters(); // Apply filters after fetching
     } else {
       console.error("API did not return an array:", data);
     }
   });
 }
+
 
 loadStatuses() {
   this.statusService.getAllStatuses().subscribe({
@@ -96,7 +100,7 @@ loadStatuses() {
 changePage(page: number) {
   if (page >= 1 && page <= this.totalPages) {
     this.currentPage = page;
-    this.loadIssues();  // 🔁 This was missing
+    this.loadIssues();  
   }
 }
 
@@ -146,54 +150,83 @@ changePage(page: number) {
 
 }
 
-  showDeleteModal = false;
-  issueToDelete: any = null;
-
-  openDeleteConfirmation(issue: any): void {
-    this.issueToDelete = issue;
-    this.showDeleteModal = true;
-  }
+ 
+openDeleteConfirmation(issue: any): void {
+  this.issueToDelete = issue;
+  this.showDeleteModal = true;
+}
 
   undoDelete(): void {
-    this.showDeleteModal = false;
-    this.issueToDelete = null;
-  }
+  this.showDeleteModal = false;
+  this.issueToDelete = null;
+}
 
-  confirmDeleteIssuse(): void {
-    if (!this.issueToDelete) return;
+confirmDeleteIssuse(): void {
+  if (!this.issueToDelete) return;
 
-    const id = this.issueToDelete.UserId;
+  const id = this.issueToDelete.UserId;
 
-    this.http.delete(`https://localhost:44321/api/values/${id}`).subscribe({
-      next: () => {
-        this.issues = this.issues.filter(issue => issue.UserId !== id);
-        this.filteredIssues = this.filteredIssues.filter(issue => issue.UserId !== id);
-        console.log('Issue deleted successfully.');
-
-        this.undoDelete(); // Hide modal
-        this.loadIssues();
-      },
-      error: (err) => {
-        console.error('Error deleting issue:', err);
-        alert('Failed to delete issue.');
-        this.undoDelete(); // Hide modal even on failure
-      }
-    });
-  }
+  this.http.delete(`https://localhost:44321/api/values/${id}`).subscribe({
+    next: () => {
+      this.issues = this.issues.filter(issue => issue.UserId !== id);
+      this.filteredIssues = this.filteredIssues.filter(issue => issue.UserId !== id);
+      this.undoDelete(); // Close modal
+      this.loadIssues(); // Reload if needed
+    },
+    error: (err) => {
+      alert('Failed to delete issue.');
+      this.undoDelete();
+    }
+  });
+}
 
   changePer(event: any) {
     this.itemsPerPage = +event;
-    this.currentPage = 1; // Reset to page 1
-    this.loadIssues();    // Refresh data
+    this.currentPage = 1; 
+    this.loadIssues();    
   }
 
 
 
 applyFilters() {
-  console.log('Filters:', this.filter);
+  const { userId, tenantCode, startDate, endDate, status, assignTo } = this.filter;
 
-  
+  this.filteredIssues = this.issues.filter(issue => {
+    const issueDate = new Date(issue.RaisedDate);
+    const start = startDate ? new Date(startDate) : null;
+    const end = endDate ? new Date(endDate) : null;
+
+    // ✅ Filter by UserId (exact match)
+    if (userId && issue.UserId != userId) return false;
+
+    // ✅ Filter by TenantCode (case insensitive contains)
+    if (tenantCode && !issue.TenantCode.toLowerCase().includes(tenantCode.toLowerCase())) {
+      return false;
+    }
+
+    // ✅ Filter by Date Range
+    if (start && issueDate < start) return false;
+    if (end && issueDate > end) return false;
+
+    // ✅ Filter by Status
+    if (status && issue.StatusId !== status) return false;
+
+    // ✅ Filter by AssignedTo
+    if (assignTo && assignTo !== '' && issue.AssignTo !== assignTo) return false;
+
+    return true;
+  });
+
+  this.currentPage = 1; // Reset to first page after filtering
 }
+
+
+getUniqueUserIds(): number[] {
+  const ids = this.issues.map(issue => issue.UserId);
+  return Array.from(new Set(ids));
+}
+
+
 ngAfterViewInit() {
     const element = document.getElementById('offcanvasRight');
     if (element) {
