@@ -116,6 +116,7 @@
        
           <th>user ID</th>
           <th>User</th>
+          <th>Issues number</th>
           <th>Tenant Code</th>
           <th>Raised Date</th>
           <th>Status</th>
@@ -129,8 +130,10 @@
   <td>
     <button class="btn btn-sm me-2" (click)="editIssue(issue)">{{ issue.UserId }}</button></td>
    <td>{{ issue.Name }}</td>
+   <td>{{issue.Issues_Number}}</td>
   <td>{{ issue.TenantCode }}</td>
   <td>{{ issue.Raised_date | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
+  
   <td>{{ issue.StatusName }}</td>
 <td><span>{{ issue.TakenTime | daytime }}</span>
 </td>
