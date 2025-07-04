@@ -175,7 +175,7 @@ openDeleteConfirmation(issue: any): void {
 confirmDeleteIssuse(): void {
   if (!this.issueToDelete) return;
 
-  const id = this.issueToDelete.Id;  // ✅ use Id instead of UserId
+  const id = this.issueToDelete.Id;  //  use Id instead of UserId
 
   this.http.delete(`https://localhost:44321/api/values/${id}`).subscribe({
     next: () => {
@@ -202,7 +202,7 @@ confirmDeleteIssuse(): void {
 
 applyFilters() {
   this.filteredIssues = this.issues.filter(issue => {
-    const issueDate = new Date(issue.Raised_date); // ✅ Make sure it's Raised_date not RaisedDate
+    const issueDate = new Date(issue.Raised_date); 
     const start = this.filter.startDate ? new Date(this.filter.startDate) : null;
     const end = this.filter.endDate ? new Date(this.filter.endDate) : null;
 
@@ -217,11 +217,8 @@ applyFilters() {
     return true;
   });
 
-  // ✅ Set current page and close offcanvas
+ 
   this.currentPage = 1;
-  if (this.offcanvasInstance) {
-    this.offcanvasInstance.hide();
-  }
 }
 
 
