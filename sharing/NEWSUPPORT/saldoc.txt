@@ -1,0 +1,64 @@
+
+-----------------------------statusLog---------------------------
+CREATE TABLE Logs (
+    statusNumber INT IDENTITY(1,1) PRIMARY KEY, -- Auto-increment
+    issueNumber UNIQUEIDENTIFIER,
+    statusId UNIQUEIDENTIFIER,
+    RaisedDate DATETIME,
+    ResolvedDate DATETIME
+);
+
+CREATE TRIGGER trg_AfterInsert_Issues
+ON issues
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO Logs (issueNumber, statusId, RaisedDate, ResolvedDate)
+    SELECT 
+        i.issues_id,
+        i.statusid,
+        i.Raised_date,
+        i.resolve_date
+    FROM inserted i;
+END;
+
+INSERT INTO issues (
+    issues_id,
+    descriptions,
+    statusid,
+    name,
+    tenantcode,
+    Raised_date,
+    userid,
+	IssueType,
+    module,
+    assign_to,
+    resolve_date
+)
+VALUES (
+    NEWID(),
+    'Test issue',
+    (SELECT TOP 1 statusid FROM sttabble),
+    'Issue Title',
+    'TNT008',
+    GETDATE(),
+    1,
+    'Login',
+    'Developer A',
+    NULL
+);
+
+INSERT INTO sttabble (statusid, statusname) VALUES (NEWID(), 'Open');
+INSERT INTO sttabble (statusid, statusname) VALUES (NEWID(), 'In Progress');
+INSERT INTO sttabble (statusid, statusname) VALUES (NEWID(), 'Resolved');
+INSERT INTO sttabble (statusid, statusname) VALUES (NEWID(), 'Closed');
+INSERT INTO sttabble (statusid, statusname) VALUES (NEWID(), 'Reopened');
+
+
+
+SELECT * FROM Logs;
+
+
+select * from issues;

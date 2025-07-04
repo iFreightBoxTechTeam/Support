@@ -37,7 +37,8 @@ namespace WebApplication2.Controllers
                         {
                             list.Add(new issuestable
                             {
-                                Issues_Number = Convert.ToInt32(reader["issues_number"]),
+                                Issues_Number = Convert.ToInt32(
+                                    reader["issues_number"]),
                                 issues_id = Guid.Parse(reader["issues_id"].ToString()),
                                 Description = reader["descriptions"].ToString(),
                                 ImagePaths = reader["imagepaths"] != DBNull.Value
@@ -749,39 +750,50 @@ namespace WebApplication2.Controllers
 
         [HttpGet]
         [Route("api/values/view/{userid}")]
-        public IHttpActionResult GetIssueHistory(int UserId)
+        public IHttpActionResult GetIssueHistory(int userid)
         {
-            
+            List<issuestable> history = new List<issuestable>();
 
-         
-            using (SqlCommand cmd = new SqlCommand("sp_GetIssue ", con))
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString))
             {
-                List<issuestable> history = new List<issuestable>();
-   
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@userid", UserId);
-
-                con.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                using (SqlCommand cmd = new SqlCommand("sp_GetIssue", con))
                 {
-                    while (reader.Read())
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@userid", userid);
+
+                    try
                     {
-                        history.Add(new issuestable
+                        con.Open();
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            Raised_date = Convert.ToDateTime(reader["Raised_date"]),
-                            StatusName = reader["statusname"].ToString(),
-                            Name = reader["name"].ToString(),
-                            
-                        });
+                            while (reader.Read())
+                            {
+                                history.Add(new issuestable
+                                {
+                                    Raised_date = reader["Raised_date"] != DBNull.Value ? Convert.ToDateTime(reader["Raised_date"]) : DateTime.MinValue,
+                                    StatusName = reader["statusname"].ToString(),
+                                    Name = reader["name"].ToString()
+                                });
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log error (optional)
+                        return InternalServerError(ex);
+                    }
+                    finally
+                    {
+                        con.Close();
                     }
                 }
-                return Ok(history);
             }
 
-            
+            return Ok(history);
         }
-
-        [HttpDelete]
+    
+    [HttpDelete]
         [Route("api/values/users/{issuesid}")]
         public IHttpActionResult DeleteUser(int issuesid)
         {

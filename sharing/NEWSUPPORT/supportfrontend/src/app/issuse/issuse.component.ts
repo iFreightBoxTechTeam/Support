@@ -35,6 +35,8 @@ filter = {
   status: '',
   assignTo: ''
 };
+tempFilter = { ...this.filter }
+
 
 
 
@@ -59,12 +61,23 @@ loadIssues() {
   this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
     if (Array.isArray(data)) {
       this.issues = data;
-      this.filteredIssues = [...data]; // Important!
+      this.applyFilters();  // apply filters after fetching issues
     } else {
-      // console.error("API did not return an array:", data);
+      console.error("API did not return an array:", data);
     }
   });
 }
+
+// loadIssues() {
+//   this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
+//     if (Array.isArray(data)) {
+//       this.issues = data;
+//       this.applyFilters(); // Apply filters after fetching
+//     } else {
+//       console.error("API did not return an array:", data);
+//     }
+//   });
+// }
 
 
 
@@ -199,27 +212,54 @@ confirmDeleteIssuse(): void {
   }
 
 
-
 applyFilters() {
   this.filteredIssues = this.issues.filter(issue => {
-    const issueDate = new Date(issue.Raised_date); 
+    const issueDate = new Date(issue.Raised_date);
     const start = this.filter.startDate ? new Date(this.filter.startDate) : null;
     const end = this.filter.endDate ? new Date(this.filter.endDate) : null;
 
-    if (this.filter.userId && issue.UserId != this.filter.userId) return false;
-    if (this.filter.tenantCode && !issue.TenantCode?.toLowerCase().includes(this.filter.tenantCode.toLowerCase())) return false;
-    if (start && issueDate < start) return false;
-    if (end && issueDate > end) return false;
-    if (this.filter.status && issue.StatusId != this.filter.status) return false;
-   if (this.filter.assignTo && issue.AssignTo?.toLowerCase() !== this.filter.assignTo.toLowerCase()) return false;
-
+    if (this.filter.userId && issue.UserId != +this.filter.userId) {
+      console.log(`Filtered out by userId: issue.UserId=${issue.UserId}, filter=${this.filter.userId}`);
+      return false;
+    }
+    if (this.filter.tenantCode && !issue.TenantCode?.toLowerCase().includes(this.filter.tenantCode.toLowerCase())) {
+      console.log(`Filtered out by tenantCode: issue.TenantCode=${issue.TenantCode}, filter=${this.filter.tenantCode}`);
+      return false;
+    }
+    if (start && issueDate < start) {
+      console.log(`Filtered out by startDate: issueDate=${issueDate}, start=${start}`);
+      return false;
+    }
+    if (end && issueDate > end) {
+      console.log(`Filtered out by endDate: issueDate=${issueDate}, end=${end}`);
+      return false;
+    }
+    if (this.filter.status && issue.StatusId != +this.filter.status) {
+      console.log(`Filtered out by status: issue.StatusId=${issue.StatusId}, filter=${this.filter.status}`);
+      return false;
+    }
+    if (this.filter.assignTo && issue.AssignTo?.toLowerCase() !== this.filter.assignTo.toLowerCase()) {
+      console.log(`Filtered out by assignTo: issue.AssignTo=${issue.AssignTo}, filter=${this.filter.assignTo}`);
+      return false;
+    }
 
     return true;
   });
 
- 
+  
   this.currentPage = 1;
+  if (this.offcanvasInstance) this.offcanvasInstance.hide();
+  console.log("Filtered issues count:", this.filteredIssues.length);
 }
+applyFilterChanges() {
+  this.filter = { ...this.tempFilter };
+  this.applyFilters();
+  if (this.offcanvasInstance) {
+    this.offcanvasInstance.hide();
+  }
+}
+
+
 
 
 clearFilters() {
@@ -251,10 +291,21 @@ ngAfterViewInit() {
   }
 }
 
-  openOffcanvas() {
-    this.offcanvasInstance.show();
-  }
-
+openOffcanvas() {
+  this.clearFilters();   // Reset filter inputs on opening
+  this.offcanvasInstance.show();
+   this.tempFilter = {
+    userId: '',
+    tenantCode: '',
+    startDate: '',
+    endDate: '',
+    status: '',
+    assignTo: ''
+  };
+  this.offcanvasInstance.show();
 }
+}
+
+
 
 

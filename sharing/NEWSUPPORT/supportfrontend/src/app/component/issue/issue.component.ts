@@ -73,7 +73,7 @@ issueTypes: any[] = [];
     if (!this.issue || Object.keys(this.issue).length === 0) {
       // console.log("Error: Issue is not set correctly in issue.component.ts");
     }
-    // console.log("Loaded Issue in issue.component.ts:", this.issue);
+    console.log("Loaded Issue in issue.component.ts:", this.issue);
   }
 
   setIssue(issue: any) {
