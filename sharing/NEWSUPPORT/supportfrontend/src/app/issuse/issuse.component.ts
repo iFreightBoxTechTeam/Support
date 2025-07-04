@@ -56,10 +56,9 @@ loadIssues() {
   this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
     console.log(data)
     if (Array.isArray(data)) {
+      console.log("API did not return an array:", data);
       this.issues = data;
-      this.filteredIssues = data; // ✅ show full list initially
-    } else {
-      console.error("API did not return an array:", data);
+      this.filteredIssues = data; 
     }
   });
 }
