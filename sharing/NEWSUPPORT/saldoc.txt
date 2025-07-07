@@ -1490,7 +1490,7 @@ BEGIN
         (@UserId IS NULL OR i.userid = @UserId)
         AND (@TenantCode IS NULL OR i.tenantcode = @TenantCode)
         AND (@RaisedDate IS NULL OR i.Raised_date = @RaisedDate)
-		AND(@resolve_date IS NULL OR i.resolve_date=@resolve_date)
+	AND(@resolve_date IS NULL OR i.resolve_date=@resolve_date)
         AND (@StatusId IS NULL OR i.statusid = @StatusId)
         AND (@AssignTo IS NULL OR i.assign_to = @AssignTo);
 END;
