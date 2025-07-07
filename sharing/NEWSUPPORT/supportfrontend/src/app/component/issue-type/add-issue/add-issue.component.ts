@@ -97,7 +97,8 @@
 // }
 
 
-import { Component, EventEmitter, Output, AfterViewInit } from '@angular/core';
+import { Component, EventEmitter, Output, AfterViewInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Issue, IssueTypeService } from 'src/app/issue-type.service';
 
 declare var bootstrap: any;
@@ -111,6 +112,8 @@ export class AddIssueComponent implements AfterViewInit {
   @Output() issueAdded = new EventEmitter<Issue>();
   @Output() issueUpdated = new EventEmitter<Issue>();
 
+  @ViewChild('issueForm') issueForm!: NgForm;
+
   modalInstance: any;
   isEditMode: boolean = false;
 
@@ -119,18 +122,29 @@ export class AddIssueComponent implements AfterViewInit {
   Issue_Type: ''
 };
 
-    constructor(private issueService: IssueTypeService) {}
+  constructor(private issueService: IssueTypeService) {}
 
-   ngAfterViewInit() {
-    const modalElement = document.getElementById('addIssueModal');
-    if (modalElement) {
-      this.modalInstance = new bootstrap.Modal(modalElement);
-    }
+  ngAfterViewInit() {
+  setTimeout(() => {
+  const modalElement = document.getElementById('addIssueModal');
+  if (modalElement) {
+        this.modalInstance = new (window as any).bootstrap.Modal(modalElement, {
+          backdrop: 'static',
+          keyboard: false
+        });
+      } else {
+        console.error('Modal element not found.');
+      }
+    });
   }
 
   private nextId = 201;
 
   openModal(issue?: Issue) {
+    if (this.issueForm) {
+      this.issueForm.resetForm(); // to clear validation and model
+    }
+
     if (issue) {
       this.isEditMode = true;
       this.newIssue = { ...issue };
@@ -173,7 +187,7 @@ export class AddIssueComponent implements AfterViewInit {
        this.newIssue;
     }
   } else {
-    alert('Please enter a Issue Name.');
+    console.log('Please enter a Issue Name.');
   }
 }
 
