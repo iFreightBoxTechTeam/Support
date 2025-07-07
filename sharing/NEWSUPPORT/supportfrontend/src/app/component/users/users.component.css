@@ -1,6 +1,10 @@
 /* User */
 .user-card {
-  margin: 20px;
+  /* margin: 20px; */
+  width: 90%;
+  min-width: 360px;
+  margin: 15px auto;
+  font-family: Arial, sans-serif;
 }
 
 .user-task {
