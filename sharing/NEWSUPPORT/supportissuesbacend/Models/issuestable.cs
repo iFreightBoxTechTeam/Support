@@ -10,7 +10,7 @@ namespace WebApplication1.Models
 
         // Matable fields
         public Guid issues_id { get; set; }
-    public object Issues_Id { get; internal set; }
+   
     public string Description { get; set; }
         public List<string> ImagePaths { get; set; }
         public string Name { get; set; }
@@ -26,7 +26,7 @@ namespace WebApplication1.Models
         public DateTime? ResolveDate { get; set; }
         public DateTime Raised_date { get; set; }
         public  decimal? TakenTime { get; set; }
-        public string Email { get; internal set; }
+      
     }
 
 

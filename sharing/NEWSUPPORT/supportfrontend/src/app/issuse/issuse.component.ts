@@ -12,7 +12,8 @@ declare var bootstrap: any;
   templateUrl: './issuse.component.html',
   styleUrls: ['./issuse.component.css'],
 })
-export class IssuseComponent implements OnInit, AfterViewInit, AfterViewInit {
+export class IssuseComponent implements OnInit, AfterViewInit {
+
     issues: any[] = [];
   filteredIssues: any[] = [];
   searchTerm: string = '';
@@ -32,8 +33,10 @@ filter = {
   startDate: '',
   endDate: '',
   status: '',
-  assignTo: 'null'
+  assignTo: ''
 };
+tempFilter = { ...this.filter }
+
 
 
 
@@ -52,16 +55,30 @@ filter = {
     this.loadIssues();
     this.loadStatuses();
   }
+
+
 loadIssues() {
   this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
     if (Array.isArray(data)) {
       this.issues = data;
-      this.filteredIssues = data; // ✅ show full list initially
+      this.applyFilters();  // apply filters after fetching issues
     } else {
       console.error("API did not return an array:", data);
     }
   });
 }
+
+// loadIssues() {
+//   this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
+//     if (Array.isArray(data)) {
+//       this.issues = data;
+//       this.applyFilters(); // Apply filters after fetching
+//     } else {
+//       console.error("API did not return an array:", data);
+//     }
+//   });
+// }
+
 
 
 
@@ -71,7 +88,7 @@ loadStatuses() {
       this.statuses = data;
     },
     error: (err) => {
-      console.error('Error fetching statuses:', err);
+      // console.error('Error fetching statuses:', err);
     }
   });
 }
@@ -92,15 +109,22 @@ loadStatuses() {
     return Array(this.totalPages).fill(0);
   }
 
-  get paginatedIssues() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filteredIssues.slice(startIndex, startIndex + this.itemsPerPage);
-  }
+  // get paginatedIssues() {
+  //   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  //   return this.filteredIssues.slice(startIndex, startIndex + this.itemsPerPage);
+  // }
+
+get paginatedIssues() {
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  const paginated = this.filteredIssues.slice(startIndex, startIndex + this.itemsPerPage);
+  console.log("Paginated Issues:", paginated);
+  return paginated;
+}
+
 
 changePage(page: number) {
   if (page >= 1 && page <= this.totalPages) {
     this.currentPage = page;
-    this.loadIssues();  
   }
 }
 
@@ -110,7 +134,7 @@ changePage(page: number) {
     console.log("Selected Issue Before Setting in Service:", selectedIssue);
 
     if (!selectedIssue) {
-      console.error("Error: No issue found for ID:", issue.UserId);
+      // console.error("Error: No issue found for ID:", issue.UserId);
       return;
     }
     
@@ -129,7 +153,7 @@ changePage(page: number) {
           this.loadIssues();
         },
         error: (err) => {
-          console.error('Error deleting issue:', err);
+          // console.error('Error deleting issue:', err);
           alert('Failed to delete issue.');
         }
       });
@@ -164,12 +188,12 @@ openDeleteConfirmation(issue: any): void {
 confirmDeleteIssuse(): void {
   if (!this.issueToDelete) return;
 
-  const id = this.issueToDelete.UserId;
+  const id = this.issueToDelete.Id;  // ✅ use Id instead of UserId
 
   this.http.delete(`https://localhost:44321/api/values/${id}`).subscribe({
     next: () => {
-      this.issues = this.issues.filter(issue => issue.UserId !== id);
-      this.filteredIssues = this.filteredIssues.filter(issue => issue.UserId !== id);
+      this.issues = this.issues.filter(issue => issue.Id !== id);  // ✅ filter by Id
+      this.filteredIssues = this.filteredIssues.filter(issue => issue.Id !== id);
       this.undoDelete(); // Close modal
       this.loadIssues(); // Reload if needed
     },
@@ -180,37 +204,79 @@ confirmDeleteIssuse(): void {
   });
 }
 
+
   changePer(event: any) {
     this.itemsPerPage = +event;
     this.currentPage = 1; 
-    this.loadIssues();    
+      // this.loadIssues();  
   }
-
 
 
 applyFilters() {
   this.filteredIssues = this.issues.filter(issue => {
-    const issueDate = new Date(issue.Raised_date); // ✅ Make sure it's Raised_date not RaisedDate
+    const issueDate = new Date(issue.Raised_date);
     const start = this.filter.startDate ? new Date(this.filter.startDate) : null;
     const end = this.filter.endDate ? new Date(this.filter.endDate) : null;
 
-    if (this.filter.userId && issue.UserId != this.filter.userId) return false;
-    if (this.filter.tenantCode && !issue.TenantCode?.toLowerCase().includes(this.filter.tenantCode.toLowerCase())) return false;
-    if (start && issueDate < start) return false;
-    if (end && issueDate > end) return false;
-    if (this.filter.status && issue.StatusId != this.filter.status) return false;
-    if (this.filter.assignTo && this.filter.assignTo !== '' && issue.AssignTo?.toLowerCase() !== this.filter.assignTo.toLowerCase()) return false;
+    if (this.filter.userId && issue.UserId != +this.filter.userId) {
+      console.log(`Filtered out by userId: issue.UserId=${issue.UserId}, filter=${this.filter.userId}`);
+      return false;
+    }
+    if (this.filter.tenantCode && !issue.TenantCode?.toLowerCase().includes(this.filter.tenantCode.toLowerCase())) {
+      console.log(`Filtered out by tenantCode: issue.TenantCode=${issue.TenantCode}, filter=${this.filter.tenantCode}`);
+      return false;
+    }
+    if (start && issueDate < start) {
+      console.log(`Filtered out by startDate: issueDate=${issueDate}, start=${start}`);
+      return false;
+    }
+    if (end && issueDate > end) {
+      console.log(`Filtered out by endDate: issueDate=${issueDate}, end=${end}`);
+      return false;
+    }
+    if (this.filter.status && issue.StatusId != +this.filter.status) {
+      console.log(`Filtered out by status: issue.StatusId=${issue.StatusId}, filter=${this.filter.status}`);
+      return false;
+    }
+    if (this.filter.assignTo && issue.AssignTo?.toLowerCase() !== this.filter.assignTo.toLowerCase()) {
+      console.log(`Filtered out by assignTo: issue.AssignTo=${issue.AssignTo}, filter=${this.filter.assignTo}`);
+      return false;
+    }
 
     return true;
   });
 
-  // ✅ Set current page and close offcanvas
+  
   this.currentPage = 1;
+  if (this.offcanvasInstance) this.offcanvasInstance.hide();
+  console.log("Filtered issues count:", this.filteredIssues.length);
+}
+applyFilterChanges() {
+  this.filter = { ...this.tempFilter };
+  this.applyFilters();
   if (this.offcanvasInstance) {
     this.offcanvasInstance.hide();
   }
 }
 
+
+
+
+clearFilters() {
+  this.filter = {
+    userId: '',
+    tenantCode: '',
+    startDate: '',
+    endDate: '',
+    status: '',
+    assignTo: ''
+  };
+  this.filteredIssues = [...this.issues];
+  this.currentPage = 1;
+  if (this.offcanvasInstance) {
+    this.offcanvasInstance.hide();
+  }
+}
 
 getUniqueUserIds(): number[] {
   const ids = this.issues.map(issue => issue.UserId);
@@ -225,10 +291,21 @@ ngAfterViewInit() {
   }
 }
 
-  openOffcanvas() {
-    this.offcanvasInstance.show();
-  }
-
+openOffcanvas() {
+  this.clearFilters();   // Reset filter inputs on opening
+  this.offcanvasInstance.show();
+   this.tempFilter = {
+    userId: '',
+    tenantCode: '',
+    startDate: '',
+    endDate: '',
+    status: '',
+    assignTo: ''
+  };
+  this.offcanvasInstance.show();
 }
+}
+
+
 
 
