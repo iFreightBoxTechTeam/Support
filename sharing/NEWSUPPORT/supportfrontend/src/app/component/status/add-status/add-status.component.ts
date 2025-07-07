@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output, AfterViewInit } from '@angular/core';
+import { Component, EventEmitter, Output, AfterViewInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Status, StatusService } from 'src/app/status.service';
 
 declare var bootstrap: any;
@@ -11,6 +12,8 @@ declare var bootstrap: any;
 export class AddStatusComponent implements AfterViewInit {
   @Output() statusAdded = new EventEmitter<Status>();
   @Output() statusUpdated = new EventEmitter<Status>();
+
+  @ViewChild('statusForm') statusForm!: NgForm;
 
   modalInstance: any;
   isEditMode: boolean = false;
@@ -54,6 +57,10 @@ export class AddStatusComponent implements AfterViewInit {
   }
 
   openModal(status?: Status) {
+    if (this.statusForm) {
+      this.statusForm.resetForm(); // to clear validation and model
+    }
+
     if (status) {
       this.isEditMode = true;
       this.newStatus = { ...status };  
@@ -68,7 +75,7 @@ export class AddStatusComponent implements AfterViewInit {
  addStatus() {
   const trimmedName = this.newStatus.StatusName?.trim();
   if (!trimmedName) {
-    alert('Please enter a status name.');
+    console.log('Please enter a status name.');
     return;
   }
   this.newStatus.StatusName = trimmedName;
