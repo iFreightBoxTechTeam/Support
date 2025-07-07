@@ -31,10 +31,14 @@ namespace WebApplication1.Models
     }
     public class LogEntry
     {
-        public int LogNumber { get; set; }
-        public DateTime? RaisedDate { get; set; }
+        public int LogNumber { get; set; }  // Capital L here
+   
+        public string LogStatusName { get; set; }
+        public DateTime RaisedDate { get; set; }
         public DateTime? ResolvedDate { get; set; }
     }
+
+
 
 
 }
