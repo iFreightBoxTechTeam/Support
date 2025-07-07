@@ -1454,4 +1454,44 @@ SET statusid = 'F9827026-66E1-4F13-B1A3-164D121569E8',
     resolve_date = '2025-07-07'
 WHERE issues_id = 'D610D26F-B4C3-4873-A9C8-110627D90566';
 
+CREATE OR ALTER PROCEDURE GetIssuesByFilters
+    @UserId INT = NULL,
+    @TenantCode NVARCHAR(50) = NULL,
+    @RaisedDate DATETIME = NULL,
+	@resolve_date DATETIME = NULL,
+    @StatusName NVARCHAR(100) = NULL,
+    @AssignTo NVARCHAR(100) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @StatusId UNIQUEIDENTIFIER;
+
+    IF @StatusName IS NOT NULL
+    BEGIN
+        SELECT @StatusId = statusid
+        FROM sttabble
+        WHERE statusname = @StatusName;
+    END
+
+    SELECT 
+        
+        i.userid,
+        i.tenantcode,
+        i.Raised_date AS RaisedDate,
+		i.resolve_date,
+        s.statusname,
+        i.assign_to
+    FROM 
+        issues i
+    JOIN 
+        sttabble s ON i.statusid = s.statusid
+    WHERE 
+        (@UserId IS NULL OR i.userid = @UserId)
+        AND (@TenantCode IS NULL OR i.tenantcode = @TenantCode)
+        AND (@RaisedDate IS NULL OR i.Raised_date = @RaisedDate)
+		AND(@resolve_date IS NULL OR i.resolve_date=@resolve_date)
+        AND (@StatusId IS NULL OR i.statusid = @StatusId)
+        AND (@AssignTo IS NULL OR i.assign_to = @AssignTo);
+END;
 
