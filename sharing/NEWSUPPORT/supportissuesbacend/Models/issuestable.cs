@@ -26,8 +26,19 @@ namespace WebApplication1.Models
         public DateTime? ResolveDate { get; set; }
         public DateTime Raised_date { get; set; }
         public  decimal? TakenTime { get; set; }
-      
+        public List<LogEntry> Logs { get; set; } // New parsed logs
+
+    }
+    public class LogEntry
+    {
+        public int LogNumber { get; set; }  // Capital L here
+        public int IssueNumber { get; set; }
+        public string LogStatusName { get; set; }
+        public DateTime RaisedDate { get; set; }
+        public string StatusName { get; set; }
+        public DateTime? ResolvedDate { get; set; }
     }
 
+  
 
 }

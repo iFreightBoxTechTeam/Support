@@ -80,7 +80,7 @@ loadStatus() {
       this.newStatusType = '';
       this.currentPage = this.totalPages;
     } else {
-      alert('Please enter a Status type.');
+      console.log('Please enter a Status type.');
     }
   }
 
