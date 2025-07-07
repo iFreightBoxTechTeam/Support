@@ -1,8 +1,7 @@
 /* Issue-Type */
 .issue-type {
   width: 100%;
-  margin: 20px auto;
-  padding: 20px;
+  margin: 5px auto;
   background-color: #fdfdfd;
   font-family: Arial, sans-serif;
   box-sizing: border-box;
@@ -183,6 +182,6 @@
 /* Optional padding for medium/large screens */
 @media (min-width: 768px) {
   .issue-type {
-    padding: 25px 80px;
+    padding: 0px 60px;
   }
 }
