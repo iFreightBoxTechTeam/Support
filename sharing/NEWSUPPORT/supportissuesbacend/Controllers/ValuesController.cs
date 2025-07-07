@@ -211,55 +211,78 @@ namespace WebApplication2.Controllers
         public IHttpActionResult GetIssuesByUserIdOrTenantCode(string tenantcode, int? userid = null)
         {
             List<issuestable> masters = new List<issuestable>();
-            SqlCommand cmd = new SqlCommand("sp_Getbyuseridorcode", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@tenantcode", tenantcode);
+            string connectionString = ConfigurationManager.ConnectionStrings["YourConnectionStringName"].ConnectionString;
 
-            // Optional parameter: only add if it has a value
-            if (userid.HasValue)
-                cmd.Parameters.AddWithValue("@userid", userid.Value);
-            else
-                cmd.Parameters.AddWithValue("@userid", DBNull.Value);
-
-            try
+            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand("sp_Getbyuseridorcode", con))
             {
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@tenantcode", tenantcode ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@userid", userid ?? (object)DBNull.Value);
+
+                try
                 {
-                    masters.Add(new issuestable
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        Issues_Number = Convert.ToInt32(reader["issues_number"]),
-                        issues_id = Guid.Parse(reader["issues_id"].ToString()),
-                        Description = reader["descriptions"].ToString(),
-                        ImagePaths = reader["imagepaths"] != DBNull.Value
-                            ? reader["imagepaths"].ToString().Split(',').ToList()
-                            : new List<string>(),
-                        StatusName = reader["statusname"].ToString(),
-                        Name = reader["name"].ToString(),
-                        TenantCode = reader["tenantcode"].ToString(),
-                        Raised_date = Convert.ToDateTime(reader["Raised_date"]),
-                        UserId = Convert.ToInt32(reader["UserId"]),
-                        Module = reader["module"] != DBNull.Value ? reader["module"].ToString() : null,
-                        AssignTo = reader["assign_to"] != DBNull.Value ? reader["assign_to"].ToString() : null,
-                        ResolveDate = reader["resolve_date"] != DBNull.Value ? (DateTime?)reader["resolve_date"] : null,
-                        TakenTime = reader["taken_time"] != DBNull.Value ? Convert.ToInt32(reader["taken_time"]) : (int?)null,
-                        IssueType = reader["issuetype"] != DBNull.Value ? reader["issuetype"].ToString() : null
-                    });
+                        while (reader.Read())
+                        {
+                            var logString = reader["logs_info"] != DBNull.Value ? reader["logs_info"].ToString() : null;
+
+                            var parsedLogs = new List<LogEntry>();
+                            if (!string.IsNullOrEmpty(logString))
+                            {
+                                var logEntries = logString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                                foreach (var log in logEntries)
+                                {
+                                    var parts = log.Trim().Split(':');
+                                    if (parts.Length == 2)
+                                    {
+                                        int logNumber = int.Parse(parts[0]);
+                                        var dateParts = parts[1].Split('-');
+
+                                        parsedLogs.Add(new LogEntry
+                                        {
+                                            LogNumber = logNumber,
+                                            RaisedDate = DateTime.TryParse(dateParts[0], out DateTime rDate) ? rDate : (DateTime?)null,
+                                            ResolvedDate = DateTime.TryParse(dateParts.Length > 1 ? dateParts[1] : null, out DateTime resDate) ? resDate : (DateTime?)null
+                                        });
+                                    }
+                                }
+                            }
+
+                            masters.Add(new issuestable
+                            {
+                                Issues_Number = Convert.ToInt32(reader["issues_number"]),
+                                issues_id = Guid.Parse(reader["issues_id"].ToString()),
+                                Description = reader["descriptions"].ToString(),
+                                ImagePaths = reader["imagepaths"] != DBNull.Value
+                                    ? reader["imagepaths"].ToString().Split(',').Select(p => p.Trim()).ToList()
+                                    : new List<string>(),
+                                StatusName = reader["statusname"].ToString(),
+                                Name = reader["name"].ToString(),
+                                TenantCode = reader["tenantcode"].ToString(),
+                                Raised_date = (DateTime)(reader["Raised_date"] != DBNull.Value ? Convert.ToDateTime(reader["Raised_date"]) : (DateTime?)null),
+                                UserId = reader["userid"] != DBNull.Value ? Convert.ToInt32(reader["userid"]) : 0,
+                                Module = reader["module"] != DBNull.Value ? reader["module"].ToString() : null,
+                                AssignTo = reader["assign_to"] != DBNull.Value ? reader["assign_to"].ToString() : null,
+                                ResolveDate = reader["resolve_date"] != DBNull.Value ? (DateTime?)reader["resolve_date"] : null,
+                                TakenTime = reader["taken_time"] != DBNull.Value ? Convert.ToInt32(reader["taken_time"]) : (int?)null,
+                                IssueType = reader["issuetype"] != DBNull.Value ? reader["issuetype"].ToString() : null,
+                                Logs = parsedLogs
+                            });
+                        }
+                    }
+
+                    if (!masters.Any())
+                        return NotFound();
+
+                    return Ok(masters);
                 }
-                con.Close();
-
-                if (!masters.Any())
-                    return NotFound();
-
-                return Ok(masters);
-            }
-            catch (Exception ex)
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
-
-                return InternalServerError(ex);
+                catch (Exception ex)
+                {
+                    return InternalServerError(ex);
+                }
             }
         }
 
