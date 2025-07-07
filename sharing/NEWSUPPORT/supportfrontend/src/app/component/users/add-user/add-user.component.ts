@@ -27,23 +27,29 @@ export class AddUserComponent {
 
   constructor(private userService: UserService) {}
 
-  openModal(): void {
-    this.resetForm();
-    this.isEditMode = false;
-    this.showModal = true;
-  }
+   // to properly reset form and edit mode
   resetForm() {
-    throw new Error('Method not implemented.');
+    this.isEditMode = false; // Ensure it's not in edit mode
+    this.newUser = {
+      name: '',
+      mobile: '',
+      email: '',
+      addresh: '',
+      issuesid: 0,
+    };
   }
 
+  openModal(): void {
+    this.resetForm(); // This now works and resets state
+    this.showModal = true;
+  }
+  
   closeModal(): void {
     this.showModal = false;
   }
 
-
   editExistingUser(user: User): void {
     this.isEditMode = true;
-
     this.newUser = {
       name: user.Name,
       mobile: user.Mobile_number,
@@ -54,20 +60,9 @@ export class AddUserComponent {
     this.showModal = true;
   }
 
-  onAddUser(){
-    this.newUser = {
-
-    name: '',
-    mobile: '',
-    email: '',
-   
-    addresh: '',
-    issuesid: 0,
-  };
-    this.showModal = true
+   onAddUser() {
+    this.openModal(); // uses the fixed openModal
   }
-
-
 
   addUser(): void {
     // console.log('Payload to send:', this.newUser);
