@@ -1,7 +1,7 @@
 <div class="issues_card">
   <div class="search-wrapper">
-    <h1 class="heading_title">Issues</h1>
- <div>
+    <!-- <h1 class="heading_title">Issues</h1> -->
+ <div d-flex justify-content-end align-items-center gap-2 mb-3>
   <input
     type="text"
     class="search-input"
@@ -49,10 +49,15 @@
      
       <form>
         
-        <div class="mb-3">
-          <label for="filterUser" class="form-label">User</label>
-          <input type="text" id="filterUser" class="form-control" [(ngModel)]="filter.user" name="user" />
-        </div>
+    <div class="mb-3">
+  <label for="filterUserId" class="form-label">User ID</label>
+  <select id="filterUserId" class="form-select" [(ngModel)]="filter.userId" name="userId">
+    <option value="">Select User ID</option>
+    <option *ngFor="let id of getUniqueUserIds()" [value]="id">
+      {{ id }}
+    </option>
+  </select>
+</div>
 
      
         <div class="mb-3">
@@ -61,30 +66,38 @@
         </div>
 
        
-        <div class="mb-3">
-          <label for="filterDate" class="form-label">Raised Date</label>
-          <input type="date" id="filterDate" class="form-control" [(ngModel)]="filter.raisedDate" name="raisedDate" />
-        </div>
+     <div class="mb-3">
+  <label for="startDate" class="form-label">Start Date</label>
+  <input type="date" id="startDate" class="form-control" [(ngModel)]="filter.startDate" name="startDate" />
+
+  <label for="endDate" class="form-label">End Date</label>
+  <input type="date" id="endDate" class="form-control" [(ngModel)]="filter.endDate" name="endDate" />
+</div>
+
 
         <!-- Status -->
+          <label for="filterStatus" class="form-label">Status</label>
     <select id="filterStatus" class="form-select" [(ngModel)]="filter.status" name="status">
   <option value="">Select Status</option>
   <option *ngFor="let status of statuses" [value]="status.StatusId">
     {{ status.StatusName }}
   </option>
 </select>
+
+
+
         <div class="mb-3">
   <label for="filterAssignedTo" class="form-label">Assign To</label>
-  <select id="filterAssignedTo" class="form-select" [(ngModel)]="filter.assignedTo" name="assignedTo">
-    <option value="">Select User</option>
-    <!-- <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option> -->
+  <select id="filterAssignedTo" class="form-select" [(ngModel)]="filter.assignTo" name="assignedTo">
+   <option value="">Select User</option>
+   <option *ngFor="let issue of issues" [value]="issue.AssignTo">{{ issue.AssignTo }}</option>
   </select>
 </div>
 
         <!-- Buttons -->
         <div class="d-flex justify-content-between">
-          <button type="button" class="btn btn-primary" (click)="applyFilters()">Apply</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">Close</button>
+          <button type="button" class="btn btn-primary mt-2" (click)="applyFilters()">Apply</button>
+          <button type="button" class="btn btn-secondary mt-2" data-bs-dismiss="offcanvas">Close</button>
         </div>
       </form>
     </div>
@@ -100,22 +113,27 @@
     <table class="table table-striped table-bordered table-hover">
       <thead class="table-light">
         <tr>
+       
           <th>user ID</th>
           <th>User</th>
+          <th>Issues number</th>
           <th>Tenant Code</th>
           <th>Raised Date</th>
           <th>Status</th>
-          <th>TAKEN TIME </th>
+          <th>Taken Time </th>
           <th>Assig To</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let issue of paginatedIssues">
-  <td><button class="btn btn-sm me-2" (click)="editIssue(issue)">{{ issue.UserId }}</button></td>
+  <td>
+    <button class="btn btn-sm me-2" (click)="editIssue(issue)">{{ issue.UserId }}</button></td>
    <td>{{ issue.Name }}</td>
+   <td>{{issue.Issues_Number}}</td>
   <td>{{ issue.TenantCode }}</td>
   <td>{{ issue.Raised_date | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
+  
   <td>{{ issue.StatusName }}</td>
 <td><span>{{ issue.TakenTime | daytime }}</span>
 </td>
@@ -159,6 +177,7 @@
         </tr>
       </tbody>
     </table>
+    
   </div> 
 
   

@@ -52,5 +52,7 @@ getissueById(userId: number): Observable<any> {
 triggerIssueTypesReload() {
     this.issueTypesReloadTrigger.next();
   }
-
+// getAllUsers(): Observable<any[]> {
+//   return this.http.get<any[]>('https://localhost:44321/api/users'); 
+// }
 }
