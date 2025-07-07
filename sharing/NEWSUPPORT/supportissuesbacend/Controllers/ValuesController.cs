@@ -37,8 +37,7 @@ namespace WebApplication2.Controllers
                         {
                             list.Add(new issuestable
                             {
-                                Issues_Number = Convert.ToInt32(
-                                    reader["issues_number"]),
+                                Issues_Number = Convert.ToInt32(reader["issues_number"]),
                                 issues_id = Guid.Parse(reader["issues_id"].ToString()),
                                 Description = reader["descriptions"].ToString(),
                                 ImagePaths = reader["imagepaths"] != DBNull.Value
