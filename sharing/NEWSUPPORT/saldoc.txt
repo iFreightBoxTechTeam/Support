@@ -1431,3 +1431,27 @@ SELECT * FROM Logs;
 
 
 select * from issues;
+
+CREATE TRIGGER trg_Afterupdate_Issues
+ON issues
+AFTER update
+As
+Begin
+	SET NOCOUNT ON;
+
+    INSERT INTO Logs (issueNumber, statusId, RaisedDate, ResolvedDate)
+    SELECT 
+        i.issues_id,
+        i.statusid,
+        i.Raised_date,
+        i.resolve_date
+FROM inserted i;
+END;
+
+
+UPDATE issues
+SET statusid = 'F9827026-66E1-4F13-B1A3-164D121569E8',
+    resolve_date = '2025-07-07'
+WHERE issues_id = 'D610D26F-B4C3-4873-A9C8-110627D90566';
+
+
