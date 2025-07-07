@@ -65,7 +65,7 @@ namespace WebApplication2.Controllers
             catch (Exception ex)
             {
                 return InternalServerError(ex);
-            }
+            }   
         }
 
         [HttpGet]
@@ -471,6 +471,8 @@ namespace WebApplication2.Controllers
                 return InternalServerError(ex);
             }
         }
+
+
         [HttpGet]
         [Route("api/values/user/{issues_id}")]
        
@@ -842,19 +844,18 @@ namespace WebApplication2.Controllers
                 return InternalServerError(ex);
             }
         }
-
         [HttpGet]
         [Route("api/values/view/{userid}")]
         public IHttpActionResult GetIssueHistory(int userid)
         {
-            List<issuestable> history = new List<issuestable>();
+            List<LogEntry> history = new List<LogEntry>();
 
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("sp_GetIssue", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@userid", userid);
+                    cmd.Parameters.AddWithValue("@UserId", userid);
 
                     try
                     {
@@ -864,11 +865,14 @@ namespace WebApplication2.Controllers
                         {
                             while (reader.Read())
                             {
-                                history.Add(new issuestable
+                                history.Add(new LogEntry
                                 {
-                                    Raised_date = reader["Raised_date"] != DBNull.Value ? Convert.ToDateTime(reader["Raised_date"]) : DateTime.MinValue,
-                                    StatusName = reader["statusname"].ToString(),
-                                    Name = reader["name"].ToString()
+                                    LogNumber = reader["logNumber"] != DBNull.Value ? Convert.ToInt32(reader["logNumber"]) : 0,
+                                    IssueNumber = reader["issueNumber"] != DBNull.Value ? Convert.ToInt32(reader["issueNumber"]) : 0,
+                               
+                                    StatusName = reader["statusname"]?.ToString(),
+                                    RaisedDate = Convert.ToDateTime(reader["RaisedDate"]),
+                                    ResolvedDate = reader["ResolvedDate"] != DBNull.Value ? Convert.ToDateTime(reader["ResolvedDate"]) : (DateTime?)null
                                 });
                             }
                         }
@@ -887,8 +891,9 @@ namespace WebApplication2.Controllers
 
             return Ok(history);
         }
-    
-    [HttpDelete]
+
+
+        [HttpDelete]
         [Route("api/values/users/{issuesid}")]
         public IHttpActionResult DeleteUser(int issuesid)
         {
