@@ -160,11 +160,9 @@ changePage(page: number) {
     }
   }
 
-  viewLog(issue: any) {
-    console.log("Issue object:", issue);
-    console.log("Issue.userid:", issue?.UserId);
-    this.viewComponent.openModal(issue?.UserId);
-  }
+ viewLog(issue: any) {
+  this.viewComponent.openModal(issue.UserId, issue);
+}
 
  handleIssueUpdated(updatedIssue: any) {
   const index = this.issues.findIndex(i => i.UserId === updatedIssue.UserId);
@@ -304,6 +302,8 @@ openOffcanvas() {
   };
   this.offcanvasInstance.show();
 }
+
+
 }
 
 

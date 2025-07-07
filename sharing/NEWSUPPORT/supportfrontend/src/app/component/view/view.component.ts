@@ -12,18 +12,19 @@ export class ViewComponent implements OnInit {
   @ViewChild('myModal') modal!: ElementRef;
 
   constructor(private http: HttpClient) {}
+selectedIssue: any = null;
 
   ngOnInit(): void {
     this.showModal = false;
     
   }
 
-  openModal(UserId: number) {
-    this.loadHistory(UserId);
-    console.log("Fetching history for user ID:", UserId);
+openModal(userId: number, issue: any) {
+  this.selectedIssue = issue;       //  Store the issue
+  this.loadHistory(userId);         // Fetch the history
+  this.showModal = true;
+}
 
-    this.showModal = true;
-  }
 
   closeModal(): void {
     this.showModal = false;
@@ -49,5 +50,6 @@ loadHistory(UserId: number) {
     console.error('Error fetching from API:', error);
   });
 }
+
 
 }
