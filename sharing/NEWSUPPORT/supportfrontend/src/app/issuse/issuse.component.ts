@@ -188,7 +188,7 @@ openDeleteConfirmation(issue: any): void {
 confirmDeleteIssuse(): void {
   if (!this.issueToDelete) return;
 
-  const id = this.issueToDelete.Id;  // ✅ use Id instead of UserId
+  const id = this.issueToDelete.UserId;  // ✅ use Id instead of UserId
 
   this.http.delete(`https://localhost:44321/api/values/${id}`).subscribe({
     next: () => {
