@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.Http;
-
+using System.Web.Mvc;
 using WebApplication2.Models;
-using System.Configuration;
-using System;
 
 namespace userproblem.Controllers
 {
@@ -87,7 +87,7 @@ namespace userproblem.Controllers
             return Ok("Issue type inserted successfully.");
         }
 
-  
+
         // PUT api/issuetype/5
         [HttpPut]
         [Route("api/issuetype/{id}")]
@@ -110,13 +110,14 @@ namespace userproblem.Controllers
 
             return Ok("Issue type updated successfully.");
         }
+
         [HttpDelete]
         [Route("api/issuetype/{id}")]
         public IHttpActionResult Delete(int id)
         {
             try
             {
-                
+
                 using (SqlCommand cmd = new SqlCommand("sp_DeleteIssueType", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -137,6 +138,8 @@ namespace userproblem.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        
 
     }
 }
