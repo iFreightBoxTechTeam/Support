@@ -35,6 +35,8 @@ namespace WebApplication1.Models
     public int IssueNumber { get; set; }
     public string StatusName { get; set; }
     public DateTime? ChangeDate { get; set; }
+    public string Name { get; set; }
+
     }
 
   
