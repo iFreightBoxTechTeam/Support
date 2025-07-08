@@ -21,12 +21,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let entry of history">
-          <td>{{ entry.RaisedDate  | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
-  <td>{{ entry.ResolvedDate  | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
+  <tr *ngFor="let entry of history">
+  <td>{{ entry.RaisedDate | date:'yyyy-MM-dd hh:mm:ss a' }}</td> 
+  <td>{{ entry.ResolvedDate | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
   <td>{{ entry.StatusName }}</td>
   <td>{{ entry.user }}</td>
-</tr>
       </tbody>
     </table>
   </div>
