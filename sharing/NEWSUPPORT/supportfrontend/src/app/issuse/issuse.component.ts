@@ -198,7 +198,7 @@ confirmDeleteIssuse(): void {
       this.loadIssues(); // Reload if needed
     },
     error: (err) => {
-      alert('Failed to delete issue.');
+      console.log('Failed to delete issue.');
       this.undoDelete();
     }
   });
