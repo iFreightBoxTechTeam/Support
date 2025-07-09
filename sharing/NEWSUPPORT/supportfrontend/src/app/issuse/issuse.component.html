@@ -119,7 +119,7 @@
           <th>Issues number</th>
           <th>Tenant Code</th>
           <th>Raised Date</th>
-          <!-- <TH>RESOLOVE </TH> -->
+          <TH>RESOLOVE </TH>
           <th>Status</th>
           <th>Taken Time </th>
           <th>Assig To</th>
@@ -134,7 +134,7 @@
    <td>{{issue.Issues_Number}}</td>
   <td>{{ issue.TenantCode }}</td>
   <td>{{ issue.Raised_date | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
-  <!-- <td>{{ issue. | date:'yyyy-MM-dd hh:mm:ss a' }}</td> -->
+  <td>{{ issue.ResolveDate| date:'yyyy-MM-dd hh:mm:ss a' }}</td>
   <td>{{ issue.StatusName }}</td>
 <td><span>{{ issue.TakenTime | daytime }}</span>
 </td>

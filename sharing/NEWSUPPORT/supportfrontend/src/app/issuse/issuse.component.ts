@@ -215,6 +215,7 @@ confirmDeleteIssuse(): void {
 applyFilters() {
   this.filteredIssues = this.issues.filter(issue => {
     const issueDate = new Date(issue.Raised_date);
+    const issueDate2 = new Date(issue.ResolveDate);
     const start = this.filter.startDate ? new Date(this.filter.startDate) : null;
     const end = this.filter.endDate ? new Date(this.filter.endDate) : null;
 
@@ -227,11 +228,13 @@ applyFilters() {
       return false;
     }
     if (start && issueDate < start) {
+    
       console.log(`Filtered out by startDate: issueDate=${issueDate}, start=${start}`);
       return false;
     }
     if (end && issueDate > end) {
-      console.log(`Filtered out by endDate: issueDate=${issueDate}, end=${end}`);
+     
+      console.log(`Filtered out by endDate: issueDate=${issueDate2}, end=${end}`);
       return false;
     }
     if (this.filter.status && issue.StatusId != +this.filter.status) {

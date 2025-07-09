@@ -928,6 +928,40 @@ namespace WebApplication2.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        [HttpDelete]
+        [Route("api/values/di/{Issues_Number}")]
+        public IHttpActionResult Deleteissueno(int Issues_Number)
+        {
+            if (Issues_Number <= 0)
+                return BadRequest("Invalissues_id user issues_id.");
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString))
+                {
+                    con.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("sp_Deleteissuesbyissuenumber", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@issuenumber", Issues_Number);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                            return Ok($"User data with Issues_Number {Issues_Number} deleted successfully.");
+                        else
+                            return NotFound();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
         [HttpGet]
         [Route("api/values/view/{userid}")]
         public IHttpActionResult GetIssueHistory(int userid)
@@ -954,7 +988,8 @@ namespace WebApplication2.Controllers
                                     LogNumber = reader["logNumber"] != DBNull.Value ? Convert.ToInt32(reader["logNumber"]) : 0,
                                     IssueNumber = reader["issueNumber"] != DBNull.Value ? Convert.ToInt32(reader["issueNumber"]) : 0,
                                     StatusName = reader["LogStatusName"]?.ToString(),
-                                    ChangeDate = reader["ChangeDate"] != DBNull.Value ? Convert.ToDateTime(reader["ChangeDate"]) : (DateTime?)null
+                                    ChangeDate = reader["ChangeDate"] != DBNull.Value ? Convert.ToDateTime(reader["ChangeDate"]) : (DateTime?)null,
+                                    Name = reader["name"].ToString(),
                                 });
                             }
                         }
