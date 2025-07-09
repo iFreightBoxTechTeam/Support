@@ -12,42 +12,48 @@ export class ViewComponent implements OnInit {
   @ViewChild('myModal') modal!: ElementRef;
 
   constructor(private http: HttpClient) {}
+selectedIssue: any = null;
+
 
   ngOnInit(): void {
     this.showModal = false;
     
   }
 
-  openModal(UserId: number) {
-    this.loadHistory(UserId);
-    console.log("Fetching history for user ID:", UserId);
+openModal(userId: number, issue: any) {
+  this.selectedIssue = issue;       //  Store the issue
+  this.loadHistory(userId);         // Fetch the history
+  this.showModal = true;
+}
 
-    this.showModal = true;
-  }
 
   closeModal(): void {
     this.showModal = false;
     this.history = []; 
   }
-loadHistory(UserId: number) {
 
+  
+loadHistory(UserId: number) {
   const apiUrl = `https://localhost:44321/api/values/view/${UserId}`;
 
   this.http.get<any[]>(apiUrl).subscribe(data => {
-    // const issue = data.find(x => x.UserId === UserId);
-    console.log('issue',  data)
-    if (data) {
-      this.history = data
-        // { date: data.Raised_date, status: data.statusname, username: data.name }
-        // You had a stray `console.log()` inside the array — move it outside
-      ;
-      console.log("API Response:", data);
+    if (Array.isArray(data)) {
+      this.history = data.map(entry => ({
+        ...entry,
+        user: this.selectedIssue?.Name || 'Unknown'
+      }));
     } else {
-      console.warn('Issue not found');
+      console.warn('Unexpected history format:', data);
+      this.history = [];
     }
   }, error => {
-    console.error('Error fetching from API:', error);
+    console.error('Error fetching history:', error);
+    this.history = [];
   });
 }
+
+
+
+
 
 }
