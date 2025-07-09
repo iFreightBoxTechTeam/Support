@@ -209,7 +209,7 @@ confirmDeleteIssuse(): void {
       // this.loadIssues();  
   }
 
-
+ 
 applyFilters() {
   this.filteredIssues = this.issues.filter(issue => {
     const issueDate = new Date(issue.Raised_date);
@@ -232,13 +232,21 @@ applyFilters() {
       console.log(`Filtered out by endDate: issueDate=${issueDate}, end=${end}`);
       return false;
     }
-    if (this.filter.status && issue.StatusId != +this.filter.status) {
-      console.log(`Filtered out by status: issue.StatusId=${issue.StatusId}, filter=${this.filter.status}`);
-      return false;
-    }
-    if (this.filter.assignTo && issue.AssignTo?.toLowerCase() !== this.filter.assignTo.toLowerCase()) {
-      console.log(`Filtered out by assignTo: issue.AssignTo=${issue.AssignTo}, filter=${this.filter.assignTo}`);
-      return false;
+  if (this.filter.status) {
+  const issueStatus = issue.StatusId?.toLowerCase() || "";
+  const filterStatus = this.filter.status.toLowerCase();
+  if (issueStatus !== filterStatus) {
+    console.log(`Filtered out by status: issue.StatusId=${issue.StatusId}, filter=${this.filter.status}`);
+    return false;
+  }
+}
+       if (this.filter.assignTo) {
+      const issueAssignTo = issue.AssignTo?.toLowerCase() || "";
+      const filterAssignTo = this.filter.assignTo.toLowerCase();
+      if (issueAssignTo !== filterAssignTo) {
+        console.log(`Filtered out by assignTo: issue.AssignTo=${issue.AssignTo}, filter=${this.filter.assignTo}`);
+        return false;
+      }
     }
 
     return true;
@@ -249,6 +257,8 @@ applyFilters() {
   if (this.offcanvasInstance) this.offcanvasInstance.hide();
   console.log("Filtered issues count:", this.filteredIssues.length);
 }
+
+
 applyFilterChanges() {
   this.filter = { ...this.tempFilter };
   this.applyFilters();
