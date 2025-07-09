@@ -210,53 +210,57 @@ namespace WebApplication2.Controllers
             }
         }
 
-
         [HttpGet]
         [Route("api/values/i/{Issues_Number}")]
         public IHttpActionResult GetissuesbyIssues_Number(int Issues_Number)
         {
             List<issuestable> masters = new List<issuestable>();
 
+            // Make sure your connection string key matches your config
+            string connectionString = ConfigurationManager.ConnectionStrings["webapi"].ConnectionString;
+
             try
             {
-
+                using (SqlConnection con = new SqlConnection(connectionString))
                 using (SqlCommand cmd = new SqlCommand("sp_Getbyissuesnumber", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@issue_number", Issues_Number);
 
                     con.Open();
+
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             string logsJson = reader["LogsJson"] != DBNull.Value ? reader["LogsJson"].ToString() : "[]";
 
-                            var logs = new List<LogEntry>();
+                            List<LogEntry> logs;
                             try
                             {
                                 logs = JsonConvert.DeserializeObject<List<LogEntry>>(logsJson);
                             }
                             catch (JsonException)
                             {
-                                // Optional: log or handle JSON parse errors here
-                                logs = new List<LogEntry>();
+                                logs = new List<LogEntry>(); // fallback empty list on parse error
                             }
+
+                            // Safely read nullable datetime Raised_date
+                            DateTime? raisedDate = reader["Raised_date"] != DBNull.Value ? (DateTime?)reader.GetDateTime(reader.GetOrdinal("Raised_date")) : null;
 
                             masters.Add(new issuestable
                             {
-                                Issues_Number = Convert.ToInt32(reader["issues_number"]),
-                                issues_id = Guid.Parse(reader["issues_id"].ToString()),
-                                Description = reader["descriptions"].ToString(),
+                                Issues_Number = reader["issues_number"] != DBNull.Value ? Convert.ToInt32(reader["issues_number"]) : 0,
+                                issues_id = reader["issues_id"] != DBNull.Value ? Guid.Parse(reader["issues_id"].ToString()) : Guid.Empty,
+                                Description = reader["descriptions"]?.ToString(),
                                 ImagePaths = reader["imagepaths"] != DBNull.Value
                                     ? reader["imagepaths"].ToString().Split(',').Select(p => p.Trim()).ToList()
                                     : new List<string>(),
-                                StatusName = reader["statusname"].ToString(),
-                                Name = reader["name"].ToString(),
-                                TenantCode = reader["tenantcode"].ToString(),
+                                StatusName = reader["statusname"]?.ToString(),
+                                Name = reader["name"]?.ToString(),
+                                TenantCode = reader["tenantcode"]?.ToString(),
                                 Raised_date = (DateTime)(reader["Raised_date"] != DBNull.Value ? Convert.ToDateTime(reader["Raised_date"]) : (DateTime?)null),
                                 UserId = reader["userid"] != DBNull.Value ? Convert.ToInt32(reader["userid"]) : 0,
-                              
                                 Module = reader["module"] != DBNull.Value ? reader["module"].ToString() : null,
                                 AssignTo = reader["assign_to"] != DBNull.Value ? reader["assign_to"].ToString() : null,
                                 ResolveDate = reader["resolve_date"] != DBNull.Value ? (DateTime?)reader["resolve_date"] : null,
@@ -278,6 +282,7 @@ namespace WebApplication2.Controllers
                 return InternalServerError(ex);
             }
         }
+
 
 
         [HttpGet]
@@ -716,6 +721,85 @@ namespace WebApplication2.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("api/values/up/{IssueNumber}")]
+        public IHttpActionResult updatePut(int IssueNumber, [FromBody] issuestable issuestable)
+        {
+            if (IssueNumber <= 0)
+                return BadRequest("Invalid Issue Number.");
+
+            if (issuestable == null)
+                return BadRequest("Invalid input data.");
+
+            if (string.IsNullOrWhiteSpace(issuestable.StatusName))
+                return BadRequest("Status name is required.");
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString))
+                {
+                    con.Open();
+                    using (SqlTransaction transaction = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            // Step 1: Get or insert statusid from status name
+                            Guid statusId;
+                            using (SqlCommand statusCmd = new SqlCommand("SELECT TOP 1 statusid FROM sttabble WHERE LOWER(statusname) = LOWER(@StatusName)", con, transaction))
+                            {
+                                statusCmd.Parameters.AddWithValue("@StatusName", issuestable.StatusName);
+                                object result = statusCmd.ExecuteScalar();
+
+                                if (result == null)
+                                {
+                                    statusId = Guid.NewGuid();
+                                    using (SqlCommand insertStatusCmd = new SqlCommand("INSERT INTO sttabble (statusid, statusname) VALUES (@Id, @Name)", con, transaction))
+                                    {
+                                        insertStatusCmd.Parameters.AddWithValue("@Id", statusId);
+                                        insertStatusCmd.Parameters.AddWithValue("@Name", issuestable.StatusName);
+                                        insertStatusCmd.ExecuteNonQuery();
+                                    }
+                                }
+                                else
+                                {
+                                    statusId = (Guid)result;
+                                }
+                            }
+
+                            // Step 2: Call updated SP to update by issue_number
+                            using (SqlCommand cmd = new SqlCommand("sp_UpdateissuestableByIssueNumber", con, transaction))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue("@issue_number", IssueNumber);
+                                cmd.Parameters.AddWithValue("@statusname", issuestable.StatusName);
+
+                                string imagePathsCsv = (issuestable.ImagePaths != null && issuestable.ImagePaths.Any())
+                                    ? string.Join(",", issuestable.ImagePaths)
+                                    : string.Empty;
+                                cmd.Parameters.AddWithValue("@ImagePaths", imagePathsCsv);
+                                cmd.Parameters.AddWithValue("@assignto", (object)issuestable.AssignTo ?? DBNull.Value);
+                                cmd.Parameters.AddWithValue("@issuetype", issuestable.IssueType);
+
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            transaction.Commit();
+                            return Ok(new { message = "Record updated successfully.", issueNumber = IssueNumber });
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            return InternalServerError(ex);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
 
 
 
@@ -844,6 +928,40 @@ namespace WebApplication2.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        [HttpDelete]
+        [Route("api/values/di/{Issues_Number}")]
+        public IHttpActionResult Deleteissueno(int Issues_Number)
+        {
+            if (Issues_Number <= 0)
+                return BadRequest("Invalissues_id user issues_id.");
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ConnectionString))
+                {
+                    con.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("sp_Deleteissuesbyissuenumber", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@issuenumber", Issues_Number);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                            return Ok($"User data with Issues_Number {Issues_Number} deleted successfully.");
+                        else
+                            return NotFound();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
         [HttpGet]
         [Route("api/values/view/{userid}")]
         public IHttpActionResult GetIssueHistory(int userid)
@@ -869,22 +987,16 @@ namespace WebApplication2.Controllers
                                 {
                                     LogNumber = reader["logNumber"] != DBNull.Value ? Convert.ToInt32(reader["logNumber"]) : 0,
                                     IssueNumber = reader["issueNumber"] != DBNull.Value ? Convert.ToInt32(reader["issueNumber"]) : 0,
-                               
-                                    StatusName = reader["statusname"]?.ToString(),
-                                    RaisedDate = Convert.ToDateTime(reader["RaisedDate"]),
-                                    ResolvedDate = reader["ResolvedDate"] != DBNull.Value ? Convert.ToDateTime(reader["ResolvedDate"]) : (DateTime?)null
+                                    StatusName = reader["LogStatusName"]?.ToString(),
+                                    ChangeDate = reader["ChangeDate"] != DBNull.Value ? Convert.ToDateTime(reader["ChangeDate"]) : (DateTime?)null,
+                                    Name = reader["name"].ToString(),
                                 });
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        // Log error (optional)
                         return InternalServerError(ex);
-                    }
-                    finally
-                    {
-                        con.Close();
                     }
                 }
             }

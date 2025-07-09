@@ -188,7 +188,7 @@ openDeleteConfirmation(issue: any): void {
 confirmDeleteIssuse(): void {
   if (!this.issueToDelete) return;
 
-  const id = this.issueToDelete.Id;  // ✅ use Id instead of UserId
+  const id = this.issueToDelete.UserId;  // ✅ use Id instead of UserId
 
   this.http.delete(`https://localhost:44321/api/values/${id}`).subscribe({
     next: () => {
@@ -198,7 +198,7 @@ confirmDeleteIssuse(): void {
       this.loadIssues(); // Reload if needed
     },
     error: (err) => {
-      alert('Failed to delete issue.');
+      console.log('Failed to delete issue.');
       this.undoDelete();
     }
   });
@@ -215,6 +215,7 @@ confirmDeleteIssuse(): void {
 applyFilters() {
   this.filteredIssues = this.issues.filter(issue => {
     const issueDate = new Date(issue.Raised_date);
+    const issueDate2 = new Date(issue.ResolveDate);
     const start = this.filter.startDate ? new Date(this.filter.startDate) : null;
     const end = this.filter.endDate ? new Date(this.filter.endDate) : null;
 
@@ -227,11 +228,13 @@ applyFilters() {
       return false;
     }
     if (start && issueDate < start) {
+    
       console.log(`Filtered out by startDate: issueDate=${issueDate}, start=${start}`);
       return false;
     }
     if (end && issueDate > end) {
-      console.log(`Filtered out by endDate: issueDate=${issueDate}, end=${end}`);
+     
+      console.log(`Filtered out by endDate: issueDate=${issueDate2}, end=${end}`);
       return false;
     }
     if (this.filter.status && issue.StatusId != +this.filter.status) {

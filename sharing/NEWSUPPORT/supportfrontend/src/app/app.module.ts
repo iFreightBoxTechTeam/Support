@@ -34,6 +34,7 @@ import { DaytimePipe } from './daytime.pipe';
 import { DeleteIssuseComponent } from './issuse/delete/delete-issuse/delete-issuse.component';
 import { SharedModule } from './shared/shared.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +58,8 @@ import { SharedModule } from './shared/shared.module';
     DeleteComponent,
     DeleteIssueTypeComponent,
     DeleteStatusComponent,
-    DeleteIssuseComponent
+    DeleteIssuseComponent,
+ 
     
       
   ],
