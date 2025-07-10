@@ -3,12 +3,17 @@
   "WorkspaceRootPath": "C:\\VIJAYALA\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|c:\\vijayala\\support\\sharing\\newsupport\\supportissuesbacend\\controllers\\issuetypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:controllers\\issuetypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|C:\\VIJAYALA\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+<<<<<<< Updated upstream
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|C:\\VIJAYALA\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+=======
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|c:\\vijayala\\support\\sharing\\newsupport\\supportissuesbacend\\controllers\\issuetypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:controllers\\issuetypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+>>>>>>> Stashed changes
     },
     {
       "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|C:\\VIJAYALA\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
@@ -22,30 +27,38 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "IssueTypeController.cs",
               "DocumentMoniker": "C:\\VIJAYALA\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\IssueTypeController.cs",
               "RelativeDocumentMoniker": "Controllers\\IssueTypeController.cs",
               "ToolTip": "C:\\VIJAYALA\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\IssueTypeController.cs",
               "RelativeToolTip": "Controllers\\IssueTypeController.cs",
+<<<<<<< Updated upstream
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAABDAAAAAAAAAA==",
+=======
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwC0AAAAqAAAAAAAAAA==",
+>>>>>>> Stashed changes
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-08T11:04:37.045Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "statuscontroller.cs",
               "DocumentMoniker": "C:\\VIJAYALA\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\statuscontroller.cs",
               "RelativeDocumentMoniker": "Controllers\\statuscontroller.cs",
               "ToolTip": "C:\\VIJAYALA\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\statuscontroller.cs",
               "RelativeToolTip": "Controllers\\statuscontroller.cs",
+<<<<<<< Updated upstream
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAJAAAAAAAAAA==",
+=======
+              "ViewState": "AgIAAGMAAAAAAAAAAAAAAHAAAAAhAAAAAAAAAA==",
+>>>>>>> Stashed changes
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-08T11:03:51.184Z",
               "EditorCaption": ""
