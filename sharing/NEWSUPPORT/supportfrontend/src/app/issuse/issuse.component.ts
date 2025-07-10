@@ -61,6 +61,7 @@ loadIssues() {
   this.issueService.getIssues(this.searchTerm, this.currentPage, this.itemsPerPage).subscribe(data => {
     if (Array.isArray(data)) {
       this.issues = data;
+      console.log(data);
       this.applyFilters();  // apply filters after fetching issues
     } else {
       console.error("API did not return an array:", data);
@@ -188,7 +189,7 @@ openDeleteConfirmation(issue: any): void {
 confirmDeleteIssuse(): void {
   if (!this.issueToDelete) return;
 
-  const id = this.issueToDelete.UserId;  // ✅ use Id instead of UserId
+  const id = this.issueToDelete.Id;  // ✅ use Id instead of UserId
 
   this.http.delete(`https://localhost:44321/api/values/${id}`).subscribe({
     next: () => {
@@ -198,7 +199,7 @@ confirmDeleteIssuse(): void {
       this.loadIssues(); // Reload if needed
     },
     error: (err) => {
-      console.log('Failed to delete issue.');
+      alert('Failed to delete issue.');
       this.undoDelete();
     }
   });
@@ -210,44 +211,49 @@ confirmDeleteIssuse(): void {
     this.currentPage = 1; 
       // this.loadIssues();  
   }
-
+removeFilters() {
+    this.clearFilters();
+  };
 
 applyFilters() {
+  console.log(this.filter);
   this.filteredIssues = this.issues.filter(issue => {
     const issueDate = new Date(issue.Raised_date);
-    const issueDate2 = new Date(issue.ResolveDate);
     const start = this.filter.startDate ? new Date(this.filter.startDate) : null;
     const end = this.filter.endDate ? new Date(this.filter.endDate) : null;
+    // console.log(issueDate);
+    // console.log(start);
+    // console.log(end);
 
     if (this.filter.userId && issue.UserId != +this.filter.userId) {
-      console.log(`Filtered out by userId: issue.UserId=${issue.UserId}, filter=${this.filter.userId}`);
+      // console.log(`Filtered out by userId: issue.UserId=${issue.UserId}, filter=${this.filter.userId}`);
       return false;
     }
-    if (this.filter.tenantCode && !issue.TenantCode?.toLowerCase().includes(this.filter.tenantCode.toLowerCase())) {
-      console.log(`Filtered out by tenantCode: issue.TenantCode=${issue.TenantCode}, filter=${this.filter.tenantCode}`);
+    if (this.filter.tenantCode && issue.TenantCode.toLowerCase() != this.filter.tenantCode.toLowerCase()) {
+      // console.log(`Filtered out by tenantCode: issue.TenantCode=${issue.TenantCode}, filter=${this.filter.tenantCode}`);
       return false;
     }
     if (start && issueDate < start) {
-    
-      console.log(`Filtered out by startDate: issueDate=${issueDate}, start=${start}`);
+      // console.log(`Filtered out by startDate: issueDate=${issueDate}, start=${start}`);
       return false;
     }
     if (end && issueDate > end) {
-     
-      console.log(`Filtered out by endDate: issueDate=${issueDate2}, end=${end}`);
+      // console.log(`Filtered out by endDate: issueDate=${issueDate}, end=${end}`);
       return false;
     }
-    if (this.filter.status && issue.StatusId != +this.filter.status) {
-      console.log(`Filtered out by status: issue.StatusId=${issue.StatusId}, filter=${this.filter.status}`);
+    if (this.filter.status && issue.StatusName != this.filter.status) {
+      // console.log(`Filtered out by status: issue.StatusId=${issue.StatusId}, filter=${this.filter.status}`);
       return false;
     }
     if (this.filter.assignTo && issue.AssignTo?.toLowerCase() !== this.filter.assignTo.toLowerCase()) {
-      console.log(`Filtered out by assignTo: issue.AssignTo=${issue.AssignTo}, filter=${this.filter.assignTo}`);
+      // console.log(`Filtered out by assignTo: issue.AssignTo=${issue.AssignTo}, filter=${this.filter.assignTo}`);
       return false;
     }
 
     return true;
   });
+
+  
 
   
   this.currentPage = 1;
@@ -283,6 +289,7 @@ clearFilters() {
 
 getUniqueUserIds(): number[] {
   const ids = this.issues.map(issue => issue.UserId);
+  console.log()
   return Array.from(new Set(ids));
 }
 
@@ -295,7 +302,7 @@ ngAfterViewInit() {
 }
 
 openOffcanvas() {
-  this.clearFilters();   // Reset filter inputs on opening
+  // this.clearFilters();   // Reset filter inputs on opening
   this.offcanvasInstance.show();
    this.tempFilter = {
     userId: '',
@@ -305,7 +312,7 @@ openOffcanvas() {
     status: '',
     assignTo: ''
   };
-  this.offcanvasInstance.show();
+  // this.offcanvasInstance.show();
 }
 }
 
