@@ -160,7 +160,34 @@ saveIssue() {
     this.issue;
 }
 
+saveIssue_by_issue_num() {
+  const payload = {
+    StatusName: this.issue.StatusName,
+    AssignTo: this.assignTo || this.issue.AssignTo,
+    ImagePaths: this.images.map(img => img.url),
+    IssueType:this.issue.IssueType
+  };
 
+  console.log("Sending PUT payload:", payload);
+  
+
+
+  this.http.put(`https://localhost:44321/api/values/${this.issue.UserId}`, payload)
+    .subscribe(
+      res => {
+        console.log("this.issue.StatusName = ", this.issue.StatusName);
+        console.log("Update success", res);
+        
+        this.showIssueModal = false;
+
+        // Fetch the updated issue
+
+      },
+      err => {
+      }
+    );
+    this.issue;
+}
 
   getIssue() {
     return this.issueService.getIssue() || null;

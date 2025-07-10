@@ -1,4 +1,4 @@
-<div class="issues_card">
+  <div class="issues_card">
   <div class="search-wrapper">
     <!-- <h1 class="heading_title">Issues</h1> -->
     <div d-flex justify-content-end align-items-center gap-2 mb-3>
@@ -107,7 +107,7 @@
       <tbody>
         <tr *ngFor="let issue of paginatedIssues">
           <td>
-            <button class="btn btn-sm me-2" (click)="editIssue(issue)">{{ issue.UserId }}</button>
+            <button class="btn btn-sm me-2" (click)="editIssue_by_userid(issue)">{{ issue.UserId }}</button>
           </td>
           <td>{{ issue.Name }}</td>
           <td>{{issue.Issues_Number}}</td>
