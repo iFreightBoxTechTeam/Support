@@ -164,7 +164,7 @@ changePage(page: number) {
   viewLog(issue: any) {
     console.log("Issue object:", issue);
     console.log("Issue.userid:", issue?.UserId);
-    this.viewComponent.openModal(issue?.UserId);
+    this.viewComponent.openModal(issue?.UserId, issue);
   }
 
  handleIssueUpdated(updatedIssue: any) {
