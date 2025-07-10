@@ -20,6 +20,7 @@ export class IssuseComponent implements OnInit, AfterViewInit {
  private offcanvasInstance: any;
 currentPage = 1;
 itemsPerPage = 5;
+user_or_issue:boolean = true;
 
 
 showDeleteModal = false;
@@ -129,9 +130,9 @@ changePage(page: number) {
   }
 }
 
-  editIssue(issue: any) {
-    const selectedIssue = this.paginatedIssues.find(i => i.UserId === issue.UserId);
-
+editIssue_by_userid(issue: any) {
+    const selectedIssue = this.paginatedIssues.find(i => i.UserId == issue.UserId);
+    
     console.log("Selected Issue Before Setting in Service:", selectedIssue);
 
     if (!selectedIssue) {
@@ -139,7 +140,21 @@ changePage(page: number) {
       return;
     }
     
-    this.issueComponent.openIssueModal(issue?.UserId);
+      this.issueComponent.openIssueModal(issue?.UserId);
+    
+    
+  }
+
+  editIssue(issue: any) {
+    const selectedIssue = this.paginatedIssues.find(i => i.UserId == issue.UserId);
+    
+    console.log("Selected Issue Before Setting in Service:", selectedIssue);
+
+    if (!selectedIssue) {
+      // console.error("Error: No issue found for ID:", issue.UserId);
+      return;
+    }
+      this.issueComponent.openIssueModal(issue?.UserId);
   }
 
   deleteIssue(id: number) {

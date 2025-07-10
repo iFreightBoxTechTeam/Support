@@ -107,7 +107,7 @@
       <tbody>
         <tr *ngFor="let issue of paginatedIssues">
           <td>
-            <button class="btn btn-sm me-2" (click)="editIssue(issue)">{{ issue.UserId }}</button>
+            <button class="btn btn-sm me-2" (click)="editIssue_by_userid(issue)">{{ issue.UserId }}</button>
           </td>
           <td>{{ issue.Name }}</td>
           <td>{{issue.Issues_Number}}</td>

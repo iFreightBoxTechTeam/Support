@@ -1,13 +1,38 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Riddhi\\RIDDI2\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\",
+  "WorkspaceRootPath": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|d:\\riddhi\\riddi2\\support\\sharing\\newsupport\\supportissuesbacend\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|c:\\pratish\\support_clone\\support\\sharing\\newsupport\\supportissuesbacend\\controllers\\valuescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:controllers\\valuescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|c:\\pratish\\support_clone\\support\\sharing\\newsupport\\supportissuesbacend\\controllers\\issuehistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:controllers\\issuehistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|c:\\pratish\\support_clone\\support\\sharing\\newsupport\\supportissuesbacend\\controllers\\issuestablede.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:controllers\\issuestablede.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\controllers\\issuetypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:controllers\\issuetypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|c:\\pratish\\support_clone\\support\\sharing\\newsupport\\supportissuesbacend\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|D:\\Riddhi\\RIDDI2\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\862b05cdd93bed043c0a4dc15cdf3a9b6e402a4e63f5d5229ea039c99f371665\\ValuesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\3a8e76cc8874ede696e9cff53ffbb706cc4a7a94ce28198774d3a9e6cef10074\\IssueTypeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\6aa4c97ecd0af69deb2b4dec8bc72e0a9db1376d383b110db73c071860b49fee\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EAB12D7E-5625-4D5D-B8D5-F3D256438CE6}|supportissuesbacend.csproj|solutionrelative:controllers\\statuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -22,28 +47,120 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "statuscontroller.cs",
-              "DocumentMoniker": "D:\\Riddhi\\RIDDI2\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\statuscontroller.cs",
-              "RelativeDocumentMoniker": "Controllers\\statuscontroller.cs",
-              "ToolTip": "D:\\Riddhi\\RIDDI2\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\statuscontroller.cs",
-              "RelativeToolTip": "Controllers\\statuscontroller.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAgwGsAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-25T08:59:49.737Z"
+              "DocumentIndex": 4,
+              "Title": "Web.config",
+              "DocumentMoniker": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Web.config",
+              "RelativeDocumentMoniker": "Web.config",
+              "ToolTip": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Web.config",
+              "RelativeToolTip": "Web.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-06-25T08:19:26.207Z",
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Web.config",
-              "DocumentMoniker": "D:\\Riddhi\\RIDDI2\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Web.config",
-              "RelativeDocumentMoniker": "Web.config",
-              "ToolTip": "D:\\Riddhi\\RIDDI2\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Web.config",
-              "RelativeToolTip": "Web.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2025-06-25T08:19:26.207Z",
+              "Title": "ValuesController.cs",
+              "DocumentMoniker": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\ValuesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ValuesController.cs",
+              "ToolTip": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\ValuesController.cs",
+              "RelativeToolTip": "Controllers\\ValuesController.cs",
+              "ViewState": "AgIAAJoCAAAAAAAAAAAkwLgCAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T07:39:59.049Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IssueHistory.cs",
+              "DocumentMoniker": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\IssueHistory.cs",
+              "RelativeDocumentMoniker": "Controllers\\IssueHistory.cs",
+              "ToolTip": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\IssueHistory.cs",
+              "RelativeToolTip": "Controllers\\IssueHistory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T07:39:36.147Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "issuestablede.cs",
+              "DocumentMoniker": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\issuestablede.cs",
+              "RelativeDocumentMoniker": "Controllers\\issuestablede.cs",
+              "ToolTip": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\issuestablede.cs",
+              "RelativeToolTip": "Controllers\\issuestablede.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T07:39:27.477Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IssueTypeController.cs",
+              "DocumentMoniker": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\IssueTypeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\IssueTypeController.cs",
+              "ToolTip": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\IssueTypeController.cs",
+              "RelativeToolTip": "Controllers\\IssueTypeController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAiwBkAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T11:13:45.652Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IssueTypeController.cs",
+              "DocumentMoniker": "C:\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\3a8e76cc8874ede696e9cff53ffbb706cc4a7a94ce28198774d3a9e6cef10074\\IssueTypeController.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\3a8e76cc8874ede696e9cff53ffbb706cc4a7a94ce28198774d3a9e6cef10074\\IssueTypeController.cs",
+              "ToolTip": "C:\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\3a8e76cc8874ede696e9cff53ffbb706cc4a7a94ce28198774d3a9e6cef10074\\IssueTypeController.cs [Read Only]",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\3a8e76cc8874ede696e9cff53ffbb706cc4a7a94ce28198774d3a9e6cef10074\\IssueTypeController.cs [Read Only]",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAtwBYAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T11:06:50.518Z",
+              "EditorCaption": " [Read Only]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "statuscontroller.cs",
+              "DocumentMoniker": "C:\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\6aa4c97ecd0af69deb2b4dec8bc72e0a9db1376d383b110db73c071860b49fee\\statuscontroller.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\6aa4c97ecd0af69deb2b4dec8bc72e0a9db1376d383b110db73c071860b49fee\\statuscontroller.cs",
+              "ToolTip": "C:\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\6aa4c97ecd0af69deb2b4dec8bc72e0a9db1376d383b110db73c071860b49fee\\statuscontroller.cs [Read Only]",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\6aa4c97ecd0af69deb2b4dec8bc72e0a9db1376d383b110db73c071860b49fee\\statuscontroller.cs [Read Only]",
+              "ViewState": "AgIAABUAAAAAAAAAAAAtwCgAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T11:06:47.215Z",
+              "EditorCaption": " [Read Only]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ValuesController.cs",
+              "DocumentMoniker": "C:\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\862b05cdd93bed043c0a4dc15cdf3a9b6e402a4e63f5d5229ea039c99f371665\\ValuesController.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\862b05cdd93bed043c0a4dc15cdf3a9b6e402a4e63f5d5229ea039c99f371665\\ValuesController.cs",
+              "ToolTip": "C:\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\862b05cdd93bed043c0a4dc15cdf3a9b6e402a4e63f5d5229ea039c99f371665\\ValuesController.cs [Read Only]",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Users\\IFREIGHBOX\\AppData\\Local\\Temp\\.vsdbgsrc\\862b05cdd93bed043c0a4dc15cdf3a9b6e402a4e63f5d5229ea039c99f371665\\ValuesController.cs [Read Only]",
+              "ViewState": "AgIAAHMAAAAAAAAAAAAtwHcAAAADAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T11:04:32.176Z",
+              "EditorCaption": " [Read Only]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "statuscontroller.cs",
+              "DocumentMoniker": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\statuscontroller.cs",
+              "RelativeDocumentMoniker": "Controllers\\statuscontroller.cs",
+              "ToolTip": "C:\\Pratish\\Support_clone\\Support\\sharing\\NEWSUPPORT\\supportissuesbacend\\Controllers\\statuscontroller.cs",
+              "RelativeToolTip": "Controllers\\statuscontroller.cs",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAgwGsAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T08:59:49.737Z"
             }
           ]
         }
