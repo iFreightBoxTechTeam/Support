@@ -585,7 +585,11 @@ namespace WebApplication2.Controllers
                         cmd.CommandType = CommandType.StoredProcedure;
 
                         cmd.Parameters.AddWithValue("@Description", issuestable.Description);
-                        string imagePathCsv = string.Join(",", issuestable.ImagePaths ?? new List<string>());
+                        var cleanedPaths = issuestable.ImagePaths
+  .Select(p => p.Replace("C:/Users/IFBDEV8/Pictures/", "http://localhost:port/uploads/"))
+  .ToList();
+
+                        string imagePathCsv = string.Join(",", cleanedPaths);
                         cmd.Parameters.AddWithValue("@ImagePaths", imagePathCsv);
                         
                         cmd.Parameters.AddWithValue("@Name", issuestable.Name);
