@@ -14,18 +14,16 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Raised Date</th>
-          <th>Resolve Date</th>
+          <th> Date</th>
           <th>Status</th>
           <th>Username</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let entry of history">
-          <td>{{ entry.RaisedDate  | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
-  <td>{{ entry.ResolvedDate  | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
+          <td>{{entry.ChangeDate  | date:'yyyy-MM-dd hh:mm:ss a' }}</td>
   <td>{{ entry.StatusName }}</td>
-  <td>{{ entry.user }}</td>
+  <td>{{ entry.Name }}</td>
 </tr>
       </tbody>
     </table>

@@ -41,9 +41,9 @@ getissueById(userId: number): Observable<any> {
 
     return this.http.get<any>(this.apiUrl, { params });
   }
-  updateIssue(userId: number, issueData: any): Observable<any> {
+  updateIssue(IssueNumber: number, issueData: any): Observable<any> {
   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  return this.http.put(`${this.apiUrl}/${userId}`, issueData, { headers });
+  return this.http.put(`${this.apiUrl}/up/${IssueNumber}`, issueData, { headers });
 }
   getIssueById(issueId: number): Observable<any> {
     
